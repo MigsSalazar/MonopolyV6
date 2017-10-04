@@ -63,6 +63,7 @@ public class BoardPanel extends JPanel {
 	public boolean resizeGrid(int r, int c){
 		grid.setColumns(c);
 		grid.setRows(r);
+		
 		return (grid.getColumns()==c) && (grid.getRows()==r);
 	}
 	
