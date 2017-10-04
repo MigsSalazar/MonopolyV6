@@ -1,4 +1,4 @@
-package MainFuntionality;
+package mainFunctionality;
 
 import javax.swing.*;
 import com.google.gson.*;

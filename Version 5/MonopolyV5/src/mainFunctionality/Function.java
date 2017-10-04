@@ -1,4 +1,4 @@
-package MainFuntionality;
+package mainFunctionality;
 
 public class Function {
 
