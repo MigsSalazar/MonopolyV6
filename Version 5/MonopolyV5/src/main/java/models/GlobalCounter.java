@@ -2,6 +2,7 @@ package main.java.models;
 
 public class GlobalCounter {
 
+	
 	private int count;
 	
 	/**
