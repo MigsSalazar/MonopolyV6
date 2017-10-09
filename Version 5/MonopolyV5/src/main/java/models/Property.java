@@ -111,5 +111,7 @@ public abstract class Property {
 	 * 
 	 * @return	property value
 	 */
-	public abstract int getWorth();
+	public int getWorth(){
+		return isMortgaged() ? (int)(getPrice()/2) : getPrice() ;
+	}
 }

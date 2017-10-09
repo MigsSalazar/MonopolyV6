@@ -1,6 +1,6 @@
 package main.java.models;
 
-public class SuiteProperty extends Property {
+public class Suite extends Property {
 
 	
 	private int suite;
@@ -19,7 +19,7 @@ public class SuiteProperty extends Property {
 	 * @param r
 	 * @param g
 	 */
-	public SuiteProperty(String n, int p, int pr, int o, int m, boolean mb, int s, int[] r, int g) {
+	public Suite(String n, int p, int pr, int o, int m, boolean mb, int s, int[] r, int g) {
 		super(n, p, pr, o, m, mb);
 		// TODO Auto-generated constructor stub
 		suite = s;
@@ -53,6 +53,7 @@ public class SuiteProperty extends Property {
 		grade = g;
 	}
 	
+	@Override
 	public int getWorth(){
 		return isMortgaged() ?
 				getMortgageValue() : //if Property is mortgaged

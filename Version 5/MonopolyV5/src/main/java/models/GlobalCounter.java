@@ -4,6 +4,7 @@ public class GlobalCounter {
 
 	
 	private int count;
+	private int max;
 	
 	/**
 	 * GlobalCounter stores a counter that can be used across objects or on a global scope.
@@ -11,6 +12,7 @@ public class GlobalCounter {
 	 */
 	public GlobalCounter(){
 		count = 0;
+		max = -1;
 	}
 	
 	/**
@@ -19,6 +21,11 @@ public class GlobalCounter {
 	 */
 	public int incCout(){
 		count++;
+		if(max > -1){
+			if(count > max){
+				count = max;
+			}
+		}
 		return count;
 	}
 	
@@ -28,7 +35,13 @@ public class GlobalCounter {
 	 * @return	current count after n has been added
 	 */
 	public int incCount(int n){
+		
 		count += n;
+		if(max > -1){
+			if(count > max){
+				count = max;
+			}
+		}
 		return count;
 	}
 	
@@ -58,6 +71,14 @@ public class GlobalCounter {
 	 */
 	public int getCount(){
 		return count;
+	}
+	
+	public int getMax(){
+		return max;
+	}
+	
+	public void setMax(int m){
+		max = m;
 	}
 	
 }
