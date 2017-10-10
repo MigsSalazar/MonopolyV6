@@ -5,8 +5,8 @@ public class Utility extends Property {
 	private Dice uroll = new Dice(2,6);
 	private GlobalCounter gcount;
 
-	public Utility(String n, int p, int pr, int o, int m, boolean mb, GlobalCounter gb) {
-		super(n, p, pr, o, m, mb);
+	public Utility(String n, int p, int pr, int m, boolean mb, GlobalCounter gb) {
+		super(n, p, pr, m, mb);
 		// TODO Auto-generated constructor stub
 		gcount = gb;
 	}

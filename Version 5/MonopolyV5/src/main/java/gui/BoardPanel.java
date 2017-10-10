@@ -16,6 +16,10 @@ import com.google.gson.*;
  */
 public class BoardPanel extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6172077257467071348L;
 	private GridLayout grid;
 	private int rowNum;
 	private int colNum;

@@ -5,7 +5,7 @@ public abstract class Property {
 	private String name;
 	private int position;
 	private int price;
-	private int owner;
+	private Player owner;
 	private int mortgage;
 	private boolean mBool;
 	
@@ -15,16 +15,16 @@ public abstract class Property {
 	 * @param p		position of the property on the board as an integer
 	 * @param s		suite the property belongs to as an integer
 	 * @param pr	price of the property as an integer
-	 * @param o		ID of the owner as an integer
+	 * @param o		Player object of the owner
 	 * @param m		mortgage value saved as an integer
 	 * @param mb	boolean stating if property is mortgaged: mortgaged = true, not mortgaged = false
 	 */
-	public Property(String n, int p, int pr, int o, int m, boolean mb) {
+	public Property(String n, int p, int pr, int m, boolean mb) {
 		name = n;
 		position = p;
 		price = pr;
-		o = owner;
-		m = mortgage;
+		owner = null;
+		mortgage = m;
 		mBool = mb;
 	}
 	
@@ -54,9 +54,12 @@ public abstract class Property {
 	
 	/**
 	 * 
-	 * @return	ID integer of the current owner. If unowned, owner is set to -1
+	 * @return	Player object of the current owner. If unowned, owner is equal to null
 	 */
-	public int getOwner(){
+	public Player getOwner(){
+		if(owner == null){
+			return null;
+		}
 		return owner;
 	}
 	
@@ -64,7 +67,7 @@ public abstract class Property {
 	 * 
 	 * @param o	integer ID of the owner to be
 	 */
-	public void setOwner(int o){
+	public void setOwner(Player o){
 		owner = o;
 	}
 	

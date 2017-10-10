@@ -1,63 +1,43 @@
 package main.java.models;
 
-public class Suite extends Property {
+public interface Suite {
+	
+	/**
+	 * Returns the title of the suite as a String object
+	 * @return	String of the title: a color name
+	 */
+	String getColor();
 
-	
-	private int suite;
-	private int[] rent;
-	private int grade;
-	
 	/**
-	 * 
-	 * @param n
-	 * @param p
-	 * @param pr
-	 * @param o
-	 * @param m
-	 * @param mb
-	 * @param s
-	 * @param r
-	 * @param g
+	 * Runs through a player's properties to see if they hold the complete suite stored in this object
+	 * @param pl	Player to analyze
+	 * @return		a boolean confirming or denying the player's claim to hold a monopoly
 	 */
-	public Suite(String n, int p, int pr, int o, int m, boolean mb, int s, int[] r, int g) {
-		super(n, p, pr, o, m, mb);
-		// TODO Auto-generated constructor stub
-		suite = s;
-		rent = r;
-		grade = g;
-		
-	}
-	
+	boolean playerHasMonopoly(Player pl);
+
 	/**
-	 * 
-	 * @return	containing suite as an int value
+	 * Searches through the suite to determine the highest property value in the suite
+	 * @return	integer of the largest property value found
 	 */
-	public int getSuite(){
-		return suite;
-	}
-	
-	
+	int largestGrade();
+
 	/**
-	 * 
-	 * @return	rent owed determined by property grade
+	 * Searches through the suite to determine the lowest property value in the suite
+	 * @return	integer of the smallest property value found
 	 */
-	public int getRent(){
-		return rent[grade];
-	}
-	
-	public int getGrade(){
-		return grade;
-	}
-	
-	public void setGrade(int g){
-		grade = g;
-	}
-	
-	@Override
-	public int getWorth(){
-		return isMortgaged() ?
-				getMortgageValue() : //if Property is mortgaged
-					getPrice() + (int)( grade*rent[7]*0.5 ); //if property is not mortgaged
-	}
+	int smallestGrade();
+
+	/**
+	 * Checks to see if any properties contained in the suite have been mortgaged
+	 * @return	true if mortgaged, false if not
+	 */
+	boolean hasMortgage();
+
+	/**
+	 * Determines the range of the property value.
+	 * Range should never be greater than 1 or less than -1
+	 * @return	integer value of the disparity
+	 */
+	int gradeDisparity();
 
 }
