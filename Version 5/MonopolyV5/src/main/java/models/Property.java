@@ -117,4 +117,8 @@ public abstract class Property {
 	public int getWorth(){
 		return isMortgaged() ? (int)(getPrice()/2) : getPrice() ;
 	}
+	
+	public int getRedeemableWorth(){
+		return isMortgaged() ? 0 : getMortgageValue();
+	}
 }

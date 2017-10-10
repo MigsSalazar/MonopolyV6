@@ -19,7 +19,7 @@ public class GlobalCounter {
 	 * Increases counter by 1
 	 * @return	current count after increase
 	 */
-	public int incCout(){
+	public int incCount(){
 		count++;
 		if(max > -1){
 			if(count > max){
@@ -59,7 +59,7 @@ public class GlobalCounter {
 	 * @param n	integer value to decrease count by
 	 * @return	current count after decrease
 	 */
-	public int decCounter(int n){
+	public int decCount(int n){
 		count -= n;
 		if(count < 0) count = 0;
 		return count;

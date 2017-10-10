@@ -57,8 +57,15 @@ public class Colored extends Property {
 	@Override
 	public int getWorth(){
 		return isMortgaged() ?
-				getMortgageValue() : //if Property is mortgaged
-					getPrice() + (int)( grade*rent[7]*0.5 ); //if property is not mortgaged
+						getMortgageValue() : //if Property is mortgaged
+						getPrice() + (int)( grade*rent[7] ); //if property is not mortgaged
+	}
+	
+	@Override
+	public int getRedeemableWorth(){
+		return isMortgaged() ?
+				0 : //if Property is mortgaged
+				getMortgageValue() + (int)( grade*rent[7]*0.5 ); //if property is not mortgaged
 	}
 
 }
