@@ -2,12 +2,11 @@ package main.java.models;
 
 import java.util.Map;
 import java.util.HashMap;
-import java.util.Random;
 import java.util.Set;
 
 public class Player {
-	private String user;
 	private String name;
+	private int userid;
 	private int position;
 	private int cash;
 	private int wealth;
@@ -20,39 +19,43 @@ public class Player {
 	
 	/**
 	 * Classic constructor. To be used if creating a fresh new Player
-	 * @param n
-	 * @param p
-	 * @param c
-	 * @param jc
-	 * @param jcount
-	 * @param ij
-	 * @param a
-	 * @param t
+	 * @param uname	single digit integer 
+	 * @param n		Name as chosen by the player
 	 */
-	public Player(String n,
-				  int p, int c, int jc, int jcount,
-				  boolean ij, boolean a, boolean t)
+	public Player(int uid, String n)
 	{
-		Random r = new Random();
-		user = n+r.nextInt(1000);
+		userid = uid;
 		name = n;
-		position = p;
-		cash = c;
-		jailCard = c;
-		inJail = ij;
-		active = a;
-		turn = t;
-		jailCount = jcount;
+		position = 0;
+		cash = 1500;
+		jailCard = 0;
+		inJail = false;
+		active = true;
+		turn = false;
+		jailCount = 0;
 		props = new HashMap<String, Property>();
 		calcWealth();
 	}
 	
-	public Player(String uname, String n,
-				  int p, int c, int jc, int jcount,
+	/**
+	 * Recreate constructor. To be used to recreate a Player object from save file
+	 * @param uname		unique user name to identify the player
+	 * @param uid		user ID number
+	 * @param p			int position defining where the player is on the board
+	 * @param c			int cash of players held LIQUID wealth
+	 * @param jc		int defining how many Get Out of Jail Free Cards owned by the player
+	 * @param jcount	int defining how long the players has stayed in jail since entering
+	 * @param ij		boolean confirming or denying if the player is in jail
+	 * @param a			boolean defining if the player has gone bankrupt or not
+	 * @param t			boolean stating if it is the players turn or not
+	 * @param pr		HashMap<String, Property> containing all the player's owne properties
+	 */
+	public Player(String n,
+				  int uid, int p, int c, int jc, int jcount,
 				  boolean ij, boolean a, boolean t,
 				  HashMap<String, Property> pr)
 	{
-		user = uname;
+		userid = uid;
 		name = n;
 		position = p;
 		cash = c;
@@ -65,7 +68,7 @@ public class Player {
 		calcWealth();
 	}
 	
-	public String getUserName(){ return user; }
+	public int getUserID(){ return userid; }
 	
 	public String getName(){ return name; }
 	
@@ -75,11 +78,20 @@ public class Player {
 	
 	public int getCash(){ return cash; }
 	
-	public void addCash(int ac){ cash += ac; }
+	public void addCash(int ac){
+		cash += ac;
+		calcWealth();
+	}
 	
-	public void subCash(int sc){ cash -= sc; }
+	public void subCash(int sc){
+		cash -= sc;
+		calcWealth();
+	}
 	
-	public void setCash(int c){ cash = c;}
+	public void setCash(int c){
+		cash = c;
+		calcWealth();
+	}
 	
 	public int getWealth(){
 		calcWealth();
