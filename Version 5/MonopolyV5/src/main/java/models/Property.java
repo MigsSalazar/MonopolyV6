@@ -6,7 +6,6 @@ public abstract class Property {
 	private int position;
 	private int price;
 	private Player owner;
-	private int mortgage;
 	private boolean mBool;
 	
 	/**
@@ -19,12 +18,11 @@ public abstract class Property {
 	 * @param m		mortgage value saved as an integer
 	 * @param mb	boolean stating if property is mortgaged: mortgaged = true, not mortgaged = false
 	 */
-	public Property(String n, int p, int pr, int m, boolean mb) {
+	public Property(String n, int p, int pr, boolean mb) {
 		name = n;
 		position = p;
 		price = pr;
 		owner = null;
-		mortgage = m;
 		mBool = mb;
 	}
 	
@@ -76,7 +74,7 @@ public abstract class Property {
 	 * @return	Property mortgaged value. Price to unmortage property is derived from this value as well
 	 */
 	public int getMortgageValue(){
-		return mortgage;
+		return (int)(price/2);
 	}
 	
 	/**
@@ -115,7 +113,7 @@ public abstract class Property {
 	 * @return	property value
 	 */
 	public int getWorth(){
-		return isMortgaged() ? (int)(getPrice()/2) : getPrice() ;
+		return isMortgaged() ? getMortgageValue() : getPrice() ;
 	}
 	
 	public int getRedeemableWorth(){

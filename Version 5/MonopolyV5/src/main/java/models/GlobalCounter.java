@@ -15,6 +15,16 @@ public class GlobalCounter {
 		max = -1;
 	}
 	
+	public GlobalCounter(int num){
+		count = num;
+		max = -1;
+	}
+	
+	public GlobalCounter(int num, int m){
+		count = num;
+		max = m;
+	}
+	
 	/**
 	 * Increases counter by 1
 	 * @return	current count after increase

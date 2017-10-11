@@ -4,8 +4,8 @@ public class Railroad extends Property {
 	
 	private GlobalCounter gcount;
 	
-	public Railroad(String n, int p, int pr, int m, boolean mb, GlobalCounter gc) {
-		super(n, p, pr, m, mb);
+	public Railroad(String n, int p, int pr, boolean mb, GlobalCounter gc) {
+		super(n, p, pr, mb);
 		// TODO Auto-generated constructor stub
 		gcount = gc;
 	}

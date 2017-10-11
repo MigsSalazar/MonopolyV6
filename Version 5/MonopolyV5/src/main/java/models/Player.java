@@ -53,19 +53,21 @@ public class Player {
 	public Player(String n,
 				  int uid, int p, int c, int jc, int jcount,
 				  boolean ij, boolean a, boolean t,
-				  HashMap<String, Property> pr)
-	{
-		userid = uid;
-		name = n;
-		position = p;
-		cash = c;
-		jailCard = jc;
-		inJail = ij;
-		active = a;
-		turn = t;
-		jailCount = jcount;
-		props = pr;
-		calcWealth();
+				  Map<String, Property> pr)
+	{	
+		if(pr instanceof HashMap< ?, ? >){
+			userid = uid;
+			name = n;
+			position = p;
+			cash = c;
+			jailCard = jc;
+			inJail = ij;
+			active = a;
+			turn = t;
+			jailCount = jcount;
+			addProperties( (HashMap<String, Property>)pr);
+			calcWealth();
+		}
 	}
 	
 	public int getUserID(){ return userid; }
@@ -173,12 +175,31 @@ public class Player {
 	
 	public boolean addProperty(Property p){
 		props.put(p.getName(), p);
+		p.setOwner(this);
 		return playerOwns(p);
+	}
+	
+	public void addProperties(HashMap<String, Property> pr){
+		Set<String> keys = pr.keySet();
+		for(String k : keys){
+			addProperty(pr.get(k));
+		}
 	}
 	
 	public boolean removeProperty(Property p){
 		props.remove(p.getName());
+		p.setOwner(null);
 		return !( playerOwns(p) );
+	}
+	
+	public boolean removeProperty(String key){
+		Property goodBye = props.remove(key);
+		if(goodBye!=null){
+			goodBye.setOwner(null);
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 }
