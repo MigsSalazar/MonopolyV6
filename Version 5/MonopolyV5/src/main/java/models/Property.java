@@ -9,7 +9,7 @@ public abstract class Property {
 	private boolean mBool;
 	
 	/**
-	 * 
+	 * Classic constructor for Properties
 	 * @param n		name of the property as a string
 	 * @param p		position of the property on the board as an integer
 	 * @param s		suite the property belongs to as an integer
