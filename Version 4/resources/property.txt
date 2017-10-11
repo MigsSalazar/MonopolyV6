@@ -1,0 +1,52 @@
+Mediterranean Ave.,1,60,-1,30,false,color,darkPurple
+Baltic Ave.,3,60,-1,30,false,color,darkPurple
+Oriental Ave.,6,100,-1,50,false,color,lightBlue
+Vermont Ave.,8,100,-1,50,false,color,lightBlue
+Connecticut Ave.,9,120,-1,50,false,color,lightBlue
+St. Charles Place,11,140,-1,70,false,color,purple
+States Ave.,13,140,-1,70,false,color,purple
+Virginia Ave.,14,160,-1,80,false,color,purple
+St. James Place,16,180,-1,90,false,color,orange
+Tennessee Ave.,18,180,-1,90,false,color,orange
+New York Ave.,19,200,-1,100,false,color,range
+Kentucky Ave.,21,220,-1,110,false,color,red
+Indiana Ave.,23,220,-1,110,false,color,red
+Illinois Ave.,24,240,-1,120,false,color,red
+Atlanic Ave.,26,260,-1,130,false,color,yellow
+Ventnor Ave.,27,260,-1,130,false,color,yellow
+Marvin Gardens,29,280,-1,140,false,color,yellow
+Pacific Ave.,31,300,-1,150,false,color,green
+North Carolina Ave.,32,300,-1,150,false,color,green
+Pennsylvania Ave,34,320,-1,160,false,color,green
+Park Place,37,350,-1,175,false,color,blue
+Board Walk,39,400,-1,200,false,color,blue
+
+
+name-pos-cost-owner-mortgage-mBool-type-color-
+
+0 medave
+1 balave
+2 oriave
+3 verave
+4 conave
+5 stchpl
+6 staave
+7 virave
+8 stjapl
+9 tenave
+10 neyoav
+11 kenave
+12 indave
+13 illave
+14 atlave
+15 vanave
+16 marave
+17 pacave
+18 nocaav
+19 penave
+20 parpla
+21 boawal
+22 readrr
+23 pennrr
+24 b&orr
+25 sorlin

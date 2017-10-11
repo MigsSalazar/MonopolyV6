@@ -1,0 +1,29 @@
+Mediterranean Ave.,1,60,1,30,false,color,purple,0
+Baltic Ave.,3,60,0,30,false,color,purple,0
+Reading Railroad,5,200,0,100,false,rail,1
+Oriental Ave.,6,100,0,50,false,color,lightBlue,0
+Vermont Ave.,8,100,0,50,false,color,lightBlue,0
+Connecticut Ave.,9,120,0,50,false,color,lightBlue,0
+St. Charles Place,11,140,0,70,false,color,pink,0
+Electric Company,12,150,1,75,false,util,2
+States Ave.,13,140,0,70,false,color,pink,0
+Virginia Ave.,14,160,0,80,false,color,pink,0
+Pennsylvania Railroad,15,200,0,100,false,rail,1
+St. James Place,16,180,2,90,false,color,orange,0
+Tennessee Ave.,18,180,0,90,false,color,orange,0
+New York Ave.,19,200,0,100,false,color,orange,0
+Kentucky Ave.,21,220,1,110,false,color,red,0
+Indiana Ave.,23,220,0,110,false,color,red,0
+Illinois Ave.,24,240,0,120,false,color,red,0
+B&O Railroad,25,200,0,100,false,rail,1
+Atlanic Ave.,26,260,0,130,false,color,yellow,0
+Ventnor Ave.,27,260,0,130,false,color,yellow,0
+WaterWorks,28,150,1,75,false,util,2
+Marvin Gardens,29,280,0,140,false,color,yellow,0
+Pacific Ave.,31,300,2,150,false,color,green,0
+North Carolina Ave.,32,300,0,150,false,color,green,0
+Pennsylvania Ave,34,320,0,160,false,color,green,0
+Short Line,35,200,2,100,false,rail,1
+Park Place,37,350,1,175,false,color,blue,1
+Board Walk,39,400,2,200,false,color,blue,1
+
