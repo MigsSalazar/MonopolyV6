@@ -65,6 +65,7 @@ public class Player {
 			active = a;
 			turn = t;
 			jailCount = jcount;
+			props = new HashMap<String, Property>();
 			addProperties( (HashMap<String, Property>)pr);
 			calcWealth();
 		}

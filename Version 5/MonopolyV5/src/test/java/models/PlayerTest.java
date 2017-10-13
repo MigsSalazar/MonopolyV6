@@ -38,6 +38,10 @@ public class PlayerTest {
 	
 	@Before
 	public void beforeTest(){
+		properties = new HashMap<String, Property>();
+		properties.put(junk.getName(), junk);
+		properties.put(metra.getName(), metra);
+		properties.put(comcast.getName(), comcast);
 		oldPlayer = new Player("Paul", 6, 10, 1000, 0, 1, true, true, false, properties);
 		freshPlayer = new Player(1, "John");
 	}
@@ -285,9 +289,9 @@ public class PlayerTest {
 	@Test
 	public void testPlayerOwns() {
 		//beforeTest();
-		assertEquals(freshPlayer.playerOwns(junk), false);
-		assertEquals(freshPlayer.playerOwns(metra), false);
-		assertEquals(freshPlayer.playerOwns(comcast), false);
+		assertFalse(freshPlayer.playerOwns(junk));
+		assertFalse(freshPlayer.playerOwns(metra));
+		assertFalse(freshPlayer.playerOwns(comcast));
 		assertTrue(oldPlayer.playerOwns(junk));
 		assertTrue(oldPlayer.playerOwns(metra));
 		assertTrue(oldPlayer.playerOwns(comcast));
@@ -298,10 +302,10 @@ public class PlayerTest {
 		//beforeTest();
 		Property crap = new Colored("Crap Dr.", 40, 2,false, null, rents, 3);
 		freshPlayer.addProperty(crap);
-		assertEquals(freshPlayer.playerOwns(crap), true);
+		assertTrue(freshPlayer.playerOwns(crap));
 		assertEquals(crap.getOwner(), freshPlayer);
 		oldPlayer.addProperty(crap);
-		assertEquals(oldPlayer.playerOwns(crap), true);
+		assertTrue(oldPlayer.playerOwns(crap));
 		assertEquals(crap.getOwner(), oldPlayer);
 		freshPlayer.removeProperty(crap);
 		oldPlayer.removeProperty(crap);
@@ -312,20 +316,19 @@ public class PlayerTest {
 		//beforeTest();
 		Property crap = new Colored("Crap Dr.", 40, 2,false, null, rents, 3);
 		freshPlayer.addProperty(crap);
-		assertEquals(freshPlayer.playerOwns(crap), true);
+		assertTrue(freshPlayer.playerOwns(crap));
 		assertEquals(crap.getOwner(), freshPlayer);
 		freshPlayer.removeProperty(crap);
-		assertEquals(freshPlayer.playerOwns(crap), false);
-		assertEquals(crap.getOwner(), null);
+		assertFalse(freshPlayer.playerOwns(crap));
+		assertNull(crap.getOwner());
 		
-		
-		junk.setOwner(oldPlayer);
-		assertEquals(oldPlayer.playerOwns(junk), true);
+		oldPlayer.addProperty(junk);
+		assertTrue(oldPlayer.playerOwns(junk));
 		assertEquals(junk.getOwner(), oldPlayer);
 		
 		oldPlayer.removeProperty(junk);
-		assertEquals(oldPlayer.playerOwns(junk), false);
-		assertEquals(junk.getOwner(), null);
+		assertFalse(oldPlayer.playerOwns(junk));
+		assertNull(junk.getOwner());
 	}
 	
 	@Test
@@ -334,13 +337,12 @@ public class PlayerTest {
 		
 		Property crap = new Colored("Crap Dr.", 40, 2,false, null, rents, 3);
 		freshPlayer.addProperty(crap);
-		assertEquals(freshPlayer.playerOwns(crap), true);
+		assertTrue(freshPlayer.playerOwns(crap));
 		assertEquals(crap.getOwner(), freshPlayer);
 		
 		freshPlayer.removeProperty(crap.getName());
-		assertEquals(freshPlayer.playerOwns(crap), false);
-		assertEquals(crap.getOwner(), null);
-		
+		assertFalse(freshPlayer.playerOwns(crap));
+		assertNull(crap.getOwner());
 	}
 
 }
