@@ -181,8 +181,8 @@ public class PlayerTest {
 	@Test
 	public void testIsInJail() {
 		//beforeTest();
-		assertEquals(freshPlayer.isInJail(), false);
-		assertEquals(oldPlayer.isInJail(), true);
+		assertFalse(freshPlayer.isInJail());
+		assertTrue(oldPlayer.isInJail());
 	}
 
 	@Test
@@ -190,24 +190,24 @@ public class PlayerTest {
 		//beforeTest();
 		freshPlayer.setInJail(true);
 		oldPlayer.setInJail(false);
-		assertEquals(freshPlayer.isInJail(), true);
-		assertEquals(oldPlayer.isInJail(), false);
+		assertTrue(freshPlayer.isInJail());
+		assertFalse(oldPlayer.isInJail());
 	}
 
 	@Test
 	public void testToggelInJail() {
 		//beforeTest();
-		assertEquals(freshPlayer.toggelInJail(), true);
-		assertEquals(oldPlayer.toggelInJail(), false);
-		assertEquals(freshPlayer.toggelInJail(), false);
-		assertEquals(oldPlayer.toggelInJail(), true);
+		assertTrue(freshPlayer.toggelInJail());
+		assertFalse(oldPlayer.toggelInJail());
+		assertFalse(freshPlayer.toggelInJail());
+		assertTrue(oldPlayer.toggelInJail());
 	}
 
 	@Test
 	public void testIsActive() {
 		//beforeTest();
-		assertEquals(freshPlayer.isActive(), true);
-		assertEquals(oldPlayer.isActive(), true);
+		assertTrue(freshPlayer.isActive());
+		assertTrue(oldPlayer.isActive());
 	}
 
 	@Test
@@ -215,52 +215,52 @@ public class PlayerTest {
 		//beforeTest();
 		freshPlayer.setActive(false);
 		oldPlayer.setActive(false);
-		assertEquals(freshPlayer.isActive(), false);
-		assertEquals(oldPlayer.isActive(), false);
+		assertFalse(freshPlayer.isActive());
+		assertFalse(oldPlayer.isActive());
 		freshPlayer.setActive(true);
-		assertEquals(freshPlayer.isActive(), true);
-		assertEquals(oldPlayer.isActive(), false);
+		assertTrue(freshPlayer.isActive());
+		assertFalse(oldPlayer.isActive());
 		freshPlayer.setActive(false);
 		oldPlayer.setActive(true);
-		assertEquals(freshPlayer.isActive(), false);
-		assertEquals(oldPlayer.isActive(), true);
+		assertFalse(freshPlayer.isActive());
+		assertTrue(oldPlayer.isActive());
 	}
 
 	@Test
 	public void testToggelActive() {
 		//beforeTest();
-		assertEquals(freshPlayer.toggelActive(), false);
-		assertEquals(oldPlayer.toggelActive(), false);
-		assertEquals(freshPlayer.toggelActive(), true);
-		assertEquals(oldPlayer.toggelActive(), true);
+		assertFalse(freshPlayer.toggelActive());
+		assertFalse(oldPlayer.toggelActive());
+		assertTrue(freshPlayer.toggelActive());
+		assertTrue(oldPlayer.toggelActive());
 	}
 
 	@Test
 	public void testIsTurn() {
 		//beforeTest();
-		assertEquals(freshPlayer.isTurn(), false);
-		assertEquals(oldPlayer.isTurn(), false);
+		assertFalse(freshPlayer.isTurn());
+		assertFalse(oldPlayer.isTurn());
 	}
 
 	@Test
 	public void testSetTurn() {
 		//beforeTest();
 		freshPlayer.setTurn(true);
-		assertEquals(freshPlayer.isTurn(), true);
-		assertEquals(oldPlayer.isTurn(), false);
+		assertTrue(freshPlayer.isTurn());
+		assertFalse(oldPlayer.isTurn());
 		freshPlayer.setTurn(false);
 		oldPlayer.setTurn(true);
-		assertEquals(freshPlayer.isTurn(), false);
-		assertEquals(oldPlayer.isTurn(), true);
+		assertFalse(freshPlayer.isTurn());
+		assertTrue(oldPlayer.isTurn());
 	}
 
 	@Test
 	public void testToggleTurn() {
 		//beforeTest();
-		assertEquals(freshPlayer.toggleTurn(), true);
-		assertEquals(oldPlayer.toggleTurn(), true);
-		assertEquals(freshPlayer.toggleTurn(), false);
-		assertEquals(oldPlayer.toggleTurn(), false);
+		assertTrue(freshPlayer.toggleTurn());
+		assertTrue(oldPlayer.toggleTurn());
+		assertFalse(freshPlayer.toggleTurn());
+		assertFalse(oldPlayer.toggleTurn());
 	}
 
 	@Test
