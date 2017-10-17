@@ -102,7 +102,6 @@ public class Player {
 	}
 	
 	private void calcWealth(){
-		//TODO implement calcWealth
 		Set<String> keys = props.keySet();
 		wealth = cash;
 		for(String k : keys){
