@@ -23,7 +23,6 @@ public class BoardPanel extends JPanel {
 	private GridLayout grid;
 	private int rowNum;
 	private int colNum;
-	private BoardDesign design;
 	
 	/**
 	 * Creates empty panel with default GridLayout
@@ -34,7 +33,6 @@ public class BoardPanel extends JPanel {
 		colNum = grid.getColumns();
 		this.setLayout( grid );
 		
-		design = new BoardDesign();
 		
 		
 	}
