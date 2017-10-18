@@ -16,6 +16,10 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
+import main.java.listeners.FullScreenActionListener;
+import main.java.listeners.ResolutionActionListener;
+import main.java.listeners.TexturePackActionListener;
+
 /**
  * @author Unknown
  *
@@ -27,12 +31,13 @@ public class Settings extends JDialog {
 	private JButton textureFinder;
 	
 	public Settings(){
-		//JOptionPane.showMessageDialog(null, "This does nothing");
+		
 		this.setLayout(new GridLayout(3,1));
-		//this.setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
+		
 		createFullScreen();
 		createResolution();
 		createTextureFinder();
+
 		this.add(fullScreen);
 		this.add(resolution);
 		this.add(textureFinder);
@@ -44,7 +49,7 @@ public class Settings extends JDialog {
 		
 		this.setIconImage(gear);
 		this.setVisible(true);
-		//dispose();
+
 	}
 	
 	private void createFullScreen(){
@@ -52,13 +57,7 @@ public class Settings extends JDialog {
 		fullScreen.setMaximumSize(new Dimension(100,50));
 		fullScreen.setText("Full Screen   ");
 		
-		fullScreen.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e){
-				//TODO implement full screen
-				System.out.println("This doesnt do anything yet\nFullScreen");
-			}
-		});
+		fullScreen.addActionListener(new FullScreenActionListener());
 	}
 	
 	private void createResolution(){
@@ -68,26 +67,14 @@ public class Settings extends JDialog {
 		}
 		resolution = new JComboBox<String>(resChoices);
 		resolution.setMaximumSize(new Dimension(100,50));
-		resolution.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e){
-				//TODO implement resolution
-				System.out.println("This doesnt do anything yet\nResolutions");
-			}
-		});
+		resolution.addActionListener(new ResolutionActionListener());
 		
 	}
 	
 	private void createTextureFinder(){
 		textureFinder = new JButton("Texture Pack");
 		textureFinder.setMaximumSize(new Dimension(100,50));
-		textureFinder.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e){
-				//TODO implement texture packs
-				System.out.println("This doesnt do anything yet\nTexture Finder");
-			}
-		});
+		textureFinder.addActionListener(new TexturePackActionListener());
 		
 	}
 }

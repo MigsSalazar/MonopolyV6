@@ -4,6 +4,9 @@ import main.java.listeners.*;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -38,8 +41,10 @@ public class GameFrame extends JFrame{
 		defineMenus();
 		this.setJMenuBar(menuBar);
 		this.setSize(300, 300);
+		Image icon = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/frameicon.png").getImage();
+		this.setIconImage(icon);
 		this.setVisible(true);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
 	/*
@@ -98,7 +103,12 @@ public class GameFrame extends JFrame{
 		menuItems[2].setText("Load");
 		menus[0].add(menuItems[2]);
 		
-		menuItems[3].addActionListener(new ExitActionListener());
+		menuItems[3].addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				dispose();
+			}
+		});
 		menuItems[3].setText("Exit");
 		menus[0].add(menuItems[3]);
 		

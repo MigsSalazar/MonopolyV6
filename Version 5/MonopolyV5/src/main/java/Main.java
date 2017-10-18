@@ -1,5 +1,7 @@
 package main.java;
 
+import java.util.Properties;
+
 import javax.swing.JOptionPane;
 import main.java.gui.GameFrame;
 import main.java.gui.PreGameFrame;
@@ -9,25 +11,27 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		JOptionPane.showMessageDialog(null, "Still in the works. Currently little is available");
+		//Properties sysprops = System.getProperties();
+		
 		PreGameFrame pgf = new PreGameFrame();
 	}
 	
-	public void startNewGame(){
+	public static void startNewGame(){
 		GameFrame game = new GameFrame();
 	}
 	
-	public void startSaveGame(String gameName){
+	public static void startSaveGame(String gameName){
 		JOptionPane.showMessageDialog(null, "So this is supposed to handle starting a loaded game"
 										+ "\nbut we're not there just yet. Baby steps my friend."
 										+ "\nBaby steps");
 		GameFrame game = new GameFrame();
 	}
 	
-	public void settingsLaunch(){
+	public static void settingsLaunch(){
 		Settings launchGear = new Settings();
 	}
 	
-	public void aboutThis(){
+	public static void aboutThis(){
 		JOptionPane.showMessageDialog(null, "ABOUT"
 										+ "\n=========================================="
 										+ "\nDeveloper: 				 Miguel Salazar"

@@ -4,6 +4,7 @@
 package main.java.gui;
 
 import java.awt.Container;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,17 +15,21 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 
-import main.java.*;
+import main.java.listeners.AboutActionListener;
+import main.java.listeners.LoadActionListener;
+import main.java.listeners.NewActionListener;
+import main.java.listeners.SettingsActionListener;
 
 /**
  * @author Miguel Salazar
  *
  */
 public class PreGameFrame extends JFrame {
-	
-	private Main mainCaller = new Main();
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7859011893692247775L;
 	private JPanel innerPanel = new JPanel();
-	private BoxLayout box;
 	ImageIcon picture;
 	JButton newGame;
 	JButton loadGame;
@@ -33,7 +38,6 @@ public class PreGameFrame extends JFrame {
 
 	public PreGameFrame(){
 		Container c = this.getContentPane();
-		box = new BoxLayout(innerPanel, BoxLayout.Y_AXIS);
 		//c.setLayout(box);
 		picture = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/topintroimage.png" );
 		newGame = new JButton("New Game");
@@ -49,44 +53,35 @@ public class PreGameFrame extends JFrame {
 		innerPanel.add("about button", about);
 
 		c.add(innerPanel);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(420,500);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setSize(420,480);
 		this.setTitle("Migs Monopoly!");
+		Image icon = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/frameicon.png").getImage();
+		this.setIconImage(icon);
 		this.setVisible(true);
 	}
 	
 	
 	private void addListeners(){
-		newGame.addActionListener(new ActionListener(){
+		newGame.addActionListener(new NewActionListener(){
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				mainCaller.startNewGame();
+			public void actionPerformed(ActionEvent e){
+				super.actionPerformed(e);
 				closeMe();
 			}
 		});
 		
-		loadGame.addActionListener(new ActionListener(){
+		loadGame.addActionListener(new LoadActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				mainCaller.startSaveGame("");
+				super.actionPerformed(e);
 				closeMe();
 			}
 		});
 		
-		settings.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e){
-				mainCaller.settingsLaunch();
-			}
-		});
+		settings.addActionListener(new SettingsActionListener());
 		
-		about.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e){
-				mainCaller.aboutThis();
-			}
-		});
+		about.addActionListener(new AboutActionListener());
 	}
 	
 	private void closeMe(){
