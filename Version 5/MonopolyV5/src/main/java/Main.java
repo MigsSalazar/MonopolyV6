@@ -8,7 +8,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		JOptionPane.showMessageDialog(null, "Still in the works. Currently nothing is available");
+		JOptionPane.showMessageDialog(null, "Still in the works. Currently little is available");
 		PreGameFrame pgf = new PreGameFrame();
 	}
 	
@@ -41,10 +41,10 @@ public class Main {
 										+ "\nsettings or configuration files. (I can't"
 										+ "\nfind the version). I also used JUnit 4.10"
 										+ "\nto test my code. I'd like to copyright my"
-										+ "\nproject however, I'm not sure how that"
-										+ "\nor how to do that for my code. But I doubt"
-										+ "\nanyone could get too much out of my code."
-										+ "\nI hope you enjoy my game!");
+										+ "\nproject however, I'm not sure how to do"
+										+ "\nthat or how to do that for my code. But I"
+										+ "\ndoubt anyone could get too much out of my"
+										+ "\ncode. I hope you enjoy my game!");
 	}
 	
 }

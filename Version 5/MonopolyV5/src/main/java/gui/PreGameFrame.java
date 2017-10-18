@@ -23,7 +23,7 @@ import main.java.*;
 public class PreGameFrame extends JFrame {
 	
 	private Main mainCaller = new Main();
-	private JPanel stupidPanel = new JPanel();
+	private JPanel innerPanel = new JPanel();
 	private BoxLayout box;
 	ImageIcon picture;
 	JButton newGame;
@@ -33,7 +33,7 @@ public class PreGameFrame extends JFrame {
 
 	public PreGameFrame(){
 		Container c = this.getContentPane();
-		box = new BoxLayout(stupidPanel, BoxLayout.Y_AXIS);
+		box = new BoxLayout(innerPanel, BoxLayout.Y_AXIS);
 		//c.setLayout(box);
 		picture = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/topintroimage.png" );
 		newGame = new JButton("New Game");
@@ -42,13 +42,13 @@ public class PreGameFrame extends JFrame {
 		about = new JButton("About");
 		addListeners();
 		JLabel pictureLabel = new JLabel(picture);
-		stupidPanel.add("picture", pictureLabel);
-		stupidPanel.add("new game button", newGame);
-		stupidPanel.add("load game button", loadGame);
-		stupidPanel.add("settings button", settings);
-		stupidPanel.add("about button", about);
+		innerPanel.add("picture", pictureLabel);
+		innerPanel.add("new game button", newGame);
+		innerPanel.add("load game button", loadGame);
+		innerPanel.add("settings button", settings);
+		innerPanel.add("about button", about);
 
-		c.add(stupidPanel);
+		c.add(innerPanel);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(420,500);
 		this.setTitle("Migs Monopoly!");
