@@ -105,6 +105,7 @@ public class GameFrame extends JFrame{
 		menuItems[6].setText("Mortgage");
 		menus[1].add(menuItems[6]);
 		
+		
 		menuItems[7].addActionListener(new MonopolizeActionListener());
 		menuItems[7].setText("Monopolize");
 		menus[1].add(menuItems[7]);
