@@ -2,6 +2,7 @@ package main.java.gui;
 
 import main.java.listeners.*;
 
+import java.awt.BorderLayout;
 import java.awt.Container;
 
 import javax.swing.ImageIcon;
@@ -17,10 +18,12 @@ import javax.swing.JMenuItem;
  */
 public class GameFrame extends JFrame{
 	
-	private HomePanel home;
+	private BorderLayout border;
 	private JMenuBar menuBar;
 	private JMenu[] menus;
 	private JMenuItem[] menuItems;
+	
+	
 	
 	/**
 	 * 
@@ -28,8 +31,10 @@ public class GameFrame extends JFrame{
 	private static final long serialVersionUID = 8200279150286115532L;
 	public GameFrame(){
 		Container c = this.getContentPane();
-		home = new HomePanel();
-		c.add(home);
+		//home = new HomePanel();
+		//c.add(home);
+		border = new BorderLayout();
+		this.setLayout(border);
 		defineMenus();
 		this.setJMenuBar(menuBar);
 		this.setSize(300, 300);
@@ -60,6 +65,10 @@ public class GameFrame extends JFrame{
 	 * 
 	 */
 	
+	/**
+	 * Creates, defines, and links all menus, items and bars to
+	 * their respective ActionListener.
+	 */
 	private void defineMenus(){
 		menuBar = new JMenuBar();
 		menus = new JMenu[2];
@@ -129,6 +138,17 @@ public class GameFrame extends JFrame{
 		
 	}
 
+	private void requestBoardPanel(){
+		
+	}
+	
+	private void requestEventPanel(){
+		
+	}
+	
+	private void requestStatsPanel(){
+		
+	}
 	
 	
 }
