@@ -33,7 +33,6 @@ public class GameFrame extends JFrame{
 	 */
 	private static final long serialVersionUID = 8200279150286115532L;
 	public GameFrame(){
-		Container c = this.getContentPane();
 		//home = new HomePanel();
 		//c.add(home);
 		border = new BorderLayout();
@@ -43,6 +42,7 @@ public class GameFrame extends JFrame{
 		this.setSize(300, 300);
 		Image icon = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/frameicon.png").getImage();
 		this.setIconImage(icon);
+		this.setTitle("Migs Monopoly!");
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}

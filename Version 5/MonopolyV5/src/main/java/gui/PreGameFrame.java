@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 
+import main.java.Main;
 import main.java.listeners.AboutActionListener;
 import main.java.listeners.LoadActionListener;
 import main.java.listeners.NewActionListener;
@@ -63,6 +64,7 @@ public class PreGameFrame extends JFrame {
 	
 	
 	private void addListeners(){
+		JFrame home = this;
 		newGame.addActionListener(new NewActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -79,7 +81,12 @@ public class PreGameFrame extends JFrame {
 			}
 		});
 		
-		settings.addActionListener(new SettingsActionListener());
+		settings.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				Main.settingsLaunch();
+			}
+		});
 		
 		about.addActionListener(new AboutActionListener());
 	}

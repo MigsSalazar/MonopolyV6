@@ -1,7 +1,7 @@
 package main.java;
 
-import java.util.Properties;
-
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import main.java.gui.GameFrame;
 import main.java.gui.PreGameFrame;
@@ -29,9 +29,12 @@ public class Main {
 	
 	public static void settingsLaunch(){
 		Settings launchGear = new Settings();
+		launchGear.setup();
+		launchGear.setVisible(true);
 	}
 	
 	public static void aboutThis(){
+		Icon pic = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/aboutSmall.png");
 		JOptionPane.showMessageDialog(null, "ABOUT"
 										+ "\n=========================================="
 										+ "\nDeveloper: 				 Miguel Salazar"
@@ -48,7 +51,10 @@ public class Main {
 										+ "\nproject however, I'm not sure how to do"
 										+ "\nthat or how to do that for my code. But I"
 										+ "\ndoubt anyone could get too much out of my"
-										+ "\ncode. I hope you enjoy my game!");
+										+ "\ncode. I hope you enjoy my game!",
+										"About",
+										JOptionPane.INFORMATION_MESSAGE,
+										pic);
 	}
 	
 }
