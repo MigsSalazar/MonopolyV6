@@ -3,7 +3,6 @@ package main.java.gui;
 import main.java.listeners.*;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,7 +24,9 @@ public class GameFrame extends JFrame{
 	private JMenuBar menuBar;
 	private JMenu[] menus;
 	private JMenuItem[] menuItems;
-	
+	private BoardPanel gameBoard;
+	private StatsPanel gameStats;
+	private EventPanel gameEvents;
 	
 	
 	/**
@@ -36,12 +37,20 @@ public class GameFrame extends JFrame{
 		//home = new HomePanel();
 		//c.add(home);
 		border = new BorderLayout();
-		this.setLayout(border);
 		defineMenus();
+	}
+	
+	public void setup(){
+		this.setLayout(border);
 		this.setJMenuBar(menuBar);
 		this.setSize(300, 300);
 		Image icon = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/frameicon.png").getImage();
 		this.setIconImage(icon);
+		
+		requestBoardPanel();
+		requestStatsPanel();
+		requestEventPanel();
+		
 		this.setTitle("Migs Monopoly!");
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -149,15 +158,21 @@ public class GameFrame extends JFrame{
 	}
 
 	private void requestBoardPanel(){
-		
+		gameBoard = new BoardPanel();
+		//TODO implement BoardPanel
+		//TODO properly initialize it here
 	}
 	
 	private void requestEventPanel(){
-		
+		gameEvents = new EventPanel();
+		//TODO implement EventPanel
+		//TODO properly initialize it here
 	}
 	
 	private void requestStatsPanel(){
-		
+		gameStats = new StatsPanel();
+		//TODO implement StatsPanel
+		//TODO properly initialize it here
 	}
 	
 	

@@ -8,7 +8,6 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,7 +18,6 @@ import main.java.Main;
 import main.java.listeners.AboutActionListener;
 import main.java.listeners.LoadActionListener;
 import main.java.listeners.NewActionListener;
-import main.java.listeners.SettingsActionListener;
 
 /**
  * @author Miguel Salazar
@@ -64,7 +62,6 @@ public class PreGameFrame extends JFrame {
 	
 	
 	private void addListeners(){
-		JFrame home = this;
 		newGame.addActionListener(new NewActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
