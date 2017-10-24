@@ -20,4 +20,12 @@ public class Piece {
 		owner = o;
 	}
 	
+	public Player getOwner(){
+		return owner;
+	}
+	
+	public ImageIcon getIcon(){
+		return icon;
+	}
+	
 }
