@@ -1,4 +1,6 @@
-{
+{"boardPAnel": {
+	"height" : 39,
+	"width" : 39,
 	"table" : [ ["board","board","board","board","board","board", 		"board","board","board","board", "board", "board", "board", "board", "board", "board","board","board","board","board","board","board", "board", "board", "board", "board", "board", "board","board","board","board", "board", "board",		"board", "board", "board","board","board","board",],
 				["board","board","board","board","board","board", 		"board","board","board","board", "board", "board", "board", "board", "board", "board","board","board","board","board","board","board", "board", "board", "board", "board", "board", "board","board","board","board", "board", "board", 		"board", "board", "board","board","board","board",],
 				["board","board","board","board","board","board", 		"board","board","board","board", "board", "board", "board", "board", "board", "board","board","board","board","board","board","board", "board", "board", "board", "board", "board", "board","board","board","board", "board", "board", 		"board", "board", "board","board","board","board",],
@@ -40,5 +42,5 @@
 				["board","board","jaul", "jail", "jail",  "jail",  		"board","board","board","board", "board", "board", "board", "board", "board", "board","board","board","board","board","board","board", "board", "board", "board", "board", "board", "board","board","board","board", "board", "board", 		"board", "board", "board","board","board","board",],
 				["board","board","board","board","board", "board", 		"board","board","board","board", "board", "board", "board", "board", "board", "board","board","board","board","board","board","board", "board", "board", "board", "board", "board", "board","board","board","board", "board", "board", 		"board", "board", "board","board","board","board",],
 				["board","board","board","board","board", "board", 		"board","board","board","board", "board", "board", "board", "board", "board", "board","board","board","board","board","board","board", "board", "board", "board", "board", "board", "board","board","board","board", "board", "board", 		"board", "board", "board","board","board","board",]]
-			 
+	}			 
 }

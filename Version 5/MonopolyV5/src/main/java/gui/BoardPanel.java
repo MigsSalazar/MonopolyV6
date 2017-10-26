@@ -59,6 +59,9 @@ public class BoardPanel extends JPanel {
 		
 	}
 	
+	private void gsonParser(Gson gfile){
+		
+	}
 	
 }
 
