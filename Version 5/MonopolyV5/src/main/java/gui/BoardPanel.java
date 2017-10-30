@@ -38,14 +38,24 @@ public class BoardPanel extends JPanel {
 	private int width;
 	private int height;
 	
+	/*
+	 * two cases for texture packs:
+	 * clean slate - default inamges
+	 * texture pack - takes a gson file
+	 * 
+	 * what stays the same for textures?
+	 * 
+	 * 
+	 * two cases for positions:
+	 * clean slate - 
+	 * 
+	 */
+	
 	public BoardPanel(){
 		path = new File( System.getProperty("user.dir")+"/resources/image-sets/default-image-set/" );
 		developBorders();
 	}
 	
-	public BoardPanel(File p){
-		
-	}
 	
 	public BoardPanel(Gson gfile){
 		
