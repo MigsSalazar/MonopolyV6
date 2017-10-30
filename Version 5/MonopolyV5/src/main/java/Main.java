@@ -14,10 +14,12 @@ public class Main {
 		//Properties sysprops = System.getProperties();
 		
 		PreGameFrame pgf = new PreGameFrame();
+		pgf.start();
 	}
 	
 	public static void startNewGame(){
 		GameFrame game = new GameFrame();
+		game.setup();
 	}
 	
 	public static void startSaveGame(String gameName){
@@ -25,6 +27,7 @@ public class Main {
 										+ "\nbut we're not there just yet. Baby steps my friend."
 										+ "\nBaby steps");
 		GameFrame game = new GameFrame();
+		game.setup();
 	}
 	
 	public static void settingsLaunch(){

@@ -36,13 +36,15 @@ public class PreGameFrame extends JFrame {
 	JButton about;
 
 	public PreGameFrame(){
-		Container c = this.getContentPane();
+		
 		//c.setLayout(box);
 		picture = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/topintroimage.png" );
 		newGame = new JButton("New Game");
 		loadGame = new JButton("Load Game");
 		settings = new JButton("Settings");
 		about = new JButton("About");
+		
+		
 		addListeners();
 		JLabel pictureLabel = new JLabel(picture);
 		innerPanel.add("picture", pictureLabel);
@@ -50,7 +52,9 @@ public class PreGameFrame extends JFrame {
 		innerPanel.add("load game button", loadGame);
 		innerPanel.add("settings button", settings);
 		innerPanel.add("about button", about);
-
+	}
+	public void start(){
+		Container c = this.getContentPane();
 		c.add(innerPanel);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(420,480);

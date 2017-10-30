@@ -7,28 +7,14 @@ public class Path {
 	
 	private ArrayList<PathStep> steps;
 	private int currentStep = 0;
-	private boolean goBack = false;
 	private boolean locked = false;
+	private Piece pathWalker;
 	
-	public Path(){
-		steps = new ArrayList<PathStep>();
+	public Path(ArrayList<PathStep> s, Piece pw){
+		steps = s;
+		pathWalker = pw;
 	}
-	
-	public Path(PathStep firstStep){
-		steps = new ArrayList<PathStep>();
-		steps.add(firstStep);
-	}
-	
-	public Path(boolean back){
-		steps = new ArrayList<PathStep>();
-		goBack = back;
-	}
-	
-	public Path(PathStep firstStep, boolean back){
-		steps = new ArrayList<PathStep>();
-		steps.add(firstStep);
-		goBack = back;
-	}
+
 	
 	public PathStep getStep(int index){
 		return steps.get(index);
@@ -36,14 +22,7 @@ public class Path {
 	
 	public PathStep move(int num){
 		if( !locked ){
-			if(num < 0 && goBack){
-				currentStep = (currentStep + num)%steps.size();
-				if( currentStep < 0){
-					currentStep += steps.size();
-				}
-			}else if(num >=0){
-				currentStep = (currentStep+num)%steps.size();
-			}
+			currentStep = (currentStep+num)%steps.size();
 		}
 		return steps.get(currentStep);
 	}
@@ -52,6 +31,8 @@ public class Path {
 		if( !locked ){
 			if(jump < steps.size() && jump >= 0){
 				currentStep = jump;
+			}else{
+				currentStep = jump%steps.size();
 			}
 		}
 		return steps.get(currentStep);
@@ -68,6 +49,18 @@ public class Path {
 	public boolean toggleLocked(){
 		locked = !locked;
 		return locked;
+	}
+	
+	public Piece getPiece(){
+		return pathWalker;
+	}
+	
+	public int getCurrentRow(){
+		return steps.get(currentStep).getRow();
+	}
+	
+	public int getCurrentCol(){
+		return steps.get(currentStep).getCol();
 	}
 	
 }
