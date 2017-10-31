@@ -12,7 +12,7 @@ import com.google.gson.Gson;
 import main.java.models.Player;
 
 public class GuiMainTester {
-	/*
+	
 	public static void main(String[] args) {
 		//this main is meant only to test gui functions and resources
 		//NEVER run the full application from here
@@ -20,7 +20,7 @@ public class GuiMainTester {
 		//or commented out after done
 		//System.out.println("starting shit");
 		
-		/*
+		
 		Player temp = new Player(1, "bob");
 		
 		Piece tempPiece = null;
@@ -63,11 +63,6 @@ public class GuiMainTester {
 		}
 		
 	}
-	*/
 	
-	public static void main(String[] args){
-		Stamp tempStamp = new Stamp();
-		tempStamp.giveBorder();
-	}
 
 }

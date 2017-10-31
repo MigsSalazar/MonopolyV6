@@ -26,51 +26,19 @@ public class BoardPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1102084765976301993L;
 	
+	
+	private int width = 30;
+	private int height = 30;
+	private ImageIcon[] imageIndex;
+	private int[][] basePaint = new int[30][30];
+	private int[][] currPaint = new int[30][30];
+	private Stamp[][] stampCollection = new Stamp[30][30];
+	private ArrayList<Path> paths = new ArrayList<Path>();
 	private ArrayList<Piece> gamePieces;
-	private ArrayList<Path> piecePaths;
-	private HashMap<String, ImageIcon> paintColors;
-	private String[][] paintByString;
-	private JLabel[][] tiles;
-	private Border[] borders;
-	private GridLayout gid;
-	private File path;
-	private int width;
-	private int height;
 	
-	/*
-	 * two cases for texture packs:
-	 * clean slate - default inamges
-	 * texture pack - takes a gson file
-	 * 
-	 * what stays the same for textures?
-	 * 
-	 * 
-	 * two cases for positions:
-	 * clean slate - 
-	 * 
-	 */
-	
-	public BoardPanel(){
-		path = new File( System.getProperty("user.dir")+"/resources/image-sets/default-image-set/" );
-		developBorders();
-	}
+	private ImageIcon[][] displayedBoard;
 	
 	
-	public BoardPanel(Gson gfile){
-		
-	}
-	
-	private void developBorders(){
-		
-	}
-	
-	private void populateTiles(){
-		
-	}
-	
-	private void gsonParser(Gson gfile){
-		
-	}
 	
 }
 

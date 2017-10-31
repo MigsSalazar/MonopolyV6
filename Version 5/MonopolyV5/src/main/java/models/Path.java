@@ -2,7 +2,6 @@ package main.java.models;
 
 import java.util.ArrayList;
 
-import main.java.gui.Piece;
 
 public class Path {
 
@@ -10,13 +9,10 @@ public class Path {
 	private ArrayList<PathStep> steps;
 	private int currentStep = 0;
 	private boolean locked = false;
-	private Piece pathWalker;
 	
-	public Path(ArrayList<PathStep> s, Piece pw){
+	public Path(ArrayList<PathStep> s){
 		steps = s;
-		pathWalker = pw;
 	}
-
 	
 	public PathStep getStep(int index){
 		return steps.get(index);
@@ -53,9 +49,6 @@ public class Path {
 		return locked;
 	}
 	
-	public Piece getPiece(){
-		return pathWalker;
-	}
 	
 	public int getCurrentRow(){
 		return steps.get(currentStep).getRow();
