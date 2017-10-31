@@ -12,7 +12,6 @@ import javax.swing.JLabel;
 
 import main.java.models.Path;
 import main.java.models.PathStep;
-import main.java.models.Piece;
 
 import com.google.gson.*;
 

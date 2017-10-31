@@ -2,6 +2,8 @@ package main.java.models;
 
 import java.util.ArrayList;
 
+import main.java.gui.Piece;
+
 public class Path {
 
 	

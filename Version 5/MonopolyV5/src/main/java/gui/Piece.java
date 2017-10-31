@@ -1,4 +1,4 @@
-package main.java.models;
+package main.java.gui;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -10,6 +10,8 @@ import javax.swing.ImageIcon;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
+
+import main.java.models.Player;
 
 /**
  * @author Unknown
