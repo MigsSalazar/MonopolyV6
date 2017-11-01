@@ -49,7 +49,7 @@ public class Stamp {
 	}
 	
 	public boolean validateBorder(){
-		if( border%2==0 || border%3==0 || border%5==0 || border%7==0 ){
+		if( (border%2==0 || border%3==0 || border%5==0 || border%7==0) && border<=210 ){
 			return true;
 		}else{
 			border = 1;
@@ -128,5 +128,47 @@ public class Stamp {
 		}
 		return 0;
 	}
+
+	public char getEngraving() {
+		return engraving;
+	}
+
+	public void setEngraving(char engraving) {
+		this.engraving = engraving;
+	}
+
+	public boolean isItalics() {
+		return italics;
+	}
+
+	public void setItalics(boolean italics) {
+		this.italics = italics;
+	}
+
+	public boolean isBold() {
+		return bold;
+	}
+
+	public void setBold(boolean bold) {
+		this.bold = bold;
+	}
+
+	public boolean isUnderline() {
+		return underline;
+	}
+
+	public void setUnderline(boolean underline) {
+		this.underline = underline;
+	}
+
+	public int getBorder() {
+		return border;
+	}
+
+	public void setBorder(int border) {
+		this.border = border;
+		validateBorder();
+	}
+	
 	
 }

@@ -7,17 +7,17 @@ package main.java.models;
  * @author Unknown
  *
  */
-public class PathStep {
+public class CoordPair {
 
 	private int row;
 	private int col;
 	
-	public PathStep(){
+	public CoordPair(){
 		row = 0;
 		col = 0;
 	}
 	
-	public PathStep(int r, int c){
+	public CoordPair(int r, int c){
 		row = r;
 		col = c;
 	}

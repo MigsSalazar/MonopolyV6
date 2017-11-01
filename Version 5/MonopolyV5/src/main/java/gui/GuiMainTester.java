@@ -1,5 +1,6 @@
 package main.java.gui;
 
+import java.awt.Container;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,11 +14,18 @@ import main.java.models.Player;
 
 public class GuiMainTester {
 	
+	//this class is meant only to test gui functions and resources
+	//NEVER run the full application from here
+	//any code written should be temporary and deleted
+	//or commented out after done
+	
+	
+	/*
+	 * Main method used to test Piece class
+	 * @PieceTesterMain
+	 * 
 	public static void main(String[] args) {
-		//this main is meant only to test gui functions and resources
-		//NEVER run the full application from here
-		//any code written should be temporary and deleted
-		//or commented out after done
+		
 		//System.out.println("starting shit");
 		
 		
@@ -63,6 +71,22 @@ public class GuiMainTester {
 		}
 		
 	}
+	*/
 	
+	/*
+	 * Main method used to test BoardPanel serialization
+	 * @BoardPanelTesterMain
+	 * 
+	 */
+	public static void main(String[] args){
+		JFrame tempFrame = new JFrame();
+		BoardPanel bp = new BoardPanel();
+		Container c = tempFrame.getContentPane();
+		c.add(bp);
+		tempFrame.setSize(500,500);
+		tempFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		tempFrame.setVisible(true);
+		tempFrame.setResizable(false);
+	}
 
 }

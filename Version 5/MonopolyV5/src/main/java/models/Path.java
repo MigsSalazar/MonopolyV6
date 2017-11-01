@@ -6,26 +6,26 @@ import java.util.ArrayList;
 public class Path {
 
 	
-	private ArrayList<PathStep> steps;
+	private ArrayList<CoordPair> steps;
 	private int currentStep = 0;
 	private boolean locked = false;
 	
-	public Path(ArrayList<PathStep> s){
+	public Path(ArrayList<CoordPair> s){
 		steps = s;
 	}
 	
-	public PathStep getStep(int index){
+	public CoordPair getStep(int index){
 		return steps.get(index);
 	}
 	
-	public PathStep move(int num){
+	public CoordPair move(int num){
 		if( !locked ){
 			currentStep = (currentStep+num)%steps.size();
 		}
 		return steps.get(currentStep);
 	}
 	
-	public PathStep setStep(int jump){
+	public CoordPair setStep(int jump){
 		if( !locked ){
 			if(jump < steps.size() && jump >= 0){
 				currentStep = jump;
