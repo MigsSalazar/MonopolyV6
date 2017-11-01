@@ -15,6 +15,7 @@ import com.google.gson.annotations.Expose;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import main.java.models.Path;
 import main.java.models.CoordPair;
@@ -62,9 +63,9 @@ public class BoardPanel extends JPanel {
 		defineStamps();
 		applyStamps();
 		if(writeTemplate()){
-			System.out.println("Success!");
+			JOptionPane.showMessageDialog(null,"Success!");
 		}else{
-			System.out.println("Failure");
+			JOptionPane.showMessageDialog(null,"Failure");
 		}
 	}
 	
@@ -79,7 +80,7 @@ public class BoardPanel extends JPanel {
 	private boolean writeTemplate(){
 		try{
 			Writer iowrite = new FileWriter(System.getProperty("user.dir")+"/template.json");
-			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+			Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
 			gson.toJson(this, iowrite);
 			iowrite.close();
 			return true;
