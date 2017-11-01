@@ -30,6 +30,7 @@ public class BoardPanel extends JPanel {
 	private int width = 30;
 	private int height = 30;
 	private ImageIcon[] imageIndex;
+	private String[] iconPaths;
 	private int[][] basePaint = new int[30][30];
 	private int[][] currPaint = new int[30][30];
 	private Stamp[][] stampCollection = new Stamp[30][30];
@@ -39,6 +40,23 @@ public class BoardPanel extends JPanel {
 	private ImageIcon[][] displayedBoard;
 	
 	
+	/**
+	 * Generates a new json file from scratch of the default board
+	 * and saves it to the file location. 
+	 * @param file
+	 */
+	public BoardPanel(){
+		
+	}
+	
+	public static void generateTemplateJson(){
+		String dir = System.getProperty("user.dir");
+		generateTemplateJson(dir);
+	}
+	
+	public static void generateTemplateJson(String file){
+		
+	}
 	
 }
 
