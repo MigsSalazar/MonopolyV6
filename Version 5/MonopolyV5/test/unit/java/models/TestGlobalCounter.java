@@ -1,42 +1,48 @@
-package test.java.models;
+package unit.java.models;
 
 import static org.junit.Assert.*;
+
 import org.junit.Test;
 
-public class TestBigSuite {
+public class TestGlobalCounter {
 
 	@Test
-	public void testBigSuite() {
+	public void testGlobalCounter() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testGetColor() {
+	public void testIncCount() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testPlayerHasMonopoly() {
+	public void testIncCountInt() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testLargestGrade() {
+	public void testDecCount() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testSmallestGrade() {
+	public void testDecCountInt() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testHasMortgage() {
+	public void testGetCount() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testGradeDisparity() {
+	public void testGetMax() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	@Test
+	public void testSetMax() {
 		fail("Not yet implemented"); // TODO
 	}
 

@@ -1,53 +1,43 @@
-package test.java.models;
+package unit.java.models;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class TestDice {
+public class TestColored {
 
 	@Test
-	public void testDice() {
+	public void testGetRent() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testDiceInt() {
+	public void testGetWorth() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testDiceIntInt() {
+	public void testGetRedeemableWorth() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testGetDiceNum() {
+	public void testColored() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testSetDiceNum() {
+	public void testGetSuite() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testGetNumOfSides() {
+	public void testGetGrade() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testSetNumOfSides() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testRoll() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testRollInt() {
+	public void testSetGrade() {
 		fail("Not yet implemented"); // TODO
 	}
 

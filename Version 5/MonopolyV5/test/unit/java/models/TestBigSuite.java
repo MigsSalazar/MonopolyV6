@@ -1,12 +1,12 @@
-package test.java.models;
+package unit.java.models;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-public class TestSmallSuite {
+public class TestBigSuite {
 
 	@Test
-	public void testSmallSuite() {
+	public void testBigSuite() {
 		fail("Not yet implemented"); // TODO
 	}
 

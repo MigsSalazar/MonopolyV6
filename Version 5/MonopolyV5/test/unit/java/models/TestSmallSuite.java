@@ -1,43 +1,42 @@
-package test.java.models;
+package unit.java.models;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
 
-public class TestColored {
+public class TestSmallSuite {
 
 	@Test
-	public void testGetRent() {
+	public void testSmallSuite() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testGetWorth() {
+	public void testGetColor() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testGetRedeemableWorth() {
+	public void testPlayerHasMonopoly() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testColored() {
+	public void testLargestGrade() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testGetSuite() {
+	public void testSmallestGrade() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testGetGrade() {
+	public void testHasMortgage() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testSetGrade() {
+	public void testGradeDisparity() {
 		fail("Not yet implemented"); // TODO
 	}
 

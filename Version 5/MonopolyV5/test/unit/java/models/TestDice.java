@@ -1,48 +1,53 @@
-package test.java.models;
+package unit.java.models;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class TestGlobalCounter {
+public class TestDice {
 
 	@Test
-	public void testGlobalCounter() {
+	public void testDice() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testIncCount() {
+	public void testDiceInt() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testIncCountInt() {
+	public void testDiceIntInt() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testDecCount() {
+	public void testGetDiceNum() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testDecCountInt() {
+	public void testSetDiceNum() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testGetCount() {
+	public void testGetNumOfSides() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testGetMax() {
+	public void testSetNumOfSides() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testSetMax() {
+	public void testRoll() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	@Test
+	public void testRollInt() {
 		fail("Not yet implemented"); // TODO
 	}
 

@@ -1,10 +1,10 @@
-package test.java.models;
+package unit.java.models;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class TestRailroad {
+public class TestUtility {
 
 	@Test
 	public void testGetRent() {
@@ -12,7 +12,7 @@ public class TestRailroad {
 	}
 
 	@Test
-	public void testRailroad() {
+	public void testUtility() {
 		fail("Not yet implemented"); // TODO
 	}
 
