@@ -29,6 +29,11 @@ public class Stamp {
 		border = 1;
 	}
 	
+	public Stamp(int b){
+		border = b;
+		validateBorder();
+	}
+	
 	public Stamp(char e){
 		engraving = e;
 		
@@ -57,6 +62,10 @@ public class Stamp {
 		}
 	}
 	
+	public void applyFullStamp(JLabel label){
+		engraveLabel(label);
+		giveBorder(label);
+	}
 	
 	public void engraveLabel(JLabel label){
 		String engraved = ""+engraving;

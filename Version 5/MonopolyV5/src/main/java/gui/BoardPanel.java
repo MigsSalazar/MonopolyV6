@@ -36,9 +36,8 @@ public class BoardPanel extends JPanel {
 	@Expose private String[] iconPaths;
 	@Expose private int[][] basePaint;
 	@Expose private int[][] currPaint;
-	
-	/*
 	private Stamp[][] stampCollection = new Stamp[30][30];
+	/*
 	private ArrayList<Path> paths = new ArrayList<Path>();
 	private ArrayList<Piece> gamePieces;
 	*/
@@ -59,9 +58,8 @@ public class BoardPanel extends JPanel {
 		templateBasePaint();
 		fillCurrPaint();
 		fillDisplayedBoard();
+		fillStampCollection();
 		fillThisBoard();
-		defineStamps();
-		applyStamps();
 		if(writeTemplate()){
 			JOptionPane.showMessageDialog(null,"Success!");
 		}else{
@@ -69,12 +67,143 @@ public class BoardPanel extends JPanel {
 		}
 	}
 	
-	private void applyStamps(){
+	private void fillStampCollection(){
+		for(int r=0; r<30; r++){
+			for(int c=0; c<30; c++){
+				stampCollection[r][c] = new Stamp();
+			}
+		}
+		
+		applyDownPropStampScheme(0,6);
+		applyVertNoFillStampScheme(0,8);
+		applyDownPropStampScheme(0,10);
+		applyDownPropStampScheme(0,12);
+		applyVertNoFillStampScheme(0,14);
+		applyDownPropStampScheme(0,16);
+		applyDownPropStampScheme(0,18);
+		applyVertNoFillStampScheme(0,20);
+		applyDownPropStampScheme(0,22);
+		
+		applyRightPropStampScheme(6,0);
+		applyRightPropStampScheme(8,0);
+		applyHorzNoFillStampScheme(10,0);
+		applyRightPropStampScheme(12,0);
+		applyHorzNoFillStampScheme(14,0);
+		applyRightPropStampScheme(16,0);
+		applyRightPropStampScheme(18,0);
+		applyHorzNoFillStampScheme(20,0);
+		applyRightPropStampScheme(22,0);
+		
+		applyLeftPropStampScheme(6,24);
+		applyLeftPropStampScheme(8,24);
+		applyHorzNoFillStampScheme(10,24);
+		applyLeftPropStampScheme(12,24);
+		applyHorzNoFillStampScheme(14,24);
+		applyHorzNoFillStampScheme(16,24);
+		applyLeftPropStampScheme(18,24);
+		applyHorzNoFillStampScheme(20,24);
+		applyLeftPropStampScheme(22,24);
+		
+		applyDownPropStampScheme(24,6);
+		applyVertNoFillStampScheme(24,8);
+		applyDownPropStampScheme(24,10);
+		applyDownPropStampScheme(24,12);
+		applyVertNoFillStampScheme(24,14);
+		applyDownPropStampScheme(24,16);
+		applyDownPropStampScheme(24,18);
+		applyVertNoFillStampScheme(24,20);
+		applyDownPropStampScheme(24,22);
 		
 	}
 	
-	private void defineStamps(){
+	private void applyVertNoFillStampScheme(int r, int c){
+		stampCollection[ r ][ c ].setBorder(14);
+		stampCollection[ r ][c+1].setBorder(6);
+		stampCollection[r+5][ c ].setBorder(35);
+		stampCollection[r+5][c+1].setBorder(15);
+		for(int row = r+1; row<r+5; row++){
+			stampCollection[row][ c ].setBorder(7);
+			stampCollection[row][c+1].setBorder(3);
+		}
+	}
+	
+	private void applyHorzNoFillStampScheme(int r, int c){
+		stampCollection[ r ][ c ].setBorder(14);
+		stampCollection[r+1][ c ].setBorder(35);
+		stampCollection[ r ][c+5].setBorder(6);
+		stampCollection[r+1][c+5].setBorder(15);
+		for(int col = c+1; col<c+5; col++){
+			stampCollection[ r ][col].setBorder(7);
+			stampCollection[r+1][col].setBorder(3);
+		}
+	}
+	
+	private void applyUpPropStampSheme(int r, int c){
+		stampCollection[ r ][ c ].setBorder(14);
+		stampCollection[ r ][c+1].setBorder(6);
+		stampCollection[r+1][ c ].setBorder(35);
+		stampCollection[r+1][c+1].setBorder(15);
 		
+		stampCollection[r+2][ c ].setBorder(14);
+		stampCollection[r+2][c+1].setBorder(6);
+		stampCollection[r+5][ c ].setBorder(35);
+		stampCollection[r+5][c+1].setBorder(15);
+		
+		stampCollection[r+3][ c ].setBorder(7);
+		stampCollection[r+3][c+1].setBorder(3);
+		stampCollection[r+4][ c ].setBorder(7);
+		stampCollection[r+4][c+1].setBorder(3);
+	}
+	
+	private void applyRightPropStampScheme(int r, int c){
+		stampCollection[ r ][c+4].setBorder(14);
+		stampCollection[r+1][c+4].setBorder(35);
+		stampCollection[ r ][c+5].setBorder(6);
+		stampCollection[r+1][c+5].setBorder(15);
+		
+		stampCollection[ r ][ c ].setBorder(14);
+		stampCollection[r+1][ c ].setBorder(35);
+		stampCollection[ r ][c+3].setBorder(6);
+		stampCollection[r+1][c+3].setBorder(15);
+		
+		stampCollection[ r ][c+1].setBorder(14);
+		stampCollection[r+1][c+1].setBorder(35);
+		stampCollection[ r ][c+2].setBorder(6);
+		stampCollection[r+1][c+2].setBorder(15);
+	}
+	
+	private void applyDownPropStampScheme(int r, int c){
+		stampCollection[r+4][ c ].setBorder(14);
+		stampCollection[r+4][c+1].setBorder(6);
+		stampCollection[r+5][ c ].setBorder(35);
+		stampCollection[r+5][c+1].setBorder(15);
+		
+		stampCollection[ r ][ c ].setBorder(14);
+		stampCollection[ r ][c+1].setBorder(6);
+		stampCollection[r+3][ c ].setBorder(35);
+		stampCollection[r+3][c+1].setBorder(15);
+		
+		stampCollection[r+1][ c ].setBorder(7);
+		stampCollection[r+1][c+1].setBorder(3);
+		stampCollection[r+2][ c ].setBorder(7);
+		stampCollection[r+2][c+1].setBorder(3);
+	}
+	
+	private void applyLeftPropStampScheme(int r, int c){
+		stampCollection[ r ][ c ].setBorder(14);
+		stampCollection[r+1][ c ].setBorder(35);
+		stampCollection[ r ][c+1].setBorder(6);
+		stampCollection[r+1][c+1].setBorder(15);
+		
+		stampCollection[ r ][c+2].setBorder(14);
+		stampCollection[r+1][c+2].setBorder(35);
+		stampCollection[ r ][c+5].setBorder(6);
+		stampCollection[r+1][c+5].setBorder(15);
+		
+		stampCollection[ r ][c+3].setBorder(14);
+		stampCollection[r+1][c+3].setBorder(35);
+		stampCollection[ r ][c+4].setBorder(6);
+		stampCollection[r+1][c+4].setBorder(15);
 	}
 	
 	private boolean writeTemplate(){
@@ -94,6 +223,7 @@ public class BoardPanel extends JPanel {
 			for(int c=0; c<displayedBoard[r].length; c++){
 				JLabel newLabel = new JLabel();
 				newLabel.setIcon(displayedBoard[r][c]);
+				stampCollection[r][c].applyFullStamp(newLabel);
 				this.add(newLabel);
 			}
 		}
