@@ -83,7 +83,7 @@ public class GuiMainTester {
 		BoardPanel bp = new BoardPanel();
 		Container c = tempFrame.getContentPane();
 		c.add(bp);
-		tempFrame.setSize(500,500);
+		tempFrame.setSize(800,800);
 		tempFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		tempFrame.setVisible(true);
 		tempFrame.setResizable(false);

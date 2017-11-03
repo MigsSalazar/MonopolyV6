@@ -4,27 +4,30 @@
 package main.java.gui;
 
 import java.awt.Color;
+import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
+
+import com.google.gson.annotations.Expose;
 
 /**
  * @author Unknown
  *
  */
 public class Stamp {
-	private char engraving;
-	private boolean italics;
-	private boolean bold;
-	private boolean underline;
-	private int border;
+	@Expose private char engraving;
+	@Expose private boolean italics;
+	@Expose private boolean bold;
+	@Expose private boolean underline;
+	@Expose private int border;
 	
 	
 	public Stamp(){
 		engraving = ' ';
 		italics = false;
-		bold = false;
+		bold = true;
 		underline = false;
 		border = 1;
 	}
@@ -62,21 +65,21 @@ public class Stamp {
 		}
 	}
 	
-	public void applyFullStamp(JLabel label){
-		engraveLabel(label);
-		giveBorder(label);
-	}
-	
 	public void engraveLabel(JLabel label){
 		String engraved = ""+engraving;
+		
 		
 		italicize(engraved);
 		bolden(engraved);
 		underlined(engraved);
-		
 		engraved = "<html>"+engraved+"</html>";
+		if( engraving != ' '){
+			//System.out.println("engraving = "+engraved);
+			label.setText(engraved);
+			label.setHorizontalAlignment(JLabel.CENTER);
+			label.setVerticalAlignment(JLabel.CENTER);
+		}
 		
-		label.setText(engraved);
 		
 	}
 	
@@ -102,7 +105,7 @@ public class Stamp {
 	}
 	
 	public void giveBorder(JLabel label){
-		Border given = BorderFactory.createMatteBorder(hasTop(), hasRight(), hasBottom(), hasLeft(), Color.BLACK);
+		Border given = BorderFactory.createMatteBorder(hasTop(), hasLeft(), hasBottom(), hasRight(), Color.BLACK);
 		label.setBorder(given);
 	}
 	
