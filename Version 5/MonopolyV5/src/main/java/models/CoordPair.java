@@ -3,14 +3,16 @@
  */
 package main.java.models;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * @author Unknown
  *
  */
 public class CoordPair {
 
-	private int row;
-	private int col;
+	@Expose private int row;
+	@Expose private int col;
 	
 	public CoordPair(){
 		row = 0;

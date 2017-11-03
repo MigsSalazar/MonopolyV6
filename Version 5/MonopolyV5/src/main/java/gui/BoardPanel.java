@@ -1,12 +1,12 @@
 package main.java.gui;
 
-import java.awt.Graphics;
+import java.awt.Component;
 import java.awt.GridLayout;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JPanel;
 
@@ -36,10 +36,13 @@ public class BoardPanel extends JPanel {
 	private transient ImageIcon[] imageIndex;
 	@Expose private String[] iconPaths;
 	@Expose private int[][] basePaint;
-	@Expose private int[][] currPaint;
 	@Expose private Stamp[][] stampCollection = new Stamp[30][30];
+	@Expose private ArrayList<Path> paths = new ArrayList<Path>();
+	@Expose private int width = 30;
+	@Expose private int height = 30;
+	private GridLayout grid = new GridLayout(width,height);
+	
 	/*
-	private ArrayList<Path> paths = new ArrayList<Path>();
 	private ArrayList<Piece> gamePieces;
 	*/
 	
@@ -53,19 +56,293 @@ public class BoardPanel extends JPanel {
 	 */
 	public BoardPanel(){
 		String dir = System.getProperty("user.dir")+"/resources/image-sets/default-image-set/";
-		this.setLayout(new GridLayout(30,30));
+		this.setLayout(grid);
 		templateImageIndex(dir);
 		fillImageIndex();
 		templateBasePaint();
-		fillCurrPaint();
 		fillDisplayedBoard();
 		fillStampCollection();
 		fillThisBoard();
+		
+		generatePaths();
+		
 		if(writeTemplate()){
 			JOptionPane.showMessageDialog(null,"Success!");
 		}else{
 			JOptionPane.showMessageDialog(null,"Failure");
 		}
+		
+		
+		
+	}
+	
+	public void traversePaths(){
+	
+		/*
+		 * NECESSARY CODE TO CHANGE IMAGES
+		 * ALL OF IT
+		displayedBoard[10][10] = imageIndex[43];
+		Component com = this.getComponent(10*displayedBoard.length+10);
+
+		if( com instanceof JLabel ){
+			((JLabel) com).setIcon(displayedBoard[10][10]);
+			com.repaint();
+		}
+		 */
+	
+		
+		Scanner kb = new Scanner(System.in);
+		
+		String choice = "";
+		int pathToTake = -1;
+		
+		while(!choice.equals("exit")){
+			pathToTake = -1;
+			System.out.println("Which path? 0-7 (type clear to clear board and exit to kill the process)");
+			choice = kb.nextLine();
+			try{
+				pathToTake = Integer.parseInt(choice);
+			}catch(Exception e){
+				System.out.println(e.getMessage());
+			}
+			
+			if(pathToTake > -1 && pathToTake < 8){
+				
+				printPath(paths.get(pathToTake));
+				
+			}else if(choice.equals("clear")){
+				
+				for(int r=0; r<displayedBoard.length; r++){
+					for(int c=0; c<displayedBoard[r].length; c++){
+						displayedBoard[r][c] = imageIndex[basePaint[r][c]];
+						
+						Component com = this.getComponent(r*displayedBoard.length+c);
+
+						if( com instanceof JLabel ){
+							((JLabel) com).setIcon(displayedBoard[r][c]);
+							com.repaint();
+						}
+						
+					}
+				}
+				
+			}
+			
+		}
+		
+		kb.close();
+		
+		
+	}
+	
+	public void printPath(Path p){
+		for(int i=0; i<40; i++){
+			int r = p.getCurrentStep(i).getRow();
+			int c = p.getCurrentStep(i).getCol();
+			displayedBoard[r][c] = imageIndex[22];
+			
+			Component com = this.getComponent(r*displayedBoard.length+c);
+
+			if( com instanceof JLabel ){
+				((JLabel) com).setIcon(displayedBoard[r][c]);
+				com.repaint();
+			}
+		}
+	}
+	
+	private void generatePaths(){
+		generatePath1();
+		generatePath2();
+		generatePath3();
+		generatePath4();
+		generatePath5();
+		generatePath6();
+		generatePath7();
+		generatePath8();
+	}
+	
+	private void generatePath1(){
+		Path p = new Path();
+		p.addStep(new CoordPair(25,25));
+		for(int c=22; c > 5; c=c-2){
+			p.addStep(new CoordPair(26,c));
+		}
+		p.addStep(new CoordPair(25,0));
+		for(int r=22; r>5; r=r-2){
+			p.addStep(new CoordPair(r,0));
+		}
+		p.addStep(new CoordPair(2,0));
+		for(int c=6; c<23; c=c+2){
+			p.addStep(new CoordPair(0,c));
+		}
+		p.addStep(new CoordPair(1,25));
+		for(int r=6; r<23; r=r+2){
+			p.addStep(new CoordPair(r,26));
+		}
+		
+		paths.add(p);
+		
+	}
+	
+	private void generatePath2(){
+		Path p = new Path();
+		p.addStep(new CoordPair(25,26));
+		for(int c=23; c > 5; c=c-2){
+			p.addStep(new CoordPair(26,c));
+		}
+		p.addStep(new CoordPair(26,0));
+		for(int r=22; r>5; r=r-2){
+			p.addStep(new CoordPair(r,1));
+		}
+		p.addStep(new CoordPair(2,1));
+		for(int c=7; c<24; c=c+2){
+			p.addStep(new CoordPair(0,c));
+		}
+		p.addStep(new CoordPair(1,26));
+		for(int r=6; r<24; r=r+2){
+			p.addStep(new CoordPair(r,27));
+		}
+		
+		paths.add(p);
+		
+	}
+	
+	private void generatePath3(){
+		Path p = new Path();
+		p.addStep(new CoordPair(25,27));
+		for(int c=22; c > 5; c=c-2){
+			p.addStep(new CoordPair(27,c));
+		}
+		p.addStep(new CoordPair(27,0));
+		for(int r=22; r>5; r=r-2){
+			p.addStep(new CoordPair(r,2));
+		}
+		p.addStep(new CoordPair(2,4));
+		for(int c=6; c<24; c=c+2){
+			p.addStep(new CoordPair(1,c));
+		}
+		p.addStep(new CoordPair(1,27));
+		for(int r=6; r<24; r=r+2){
+			p.addStep(new CoordPair(r,28));
+		}
+		
+		paths.add(p);
+		
+	}
+	
+	private void generatePath4(){
+		Path p = new Path();
+		p.addStep(new CoordPair(25,28));
+		for(int c=23; c > 5; c=c-2){
+			p.addStep(new CoordPair(27,c));
+		}
+		p.addStep(new CoordPair(28,0));
+		for(int r=22; r>5; r=r-2){
+			p.addStep(new CoordPair(r,3));
+		}
+		p.addStep(new CoordPair(2,5));
+		for(int c=7; c<24; c=c+2){
+			p.addStep(new CoordPair(1,c));
+		}
+		p.addStep(new CoordPair(1,28));
+		for(int r=6; r<24; r=r+2){
+			p.addStep(new CoordPair(r,29));
+		}
+		
+		paths.add(p);
+		
+	}
+	
+	private void generatePath5(){
+		Path p = new Path();
+		p.addStep(new CoordPair(26,25));
+		for(int c=22; c > 5; c=c-2){
+			p.addStep(new CoordPair(28,c));
+		}
+		p.addStep(new CoordPair(29,1));
+		for(int r=23; r>5; r=r-2){
+			p.addStep(new CoordPair(r,0));
+		}
+		p.addStep(new CoordPair(3,0));
+		for(int c=6; c<24; c=c+2){
+			p.addStep(new CoordPair(2,c));
+		}
+		p.addStep(new CoordPair(2,25));
+		for(int r=7; r<24; r=r+2){
+			p.addStep(new CoordPair(r,26));
+		}
+		
+		paths.add(p);
+		
+	}
+	
+	private void generatePath6(){
+		Path p = new Path();
+		p.addStep(new CoordPair(26,26));
+		for(int c=23; c > 5; c=c-2){
+			p.addStep(new CoordPair(28,c));
+		}
+		p.addStep(new CoordPair(29,2));
+		for(int r=23; r>5; r=r-2){
+			p.addStep(new CoordPair(r,1));
+		}
+		p.addStep(new CoordPair(3,1));
+		for(int c=7; c<24; c=c+2){
+			p.addStep(new CoordPair(2,c));
+		}
+		p.addStep(new CoordPair(2,26));
+		for(int r=7; r<24; r=r+2){
+			p.addStep(new CoordPair(r,27));
+		}
+		
+		paths.add(p);
+		
+	}
+	
+	private void generatePath7(){
+		Path p = new Path();
+		p.addStep(new CoordPair(26,27));
+		for(int c=22; c > 5; c=c-2){
+			p.addStep(new CoordPair(29,c));
+		}
+		p.addStep(new CoordPair(29,3));
+		for(int r=23; r>5; r=r-2){
+			p.addStep(new CoordPair(r,2));
+		}
+		p.addStep(new CoordPair(3,4));
+		for(int c=6; c<24; c=c+2){
+			p.addStep(new CoordPair(3,c));
+		}
+		p.addStep(new CoordPair(2,27));
+		for(int r=7; r<24; r=r+2){
+			p.addStep(new CoordPair(r,28));
+		}
+		
+		paths.add(p);
+		
+	}
+	
+	private void generatePath8(){
+		Path p = new Path();
+		p.addStep(new CoordPair(26,28));
+		for(int c=23; c > 5; c=c-2){
+			p.addStep(new CoordPair(29,c));
+		}
+		p.addStep(new CoordPair(29,4));
+		for(int r=23; r>5; r=r-2){
+			p.addStep(new CoordPair(r,3));
+		}
+		p.addStep(new CoordPair(3,5));
+		for(int c=7; c<24; c=c+2){
+			p.addStep(new CoordPair(3,c));
+		}
+		p.addStep(new CoordPair(2,28));
+		for(int r=7; r<24; r=r+2){
+			p.addStep(new CoordPair(r,29));
+		}
+		
+		paths.add(p);
+		
 	}
 	
 	private void fillStampCollection(){
@@ -236,38 +513,29 @@ public class BoardPanel extends JPanel {
 	private void fillThisBoard(){
 		for(int r=0; r<displayedBoard.length; r++){
 			for(int c=0; c<displayedBoard[r].length; c++){
-				ImageIcon icon = displayedBoard[r][c];
-				JLabel newLabel = new JLabel(){
-					public void paintComponent(Graphics g){
-						g.drawImage(icon.getImage(), 0, 0, null);
-						super.paintComponent(g);
-					}
-				};
+				//ImageIcon icon = displayedBoard[r][c];
+				JLabel newLabel = new JLabel(displayedBoard[r][c]);
+				//newLabel.setIcon(displayedBoard[r][c]);
+				newLabel.setIconTextGap(-30);
+				newLabel.setOpaque(true);
+				newLabel.setLayout(null);
 				
-				newLabel.setOpaque(false);
+				
 				stampCollection[r][c].giveBorder(newLabel);
-				this.add(newLabel);
+				this.add(newLabel, r*displayedBoard.length+c);
 				
 				//newLabel.setText(""+stampCollection[r][c].getEngraving());
 				stampCollection[r][c].engraveLabel(newLabel);
+				newLabel.setVisible(true);
 			}
 		}
 	}
 	
 	private void fillDisplayedBoard(){
 		displayedBoard = new ImageIcon[30][30];
-		for(int r=0; r<currPaint.length; r++){
-			for(int c=0; c<currPaint[r].length; c++){
-				displayedBoard[r][c] = imageIndex[currPaint[r][c]];
-			}
-		}
-	}
-	
-	private void fillCurrPaint(){
-		currPaint = new int[30][30];
-		for(int r=0; r<currPaint.length; r++){
-			for(int c=0; c<currPaint[r].length; c++){
-				currPaint[r][c] = basePaint[r][c];
+		for(int r=0; r<basePaint.length; r++){
+			for(int c=0; c<basePaint[r].length; c++){
+				displayedBoard[r][c] = imageIndex[basePaint[r][c]];
 			}
 		}
 	}

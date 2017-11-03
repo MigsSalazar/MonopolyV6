@@ -2,19 +2,30 @@ package main.java.models;
 
 import java.util.ArrayList;
 
+import com.google.gson.annotations.Expose;
+
 
 public class Path {
 
 	
-	private ArrayList<CoordPair> steps;
-	private int currentStep = 0;
-	private boolean locked = false;
+	@Expose private ArrayList<CoordPair> steps;
+	@Expose private int currentStep = 0;
+	@Expose private boolean locked = false;
+	
+	public Path(){
+		steps = new ArrayList<CoordPair>();
+	}
 	
 	public Path(ArrayList<CoordPair> s){
 		steps = s;
 	}
 	
-	public CoordPair getStep(int index){
+	public Path(ArrayList<CoordPair> s, int cs){
+		steps = s;
+		currentStep = cs;
+	}
+	
+	public CoordPair getCurrentStep(int index){
 		return steps.get(index);
 	}
 	
@@ -25,7 +36,7 @@ public class Path {
 		return steps.get(currentStep);
 	}
 	
-	public CoordPair setStep(int jump){
+	public CoordPair setCurrentStep(int jump){
 		if( !locked ){
 			if(jump < steps.size() && jump >= 0){
 				currentStep = jump;
@@ -49,6 +60,9 @@ public class Path {
 		return locked;
 	}
 	
+	public void addStep(CoordPair cp){
+		steps.add(cp);
+	}
 	
 	public int getCurrentRow(){
 		return steps.get(currentStep).getRow();

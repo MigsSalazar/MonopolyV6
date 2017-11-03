@@ -87,6 +87,7 @@ public class GuiMainTester {
 		tempFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		tempFrame.setVisible(true);
 		tempFrame.setResizable(false);
+		//bp.traversePaths();
 	}
 
 }
