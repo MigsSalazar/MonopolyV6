@@ -1,4 +1,4 @@
-package main.java.gui;
+package main.java.templates;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -17,42 +17,42 @@ import main.java.models.Player;
  * @author Unknown
  *
  */
-public class Piece {
+public class TemplatePiece {
 	
-	private Player owner;
-	private File path;
-	private transient ImageIcon icon;
+	@Expose private int team;
+	@Expose private File path;
+	private ImageIcon icon;
 	
-	public Piece(){
+	public TemplatePiece(){
 		//System.out.println("constructor 0");
 		path = new File(System.getProperty("user.dir")+"/resources/image-sets/default-image-set/404ERROR.png");
 		icon = new ImageIcon(path.getPath());
-		owner = null;
+		team = -1;
 	}
 	
-	public Piece(Player o){
+	public TemplatePiece(int t){
 		//System.out.println("constructor 1");
-		owner = o;
+		team = t;
 		path = new File(System.getProperty("user.dir")+"/resources/image-sets/default-image-set/404ERROR.png");
 		icon = new ImageIcon( path.getPath() );
 	}
 	
-	public Piece(String dir, Player o){
+	public TemplatePiece(String dir, int t){
 		//System.out.println("constructor 3");
 		path = new File(dir);
 		icon= new ImageIcon(path.getPath());
 		if(icon==null){
 			icon = new ImageIcon( System.getProperty("user.dir")+"/resources/image-sets/default-image-set/404ERROR.png" );
 		}
-		owner = o;
+		team = t;
 	}
 	
-	public Player getOwner(){
-		return owner;
+	public int getTeam(){
+		return team;
 	}
 	
-	public void setOwner(Player o){
-		owner = o;
+	public void setOwner(int t){
+		team = t;
 	}
 	
 	public ImageIcon getIcon(){
@@ -66,7 +66,7 @@ public class Piece {
 	}
 	
 	public boolean needsOwner(){
-		return owner == null;
+		return team == -1;
 	}
 	
 	public boolean makeJson(String dir){

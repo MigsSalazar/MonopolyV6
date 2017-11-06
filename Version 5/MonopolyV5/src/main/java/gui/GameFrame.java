@@ -1,6 +1,7 @@
 package main.java.gui;
 
 import main.java.listeners.*;
+import main.java.templates.TemplateBoardPanel;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
@@ -24,7 +25,7 @@ public class GameFrame extends JFrame{
 	private JMenuBar menuBar;
 	private JMenu[] menus;
 	private JMenuItem[] menuItems;
-	private BoardPanel gameBoard;
+	private TemplateBoardPanel gameBoard;
 	private StatsPanel gameStats;
 	private EventPanel gameEvents;
 	
@@ -158,7 +159,7 @@ public class GameFrame extends JFrame{
 	}
 
 	private void requestBoardPanel(){
-		gameBoard = new BoardPanel();
+		gameBoard = new TemplateBoardPanel();
 		//TODO implement BoardPanel
 		//TODO properly initialize it here
 	}

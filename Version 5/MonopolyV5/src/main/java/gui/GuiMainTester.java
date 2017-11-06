@@ -11,6 +11,7 @@ import javax.swing.*;
 import com.google.gson.Gson;
 
 import main.java.models.Player;
+import main.java.templates.TemplateBoardPanel;
 
 public class GuiMainTester {
 	
@@ -80,14 +81,14 @@ public class GuiMainTester {
 	 */
 	public static void main(String[] args){
 		JFrame tempFrame = new JFrame();
-		BoardPanel bp = new BoardPanel();
+		TemplateBoardPanel bp = new TemplateBoardPanel();
 		Container c = tempFrame.getContentPane();
 		c.add(bp);
 		tempFrame.setSize(600,600);
 		tempFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		tempFrame.setVisible(true);
 		tempFrame.setResizable(false);
-		//bp.traversePaths();
+		bp.traversePaths();
 	}
 
 }

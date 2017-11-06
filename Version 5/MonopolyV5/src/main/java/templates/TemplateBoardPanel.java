@@ -1,4 +1,4 @@
-package main.java.gui;
+package main.java.templates;
 
 import java.awt.Component;
 import java.awt.GridLayout;
@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import main.java.models.Path;
+import main.java.gui.Stamp;
 import main.java.models.CoordPair;
 
 
@@ -26,7 +27,7 @@ import main.java.models.CoordPair;
  * @author Miguel Salazar
  *
  */
-public class BoardPanel extends JPanel {
+public class TemplateBoardPanel extends JPanel {
 
 	/**
 	 * 
@@ -54,7 +55,7 @@ public class BoardPanel extends JPanel {
 	 * and saves it to the System user directory and then opens
 	 * the default board for display
 	 */
-	public BoardPanel(){
+	public TemplateBoardPanel(){
 		String dir = System.getProperty("user.dir")+"/resources/image-sets/default-image-set/";
 		this.setLayout(grid);
 		templateImageIndex(dir);
