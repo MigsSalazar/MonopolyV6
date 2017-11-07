@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 
 import main.java.models.Player;
 import main.java.templates.TemplateBoardPanel;
+import main.java.templates.TemplatePiece;
 
 public class GuiMainTester {
 	
@@ -24,7 +25,7 @@ public class GuiMainTester {
 	/*
 	 * Main method used to test Piece class
 	 * @PieceTesterMain
-	 * 
+	 *
 	public static void main(String[] args) {
 		
 		//System.out.println("starting shit");
@@ -32,9 +33,9 @@ public class GuiMainTester {
 		
 		Player temp = new Player(1, "bob");
 		
-		Piece tempPiece = null;
+		TemplatePiece tempPiece = null;
 		try{
-			tempPiece = new Piece("C:/Users/Unknown/git/Monopoly/Version 5/MonopolyV5/resources/image-sets/default-image-set/template board.jpg", temp);
+			tempPiece = new TemplatePiece("C:/Users/Unknown/git/Monopoly/Version 5/MonopolyV5/resources/image-sets/default-image-set/template board.jpg", temp.getUserID());
 			
 		}catch(Exception e){
 			System.out.println("tempPiece not made, don't believe their lies "+e.getMessage());
@@ -42,11 +43,11 @@ public class GuiMainTester {
 		//System.out.println("piece has been made");
 		
 		if ( !tempPiece.makeJson() ){
-			tempPiece = new Piece();
+			tempPiece = new TemplatePiece();
 		}
 		JFrame hi = new JFrame();
 		JButton first = new JButton();
-		first.setText(tempPiece.getOwner().getName());
+		first.setText(""+tempPiece.getTeam());
 		first.setIcon(tempPiece.getIcon());
 		first.setSize(100, 50);
 		hi.add(first);
@@ -63,7 +64,7 @@ public class GuiMainTester {
             //p.getIcon().setImage(new ImageIcon(p.iconPath()).getImage());
             //System.out.println("icon = "+p.getIcon().toString());
             JButton iconLabel = new JButton(p.getIcon());
-            //iconLabel.setText(p.getOwner().getName());
+            //iconLabel.setText(""+p.getTeam());
             iconLabel.setSize(100, 50);
             hi.add(iconLabel);
             //System.out.println(p.getOwner().getName());
@@ -72,7 +73,9 @@ public class GuiMainTester {
 		}
 		
 	}
+	
 	*/
+	
 	
 	/*
 	 * Main method used to test BoardPanel serialization
@@ -90,5 +93,6 @@ public class GuiMainTester {
 		tempFrame.setResizable(false);
 		bp.traversePaths();
 	}
+	/**/
 
 }

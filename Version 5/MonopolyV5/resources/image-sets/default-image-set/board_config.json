@@ -1,18 +1,9 @@
 {
-  "owner": {
-    "name": "bob",
-    "userid": 1,
-    "position": 0,
-    "cash": 1500,
-    "wealth": 1500,
-    "jailCard": 0,
-    "jailCount": 0,
-    "inJail": false,
-    "active": true,
-    "turn": false,
-    "props": {}
-  },
-  "path": {
-    "path": "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5\\resources\\image-sets\\default-image-set\\template board.jpg"
+  "team": 1,
+  "fileLocation": "C:/Users/Unknown/git/Monopoly/Version 5/MonopolyV5/resources/image-sets/default-image-set/template board.jpg",
+  "icon": {
+    "description": "C:/Users/Unknown/git/Monopoly/Version 5/MonopolyV5/resources/image-sets/default-image-set/template board.jpg",
+    "width": 400,
+    "height": 400
   }
 }

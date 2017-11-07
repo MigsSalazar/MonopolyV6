@@ -18,8 +18,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import main.java.models.Path;
+import main.java.models.GamePath;
 import main.java.gui.Stamp;
+import main.java.gui.Piece;
 import main.java.models.CoordPair;
 
 
@@ -38,16 +39,14 @@ public class TemplateBoardPanel extends JPanel {
 	@Expose private String[] iconPaths;
 	@Expose private int[][] basePaint;
 	@Expose private Stamp[][] stampCollection = new Stamp[30][30];
-	@Expose private ArrayList<Path> paths = new ArrayList<Path>();
+	private ArrayList<GamePath> paths = new ArrayList<GamePath>();
 	@Expose private int width = 30;
 	@Expose private int height = 30;
+	@Expose private ArrayList<Piece> gamePieces;
 	private GridLayout grid = new GridLayout(width,height);
-	
-	/*
-	private ArrayList<Piece> gamePieces;
-	*/
-	
 	private transient ImageIcon[][] displayedBoard;
+	private ImageIcon[] playerIcons;
+	@Expose private String[] playerIconPaths;
 	
 	
 	/**
@@ -64,8 +63,10 @@ public class TemplateBoardPanel extends JPanel {
 		fillDisplayedBoard();
 		fillStampCollection();
 		fillThisBoard();
-		
+		generatePlayerIconPaths();
+		developIcons();
 		generatePaths();
+		generatePieces();
 		
 		if(writeTemplate()){
 			JOptionPane.showMessageDialog(null,"Success!");
@@ -74,6 +75,37 @@ public class TemplateBoardPanel extends JPanel {
 		}
 		
 		
+		
+	}
+	
+	private void generatePieces(){
+		Piece toSave;
+		gamePieces = new ArrayList<Piece>();
+		for(int i=0; i<playerIcons.length; i++){
+			toSave = new Piece(i, paths.get(i), playerIconPaths[i], playerIcons[i]);
+			gamePieces.add(toSave);
+			
+		}
+	}
+	
+	private void developIcons(){
+		playerIcons = new ImageIcon[8];
+		for(int i=0; i<playerIconPaths.length; i++){
+			playerIcons[i] = new ImageIcon(playerIconPaths[i]);
+		}
+	}
+	
+	private void generatePlayerIconPaths(){
+		String dir = System.getProperty("user.dir");
+		String[] playerip = {dir+"/resources/image-sets/default-image-set/pupper.png",
+							 dir+"/resources/image-sets/default-image-set/thimble.png",
+							 dir+"/resources/image-sets/default-image-set/boot.png",
+							 dir+"/resources/image-sets/default-image-set/boat.png",
+							 dir+"/resources/image-sets/default-image-set/wheelbarrow.png",
+							 dir+"/resources/image-sets/default-image-set/hat.png",
+							 dir+"/resources/image-sets/default-image-set/iron.png",
+							 dir+"/resources/image-sets/default-image-set/car.png"};
+		playerIconPaths = playerip;
 		
 	}
 	
@@ -109,7 +141,7 @@ public class TemplateBoardPanel extends JPanel {
 			
 			if(pathToTake > -1 && pathToTake < 8){
 				
-				printPath(paths.get(pathToTake));
+				printPath(gamePieces.get(pathToTake));
 				
 			}else if(choice.equals("clear")){
 				
@@ -136,10 +168,28 @@ public class TemplateBoardPanel extends JPanel {
 		
 	}
 	
-	public void printPath(Path p){
+	public void printPath(Piece p){
+		CoordPair coordinates = p.getTravelPath().getCurrentStep();
 		for(int i=0; i<40; i++){
-			int r = p.getCurrentStep(i).getRow();
-			int c = p.getCurrentStep(i).getCol();
+			int r = coordinates.getRow();
+			int c = coordinates.getCol();
+			displayedBoard[r][c] = p.getIcon();
+			
+			Component com = this.getComponent(r*displayedBoard.length+c);
+
+			if( com instanceof JLabel ){
+				((JLabel) com).setIcon(displayedBoard[r][c]);
+				com.repaint();
+			}
+			p.getTravelPath().forward();
+			coordinates = p.getTravelPath().getCurrentStep();
+		}
+	}
+	
+	public void printPath(GamePath p){
+		for(int i=0; i<40; i++){
+			int r = p.getStepAt(i).getRow();
+			int c = p.getStepAt(i).getCol();
 			displayedBoard[r][c] = imageIndex[22];
 			
 			Component com = this.getComponent(r*displayedBoard.length+c);
@@ -163,7 +213,7 @@ public class TemplateBoardPanel extends JPanel {
 	}
 	
 	private void generatePath1(){
-		Path p = new Path();
+		GamePath p = new GamePath();
 		p.addStep(new CoordPair(25,25));
 		for(int c=22; c > 5; c=c-2){
 			p.addStep(new CoordPair(26,c));
@@ -186,7 +236,7 @@ public class TemplateBoardPanel extends JPanel {
 	}
 	
 	private void generatePath2(){
-		Path p = new Path();
+		GamePath p = new GamePath();
 		p.addStep(new CoordPair(25,26));
 		for(int c=23; c > 5; c=c-2){
 			p.addStep(new CoordPair(26,c));
@@ -209,7 +259,7 @@ public class TemplateBoardPanel extends JPanel {
 	}
 	
 	private void generatePath3(){
-		Path p = new Path();
+		GamePath p = new GamePath();
 		p.addStep(new CoordPair(25,27));
 		for(int c=22; c > 5; c=c-2){
 			p.addStep(new CoordPair(27,c));
@@ -232,7 +282,7 @@ public class TemplateBoardPanel extends JPanel {
 	}
 	
 	private void generatePath4(){
-		Path p = new Path();
+		GamePath p = new GamePath();
 		p.addStep(new CoordPair(25,28));
 		for(int c=23; c > 5; c=c-2){
 			p.addStep(new CoordPair(27,c));
@@ -255,7 +305,7 @@ public class TemplateBoardPanel extends JPanel {
 	}
 	
 	private void generatePath5(){
-		Path p = new Path();
+		GamePath p = new GamePath();
 		p.addStep(new CoordPair(26,25));
 		for(int c=22; c > 5; c=c-2){
 			p.addStep(new CoordPair(28,c));
@@ -278,7 +328,7 @@ public class TemplateBoardPanel extends JPanel {
 	}
 	
 	private void generatePath6(){
-		Path p = new Path();
+		GamePath p = new GamePath();
 		p.addStep(new CoordPair(26,26));
 		for(int c=23; c > 5; c=c-2){
 			p.addStep(new CoordPair(28,c));
@@ -301,7 +351,7 @@ public class TemplateBoardPanel extends JPanel {
 	}
 	
 	private void generatePath7(){
-		Path p = new Path();
+		GamePath p = new GamePath();
 		p.addStep(new CoordPair(26,27));
 		for(int c=22; c > 5; c=c-2){
 			p.addStep(new CoordPair(29,c));
@@ -324,7 +374,7 @@ public class TemplateBoardPanel extends JPanel {
 	}
 	
 	private void generatePath8(){
-		Path p = new Path();
+		GamePath p = new GamePath();
 		p.addStep(new CoordPair(26,28));
 		for(int c=23; c > 5; c=c-2){
 			p.addStep(new CoordPair(29,c));

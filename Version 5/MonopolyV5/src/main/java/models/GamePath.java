@@ -5,28 +5,39 @@ import java.util.ArrayList;
 import com.google.gson.annotations.Expose;
 
 
-public class Path {
+public class GamePath {
 
 	
 	@Expose private ArrayList<CoordPair> steps;
 	@Expose private int currentStep = 0;
 	@Expose private boolean locked = false;
 	
-	public Path(){
+	public GamePath(){
 		steps = new ArrayList<CoordPair>();
 	}
 	
-	public Path(ArrayList<CoordPair> s){
+	public GamePath(ArrayList<CoordPair> s){
 		steps = s;
 	}
 	
-	public Path(ArrayList<CoordPair> s, int cs){
+	public GamePath(ArrayList<CoordPair> s, int cs){
 		steps = s;
 		currentStep = cs;
 	}
 	
-	public CoordPair getCurrentStep(int index){
+	public CoordPair forward(){
+		if( !locked ){
+			currentStep = (currentStep+1)%steps.size();
+		}
+		return steps.get(currentStep);
+	}
+	
+	public CoordPair getStepAt(int index){
 		return steps.get(index);
+	}
+	
+	public CoordPair getCurrentStep(){
+		return steps.get(currentStep);
 	}
 	
 	public CoordPair move(int num){

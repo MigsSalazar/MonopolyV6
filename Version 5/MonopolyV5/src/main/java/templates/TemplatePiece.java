@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 
+import main.java.models.GamePath;
 import main.java.models.Player;
 
 /**
@@ -20,31 +21,39 @@ import main.java.models.Player;
 public class TemplatePiece {
 	
 	@Expose private int team;
-	@Expose private File path;
+	@Expose private GamePath travelPath;
+	@Expose private String fileLocation;
 	private ImageIcon icon;
 	
 	public TemplatePiece(){
 		//System.out.println("constructor 0");
-		path = new File(System.getProperty("user.dir")+"/resources/image-sets/default-image-set/404ERROR.png");
-		icon = new ImageIcon(path.getPath());
+		fileLocation = System.getProperty("user.dir")+"/resources/image-sets/default-image-set/404ERROR.png";
+		icon = new ImageIcon(fileLocation);
 		team = -1;
 	}
 	
 	public TemplatePiece(int t){
 		//System.out.println("constructor 1");
 		team = t;
-		path = new File(System.getProperty("user.dir")+"/resources/image-sets/default-image-set/404ERROR.png");
-		icon = new ImageIcon( path.getPath() );
+		fileLocation = System.getProperty("user.dir")+"/resources/image-sets/default-image-set/404ERROR.png";
+		icon = new ImageIcon( fileLocation );
 	}
 	
 	public TemplatePiece(String dir, int t){
 		//System.out.println("constructor 3");
-		path = new File(dir);
-		icon= new ImageIcon(path.getPath());
+		fileLocation = dir;
+		icon= new ImageIcon(fileLocation);
 		if(icon==null){
 			icon = new ImageIcon( System.getProperty("user.dir")+"/resources/image-sets/default-image-set/404ERROR.png" );
 		}
 		team = t;
+	}
+	
+	public TemplatePiece(int t, GamePath tp, String fl){
+		team = t;
+		travelPath = tp;
+		fileLocation = fl;
+		icon = new ImageIcon(fileLocation);
 	}
 	
 	public int getTeam(){
@@ -60,8 +69,8 @@ public class TemplatePiece {
 	}
 	
 	public void updateIcon(){
-		if(path!=null){
-			icon = new ImageIcon(path.getPath());
+		if(fileLocation!=null){
+			icon = new ImageIcon(fileLocation);
 		}
 	}
 	
@@ -103,6 +112,14 @@ public class TemplatePiece {
 		//System.out.println("wrote this");
 		iowriter.close();
 		//System.out.println("closed writer");
+	}
+
+	public GamePath getTravelPath() {
+		return travelPath;
+	}
+
+	public void setTravelPath(GamePath pathID) {
+		this.travelPath = pathID;
 	}
 	
 }
