@@ -36,18 +36,18 @@ public class GamePath {
 		return steps.get(index);
 	}
 	
-	public CoordPair getCurrentStep(){
-		return steps.get(currentStep);
+	public int getCurrentStep(){
+		return currentStep;
 	}
 	
-	public CoordPair move(int num){
+	public int move(int num){
 		if( !locked ){
 			currentStep = (currentStep+num)%steps.size();
 		}
-		return steps.get(currentStep);
+		return currentStep;
 	}
 	
-	public CoordPair setCurrentStep(int jump){
+	public int setCurrentStep(int jump){
 		if( !locked ){
 			if(jump < steps.size() && jump >= 0){
 				currentStep = jump;
@@ -55,7 +55,7 @@ public class GamePath {
 				currentStep = jump%steps.size();
 			}
 		}
-		return steps.get(currentStep);
+		return currentStep;
 	}
 	
 	public boolean isLocked(){

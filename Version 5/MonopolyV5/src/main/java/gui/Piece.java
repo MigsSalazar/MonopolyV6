@@ -17,7 +17,7 @@ public class Piece {
 	@Expose private int team;
 	@Expose private GamePath travelPath;
 	@Expose private String fileLocation;
-	private ImageIcon icon;
+	private transient ImageIcon icon;
 	
 	public Piece(int t, GamePath tp, String fl, ImageIcon i){
 		team = t;

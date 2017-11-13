@@ -1,6 +1,5 @@
 package main.java.templates;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -12,7 +11,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 
 import main.java.models.GamePath;
-import main.java.models.Player;
 
 /**
  * @author Unknown

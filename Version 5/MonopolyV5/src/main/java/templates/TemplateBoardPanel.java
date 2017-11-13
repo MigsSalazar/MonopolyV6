@@ -35,18 +35,20 @@ public class TemplateBoardPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1102084765976301993L;
 	
-	private transient ImageIcon[] imageIndex;
+	@Expose private int boardWidth = 30;
+	@Expose private int boardHeight = 30;
+	@Expose private int playerCount = 8;
+	@Expose private ArrayList<Piece> gamePieces;
+	@Expose private String[] playerIconPaths;
 	@Expose private String[] iconPaths;
 	@Expose private int[][] basePaint;
 	@Expose private Stamp[][] stampCollection = new Stamp[30][30];
-	private ArrayList<GamePath> paths = new ArrayList<GamePath>();
-	@Expose private int width = 30;
-	@Expose private int height = 30;
-	@Expose private ArrayList<Piece> gamePieces;
-	private GridLayout grid = new GridLayout(width,height);
+	private transient GridLayout grid = new GridLayout(boardWidth,boardHeight);
 	private transient ImageIcon[][] displayedBoard;
-	private ImageIcon[] playerIcons;
-	@Expose private String[] playerIconPaths;
+	private transient ImageIcon[] playerIcons;
+	private transient ImageIcon[] imageIndex;
+	private transient ArrayList<GamePath> paths = new ArrayList<GamePath>();
+	
 	
 	
 	/**
@@ -112,7 +114,7 @@ public class TemplateBoardPanel extends JPanel {
 	public void traversePaths(){
 	
 		/*
-		 * NECESSARY CODE TO CHANGE IMAGES
+		 * NECESSARY CODE TO CHANGE IMAGES: BUT NOT THE FIRST TIME: ONLY TO CHANGE ANY TIME AFTER
 		 * ALL OF IT
 		displayedBoard[10][10] = imageIndex[43];
 		Component com = this.getComponent(10*displayedBoard.length+10);
@@ -169,10 +171,10 @@ public class TemplateBoardPanel extends JPanel {
 	}
 	
 	public void printPath(Piece p){
-		CoordPair coordinates = p.getTravelPath().getCurrentStep();
+		int coordinates = p.getTravelPath().getCurrentStep();
 		for(int i=0; i<40; i++){
-			int r = coordinates.getRow();
-			int c = coordinates.getCol();
+			int r = p.getTravelPath().getCurrentRow();
+			int c = p.getTravelPath().getCurrentCol();
 			displayedBoard[r][c] = p.getIcon();
 			
 			Component com = this.getComponent(r*displayedBoard.length+c);
@@ -564,20 +566,27 @@ public class TemplateBoardPanel extends JPanel {
 	private void fillThisBoard(){
 		for(int r=0; r<displayedBoard.length; r++){
 			for(int c=0; c<displayedBoard[r].length; c++){
-				//ImageIcon icon = displayedBoard[r][c];
+				
+				//creates a new label with the correct image
 				JLabel newLabel = new JLabel(displayedBoard[r][c]);
-				//newLabel.setIcon(displayedBoard[r][c]);
+				
+				//define label such that engravings show
 				newLabel.setIconTextGap(-30);
 				newLabel.setOpaque(true);
 				newLabel.setLayout(null);
 				
-				
+				//stamping border
 				stampCollection[r][c].giveBorder(newLabel);
+				
+				//add icon to boardpanel
 				this.add(newLabel, r*displayedBoard.length+c);
 				
-				//newLabel.setText(""+stampCollection[r][c].getEngraving());
+				//stamping engraving
 				stampCollection[r][c].engraveLabel(newLabel);
+				
+				//make label visible
 				newLabel.setVisible(true);
+				
 			}
 		}
 	}

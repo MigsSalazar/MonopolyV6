@@ -5,11 +5,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.Scanner;
 
 import javax.swing.*;
 
 import com.google.gson.Gson;
 
+import main.java.models.Dice;
 import main.java.models.Player;
 import main.java.templates.TemplateBoardPanel;
 import main.java.templates.TemplatePiece;
@@ -81,7 +83,7 @@ public class GuiMainTester {
 	 * Main method used to test BoardPanel serialization
 	 * @BoardPanelTesterMain
 	 * 
-	 */
+	 *
 	public static void main(String[] args){
 		JFrame tempFrame = new JFrame();
 		TemplateBoardPanel bp = new TemplateBoardPanel();
@@ -94,5 +96,58 @@ public class GuiMainTester {
 		bp.traversePaths();
 	}
 	/**/
+	
+	/*
+	 * 
+	 */
+	public static void main(String[] args){
+		JFrame frame = new JFrame();
+		BoardPanel bp = null;
+		try(Reader reader = new FileReader( System.getProperty("user.dir")+"/template.json" )){
+            Gson gson = new Gson();
+            System.out.println(System.getProperty("user.dir"));
+            bp = gson.fromJson(reader, BoardPanel.class);
+            bp.firstPaintBoard();
+            Container c = frame.getContentPane();
+            c.add(bp);
+		}catch(IOException ioe){
+			System.out.println(ioe.getMessage());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		frame.setSize(630,650);	//(width,height)
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+		frame.setResizable(false);
+		
+		try{
+			travel(bp);
+		}catch(Exception e){
+			
+		}
+				
+	}
+	/**/
+	
+	
+	public static void travel(BoardPanel bp){
+		String choice = "roll";
+		Scanner kb = new Scanner(System.in);
+		int turn = 0;
+		int num;
+		while(choice.equals("roll")){
+			System.out.println("roll?");
+			choice = kb.nextLine();
+			num = roll();
+			bp.movePlayer(turn, num);
+			turn = (turn+1)%bp.getPlayerCount();
+		}
+		kb.close();
+	}
+	public static int roll(){
+		Dice d = new Dice(2,6);
+		return d.roll();
+	}
 
 }
