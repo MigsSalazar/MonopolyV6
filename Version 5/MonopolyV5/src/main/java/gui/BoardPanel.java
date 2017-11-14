@@ -24,6 +24,7 @@ public class BoardPanel extends JPanel {
 	@Expose private int boardWidth = 30;					//width of the board by icons, not by pixels
 	@Expose private int boardHeight = 30;					//height of the board by icons, not by pixels
 	@Expose private int playerCount;						//number of players in the game (used for player displaying)
+	@Expose private String dir;
 	@Expose private ArrayList<Piece> gamePieces;			//pieces that move around the board
 	@Expose private String[] playerIconPaths;				//stores the path as a string of the icons that gamepieces uses to display themselves
 	@Expose private String[] iconPaths;						//stores all the paths for all the icons available for the board to use
@@ -33,22 +34,23 @@ public class BoardPanel extends JPanel {
 	private transient ImageIcon[][] displayedBoard;			//the currently displayed grid of icons
 	private transient ImageIcon[] imageIndex;				//stores all the icons used by the board
 	
+	
+	
 	public void pickPlayerPieces(int[] selection){
-		
 		if(selection.length == getPlayerCount()){
 			//The number of tokens selected is equal to the number of players
 			for(int i=0; i<selection.length; i++){
-				gamePieces.get(i).setFileLocation(playerIconPaths[selection[i]]);
+				gamePieces.get(i).setFileLocation(dir+playerIconPaths[selection[i]]);
 			}
 		}else if(selection.length > getPlayerCount()){
 			//A selection error has occurred where there are MORE selected tokens than active players
 			for(int i=0; i<getPlayerCount(); i++){
-				gamePieces.get(i).setFileLocation(playerIconPaths[selection[i]]);
+				gamePieces.get(i).setFileLocation(dir+playerIconPaths[selection[i]]);
 			}
 		}else{
 			//a selection error has occurred where there are LESS selected tokens than active players
 			for(int i=0; i<selection.length; i++){
-				gamePieces.get(i).setFileLocation(playerIconPaths[i]);
+				gamePieces.get(i).setFileLocation(dir+playerIconPaths[i]);
 			}
 		}
 	}
@@ -59,7 +61,7 @@ public class BoardPanel extends JPanel {
 		
 		imageIndex = new ImageIcon[iconPaths.length];
 		for(int i=0; i<imageIndex.length; i++){
-			imageIndex[i] = new ImageIcon(iconPaths[i]);
+			imageIndex[i] = new ImageIcon(dir+iconPaths[i]);
 		}
 		
 		displayedBoard = new ImageIcon[boardWidth][boardHeight];
@@ -69,10 +71,6 @@ public class BoardPanel extends JPanel {
 				addLabel(r, c);
 			}
 		}
-		
-		int[] selection = {0,1,2,3,4,5,6,7};
-		
-		pickPlayerPieces(selection);
 		
 		for(Piece gp : gamePieces){
 			gp.updateIcon();
@@ -161,5 +159,4 @@ public class BoardPanel extends JPanel {
 	public int getPlayerCount() {
 		return playerCount;
 	}
-
 }

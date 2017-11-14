@@ -29,9 +29,9 @@ public class Piece {
 	
 	public void updateIcon(){
 		if(getFileLocation()!=null){
-			setIcon(new ImageIcon(dir+getFileLocation()));
+			setIcon(new ImageIcon(getFileLocation()));
 		}else{
-			setIcon(new ImageIcon(System.getProperty("user.dir")+"/resources/image-sets/default-image-set/404ERROR.png"));
+			setIcon(new ImageIcon(dir+"/resources/image-sets/default-image-set/404ERROR.png"));
 		}
 	}
 

@@ -38,6 +38,7 @@ public class TemplateBoardPanel extends JPanel {
 	@Expose private int boardWidth = 30;
 	@Expose private int boardHeight = 30;
 	@Expose private int playerCount = 8;
+	@Expose private String dir = System.getProperty("user.dir");
 	@Expose private ArrayList<Piece> gamePieces;
 	@Expose private String[] playerIconPaths;
 	@Expose private String[] iconPaths;
@@ -57,7 +58,6 @@ public class TemplateBoardPanel extends JPanel {
 	 * the default board for display
 	 */
 	public TemplateBoardPanel(){
-		String dir = System.getProperty("user.dir");
 		this.setLayout(grid);
 		templateImageIndex();
 		fillImageIndex();
@@ -91,7 +91,6 @@ public class TemplateBoardPanel extends JPanel {
 	}
 	
 	private void developIcons(){
-		String dir = System.getProperty("user.dir");
 		playerIcons = new ImageIcon[8];
 		for(int i=0; i<playerIconPaths.length; i++){
 			playerIcons[i] = new ImageIcon(dir+playerIconPaths[i]);
@@ -562,7 +561,7 @@ public class TemplateBoardPanel extends JPanel {
 	
 	private boolean writeTemplate(){
 		try{
-			Writer iowrite = new FileWriter(System.getProperty("user.dir")+"/saved-games/default-game/board_config.json");
+			Writer iowrite = new FileWriter(dir+"/saved-games/default-game/board_config.json");
 			Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
 			gson.toJson(this, iowrite);
 			iowrite.close();
@@ -611,7 +610,6 @@ public class TemplateBoardPanel extends JPanel {
 	
 	private void fillImageIndex(){
 		imageIndex = new ImageIcon[iconPaths.length];
-		String dir = System.getProperty("user.dir");
 		for(int i=0; i<iconPaths.length; i++){
 			imageIndex[i] = new ImageIcon(dir+iconPaths[i]);
 		}

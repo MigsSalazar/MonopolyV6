@@ -17,6 +17,7 @@ public class SettingsActionListener implements ActionListener {
 	}
 	
 	private JFrame getFrameParent(Object e){
+		System.out.println("getFrameParentCalled: "+e.toString());
 		if( (e instanceof Component)){
 			if( e instanceof JFrame){
 				return (JFrame)e;

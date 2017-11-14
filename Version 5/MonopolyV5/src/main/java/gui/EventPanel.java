@@ -8,5 +8,10 @@ public class EventPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 8886595624760821726L;
-
+	
+	public EventPanel(){
+		super();
+		this.setVisible(true);
+	}
+	
 }

@@ -9,4 +9,9 @@ public class StatsPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = -4482036009246875176L;
 
+	public StatsPanel(){
+		super();
+		this.setVisible(true);
+	}
+	
 }

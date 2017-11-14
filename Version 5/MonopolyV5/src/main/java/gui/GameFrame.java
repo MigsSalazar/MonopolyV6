@@ -65,9 +65,13 @@ public class GameFrame extends JFrame{
 		this.setIconImage(icon);
 		
 		try{
+			System.out.println("Started try");
 			gameBoard = requestBoardPanel();
+			System.out.println("created board");
 			gameStats = requestStatsPanel();
+			System.out.println("created stats");
 			gameEvents = requestEventPanel();
+			System.out.println("created events");
 		}catch(IOException ioe){
 			JOptionPane.showConfirmDialog(null, "Your attempt to generate this game has failed\nAborting all functions");
 			ioe.printStackTrace();
@@ -75,6 +79,7 @@ public class GameFrame extends JFrame{
 		}
 		
 		Container c = this.getContentPane();
+		c.setLayout(border);
 		c.add(gameBoard, BorderLayout.CENTER);
 		c.add(gameStats, BorderLayout.EAST);
 		c.add(gameEvents, BorderLayout.SOUTH);
@@ -113,13 +118,10 @@ public class GameFrame extends JFrame{
 	 */
 	private void defineMenus(){
 		menuBar = new JMenuBar();
-		menus = new JMenu[2];
+		menus = new JMenu[1];
 		
 		menus[0] = new JMenu();
 		menus[0].setText("File");
-		
-		menus[1] = new JMenu();
-		menus[1].setText("Actions");
 		
 		
 		menuItems = new JMenuItem[10];
@@ -169,14 +171,21 @@ public class GameFrame extends JFrame{
 	}
 
 	private BoardPanel requestBoardPanel() throws IOException{
-		return readin.getBoard();
+		System.out.println("requested board");
+		BoardPanel retval = readin.getBoard();
+		int[] selection = {4,2,7,5,1,3,0,6};
+		retval.pickPlayerPieces(selection);
+		retval.firstPaintBoard();
+		return retval;
 	}
 	
 	private EventPanel requestEventPanel() throws IOException{
+		System.out.println("requested events");
 		return readin.getEvents();
 	}
 	
 	private StatsPanel requestStatsPanel(){
+		System.out.println("requested stats");
 		StatsPanel stats = new StatsPanel();
 		//TODO implement StatsPanel
 		//TODO properly initialize it here
