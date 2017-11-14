@@ -2,6 +2,7 @@ package main.java;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import main.java.gui.GameFrame;
 import main.java.gui.PreGameFrame;
@@ -18,7 +19,7 @@ public class Main {
 	}
 	
 	public static void startNewGame(){
-		GameFrame game = new GameFrame();
+		GameFrame game = new GameFrame(true);
 		game.setup();
 	}
 	
@@ -26,12 +27,12 @@ public class Main {
 		JOptionPane.showMessageDialog(null, "So this is supposed to handle starting a loaded game"
 										+ "\nbut we're not there just yet. Baby steps my friend."
 										+ "\nBaby steps");
-		GameFrame game = new GameFrame();
+		GameFrame game = new GameFrame(false);
 		game.setup();
 	}
 	
-	public static void settingsLaunch(){
-		Settings launchGear = new Settings();
+	public static void settingsLaunch(JFrame parent){
+		Settings launchGear = new Settings(parent);
 		launchGear.setup();
 		launchGear.setVisible(true);
 	}

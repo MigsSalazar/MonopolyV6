@@ -57,9 +57,9 @@ public class TemplateBoardPanel extends JPanel {
 	 * the default board for display
 	 */
 	public TemplateBoardPanel(){
-		String dir = System.getProperty("user.dir")+"/resources/image-sets/default-image-set/";
+		String dir = System.getProperty("user.dir");
 		this.setLayout(grid);
-		templateImageIndex(dir);
+		templateImageIndex();
 		fillImageIndex();
 		templateBasePaint();
 		fillDisplayedBoard();
@@ -91,22 +91,22 @@ public class TemplateBoardPanel extends JPanel {
 	}
 	
 	private void developIcons(){
+		String dir = System.getProperty("user.dir");
 		playerIcons = new ImageIcon[8];
 		for(int i=0; i<playerIconPaths.length; i++){
-			playerIcons[i] = new ImageIcon(playerIconPaths[i]);
+			playerIcons[i] = new ImageIcon(dir+playerIconPaths[i]);
 		}
 	}
 	
 	private void generatePlayerIconPaths(){
-		String dir = System.getProperty("user.dir");
-		String[] playerip = {dir+"/resources/image-sets/default-image-set/pupper.png",
-							 dir+"/resources/image-sets/default-image-set/thimble.png",
-							 dir+"/resources/image-sets/default-image-set/boot.png",
-							 dir+"/resources/image-sets/default-image-set/boat.png",
-							 dir+"/resources/image-sets/default-image-set/wheelbarrow.png",
-							 dir+"/resources/image-sets/default-image-set/hat.png",
-							 dir+"/resources/image-sets/default-image-set/iron.png",
-							 dir+"/resources/image-sets/default-image-set/car.png"};
+		String[] playerip = {"/resources/image-sets/default-image-set/pupper.png",
+							 "/resources/image-sets/default-image-set/thimble.png",
+							 "/resources/image-sets/default-image-set/boot.png",
+							 "/resources/image-sets/default-image-set/boat.png",
+							 "/resources/image-sets/default-image-set/wheelbarrow.png",
+							 "/resources/image-sets/default-image-set/hat.png",
+							 "/resources/image-sets/default-image-set/iron.png",
+							 "/resources/image-sets/default-image-set/car.png"};
 		playerIconPaths = playerip;
 		
 	}
@@ -479,6 +479,15 @@ public class TemplateBoardPanel extends JPanel {
 		stampCollection[4][26].setEngraving('A');
 		stampCollection[4][27].setEngraving('I');
 		stampCollection[4][28].setEngraving('L');
+		stampCollection[24][16].setEngraving('I');
+		stampCollection[24][17].setEngraving('C');
+		stampCollection[25][16].setEngraving('T');
+		stampCollection[25][17].setEngraving('X');
+		
+		stampCollection[20][24].setEngraving('L');
+		stampCollection[20][25].setEngraving('X');
+		stampCollection[21][24].setEngraving('T');
+		stampCollection[21][25].setEngraving('X');
 		
 	}
 	
@@ -553,7 +562,7 @@ public class TemplateBoardPanel extends JPanel {
 	
 	private boolean writeTemplate(){
 		try{
-			Writer iowrite = new FileWriter(System.getProperty("user.dir")+"/template.json");
+			Writer iowrite = new FileWriter(System.getProperty("user.dir")+"/saved-games/default-game/board_config.json");
 			Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
 			gson.toJson(this, iowrite);
 			iowrite.close();
@@ -602,8 +611,9 @@ public class TemplateBoardPanel extends JPanel {
 	
 	private void fillImageIndex(){
 		imageIndex = new ImageIcon[iconPaths.length];
+		String dir = System.getProperty("user.dir");
 		for(int i=0; i<iconPaths.length; i++){
-			imageIndex[i] = new ImageIcon(iconPaths[i]);
+			imageIndex[i] = new ImageIcon(dir+iconPaths[i]);
 		}
 	}
 	
@@ -643,59 +653,59 @@ public class TemplateBoardPanel extends JPanel {
 		basePaint = temp;
 	}
 	
-	private void templateImageIndex(String dir){
-		String[] icons = {	dir+"baseboard.png",				//0
-							dir+"purple.png",				//1
-							dir+"lightblue.png",			//2
-							dir+"pink.png",					//3
-							dir+"orange.png",				//4
-							dir+"red.png",					//5
-							dir+"yellow.png",				//6
-							dir+"green.png",				//7
-							dir+"blue.png",					//8
-							dir+"purplehouse.png",			//9
-							dir+"lightbluehouse.png",		//10
-							dir+"pinkhouse.png",			//11
-							dir+"orangehouse.png",			//12
-							dir+"redhouse.png",				//13
-							dir+"yellowhouse.png",			//14
-							dir+"greenhouse.png",			//15
-							dir+"bluehouse.png",			//16
-							dir+"purplehotelleft.png",		//17
-							dir+"purplehotelright.png",		//18
-							dir+"purplehotelbottom.png",	//19
-							dir+"lightbluehotelleft.png",	//20
-							dir+"lightbluehotelright.png",	//21
-							dir+"lightbluehotelbottom.png", //22
-							dir+"pinkhotelleft.png",		//23
-							dir+"pinkhotelright.png",		//24
-							dir+"pinkhotelbottom.png",		//25
-							dir+"orangehotelleft.png",		//26
-							dir+"orangehotelright.png",		//27
-							dir+"orangehotelbottom.png",	//28
-							dir+"redhotelleft.png",			//29
-							dir+"redhotelright.png",		//30
-							dir+"redhotelbottom.png",		//31
-							dir+"yellowhotelleft.png",		//32
-							dir+"yellowhotelright.png",		//33
-							dir+"yellowhotelbottom.png",	//34
-							dir+"greenhotelleft.png",		//35
-							dir+"greenhotelright.png",		//36
-							dir+"greenhotelbottom.png",		//37
-							dir+"bluehotelleft.png",		//38
-							dir+"bluehotelright.png",		//39
-							dir+"bluehotelbottom.png",		//40
-							dir+"gotop.png",				//41
-							dir+"gomid.png",				//42
-							dir+"gobot.png",				//43
-							dir+"jail.png",					//44
-							dir+"chesttop.png",				//45
-							dir+"chestbottom.png",			//46
-							dir+"chance.png",				//47
-							dir+"eleccomp.png",				//48
-							dir+"waterworks.png",			//49
-							dir+"parktop.png",				//50
-							dir+"parkbot.png"};				//51
+	private void templateImageIndex(){
+		String[] icons = {	"/resources/image-sets/default-image-set/baseboard.png",			//0
+							"/resources/image-sets/default-image-set/purple.png",				//1
+							"/resources/image-sets/default-image-set/lightblue.png",			//2
+							"/resources/image-sets/default-image-set/pink.png",					//3
+							"/resources/image-sets/default-image-set/orange.png",				//4
+							"/resources/image-sets/default-image-set/red.png",					//5
+							"/resources/image-sets/default-image-set/yellow.png",				//6
+							"/resources/image-sets/default-image-set/green.png",				//7
+							"/resources/image-sets/default-image-set/blue.png",					//8
+							"/resources/image-sets/default-image-set/purplehouse.png",			//9
+							"/resources/image-sets/default-image-set/lightbluehouse.png",		//10
+							"/resources/image-sets/default-image-set/pinkhouse.png",			//11
+							"/resources/image-sets/default-image-set/orangehouse.png",			//12
+							"/resources/image-sets/default-image-set/redhouse.png",				//13
+							"/resources/image-sets/default-image-set/yellowhouse.png",			//14
+							"/resources/image-sets/default-image-set/greenhouse.png",			//15
+							"/resources/image-sets/default-image-set/bluehouse.png",			//16
+							"/resources/image-sets/default-image-set/purplehotelleft.png",		//17
+							"/resources/image-sets/default-image-set/purplehotelright.png",		//18
+							"/resources/image-sets/default-image-set/purplehotelbottom.png",	//19
+							"/resources/image-sets/default-image-set/lightbluehotelleft.png",	//20
+							"/resources/image-sets/default-image-set/lightbluehotelright.png",	//21
+							"/resources/image-sets/default-image-set/lightbluehotelbottom.png", //22
+							"/resources/image-sets/default-image-set/pinkhotelleft.png",		//23
+							"/resources/image-sets/default-image-set/pinkhotelright.png",		//24
+							"/resources/image-sets/default-image-set/pinkhotelbottom.png",		//25
+							"/resources/image-sets/default-image-set/orangehotelleft.png",		//26
+							"/resources/image-sets/default-image-set/orangehotelright.png",		//27
+							"/resources/image-sets/default-image-set/orangehotelbottom.png",	//28
+							"/resources/image-sets/default-image-set/redhotelleft.png",			//29
+							"/resources/image-sets/default-image-set/redhotelright.png",		//30
+							"/resources/image-sets/default-image-set/redhotelbottom.png",		//31
+							"/resources/image-sets/default-image-set/yellowhotelleft.png",		//32
+							"/resources/image-sets/default-image-set/yellowhotelright.png",		//33
+							"/resources/image-sets/default-image-set/yellowhotelbottom.png",	//34
+							"/resources/image-sets/default-image-set/greenhotelleft.png",		//35
+							"/resources/image-sets/default-image-set/greenhotelright.png",		//36
+							"/resources/image-sets/default-image-set/greenhotelbottom.png",		//37
+							"/resources/image-sets/default-image-set/bluehotelleft.png",		//38
+							"/resources/image-sets/default-image-set/bluehotelright.png",		//39
+							"/resources/image-sets/default-image-set/bluehotelbottom.png",		//40
+							"/resources/image-sets/default-image-set/gotop.png",				//41
+							"/resources/image-sets/default-image-set/gomid.png",				//42
+							"/resources/image-sets/default-image-set/gobot.png",				//43
+							"/resources/image-sets/default-image-set/jail.png",					//44
+							"/resources/image-sets/default-image-set/chesttop.png",				//45
+							"/resources/image-sets/default-image-set/chestbottom.png",			//46
+							"/resources/image-sets/default-image-set/chance.png",				//47
+							"/resources/image-sets/default-image-set/eleccomp.png",				//48
+							"/resources/image-sets/default-image-set/waterworks.png",			//49
+							"/resources/image-sets/default-image-set/parktop.png",				//50
+							"/resources/image-sets/default-image-set/parkbot.png"};				//51
 		iconPaths = icons;
 	}
 	

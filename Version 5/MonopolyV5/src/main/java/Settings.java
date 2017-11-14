@@ -36,8 +36,8 @@ public class Settings extends JDialog {
 	private JPanel innerPanel;
 	private JPanel outerPanel;
 	
-	public Settings(){
-		super((JFrame)null, true);
+	public Settings(JFrame parent){
+		super(parent, true);
 	}
 		 	
 	public void setup(){

@@ -34,15 +34,19 @@ public class BoardPanel extends JPanel {
 	private transient ImageIcon[] imageIndex;				//stores all the icons used by the board
 	
 	public void pickPlayerPieces(int[] selection){
+		
 		if(selection.length == getPlayerCount()){
+			//The number of tokens selected is equal to the number of players
 			for(int i=0; i<selection.length; i++){
 				gamePieces.get(i).setFileLocation(playerIconPaths[selection[i]]);
 			}
 		}else if(selection.length > getPlayerCount()){
+			//A selection error has occurred where there are MORE selected tokens than active players
 			for(int i=0; i<getPlayerCount(); i++){
-				gamePieces.get(i).setFileLocation(playerIconPaths[i]);
+				gamePieces.get(i).setFileLocation(playerIconPaths[selection[i]]);
 			}
 		}else{
+			//a selection error has occurred where there are LESS selected tokens than active players
 			for(int i=0; i<selection.length; i++){
 				gamePieces.get(i).setFileLocation(playerIconPaths[i]);
 			}

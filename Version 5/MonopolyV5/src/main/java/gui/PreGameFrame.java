@@ -34,6 +34,7 @@ public class PreGameFrame extends JFrame {
 	JButton loadGame;
 	JButton settings;
 	JButton about;
+	PreGameFrame me = this;
 
 	public PreGameFrame(){
 		
@@ -85,7 +86,7 @@ public class PreGameFrame extends JFrame {
 		settings.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				Main.settingsLaunch();
+				Main.settingsLaunch(me);
 			}
 		});
 		

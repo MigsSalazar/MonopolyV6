@@ -17,6 +17,7 @@ public class Piece {
 	@Expose private int team;
 	@Expose private GamePath travelPath;
 	@Expose private String fileLocation;
+	private transient String dir = System.getProperty("user.dir");
 	private transient ImageIcon icon;
 	
 	public Piece(int t, GamePath tp, String fl, ImageIcon i){
@@ -28,7 +29,7 @@ public class Piece {
 	
 	public void updateIcon(){
 		if(getFileLocation()!=null){
-			setIcon(new ImageIcon(getFileLocation()));
+			setIcon(new ImageIcon(dir+getFileLocation()));
 		}else{
 			setIcon(new ImageIcon(System.getProperty("user.dir")+"/resources/image-sets/default-image-set/404ERROR.png"));
 		}

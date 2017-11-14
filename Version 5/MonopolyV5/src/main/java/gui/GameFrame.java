@@ -1,18 +1,22 @@
 package main.java.gui;
 
+import main.java.io.GameReader;
 import main.java.listeners.*;
-import main.java.templates.TemplateBoardPanel;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -25,20 +29,32 @@ public class GameFrame extends JFrame{
 	private JMenuBar menuBar;
 	private JMenu[] menus;
 	private JMenuItem[] menuItems;
-	private TemplateBoardPanel gameBoard;
+	private boolean newGame;
+	private BoardPanel gameBoard;
 	private StatsPanel gameStats;
 	private EventPanel gameEvents;
-	
+	private GameReader readin;
+	private String path;
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8200279150286115532L;
-	public GameFrame(){
+	public GameFrame(boolean flag){
 		//home = new HomePanel();
 		//c.add(home);
 		border = new BorderLayout();
+		newGame = flag;
 		defineMenus();
+		
+		if(newGame){
+			readin = new GameReader();
+			path = System.getProperty("user.dir")+"/saved-games/default-game/";
+		}else{
+			path = GameReader.findGame(this);
+			File readme = new File(path);
+			readin = new GameReader(readme);
+		}
 	}
 	
 	public void setup(){
@@ -48,9 +64,20 @@ public class GameFrame extends JFrame{
 		Image icon = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/frameicon.png").getImage();
 		this.setIconImage(icon);
 		
-		requestBoardPanel();
-		requestStatsPanel();
-		requestEventPanel();
+		try{
+			gameBoard = requestBoardPanel();
+			gameStats = requestStatsPanel();
+			gameEvents = requestEventPanel();
+		}catch(IOException ioe){
+			JOptionPane.showConfirmDialog(null, "Your attempt to generate this game has failed\nAborting all functions");
+			ioe.printStackTrace();
+			System.exit(1);
+		}
+		
+		Container c = this.getContentPane();
+		c.add(gameBoard, BorderLayout.CENTER);
+		c.add(gameStats, BorderLayout.EAST);
+		c.add(gameEvents, BorderLayout.SOUTH);
 		
 		this.setTitle("Migs Monopoly!");
 		this.setVisible(true);
@@ -122,58 +149,38 @@ public class GameFrame extends JFrame{
 		menuItems[3].setText("Exit");
 		menus[0].add(menuItems[3]);
 		
-		menuItems[4].addActionListener(new RollActionListener());
-		menuItems[4].setText("Roll");
-		menus[1].add(menuItems[4]);
-		
-		menuItems[5].addActionListener(new TradeActionListener());
-		menuItems[5].setText("Trade");
-		menus[1].add(menuItems[5]);
-		
-		menuItems[6].addActionListener(new MortgageActionListener());
-		menuItems[6].setText("Mortgage");
-		menus[1].add(menuItems[6]);
-		
-		
-		menuItems[7].addActionListener(new MonopolizeActionListener());
-		menuItems[7].setText("Monopolize");
-		menus[1].add(menuItems[7]);
-		
-		menuItems[8].addActionListener(new SettingsActionListener());
-		menuItems[8].setText("Settings");
+		menuItems[4].addActionListener(new SettingsActionListener());
+		menuItems[4].setText("Settings");
 		ImageIcon gear = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/smallGear.png");
-		menuItems[8].setIcon(gear);
+		menuItems[4].setIcon(gear);
 		
-		menuItems[9].addActionListener(new AboutActionListener());
-		menuItems[9].setText("About");
+		menuItems[5].addActionListener(new AboutActionListener());
+		menuItems[5].setText("About");
 		ImageIcon mark = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/aboutSmall.png");
-		menuItems[9].setIcon(mark);
+		menuItems[5].setIcon(mark);
 		
 		
 		for(int i=0; i<menus.length; i++){
 			menuBar.add(menus[i]);
 		}
-		menuBar.add(menuItems[8]);
-		menuBar.add(menuItems[9]);
+		menuBar.add(menuItems[4]);
+		menuBar.add(menuItems[5]);
 		
 	}
 
-	private void requestBoardPanel(){
-		gameBoard = new TemplateBoardPanel();
-		//TODO implement BoardPanel
-		//TODO properly initialize it here
+	private BoardPanel requestBoardPanel() throws IOException{
+		return readin.getBoard();
 	}
 	
-	private void requestEventPanel(){
-		gameEvents = new EventPanel();
-		//TODO implement EventPanel
-		//TODO properly initialize it here
+	private EventPanel requestEventPanel() throws IOException{
+		return readin.getEvents();
 	}
 	
-	private void requestStatsPanel(){
-		gameStats = new StatsPanel();
+	private StatsPanel requestStatsPanel(){
+		StatsPanel stats = new StatsPanel();
 		//TODO implement StatsPanel
 		//TODO properly initialize it here
+		return stats;
 	}
 	
 	

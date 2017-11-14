@@ -76,19 +76,20 @@ public class GuiMainTester {
 		
 	}
 	
-	*/
+	/**/
 	
 	
 	/*
 	 * Main method used to test BoardPanel serialization
 	 * @BoardPanelTesterMain
 	 * 
-	 *
+	 */
 	public static void main(String[] args){
 		JFrame tempFrame = new JFrame();
 		TemplateBoardPanel bp = new TemplateBoardPanel();
 		Container c = tempFrame.getContentPane();
 		c.add(bp);
+		
 		tempFrame.setSize(630,650);	//(width,height)
 		tempFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		tempFrame.setVisible(true);
@@ -99,11 +100,11 @@ public class GuiMainTester {
 	
 	/*
 	 * 
-	 */
+	 *
 	public static void main(String[] args){
 		JFrame frame = new JFrame();
 		BoardPanel bp = null;
-		try(Reader reader = new FileReader( System.getProperty("user.dir")+"/template.json" )){
+		try(Reader reader = new FileReader( System.getProperty("user.dir")+"/saved-games/default-game/board_config.json" )){
             Gson gson = new Gson();
             System.out.println(System.getProperty("user.dir"));
             bp = gson.fromJson(reader, BoardPanel.class);

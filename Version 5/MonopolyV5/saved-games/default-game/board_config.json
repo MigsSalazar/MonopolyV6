@@ -171,7 +171,7 @@
         "currentStep": 0,
         "locked": false
       },
-      "fileLocation": "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/pupper.png"
+      "fileLocation": "/resources/image-sets/default-image-set/pupper.png"
     },
     {
       "team": 1,
@@ -341,7 +341,7 @@
         "currentStep": 0,
         "locked": false
       },
-      "fileLocation": "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/thimble.png"
+      "fileLocation": "/resources/image-sets/default-image-set/thimble.png"
     },
     {
       "team": 2,
@@ -511,7 +511,7 @@
         "currentStep": 0,
         "locked": false
       },
-      "fileLocation": "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/boot.png"
+      "fileLocation": "/resources/image-sets/default-image-set/boot.png"
     },
     {
       "team": 3,
@@ -681,7 +681,7 @@
         "currentStep": 0,
         "locked": false
       },
-      "fileLocation": "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/boat.png"
+      "fileLocation": "/resources/image-sets/default-image-set/boat.png"
     },
     {
       "team": 4,
@@ -851,7 +851,7 @@
         "currentStep": 0,
         "locked": false
       },
-      "fileLocation": "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/wheelbarrow.png"
+      "fileLocation": "/resources/image-sets/default-image-set/wheelbarrow.png"
     },
     {
       "team": 5,
@@ -1021,7 +1021,7 @@
         "currentStep": 0,
         "locked": false
       },
-      "fileLocation": "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/hat.png"
+      "fileLocation": "/resources/image-sets/default-image-set/hat.png"
     },
     {
       "team": 6,
@@ -1191,7 +1191,7 @@
         "currentStep": 0,
         "locked": false
       },
-      "fileLocation": "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/iron.png"
+      "fileLocation": "/resources/image-sets/default-image-set/iron.png"
     },
     {
       "team": 7,
@@ -1361,72 +1361,72 @@
         "currentStep": 0,
         "locked": false
       },
-      "fileLocation": "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/car.png"
+      "fileLocation": "/resources/image-sets/default-image-set/car.png"
     }
   ],
   "playerIconPaths": [
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/pupper.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/thimble.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/boot.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/boat.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/wheelbarrow.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/hat.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/iron.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/car.png"
+    "/resources/image-sets/default-image-set/pupper.png",
+    "/resources/image-sets/default-image-set/thimble.png",
+    "/resources/image-sets/default-image-set/boot.png",
+    "/resources/image-sets/default-image-set/boat.png",
+    "/resources/image-sets/default-image-set/wheelbarrow.png",
+    "/resources/image-sets/default-image-set/hat.png",
+    "/resources/image-sets/default-image-set/iron.png",
+    "/resources/image-sets/default-image-set/car.png"
   ],
   "iconPaths": [
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/baseboard.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/purple.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/lightblue.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/pink.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/orange.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/red.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/yellow.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/green.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/blue.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/purplehouse.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/lightbluehouse.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/pinkhouse.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/orangehouse.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/redhouse.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/yellowhouse.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/greenhouse.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/bluehouse.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/purplehotelleft.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/purplehotelright.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/purplehotelbottom.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/lightbluehotelleft.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/lightbluehotelright.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/lightbluehotelbottom.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/pinkhotelleft.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/pinkhotelright.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/pinkhotelbottom.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/orangehotelleft.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/orangehotelright.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/orangehotelbottom.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/redhotelleft.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/redhotelright.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/redhotelbottom.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/yellowhotelleft.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/yellowhotelright.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/yellowhotelbottom.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/greenhotelleft.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/greenhotelright.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/greenhotelbottom.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/bluehotelleft.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/bluehotelright.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/bluehotelbottom.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/gotop.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/gomid.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/gobot.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/jail.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/chesttop.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/chestbottom.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/chance.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/eleccomp.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/waterworks.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/parktop.png",
-    "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/parkbot.png"
+    "/resources/image-sets/default-image-set/baseboard.png",
+    "/resources/image-sets/default-image-set/purple.png",
+    "/resources/image-sets/default-image-set/lightblue.png",
+    "/resources/image-sets/default-image-set/pink.png",
+    "/resources/image-sets/default-image-set/orange.png",
+    "/resources/image-sets/default-image-set/red.png",
+    "/resources/image-sets/default-image-set/yellow.png",
+    "/resources/image-sets/default-image-set/green.png",
+    "/resources/image-sets/default-image-set/blue.png",
+    "/resources/image-sets/default-image-set/purplehouse.png",
+    "/resources/image-sets/default-image-set/lightbluehouse.png",
+    "/resources/image-sets/default-image-set/pinkhouse.png",
+    "/resources/image-sets/default-image-set/orangehouse.png",
+    "/resources/image-sets/default-image-set/redhouse.png",
+    "/resources/image-sets/default-image-set/yellowhouse.png",
+    "/resources/image-sets/default-image-set/greenhouse.png",
+    "/resources/image-sets/default-image-set/bluehouse.png",
+    "/resources/image-sets/default-image-set/purplehotelleft.png",
+    "/resources/image-sets/default-image-set/purplehotelright.png",
+    "/resources/image-sets/default-image-set/purplehotelbottom.png",
+    "/resources/image-sets/default-image-set/lightbluehotelleft.png",
+    "/resources/image-sets/default-image-set/lightbluehotelright.png",
+    "/resources/image-sets/default-image-set/lightbluehotelbottom.png",
+    "/resources/image-sets/default-image-set/pinkhotelleft.png",
+    "/resources/image-sets/default-image-set/pinkhotelright.png",
+    "/resources/image-sets/default-image-set/pinkhotelbottom.png",
+    "/resources/image-sets/default-image-set/orangehotelleft.png",
+    "/resources/image-sets/default-image-set/orangehotelright.png",
+    "/resources/image-sets/default-image-set/orangehotelbottom.png",
+    "/resources/image-sets/default-image-set/redhotelleft.png",
+    "/resources/image-sets/default-image-set/redhotelright.png",
+    "/resources/image-sets/default-image-set/redhotelbottom.png",
+    "/resources/image-sets/default-image-set/yellowhotelleft.png",
+    "/resources/image-sets/default-image-set/yellowhotelright.png",
+    "/resources/image-sets/default-image-set/yellowhotelbottom.png",
+    "/resources/image-sets/default-image-set/greenhotelleft.png",
+    "/resources/image-sets/default-image-set/greenhotelright.png",
+    "/resources/image-sets/default-image-set/greenhotelbottom.png",
+    "/resources/image-sets/default-image-set/bluehotelleft.png",
+    "/resources/image-sets/default-image-set/bluehotelright.png",
+    "/resources/image-sets/default-image-set/bluehotelbottom.png",
+    "/resources/image-sets/default-image-set/gotop.png",
+    "/resources/image-sets/default-image-set/gomid.png",
+    "/resources/image-sets/default-image-set/gobot.png",
+    "/resources/image-sets/default-image-set/jail.png",
+    "/resources/image-sets/default-image-set/chesttop.png",
+    "/resources/image-sets/default-image-set/chestbottom.png",
+    "/resources/image-sets/default-image-set/chance.png",
+    "/resources/image-sets/default-image-set/eleccomp.png",
+    "/resources/image-sets/default-image-set/waterworks.png",
+    "/resources/image-sets/default-image-set/parktop.png",
+    "/resources/image-sets/default-image-set/parkbot.png"
   ],
   "basePaint": [
     [

@@ -1,4 +1,4 @@
-package main.java.function;
+package main.java.action;
 
 import main.java.models.Dice;
 

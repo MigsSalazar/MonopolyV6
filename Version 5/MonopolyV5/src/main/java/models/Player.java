@@ -4,18 +4,20 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
 
+import com.google.gson.annotations.Expose;
+
 public class Player {
-	private String name;
-	private int userid;
-	private int position;
-	private int cash;
-	private int wealth;
-	private int jailCard;
-	private int jailCount;
-	private boolean inJail;
-	private boolean active;
-	private boolean turn;
-	private Map<String, Property> props;
+	@Expose private String name;
+	@Expose private int userid;
+	@Expose private int position;
+	@Expose private int cash;
+	@Expose private int wealth;
+	@Expose private int jailCard;
+	@Expose private int jailCount;
+	@Expose private boolean inJail;
+	@Expose private boolean active;
+	@Expose private boolean turn;
+	private transient Map<String, Property> props;
 	
 	/**
 	 * Classic constructor. To be used if creating a fresh new Player
@@ -171,6 +173,10 @@ public class Player {
 	
 	public boolean playerOwns(Property p){
 		return props.containsValue(p);
+	}
+	
+	public void giveProperties(HashMap<String, Property> p){
+		props = p;
 	}
 	
 	public boolean addProperty(Property p){
