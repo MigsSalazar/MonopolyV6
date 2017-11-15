@@ -73,8 +73,7 @@ public class Settings extends JDialog {
 		outerPanel.add(textureFinder);
 		
 		this.add(outerPanel);
-		
-		this.setSize(200, 200);
+		this.setBounds(50, 50, 200, 200);
 		this.setResizable(false);
 		this.setTitle("Settings");
 		

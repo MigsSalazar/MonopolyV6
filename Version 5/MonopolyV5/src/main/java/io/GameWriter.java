@@ -12,13 +12,13 @@ import com.google.gson.GsonBuilder;
 
 import main.java.models.*;
 import main.java.gui.*;
-import main.java.action.Event;
+import main.java.action.Events;
 
 public class GameWriter {
 	
 	public static boolean writeOutGame(JFrame frame,
 										BoardPanel board,
-										Event event,
+										Events event,
 										Map<String, Player> players,
 										Map<String, Property> props){
 		

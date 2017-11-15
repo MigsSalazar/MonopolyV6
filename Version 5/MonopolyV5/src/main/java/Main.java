@@ -27,7 +27,7 @@ public class Main {
 		JOptionPane.showMessageDialog(null, "So this is supposed to handle starting a loaded game"
 										+ "\nbut we're not there just yet. Baby steps my friend."
 										+ "\nBaby steps");
-		GameFrame game = new GameFrame(false);
+		GameFrame game = new GameFrame(true);
 		game.setup();
 	}
 	

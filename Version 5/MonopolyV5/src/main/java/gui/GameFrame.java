@@ -60,18 +60,18 @@ public class GameFrame extends JFrame{
 	public void setup(){
 		this.setLayout(border);
 		this.setJMenuBar(menuBar);
-		this.setSize(300, 300);
+		this.setSize(640,690);
 		Image icon = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/frameicon.png").getImage();
 		this.setIconImage(icon);
 		
 		try{
-			System.out.println("Started try");
+			//System.out.println("Started try");
 			gameBoard = requestBoardPanel();
-			System.out.println("created board");
+			//System.out.println("created board");
 			gameStats = requestStatsPanel();
-			System.out.println("created stats");
+			//System.out.println("created stats");
 			gameEvents = requestEventPanel();
-			System.out.println("created events");
+			//System.out.println("created events");
 		}catch(IOException ioe){
 			JOptionPane.showConfirmDialog(null, "Your attempt to generate this game has failed\nAborting all functions");
 			ioe.printStackTrace();
@@ -84,6 +84,7 @@ public class GameFrame extends JFrame{
 		c.add(gameStats, BorderLayout.EAST);
 		c.add(gameEvents, BorderLayout.SOUTH);
 		
+		this.setResizable(false);
 		this.setTitle("Migs Monopoly!");
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -171,7 +172,7 @@ public class GameFrame extends JFrame{
 	}
 
 	private BoardPanel requestBoardPanel() throws IOException{
-		System.out.println("requested board");
+		//System.out.println("requested board");
 		BoardPanel retval = readin.getBoard();
 		int[] selection = {4,2,7,5,1,3,0,6};
 		retval.pickPlayerPieces(selection);
@@ -180,12 +181,12 @@ public class GameFrame extends JFrame{
 	}
 	
 	private EventPanel requestEventPanel() throws IOException{
-		System.out.println("requested events");
+		//System.out.println("requested events");
 		return readin.getEvents();
 	}
 	
 	private StatsPanel requestStatsPanel(){
-		System.out.println("requested stats");
+		//System.out.println("requested stats");
 		StatsPanel stats = new StatsPanel();
 		//TODO implement StatsPanel
 		//TODO properly initialize it here

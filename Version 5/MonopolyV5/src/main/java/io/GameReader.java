@@ -25,7 +25,7 @@ public class GameReader {
 	public GameReader(){
 		newGame = true;
 		String loaded = System.getProperty("user.dir")+"/saved-games/default-game/";
-		System.out.println(loaded);
+		//System.out.println(loaded);
 		locations.add(loaded+"board_config.json");
 		locations.add(loaded+"players.mns");
 		locations.add(loaded+"properties.mns");
@@ -47,51 +47,51 @@ public class GameReader {
 	}
 	
 	public BoardPanel getBoard() throws IOException{
-		System.out.println("gson board begins");
+		//System.out.println("gson board begins");
 		Gson gson = new Gson();
 		Reader readme = new FileReader(new File(locations.get(0)));
 		BoardPanel retval = gson.fromJson(readme, BoardPanel.class);
-		System.out.println("board exists and has been make. returning now");
-		System.out.println("Board: " + retval.toString() );
+		//System.out.println("board exists and has been make. returning now");
+		//System.out.println("Board: " + retval.toString() );
 		readme.close();
 		return retval;
 	}
 	
 	public EventPanel getEvents() throws IOException{
-		System.out.println("gson events begins");
+		//System.out.println("gson events begins");
 		if(newGame){
-			System.out.println("event doesnt exist, starting from scratch");
+			//System.out.println("event doesnt exist, starting from scratch");
 			return (new EventPanel());
 		}else{
 			Gson gson = new Gson();
 			Reader readme = new FileReader(new File(locations.get(3)));
 			EventPanel retval = gson.fromJson(readme, EventPanel.class);
 			readme.close();
-			System.out.println("event does exist, returning now");
-			System.out.println("Event: " + retval.toString() );
+			//System.out.println("event does exist, returning now");
+			//System.out.println("Event: " + retval.toString() );
 			return retval;
 		}
 	}
 	
 	@SuppressWarnings("unchecked")
 	public HashMap<String, Player> getPlayers() throws IOException{
-		System.out.println("gson player begins");
+		//System.out.println("gson player begins");
 		Gson gson = new Gson();
 		Reader readme = new FileReader(new File(locations.get(1)));
 		HashMap<String, Player> retval = gson.fromJson(readme, HashMap.class);
 		readme.close();
-		System.out.println("player exists, returning now");
+		//System.out.println("player exists, returning now");
 		return retval;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public HashMap<String, Property> getProperties() throws IOException{
-		System.out.println("gson property begins");
+		//System.out.println("gson property begins");
 		Gson gson = new Gson();
 		Reader readme = new FileReader(new File(locations.get(2)));
 		HashMap<String, Property> retval = gson.fromJson(readme, HashMap.class);
 		readme.close();
-		System.out.println("property exists, returning now");
+		//System.out.println("property exists, returning now");
 		return retval;
 	}
 	
