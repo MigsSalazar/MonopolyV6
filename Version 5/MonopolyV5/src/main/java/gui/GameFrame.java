@@ -1,5 +1,6 @@
 package main.java.gui;
 
+import main.java.action.Runner;
 import main.java.io.GameReader;
 import main.java.listeners.*;
 
@@ -35,14 +36,16 @@ public class GameFrame extends JFrame{
 	private EventPanel gameEvents;
 	private GameReader readin;
 	private String path;
+	private Runner globalVars;
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8200279150286115532L;
-	public GameFrame(boolean flag){
+	public GameFrame(boolean flag, Runner gv){
 		//home = new HomePanel();
 		//c.add(home);
+		globalVars = gv;
 		border = new BorderLayout();
 		newGame = flag;
 		defineMenus();
@@ -191,6 +194,10 @@ public class GameFrame extends JFrame{
 		//TODO implement StatsPanel
 		//TODO properly initialize it here
 		return stats;
+	}
+	
+	public Runner getGlobalVars(){
+		return globalVars;
 	}
 	
 	

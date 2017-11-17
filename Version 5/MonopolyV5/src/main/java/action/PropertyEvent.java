@@ -35,7 +35,7 @@ public class PropertyEvent extends Events {
 		case 1:		text += "themself.\nA landlord must always check in on their asset";
 					break;
 		}
-		defineButtons();
+		defineComponents();
 		
 	}
 
@@ -66,24 +66,24 @@ public class PropertyEvent extends Events {
 	}
 
 	/* (non-Javadoc)
-	 * @see main.java.action.Event#defineButtons()
+	 * @see main.java.action.MultiChoiceEvent#defineButtons()
 	 */
 	@Override
-	public void defineButtons() {
+	public void defineComponents() {
 		if(status == 0){
 			buttons = new JButton[2];
 			buttons[0] = new JButton("Purchase");
-			buttons[0].addActionListener(this);
+			((JButton)buttons[0]).addActionListener(this);
 			buttons[1] = new JButton("Auction Off");
-			buttons[1].addActionListener(this);
+			((JButton)buttons[1]).addActionListener(this);
 		}else{
 			buttons = new JButton[1];
 			if(status == -1){
 				buttons[0] = new JButton("Pay Rent");
-				buttons[0].addActionListener(this);
+				((JButton)buttons[0]).addActionListener(this);
 			}else{
 				buttons[0] = new JButton("Move Along");
-				buttons[0].addActionListener(this);
+				((JButton)buttons[0]).addActionListener(this);
 			}
 		}
 	}
@@ -97,5 +97,6 @@ public class PropertyEvent extends Events {
 			return -1;
 		}
 	}
+
 
 }

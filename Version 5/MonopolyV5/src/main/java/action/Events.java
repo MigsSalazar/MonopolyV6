@@ -3,13 +3,14 @@ package main.java.action;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 
 import main.java.gui.EventPanel;
 
 public abstract class Events implements ActionListener{
 	protected String text;
-	protected JButton[] buttons;
 	protected EventPanel parent;
+	protected JComponent[] buttons;
 	
 	public Events(EventPanel p){
 		parent = p;
@@ -29,13 +30,6 @@ public abstract class Events implements ActionListener{
 		text = t;
 	}
 	
-	public JButton[] getButtons(){
-		return buttons;
-	}
-	
-	/*
-	 * 
-	 */
-	public abstract void defineButtons();
+	public abstract void defineComponents();
 	
 }

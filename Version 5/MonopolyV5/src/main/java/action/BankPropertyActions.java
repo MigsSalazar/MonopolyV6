@@ -10,6 +10,10 @@ public class BankPropertyActions {
 		
 	}
 	
+	public static void sellUnownedProperty(Player play, Property prop, int price){
+		
+	}
+	
 	public static void rentOwnedProperty(Player play, Property prop){
 		
 	}
