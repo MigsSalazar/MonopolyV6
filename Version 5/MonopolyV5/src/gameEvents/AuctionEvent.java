@@ -1,4 +1,4 @@
-package main.java.action;
+package gameEvents;
 
 import java.awt.event.ActionEvent;
 import java.util.Map;
@@ -7,11 +7,13 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
+import main.java.action.BankPropertyActions;
+import main.java.action.Runner;
 import main.java.gui.EventPanel;
 import main.java.models.Player;
 import main.java.models.Property;
 
-public class AuctionEvent extends Events {
+public class AuctionEvent extends AbstractEvent {
 
 	private Runner runme = parent.getGlobalVars();
 	

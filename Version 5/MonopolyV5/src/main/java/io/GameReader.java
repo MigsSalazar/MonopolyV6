@@ -14,6 +14,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.google.gson.Gson;
 
+import gameEvents.MainMenu;
 import main.java.gui.*;
 import main.java.models.*;
 
@@ -29,6 +30,8 @@ public class GameReader {
 		locations.add(loaded+"board_config.json");
 		locations.add(loaded+"players.mns");
 		locations.add(loaded+"properties.mns");
+		
+		//locations.add(loaded+"event.mns");
 	}
 	
 	public GameReader(File loaded){
@@ -105,6 +108,10 @@ public class GameReader {
 	    }else{
 	    	return null;
 	    }
+	}
+	
+	public boolean isNewGame(){
+		return newGame;
 	}
 	
 }

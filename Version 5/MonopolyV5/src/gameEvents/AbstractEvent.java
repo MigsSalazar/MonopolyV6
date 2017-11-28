@@ -1,4 +1,4 @@
-package main.java.action;
+package gameEvents;
 
 import java.awt.event.ActionListener;
 
@@ -7,17 +7,17 @@ import javax.swing.JComponent;
 
 import main.java.gui.EventPanel;
 
-public abstract class Events implements ActionListener{
+public abstract class AbstractEvent implements ActionListener{
 	protected String text;
 	protected EventPanel parent;
 	protected JComponent[] buttons;
 	
-	public Events(EventPanel p){
+	public AbstractEvent(EventPanel p){
 		parent = p;
 		text = "Default Event";
 	}
 	
-	public Events(EventPanel p, String t){
+	public AbstractEvent(EventPanel p, String t){
 		parent = p;
 		text = t;
 	}

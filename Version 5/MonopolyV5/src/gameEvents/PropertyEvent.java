@@ -1,12 +1,13 @@
 /**
  * 
  */
-package main.java.action;
+package gameEvents;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 
+import main.java.action.BankPropertyActions;
 import main.java.gui.EventPanel;
 import main.java.models.Player;
 import main.java.models.Property;
@@ -15,7 +16,7 @@ import main.java.models.Property;
  * @author Miguel
  *
  */
-public class PropertyEvent extends Events {
+public class PropertyEvent extends AbstractEvent {
 	
 	int status;
 	Player play;
@@ -49,7 +50,7 @@ public class PropertyEvent extends Events {
 			if(e.getSource().equals(buttons[0])){
 				BankPropertyActions.sellUnownedProperty(play, prop);
 			}else{
-				Events ae = new AuctionEvent(parent, prop);
+				AbstractEvent ae = new AuctionEvent(parent, prop);
 				parent.paintEvent(ae);
 				try {
 					ae.wait();

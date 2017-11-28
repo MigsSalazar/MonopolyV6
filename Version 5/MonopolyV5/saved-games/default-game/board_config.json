@@ -2,7 +2,6 @@
   "boardWidth": 30,
   "boardHeight": 30,
   "playerCount": 8,
-  "dir": "G:\\Git\\Monopoly\\Version 5\\MonopolyV5",
   "gamePieces": [
     {
       "team": 0,

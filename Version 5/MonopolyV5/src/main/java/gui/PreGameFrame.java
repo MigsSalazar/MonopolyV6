@@ -15,9 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 
 import main.java.Main;
-import main.java.listeners.AboutActionListener;
-import main.java.listeners.LoadActionListener;
-import main.java.listeners.NewActionListener;
+import main.java.action.Runner;
 
 /**
  * @author Miguel Salazar
@@ -67,18 +65,20 @@ public class PreGameFrame extends JFrame {
 	
 	
 	private void addListeners(){
-		newGame.addActionListener(new NewActionListener(){
+		newGame.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				super.actionPerformed(e);
+				Runner newGame = new Runner();
+				newGame.startNewGame();
 				closeMe();
 			}
 		});
 		
-		loadGame.addActionListener(new LoadActionListener(){
+		loadGame.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				super.actionPerformed(e);
+				Runner oldGame = new Runner();
+				oldGame.startSavedGame();
 				closeMe();
 			}
 		});
@@ -90,7 +90,11 @@ public class PreGameFrame extends JFrame {
 			}
 		});
 		
-		about.addActionListener(new AboutActionListener());
+		about.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				Runner.aboutThis();
+			}
+		});
 	}
 	
 	private void closeMe(){

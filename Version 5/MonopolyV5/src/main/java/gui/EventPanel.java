@@ -2,15 +2,19 @@ package main.java.gui;
 
 import javax.swing.JPanel;
 
-import main.java.action.Events;
+import gameEvents.AbstractEvent;
 import main.java.action.Runner;
 
 public class EventPanel extends JPanel {
 	
 	
 	
-	private Events currentEvent;
+	private AbstractEvent currentEvent;
 	
+	
+	public AbstractEvent getEvent(){
+		return currentEvent;
+	}
 	
 	/**
 	 * 
@@ -23,7 +27,7 @@ public class EventPanel extends JPanel {
 	/*
 	 * Repaints this EventPanel expecting to use an entirely new Events object
 	 */
-	public void paintEvent(Events e){
+	public void paintEvent(AbstractEvent e){
 		currentEvent = e;
 	}
 	/*

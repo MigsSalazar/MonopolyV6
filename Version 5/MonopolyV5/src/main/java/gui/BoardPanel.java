@@ -24,7 +24,6 @@ public class BoardPanel extends JPanel {
 	@Expose private int boardWidth = 30;					//width of the board by icons, not by pixels
 	@Expose private int boardHeight = 30;					//height of the board by icons, not by pixels
 	@Expose private int playerCount;						//number of players in the game (used for player displaying)
-	@Expose private String dir;
 	@Expose private ArrayList<Piece> gamePieces;			//pieces that move around the board
 	@Expose private String[] playerIconPaths;				//stores the path as a string of the icons that gamepieces uses to display themselves
 	@Expose private String[] iconPaths;						//stores all the paths for all the icons available for the board to use
@@ -36,7 +35,7 @@ public class BoardPanel extends JPanel {
 	
 	
 	
-	public void pickPlayerPieces(int[] selection){
+	public void pickPlayerPieces(int[] selection, String dir){
 		if(selection.length == getPlayerCount()){
 			//The number of tokens selected is equal to the number of players
 			for(int i=0; i<selection.length; i++){
@@ -55,7 +54,7 @@ public class BoardPanel extends JPanel {
 		}
 	}
 	
-	public void firstPaintBoard() throws NullPointerException{
+	public void firstPaintBoard(String dir) throws NullPointerException{
 		makeGrid();
 		this.setLayout(grid);
 		

@@ -4,21 +4,37 @@ import java.io.*;
 import java.util.Map;
 import java.util.Random;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 
+import gameEvents.AbstractEvent;
 import main.java.models.*;
 import main.java.gui.*;
-import main.java.action.Events;
+import main.java.action.Runner;
 
 public class GameWriter {
 	
-	public static boolean writeOutGame(JFrame frame,
+	public static boolean writeOutOldGame(Runner game){
+		String source = GameReader.findGame(game.getFrame());
+		String[] locations = source.split("\n");
+		Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+		try{
+			gson.toJson(game.getFrame().getGameBoard(), new FileWriter(locations[0]));
+			gson.toJson(game.getPlayers(), new FileWriter(locations[1]));
+			gson.toJson(game.getProperties(), new FileWriter(locations[2]));
+			gson.toJson(game.getFrame().getGameEvents(), new FileWriter(locations[3]));
+		}catch(IOException ioe){
+			return false;
+		}
+		return true;
+	}
+	
+	public static boolean writeOutNewGame(GameFrame frame,
 										BoardPanel board,
-										Events event,
+										AbstractEvent event,
 										Map<String, Player> players,
 										Map<String, Property> props){
 		

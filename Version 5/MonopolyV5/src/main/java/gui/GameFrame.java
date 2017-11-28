@@ -2,13 +2,14 @@ package main.java.gui;
 
 import main.java.action.Runner;
 import main.java.io.GameReader;
-import main.java.listeners.*;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 
@@ -18,6 +19,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+
+import gameEvents.*;
 
 
 /**
@@ -30,34 +33,23 @@ public class GameFrame extends JFrame{
 	private JMenuBar menuBar;
 	private JMenu[] menus;
 	private JMenuItem[] menuItems;
-	private boolean newGame;
 	private BoardPanel gameBoard;
 	private StatsPanel gameStats;
 	private EventPanel gameEvents;
 	private GameReader readin;
-	private String path;
 	private Runner globalVars;
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8200279150286115532L;
-	public GameFrame(boolean flag, Runner gv){
+	public GameFrame(boolean flag, Runner gv, GameReader ri){
 		//home = new HomePanel();
 		//c.add(home);
 		globalVars = gv;
 		border = new BorderLayout();
-		newGame = flag;
 		defineMenus();
-		
-		if(newGame){
-			readin = new GameReader();
-			path = System.getProperty("user.dir")+"/saved-games/default-game/";
-		}else{
-			path = GameReader.findGame(this);
-			File readme = new File(path);
-			readin = new GameReader(readme);
-		}
+		readin = ri;
 	}
 	
 	public void setup(){
@@ -90,7 +82,11 @@ public class GameFrame extends JFrame{
 		this.setResizable(false);
 		this.setTitle("Migs Monopoly!");
 		this.setVisible(true);
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter(){
+		    public void windowClosing(WindowEvent e){
+		        closeMe();
+		    }
+		});
 	}
 	
 	/*
@@ -133,19 +129,38 @@ public class GameFrame extends JFrame{
 		for(int i=0; i<menuItems.length; i++){
 			menuItems[i] = new JMenuItem();
 		}
-		
-		menuItems[0].addActionListener(new NewActionListener());
+		//make a new game from scratch
+		menuItems[0].addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				Runner newGame = new Runner();
+				newGame.startNewGame();
+				closeMe();
+			}
+		});
 		menuItems[0].setText("New");
 		menus[0].add(menuItems[0]);
 		
-		menuItems[1].addActionListener(new SaveActionListener());
+		//open a prevously saved game
+		menuItems[1].addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				
+			}
+		});
 		menuItems[1].setText("Save");
 		menus[0].add(menuItems[1]);
 		
-		menuItems[2].addActionListener(new LoadActionListener());
+		//make a game from a save file
+		menuItems[2].addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				Runner oldGame = new Runner();
+				oldGame.startSavedGame();
+				closeMe();
+			}
+		});
 		menuItems[2].setText("Load");
 		menus[0].add(menuItems[2]);
 		
+		//Exits current game
 		menuItems[3].addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -155,22 +170,23 @@ public class GameFrame extends JFrame{
 		menuItems[3].setText("Exit");
 		menus[0].add(menuItems[3]);
 		
-		menuItems[4].addActionListener(new SettingsActionListener());
-		menuItems[4].setText("Settings");
-		ImageIcon gear = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/smallGear.png");
-		menuItems[4].setIcon(gear);
 		
-		menuItems[5].addActionListener(new AboutActionListener());
-		menuItems[5].setText("About");
+		
+		
+		menuItems[4].addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				Runner.aboutThis();
+			}
+		});
+		menuItems[4].setText("About");
 		ImageIcon mark = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/aboutSmall.png");
-		menuItems[5].setIcon(mark);
-		
+		menuItems[4].setIcon(mark);
 		
 		for(int i=0; i<menus.length; i++){
 			menuBar.add(menus[i]);
 		}
 		menuBar.add(menuItems[4]);
-		menuBar.add(menuItems[5]);
 		
 	}
 
@@ -178,8 +194,10 @@ public class GameFrame extends JFrame{
 		//System.out.println("requested board");
 		BoardPanel retval = readin.getBoard();
 		int[] selection = {4,2,7,5,1,3,0,6};
-		retval.pickPlayerPieces(selection);
-		retval.firstPaintBoard();
+		String dir = System.getProperty("user.dir");
+		retval.pickPlayerPieces(selection, globalVars.getSettings().textureMe());
+		retval.firstPaintBoard(globalVars.getSettings().textureMe());
+		//System.out.println("board built");
 		return retval;
 	}
 	
@@ -199,6 +217,25 @@ public class GameFrame extends JFrame{
 	public Runner getGlobalVars(){
 		return globalVars;
 	}
+
+	public BoardPanel getGameBoard() {
+		return gameBoard;
+	}
+
+	public StatsPanel getGameStats() {
+		return gameStats;
+	}
+
+	public EventPanel getGameEvents() {
+		return gameEvents;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	
+	public void closeMe(){
+		this.dispose();
+	}
 	
 }

@@ -1,4 +1,4 @@
-package main.java.action;
+package gameEvents;
 
 import java.awt.event.ActionEvent;
 
@@ -6,7 +6,7 @@ import javax.swing.*;
 
 import main.java.gui.EventPanel;
 
-public class MessageEvent extends Events {
+public class MessageEvent extends AbstractEvent {
 
 	public MessageEvent(EventPanel p, String message) {
 		super(p);

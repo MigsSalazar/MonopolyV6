@@ -1,11 +1,13 @@
 /**
  * 
  */
-package main.java;
+package main.java.action;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,9 +18,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import main.java.listeners.FullScreenActionListener;
-import main.java.listeners.ResolutionActionListener;
-import main.java.listeners.TexturePackActionListener;
 
 /**
  * @author Miguel Salazar
@@ -30,11 +29,12 @@ public class Settings extends JDialog {
 	 * 
 	 */
 	private static final long serialVersionUID = -8037425504189246209L;
-	private JRadioButton fullScreen;
 	private JComboBox<String> resolution;
 	private JButton textureFinder;
 	private JPanel innerPanel;
 	private JPanel outerPanel;
+	
+	private String texturePath = System.getProperty("user.dir");
 	
 	public Settings(JFrame parent){
 		super(parent, true);
@@ -46,8 +46,6 @@ public class Settings extends JDialog {
 		innerPanel.setLayout(new GridLayout(1,2));
 		outerPanel = new JPanel(new GridLayout(4,3) );
 		
-		
-		createFullScreen();
 		createResolution();
 		createTextureFinder();
 		
@@ -64,11 +62,9 @@ public class Settings extends JDialog {
 		JLabel topTitle = new JLabel("Settings");
 		
 		topTitle.setHorizontalAlignment(JLabel.CENTER);
-		fullScreen.setHorizontalAlignment(JRadioButton.CENTER);
 		textureFinder.setHorizontalAlignment(JButton.CENTER);
 		
 		outerPanel.add(topTitle);
-		outerPanel.add(fullScreen);
 		outerPanel.add(innerPanel);
 		outerPanel.add(textureFinder);
 		
@@ -83,14 +79,6 @@ public class Settings extends JDialog {
 
 	}
 	
-	private void createFullScreen(){
-		fullScreen = new JRadioButton();
-		fullScreen.setMaximumSize(new Dimension(100,25));
-		fullScreen.setText("Full Screen");
-		fullScreen.setSize(100, 25);
-		fullScreen.setAlignmentX(CENTER_ALIGNMENT);
-		fullScreen.addActionListener(new FullScreenActionListener());
-	}
 	
 	private void createResolution(){
 		String[] resChoices = new String[5];
@@ -99,19 +87,27 @@ public class Settings extends JDialog {
 		}
 		resolution = new JComboBox<String>(resChoices);
 		resolution.setMaximumSize(new Dimension(75,25));
-		resolution.addActionListener(new ResolutionActionListener());
+		resolution.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				
+			}
+		});
 		
 	}
 	
 	private void createTextureFinder(){
 		textureFinder = new JButton("Texture Pack");
 		textureFinder.setMaximumSize(new Dimension(75,25));
-		textureFinder.addActionListener(new TexturePackActionListener());
-		
+		textureFinder.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				
+			}
+		});
 	}
 	
-	public void waitForMe(){
-		
+	public String textureMe(){
+		//TODO make this a file chooser that allows you to pick your texture pack
+		return texturePath;
 	}
 	
 }
