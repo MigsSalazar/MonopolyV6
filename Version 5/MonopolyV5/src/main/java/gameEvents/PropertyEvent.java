@@ -1,7 +1,7 @@
 /**
  * 
  */
-package gameEvents;
+package main.java.gameEvents;
 
 import java.awt.event.ActionEvent;
 

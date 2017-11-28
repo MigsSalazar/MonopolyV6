@@ -5,7 +5,6 @@ import javax.swing.JOptionPane;
 
 import main.java.action.Runner;
 import main.java.action.Settings;
-import main.java.gui.GameFrame;
 import main.java.gui.PreGameFrame;
 
 public class Main {

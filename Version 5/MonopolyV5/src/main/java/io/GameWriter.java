@@ -8,9 +8,8 @@ import javax.swing.JOptionPane;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonIOException;
 
-import gameEvents.AbstractEvent;
+import main.java.gameEvents.AbstractEvent;
 import main.java.models.*;
 import main.java.gui.*;
 import main.java.action.Runner;
@@ -42,7 +41,6 @@ public class GameWriter {
 		Writer out;
 		try{
 			if(path != null && !path.equals("")){
-				Gson gson = new GsonBuilder().setPrettyPrinting().create();
 				String homeFolder = System.getProperty("user.dir")+"/saved-games/";
 				String boardPath = objectWriter(homeFolder+"/game-reqs/", board);
 				String playerPath = objectWriter(homeFolder+"/game-reqs/", players);

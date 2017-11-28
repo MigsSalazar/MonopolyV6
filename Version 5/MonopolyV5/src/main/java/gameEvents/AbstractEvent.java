@@ -1,8 +1,7 @@
-package gameEvents;
+package main.java.gameEvents;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JComponent;
 
 import main.java.gui.EventPanel;

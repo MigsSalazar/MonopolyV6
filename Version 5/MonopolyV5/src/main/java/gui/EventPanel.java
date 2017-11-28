@@ -2,7 +2,7 @@ package main.java.gui;
 
 import javax.swing.JPanel;
 
-import gameEvents.AbstractEvent;
+import main.java.gameEvents.AbstractEvent;
 import main.java.action.Runner;
 
 public class EventPanel extends JPanel {

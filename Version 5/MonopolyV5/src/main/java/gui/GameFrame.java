@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
 import java.io.IOException;
 
 import javax.swing.ImageIcon;
@@ -19,8 +18,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-
-import gameEvents.*;
 
 
 /**
@@ -194,7 +191,6 @@ public class GameFrame extends JFrame{
 		//System.out.println("requested board");
 		BoardPanel retval = readin.getBoard();
 		int[] selection = {4,2,7,5,1,3,0,6};
-		String dir = System.getProperty("user.dir");
 		retval.pickPlayerPieces(selection, globalVars.getSettings().textureMe());
 		retval.firstPaintBoard(globalVars.getSettings().textureMe());
 		//System.out.println("board built");
