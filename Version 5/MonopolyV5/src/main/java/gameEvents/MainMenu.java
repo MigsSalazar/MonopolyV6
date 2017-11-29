@@ -10,6 +10,7 @@ import javax.swing.JComponent;
 
 import main.java.action.Runner;
 import main.java.gui.EventPanel;
+import main.java.models.Player;
 
 /**
  * @author Miguel Salazar
@@ -17,6 +18,9 @@ import main.java.gui.EventPanel;
  */
 public class MainMenu extends AbstractEvent {
 	
+	
+	private Player currentPlayer;
+	private int turn;
 	private Runner bigMe;
 	/**
 	 * @param p
@@ -24,7 +28,9 @@ public class MainMenu extends AbstractEvent {
 	public MainMenu(EventPanel p) {
 		super(p);
 		bigMe = p.getGlobalVars();
-		text = "";
+		turn = bigMe.getPlayerTurn();
+		currentPlayer = bigMe.currentPlayer();
+		text = currentPlayer.getName()+"'s turn.\nWhat would you like to do?";
 		defineComponents();
 	}
 
@@ -35,6 +41,8 @@ public class MainMenu extends AbstractEvent {
 	public MainMenu(EventPanel p, String t) {
 		super(p, t);
 		bigMe = p.getGlobalVars();
+		turn = bigMe.getPlayerTurn();
+		currentPlayer = bigMe.currentPlayer();
 		defineComponents();
 	}
 
@@ -81,6 +89,12 @@ public class MainMenu extends AbstractEvent {
 		buttons[3] = new JButton("Mortgage");
 		((JButton)buttons[3]).addActionListener(this);
 		
+	}
+	
+	private void updateTurn(){
+		bigMe.cyclePlayer();
+		turn = bigMe.getPlayerTurn();
+		currentPlayer = bigMe.currentPlayer();
 	}
 
 }

@@ -4,6 +4,7 @@
 package main.java.action;
 
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -76,6 +77,23 @@ public class Runner {
 
 	public int getPlayerTurn() {
 		return playerTurn;
+	}
+	
+	public Player currentPlayer(){
+		for(String p : players.keySet()){
+			if(playerTurn == players.get(p).getUserID()){
+				return players.get(p);
+			}
+		}
+		return null;
+	}
+	
+	public void cyclePlayer(){
+		Player current = currentPlayer();
+		current.setTurn(false);
+		playerTurn = (playerTurn + 1)%players.size();
+		current = currentPlayer();
+		current.setTurn(true);
 	}
 
 	public GameFrame getFrame(){
