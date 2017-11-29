@@ -18,7 +18,7 @@ public class MessageEvent extends AbstractEvent {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(buttons[0])){
-			this.run = false;
+			desync();
 		}
 	}
 

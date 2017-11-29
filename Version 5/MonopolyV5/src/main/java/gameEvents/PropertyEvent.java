@@ -50,23 +50,16 @@ public class PropertyEvent extends AbstractEvent {
 		if(status == 0){
 			if(e.getSource().equals(buttons[0])){
 				BankPropertyActions.sellUnownedProperty(play, prop);
-				this.run = false;
+				desync();
 			}else{
 				AbstractEvent ae = new AuctionEvent(parent, prop);
 				parent.paintEvent(ae);
-				while(ae.running()){
-					try {
-						ae.wait();
-					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-				this.run = false;
+				sync(ae);
+				desync();
 			}
 		}else if(status == -1){
 			BankPropertyActions.rentOwnedProperty(play, prop);
-			this.run = false;
+			desync();
 		}
 	}
 

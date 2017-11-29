@@ -34,6 +34,9 @@ public class EventPanel extends JPanel {
 	 * Repaints this EventPanel expecting to use an entirely new Events object
 	 */
 	public void paintEvent(AbstractEvent e){
+		if(currentEvent.equals(e)){
+			return;
+		}
 		currentEvent = e;
 		text.setText(currentEvent.getText());
 		

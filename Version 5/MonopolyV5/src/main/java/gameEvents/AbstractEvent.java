@@ -10,7 +10,6 @@ public abstract class AbstractEvent implements ActionListener{
 	protected String text;
 	protected EventPanel parent;
 	protected JComponent[] buttons;
-	protected boolean run = true;
 	
 	public AbstractEvent(EventPanel p){
 		parent = p;
@@ -36,10 +35,22 @@ public abstract class AbstractEvent implements ActionListener{
 	}
 	
 	public abstract void defineComponents();
-	
-	public boolean running(){
-		return run;
+
+	protected void sync(AbstractEvent ae){
+		try {
+			synchronized(ae){
+				ae.wait();
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
+	protected void desync(){
+		AbstractEvent me = this;
+		synchronized(me){
+			me.notify();
+		}
+	}
 	
 }

@@ -36,48 +36,52 @@ public class AuctionEvent extends AbstractEvent {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(buttons[0])){
 			JTextField useme = (JTextField)buttons[0];
-			try{
-				int offer = Integer.parseInt(useme.getText());
-				if(offer >=  players.get(playerNames[turn]).getCash() || (offer<bid && bid !=0)){
-					((JButton)buttons[1]).setEnabled(false);
-				}else if(offer > bid || offer==0){
-					((JButton)buttons[1]).setEnabled(true);
-				}
-			}catch(NumberFormatException nfe){
-				((JTextField)buttons[0]).setText(""+(bid+1));
-			}
+			bidInput(useme);
 		}else if(e.getSource().equals(buttons[1]) || e.getSource().equals(buttons[2])){
-			if(e.getSource().equals(buttons[1])){
-				if( Integer.parseInt(  ((JTextField)buttons[0]).getText()  ) == 0 ){
-					((JButton)buttons[2]).doClick();
-				}else{
-					bid = Integer.parseInt(((JTextField)buttons[0]).getText());
-					highestBidder = turn;
-					turn = (turn+1)%playerNames.length;
-					setText();
-					parent.softRepaint();
-					
-				}
-			}else if(e.getSource().equals(buttons[2])){
+			buttonPush(e);
+			if(fullCircle()){
+				BankPropertyActions.sellUnownedProperty(players.get(playerNames[highestBidder]), prop, bid);
+				MessageEvent me = new MessageEvent(parent, whoWon());
+				parent.paintEvent(me);
+				sync(me);
+				desync();
+			}
+		}
+	}
+
+
+	private void buttonPush(ActionEvent e) {
+		if(e.getSource().equals(buttons[1])){
+			if( Integer.parseInt(  ((JTextField)buttons[0]).getText()  ) == 0 ){
+				((JButton)buttons[2]).doClick();
+			}else{
+				bid = Integer.parseInt(((JTextField)buttons[0]).getText());
+				highestBidder = turn;
 				turn = (turn+1)%playerNames.length;
 				setText();
 				parent.softRepaint();
 				
 			}
-			if(fullCircle()){
-				BankPropertyActions.sellUnownedProperty(players.get(playerNames[highestBidder]), prop, bid);
-				MessageEvent me = new MessageEvent(parent, whoWon());
-				parent.paintEvent(me);
-				while(me.running()){
-					try {
-						me.wait();
-					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-				this.run = false;
+		}else if(e.getSource().equals(buttons[2])){
+			turn = (turn+1)%playerNames.length;
+			setText();
+			parent.softRepaint();
+			
+		}
+		
+	}
+
+
+	private void bidInput(JTextField useme) {
+		try{
+			int offer = Integer.parseInt(useme.getText());
+			if(offer >=  players.get(playerNames[turn]).getCash() || (offer<bid && bid !=0)){
+				((JButton)buttons[1]).setEnabled(false);
+			}else if(offer > bid || offer==0){
+				((JButton)buttons[1]).setEnabled(true);
 			}
+		}catch(NumberFormatException nfe){
+			((JTextField)buttons[0]).setText(""+(bid+1));
 		}
 	}
 
