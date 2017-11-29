@@ -54,6 +54,12 @@ public class BoardPanel extends JPanel {
 		}
 	}
 	
+	public void jailPlayer(int player){
+		Piece playerPiece = gamePieces.get(player);
+		updateIcon(playerPiece, 10);
+		
+	}
+	
 	public void firstPaintBoard(String dir) throws NullPointerException{
 		makeGrid();
 		this.setLayout(grid);
@@ -94,30 +100,51 @@ public class BoardPanel extends JPanel {
 		return updateIcon(p, newPosition);
 	}
 	
+	private void changeIcon(ImageIcon icon, int currR, int currC) {
+		Component com;
+		displayedBoard[currR][currC] = icon;
+		com = this.getComponent(currR*displayedBoard.length+currC);
+
+		if( com instanceof JLabel ){
+			((JLabel) com).setIcon(displayedBoard[currR][currC]);
+			com.repaint();
+		}
+	}
+	
+	private void clearPiece(GamePath gp) {
+		int currR = gp.getCurrentRow();
+		int currC = gp.getCurrentCol();
+		changeIcon(imageIndex[ basePaint[currR][currC] ], currR, currC);
+	}
+	
+	public boolean updateIcon(Piece p, int newposition, int r, int c){
+		try{
+			GamePath gp = p.getTravelPath();
+			clearPiece(gp);
+			
+			gp.setCurrentStep(newposition);
+			int currR = r;
+			int currC = c;
+			
+			changeIcon(p.getIcon(), currR, currC);
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
+	}
+	
 	public boolean updateIcon(Piece p, int newposition){
 		try{
 			GamePath gp = p.getTravelPath();
-			int currR = gp.getCurrentRow();
-			int currC = gp.getCurrentCol();
-			displayedBoard[currR][currC] = imageIndex[ basePaint[currR][currC] ];
-			Component com = this.getComponent(currR*displayedBoard.length+currC);
-	
-			if( com instanceof JLabel ){
-				((JLabel) com).setIcon(displayedBoard[currR][currC]);
-				com.repaint();
-			}
+			clearPiece(gp);
 			
 			gp.setCurrentStep(newposition);
-			currR = gp.getCurrentRow();
-			currC = gp.getCurrentCol();
+			int currR = gp.getCurrentRow();
+			int currC = gp.getCurrentCol();
 			
-			displayedBoard[currR][currC] = p.getIcon();
-			com = this.getComponent(currR*displayedBoard.length+currC);
-	
-			if( com instanceof JLabel ){
-				((JLabel) com).setIcon(displayedBoard[currR][currC]);
-				com.repaint();
-			}
+			changeIcon(p.getIcon(), currR, currC);
 		}catch(Exception e){
 			e.printStackTrace();
 			return false;

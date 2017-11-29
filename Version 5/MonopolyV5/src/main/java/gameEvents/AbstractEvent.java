@@ -10,6 +10,7 @@ public abstract class AbstractEvent implements ActionListener{
 	protected String text;
 	protected EventPanel parent;
 	protected JComponent[] buttons;
+	protected boolean run = true;
 	
 	public AbstractEvent(EventPanel p){
 		parent = p;
@@ -19,6 +20,11 @@ public abstract class AbstractEvent implements ActionListener{
 	public AbstractEvent(EventPanel p, String t){
 		parent = p;
 		text = t;
+		parent.paintEvent(this);
+	}
+	
+	public JComponent[] getComponents(){
+		return buttons;
 	}
 	
 	public String getText(){
@@ -30,5 +36,10 @@ public abstract class AbstractEvent implements ActionListener{
 	}
 	
 	public abstract void defineComponents();
+	
+	public boolean running(){
+		return run;
+	}
+	
 	
 }

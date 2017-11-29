@@ -23,8 +23,13 @@ public class Runner {
 	private Map<String, Player> players;
 	private Map<String, Property> properties;
 	private Map<String, Suite> coloredProps;
+	
+	private Set<String> playerNames;
+	private Set<String> propNames;
+	private Set<String> suiteNames;
+	
 	private int playerTurn;
-	private Dice dice;
+	private Dice dice = new Dice(2,6);
 	private GameFrame game;
 	private GameReader gread;
 	Settings sets;
@@ -51,8 +56,16 @@ public class Runner {
 		game.setup();
 	}
 	
-	public String[] playerNames(){
-		return (String[])players.keySet().toArray();
+	public String[] getPlayerNames(){
+		return (String[])playerNames.toArray();
+	}
+	
+	public String[] getPropName(){
+		return (String[])propNames.toArray();
+	}
+	
+	public String[] getSuiteName(){
+		return (String[])suiteNames.toArray();
 	}
 	
 	public Map<String, Player> getPlayers(){
@@ -65,6 +78,7 @@ public class Runner {
 
 	public void setProperties(Map<String, Property> properties) {
 		this.properties = properties;
+		propNames = this.properties.keySet();
 	}
 
 	public Map<String, Suite> getColoredProps() {
@@ -73,6 +87,7 @@ public class Runner {
 
 	public void setColoredProps(Map<String, Suite> coloredProps) {
 		this.coloredProps = coloredProps;
+		suiteNames = this.coloredProps.keySet();
 	}
 
 	public int getPlayerTurn() {
@@ -80,7 +95,7 @@ public class Runner {
 	}
 	
 	public Player currentPlayer(){
-		for(String p : players.keySet()){
+		for(String p : playerNames){
 			if(playerTurn == players.get(p).getUserID()){
 				return players.get(p);
 			}
@@ -114,6 +129,7 @@ public class Runner {
 
 	public void setPlayers(Map<String, Player> players) {
 		this.players = players;
+		playerNames = this.players.keySet();
 	}
 
 	public static void aboutThis(){

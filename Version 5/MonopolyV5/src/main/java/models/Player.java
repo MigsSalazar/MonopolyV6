@@ -81,6 +81,8 @@ public class Player {
 	
 	public void setPosition(int p){ position = p; }
 	
+	public void movePlayer(int d){ position = (position+d)%40; }
+	
 	public int getCash(){ return cash; }
 	
 	public void addCash(int ac){

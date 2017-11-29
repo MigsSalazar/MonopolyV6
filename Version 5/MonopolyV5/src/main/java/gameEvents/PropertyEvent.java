@@ -38,32 +38,36 @@ public class PropertyEvent extends AbstractEvent {
 		}
 		defineComponents();
 		
+		
 	}
 
 	/* (non-Javadoc)
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e){
 		
 		if(status == 0){
 			if(e.getSource().equals(buttons[0])){
 				BankPropertyActions.sellUnownedProperty(play, prop);
+				this.run = false;
 			}else{
 				AbstractEvent ae = new AuctionEvent(parent, prop);
 				parent.paintEvent(ae);
-				try {
-					ae.wait();
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
+				while(ae.running()){
+					try {
+						ae.wait();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
+				this.run = false;
 			}
 		}else if(status == -1){
 			BankPropertyActions.rentOwnedProperty(play, prop);
+			this.run = false;
 		}
-		
-		
-		this.notify();
 	}
 
 	/* (non-Javadoc)
@@ -88,6 +92,7 @@ public class PropertyEvent extends AbstractEvent {
 			}
 		}
 	}
+
 	
 	private int ownership(){
 		if(prop.getOwner() == null){
@@ -99,5 +104,5 @@ public class PropertyEvent extends AbstractEvent {
 		}
 	}
 
-
+	
 }

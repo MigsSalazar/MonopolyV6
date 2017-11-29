@@ -21,7 +21,7 @@ public class AuctionEvent extends AbstractEvent {
 	private int turn = 0;
 	private int bid = 0;
 	private int highestBidder = -1;
-	private String[] playerNames = runme.playerNames();
+	private String[] playerNames = runme.getPlayerNames();
 	private Map<String, Player> players = runme.getPlayers();
 	
 	public AuctionEvent(EventPanel p, Property pr){
@@ -62,17 +62,21 @@ public class AuctionEvent extends AbstractEvent {
 				turn = (turn+1)%playerNames.length;
 				setText();
 				parent.softRepaint();
+				
 			}
 			if(fullCircle()){
 				BankPropertyActions.sellUnownedProperty(players.get(playerNames[highestBidder]), prop, bid);
 				MessageEvent me = new MessageEvent(parent, whoWon());
-				try {
-					me.wait();
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				parent.paintEvent(me);
+				while(me.running()){
+					try {
+						me.wait();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
-				notify();
+				this.run = false;
 			}
 		}
 	}
@@ -88,7 +92,7 @@ public class AuctionEvent extends AbstractEvent {
 	}
 	
 	private String whoWon(){
-		return "";
+		return playerNames[highestBidder]+" has won the auction and bought\n"+prop.getName()+" for $"+bid;
 	}
 	
 	@Override

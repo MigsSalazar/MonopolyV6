@@ -14,6 +14,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.google.gson.Gson;
 
+import main.java.action.Runner;
 import main.java.gui.*;
 import main.java.models.*;
 
@@ -59,7 +60,7 @@ public class GameReader {
 		return retval;
 	}
 	
-	public EventPanel getEvents() throws IOException{
+	public EventPanel getEvents(Runner gv) throws IOException{
 		//System.out.println("gson events begins");
 		if(newGame){
 			//System.out.println("event doesnt exist, starting from scratch");

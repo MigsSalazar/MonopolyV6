@@ -199,7 +199,7 @@ public class GameFrame extends JFrame{
 	
 	private EventPanel requestEventPanel() throws IOException{
 		//System.out.println("requested events");
-		return readin.getEvents();
+		return readin.getEvents(globalVars);
 	}
 	
 	private StatsPanel requestStatsPanel(){
