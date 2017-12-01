@@ -29,7 +29,7 @@ public class Runner {
 	private Set<String> suiteNames;
 	
 	private int playerTurn;
-	private Dice dice = new Dice(2,6);
+	private Roll gameDice;
 	private GameFrame game;
 	private GameReader gread;
 	Settings sets;
@@ -119,14 +119,6 @@ public class Runner {
 		this.playerTurn = playerTurn;
 	}
 
-	public Dice getDice() {
-		return dice;
-	}
-
-	public void setDice(Dice dice) {
-		this.dice = dice;
-	}
-
 	public void setPlayers(Map<String, Player> players) {
 		this.players = players;
 		playerNames = this.players.keySet();
@@ -158,6 +150,10 @@ public class Runner {
 
 	public Settings getSettings() {
 		return sets;
+	}
+
+	public Roll getGameDice() {
+		return gameDice;
 	}
 	
 }
