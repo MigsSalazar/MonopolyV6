@@ -1,5 +1,7 @@
 package main.java.models;
 
+import java.util.List;
+
 public interface Suite {
 	
 	/**
@@ -39,5 +41,9 @@ public interface Suite {
 	 * @return	integer value of the disparity
 	 */
 	public abstract int gradeDisparity();
+	
+	public abstract void setPropertySuite();
+	
+	public abstract List<Property> getProperties();
 
 }

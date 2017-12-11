@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 
+import main.java.gui.BoardPanel;
 import main.java.gui.EventPanel;
 
 /**
@@ -29,6 +30,26 @@ public class MainMenu extends DiceNeededEvent{
 		text = currentPlayer.getName()+"'s turn.\nWhat would you like to do?";
 		defineComponents();
 		parent.paintEvent(this);
+	}
+	
+	/**
+	 * THIS IS FOR TEMPLITAZATION AND TESTING ONLY
+	 * @param p
+	 * @param b
+	 * @deprecated
+	 */
+	public MainMenu(EventPanel p, BoardPanel b){
+		//TODO finish all other template IO files before you finish this
+		super(p);
+		board = b;
+		gameVars = p.getGlobalVars();
+		gameDice = gameVars.getGameDice();
+		
+	}
+	
+	public void forceWait(AbstractEvent ae){
+		parent.paintEvent(ae);
+		sync(ae);
 	}
 
 	/* (non-Javadoc)

@@ -1,17 +1,23 @@
 package main.java.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.gson.annotations.Expose;
+
 public class BigSuite implements Suite {
 
-	private final String COLOR;
-	private final Colored FIRST;
-	private final Colored SECOND;
-	private final Colored THIRD;
+	@Expose private final String COLOR;
+	@Expose private final Colored FIRST;
+	@Expose private final Colored SECOND;
+	@Expose private final Colored THIRD;
 	
 	public BigSuite(String c, Colored f, Colored s, Colored t){
 		COLOR = c;
 		FIRST = f;
 		SECOND = s;
 		THIRD = t;
+		setPropertySuite();
 	}
 	
 	@Override
@@ -58,5 +64,19 @@ public class BigSuite implements Suite {
 		// TODO Auto-generated method stub
 		return largestGrade() - smallestGrade();
 	}
-
+	
+	public void setPropertySuite(){
+		FIRST.setSuite(this);
+		SECOND.setSuite(this);
+		THIRD.setSuite(this);
+	}
+	
+	public List<Property> getProperties(){
+		ArrayList<Property> props = new ArrayList<Property>();
+		props.add(FIRST);
+		props.add(SECOND);
+		props.add(THIRD);
+		return props;
+	}
+	
 }

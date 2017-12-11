@@ -1,11 +1,13 @@
 package main.java.models;
 
+import com.google.gson.annotations.Expose;
+
 public class Colored extends Property {
 
 	
 	private Suite suite;
-	private int[] rent;
-	private int grade;
+	@Expose private int[] rent;
+	@Expose private int grade;
 	
 	/**
 	 * Child to Property class
@@ -19,13 +21,17 @@ public class Colored extends Property {
 	 * @param r		array of integers defining the Colored Property's rent values depending on the grade
 	 * @param g		int grade of the Colored Property
 	 */
-	public Colored(String n, int p, int pr, boolean mb, Suite s, int[] r, int g) {
+	public Colored(String n, int p, int pr, boolean mb, int[] r, int g) {
 		super(n, p, pr, mb);
 		// TODO Auto-generated constructor stub
-		suite = s;
+		
 		rent = r;
 		grade = g;
 		
+	}
+	
+	public void setSuite(Suite s){
+		suite = s;
 	}
 	
 	/**

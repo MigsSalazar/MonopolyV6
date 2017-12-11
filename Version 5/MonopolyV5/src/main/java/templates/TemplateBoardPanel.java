@@ -170,7 +170,6 @@ public class TemplateBoardPanel extends JPanel {
 	}
 	
 	public void printPath(Piece p){
-		int coordinates = p.getTravelPath().getCurrentStep();
 		for(int i=0; i<40; i++){
 			int r = p.getTravelPath().getCurrentRow();
 			int c = p.getTravelPath().getCurrentCol();
@@ -183,7 +182,6 @@ public class TemplateBoardPanel extends JPanel {
 				com.repaint();
 			}
 			p.getTravelPath().forward();
-			coordinates = p.getTravelPath().getCurrentStep();
 		}
 	}
 	

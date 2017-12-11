@@ -1,12 +1,14 @@
 package main.java.models;
 
+import com.google.gson.annotations.Expose;
+
 public abstract class Property {
 	
-	private String name;
-	private int position;
-	private int price;
-	private Player owner;
-	private boolean mBool;
+	@Expose private String name;
+	@Expose private int position;
+	@Expose private int price;
+	@Expose private Player owner;
+	@Expose private boolean mBool;
 	
 	/**
 	 * Classic constructor for Properties

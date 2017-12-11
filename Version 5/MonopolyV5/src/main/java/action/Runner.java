@@ -3,6 +3,7 @@
  */
 package main.java.action;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -41,6 +42,8 @@ public class Runner {
 		
 		
 	}
+	
+	
 	
 	public void startNewGame(){
 		gread = new GameReader();
@@ -155,5 +158,37 @@ public class Runner {
 	public Roll getGameDice() {
 		return gameDice;
 	}
+	
+	public void makeTemplateEssentials(){
+		/*
+		private Set<String> playerNames;
+		private Set<String> propNames;
+		private Set<String> suiteNames;
+		
+		private int playerTurn;
+		private Roll gameDice;
+		private GameFrame game;
+		private GameReader gread;
+		Settings sets;
+		*/
+		players = new HashMap<String, Player>();
+		
+		for(int i=0; i<8; i++){
+			Player p = new Player(i+1, "Meep"+i );
+			players.put("Meep"+i, p);
+		}
+		playerNames = players.keySet();
+		
+		
+		
+		properties = new HashMap<String, Property>();
+		coloredProps = new HashMap<String, Suite>();
+		
+		
+	}
+	
+	
+	
+	
 	
 }

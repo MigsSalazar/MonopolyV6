@@ -64,7 +64,7 @@ public class GameReader {
 		//System.out.println("gson events begins");
 		if(newGame){
 			//System.out.println("event doesnt exist, starting from scratch");
-			return (new EventPanel());
+			return (new EventPanel(gv));
 		}else{
 			Gson gson = new Gson();
 			Reader readme = new FileReader(new File(locations.get(3)));

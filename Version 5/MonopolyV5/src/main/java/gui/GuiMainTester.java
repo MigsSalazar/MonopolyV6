@@ -11,6 +11,7 @@ import javax.swing.*;
 
 import com.google.gson.Gson;
 
+import main.java.action.Runner;
 import main.java.models.Dice;
 import main.java.models.Player;
 import main.java.templates.TemplateBoardPanel;
@@ -95,6 +96,33 @@ public class GuiMainTester {
 		tempFrame.setVisible(true);
 		tempFrame.setResizable(false);
 		bp.traversePaths();
+	}
+	/**/
+	/*
+	 * 
+	 *
+	public static void main(String[] args){
+		
+		Runner runme = new Runner();
+		
+		GameFrame gframe;
+		
+		JFrame tempFrame = new JFrame();
+		Container c = tempFrame.getContentPane();
+		
+		
+		
+		EventPanel epanel = new EventPanel(runme);
+		
+		c.add(epanel);
+		
+		
+		tempFrame.setSize(630,650);	//(width,height)
+		tempFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		tempFrame.setVisible(true);
+		tempFrame.setResizable(false);
+		
+		
 	}
 	/**/
 	

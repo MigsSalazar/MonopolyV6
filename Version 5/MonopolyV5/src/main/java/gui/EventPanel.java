@@ -1,7 +1,6 @@
 package main.java.gui;
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -17,17 +16,29 @@ public class EventPanel extends JPanel {
 	private JLabel text;
 	private JPanel componentPanel;
 	private AbstractEvent currentEvent;
-	
-	
-	public AbstractEvent getEvent(){
-		return currentEvent;
-	}
+	private MainMenu rootMenu;
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8886595624760821726L;
-
+	
+	public EventPanel(Runner gv){
+		gameVars = gv;
+		rootMenu = new MainMenu(this);
+		currentEvent = rootMenu;
+		paintEvent(rootMenu);
+	}
+	
+	public EventPanel(AbstractEvent ae){
+		rootMenu = new MainMenu(this);
+		currentEvent = ae;
+		rootMenu.forceWait(ae);
+	}
+	
+	public AbstractEvent getEvent(){
+		return currentEvent;
+	}
 	
 	
 	/*
