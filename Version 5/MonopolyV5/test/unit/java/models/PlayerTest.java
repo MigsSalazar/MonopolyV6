@@ -21,7 +21,7 @@ public class PlayerTest {
 	
 	@BeforeClass
 	public static void beforeClassTest(){
-		junk = new Colored("Junk Ave.", 13, 130, true, null, rents, 0 );
+		junk = new Colored("Junk Ave.", 13, 130, true, rents, 0 );
 		metra = new Railroad("Metra", 15, 200, false, rcount);
 		comcast = new Utility("Comcast", 13, 150, false, rcount);
 		properties = new HashMap<String, Property>();
@@ -300,7 +300,7 @@ public class PlayerTest {
 	@Test
 	public void testAddProperty() {
 		//beforeTest();
-		Property crap = new Colored("Crap Dr.", 40, 2,false, null, rents, 3);
+		Property crap = new Colored("Crap Dr.", 40, 2,false, rents, 3);
 		freshPlayer.addProperty(crap);
 		assertTrue(freshPlayer.playerOwns(crap));
 		assertEquals(crap.getOwner(), freshPlayer);
@@ -314,7 +314,7 @@ public class PlayerTest {
 	@Test
 	public void testRemovePropertyProperty() {
 		//beforeTest();
-		Property crap = new Colored("Crap Dr.", 40, 2,false, null, rents, 3);
+		Property crap = new Colored("Crap Dr.", 40, 2,false, rents, 3);
 		freshPlayer.addProperty(crap);
 		assertTrue(freshPlayer.playerOwns(crap));
 		assertEquals(crap.getOwner(), freshPlayer);
@@ -335,7 +335,7 @@ public class PlayerTest {
 	public void testRemovePropertyString(){
 		//beforeTest();
 		
-		Property crap = new Colored("Crap Dr.", 40, 2,false, null, rents, 3);
+		Property crap = new Colored("Crap Dr.", 40, 2,false, rents, 3);
 		freshPlayer.addProperty(crap);
 		assertTrue(freshPlayer.playerOwns(crap));
 		assertEquals(crap.getOwner(), freshPlayer);

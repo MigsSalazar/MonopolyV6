@@ -24,7 +24,6 @@ public class MainMenu extends DiceNeededEvent{
 	public MainMenu(EventPanel p) {
 		super(p);
 		gameVars = p.getGlobalVars();
-		board = gameVars.getFrame().getGameBoard();
 		gameDice = gameVars.getGameDice();
 		currentPlayer = gameVars.currentPlayer();
 		text = currentPlayer.getName()+"'s turn.\nWhat would you like to do?";
@@ -41,7 +40,6 @@ public class MainMenu extends DiceNeededEvent{
 	public MainMenu(EventPanel p, BoardPanel b){
 		//TODO finish all other template IO files before you finish this
 		super(p);
-		board = b;
 		gameVars = p.getGlobalVars();
 		gameDice = gameVars.getGameDice();
 		

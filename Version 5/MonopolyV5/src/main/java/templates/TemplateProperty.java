@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.typeadapters.RuntimeTypeAdapterFactory;
 import com.google.gson.annotations.Expose;
 
 import main.java.models.*;
@@ -19,7 +20,7 @@ public class TemplateProperty {
 
 	private transient String dir = System.getProperty("user.dir");
 	@Expose private Map<String, Property> properties = new HashMap<String,Property>();
-	@Expose private String suiteNameDir = System.getProperty("user.dir") + "\\saved-games\\default-game\\suiteNames.txt";
+	private String suiteNameDir = System.getProperty("user.dir") + "\\saved-games\\default-game\\suiteNames.txt";
 	private Map<String,Suite> suites = new HashMap<String, Suite>();
 	
 	public static void main(String[] args) {
@@ -152,14 +153,18 @@ public class TemplateProperty {
 	}
 	
 	private String[] getSuiteNames(){
-		String[] names = new String[0];
+		String[] names = new String[8];
 		File nameDoc = new File(suiteNameDir);
 		Scanner filein;
+		String[] temp;
+		int index = 0;
 		try {
 			filein = new Scanner(nameDoc);
 			while(filein.hasNextLine()){
 				String get = filein.nextLine();
-				names = get.split(",");
+				temp = get.split(",");
+				names[index] = temp[0];
+				index++;
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -171,8 +176,13 @@ public class TemplateProperty {
 	private boolean writeTemplate(){
 		try{
 			Writer iowrite = new FileWriter(dir+"/saved-games/default-game/properties.json");
-			Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
-			gson.toJson(this, iowrite);
+			RuntimeTypeAdapterFactory<Property> rttaf = RuntimeTypeAdapterFactory
+				    .of(Property.class, "type")
+				    .registerSubtype(Colored.class, "colored")
+				    .registerSubtype(Railroad.class, "railroad")
+				    .registerSubtype(Utility.class, "utility");
+			Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().registerTypeAdapterFactory(rttaf).create();
+			gson.toJson(properties, iowrite);
 			iowrite.close();
 			return true;
 		}catch(IOException ioe){

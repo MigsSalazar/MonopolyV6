@@ -2,7 +2,6 @@ package main.java.gameEvents;
 
 import main.java.action.Roll;
 import main.java.action.Runner;
-import main.java.gui.BoardPanel;
 import main.java.gui.EventPanel;
 import main.java.models.Player;
 import main.java.models.Property;
@@ -11,7 +10,6 @@ public abstract class DiceNeededEvent extends AbstractEvent {
 
 	protected Player currentPlayer;
 	protected Runner gameVars;
-	protected BoardPanel board;
 	protected Roll gameDice;
 
 	public DiceNeededEvent(EventPanel p) {
@@ -29,7 +27,7 @@ public abstract class DiceNeededEvent extends AbstractEvent {
 				sync(event);
 			break;
 		case 3:currentPlayer.setPosition(40);
-				board.jailPlayer(currentPlayer.getUserID());
+				gameVars.jailPlayer(currentPlayer.getName());
 				currentPlayer.setInJail(true);
 				currentPlayer.spendANightInJail();
 				event = new MessageEvent(parent, currentPlayer.getName()+", you must go to jail!\nDo not pass Go, do not collect $200!");
@@ -69,7 +67,7 @@ public abstract class DiceNeededEvent extends AbstractEvent {
 	
 	protected void moveAndDo(int roll) {
 		currentPlayer.movePlayer(roll);
-		board.movePlayer(currentPlayer.getUserID(), roll);
+		gameVars.movePlayer(currentPlayer.getName(), roll);
 		int result = gameDice.findAction(currentPlayer.getPosition());
 		
 		actionDone(currentPlayer, result);

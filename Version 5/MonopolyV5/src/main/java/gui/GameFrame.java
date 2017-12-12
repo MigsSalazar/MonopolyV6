@@ -17,7 +17,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 
 
 /**
@@ -33,8 +32,8 @@ public class GameFrame extends JFrame{
 	private BoardPanel gameBoard;
 	private StatsPanel gameStats;
 	private EventPanel gameEvents;
-	private GameReader readin;
 	private Runner globalVars;
+	private Container content;
 	
 	/**
 	 * 
@@ -45,8 +44,9 @@ public class GameFrame extends JFrame{
 		//c.add(home);
 		globalVars = gv;
 		border = new BorderLayout();
+		this.setLayout(border);
+		content = this.getContentPane();
 		defineMenus();
-		readin = ri;
 	}
 	
 	public void setup(){
@@ -55,7 +55,7 @@ public class GameFrame extends JFrame{
 		this.setSize(640,690);
 		Image icon = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/frameicon.png").getImage();
 		this.setIconImage(icon);
-		
+		/*
 		try{
 			//System.out.println("Started try");
 			gameBoard = requestBoardPanel();
@@ -69,12 +69,13 @@ public class GameFrame extends JFrame{
 			ioe.printStackTrace();
 			System.exit(1);
 		}
-		
-		Container c = this.getContentPane();
+		*/
+		/*
 		c.setLayout(border);
 		c.add(gameBoard, BorderLayout.CENTER);
 		c.add(gameStats, BorderLayout.EAST);
 		c.add(gameEvents, BorderLayout.SOUTH);
+		*/
 		
 		this.setResizable(false);
 		this.setTitle("Migs Monopoly!");
@@ -186,28 +187,20 @@ public class GameFrame extends JFrame{
 		menuBar.add(menuItems[4]);
 		
 	}
-
-	private BoardPanel requestBoardPanel() throws IOException{
-		//System.out.println("requested board");
-		BoardPanel retval = readin.getBoard();
-		int[] selection = {4,2,7,5,1,3,0,6};
-		retval.pickPlayerPieces(selection, globalVars.getSettings().textureMe());
-		retval.firstPaintBoard(globalVars.getSettings().textureMe());
-		//System.out.println("board built");
-		return retval;
+	
+	public void giveBoardPanel(BoardPanel bp){
+		gameBoard = bp;
+		content.add(gameBoard, BorderLayout.CENTER);
 	}
 	
-	private EventPanel requestEventPanel() throws IOException{
-		//System.out.println("requested events");
-		return readin.getEvents(globalVars);
+	public void giveEventPanel(EventPanel ep){
+		gameEvents = ep;
+		content.add(gameEvents, BorderLayout.SOUTH);
 	}
 	
-	private StatsPanel requestStatsPanel(){
-		//System.out.println("requested stats");
-		StatsPanel stats = new StatsPanel();
-		//TODO implement StatsPanel
-		//TODO properly initialize it here
-		return stats;
+	public void giveStatsPanel(StatsPanel sp){
+		gameStats = sp;
+		content.add(gameStats, BorderLayout.EAST);
 	}
 	
 	public Runner getGlobalVars(){

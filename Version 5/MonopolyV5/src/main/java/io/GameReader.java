@@ -1,11 +1,13 @@
 package main.java.io;
 
+import java.lang.reflect.Type;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
@@ -13,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import main.java.action.Runner;
 import main.java.gui.*;
@@ -27,9 +30,10 @@ public class GameReader {
 		newGame = true;
 		String loaded = System.getProperty("user.dir")+"/saved-games/default-game/";
 		//System.out.println(loaded);
-		locations.add(loaded+"board_config.json");
-		locations.add(loaded+"players.mns");
-		locations.add(loaded+"properties.mns");
+		locations.add(loaded+"board_config.json");	//0
+		locations.add(loaded+"players.json");		//1
+		locations.add(loaded+"properties.json");	//2
+		locations.add(loaded+"suiteNames.txt");		//3
 		
 		//locations.add(loaded+"event.mns");
 	}
@@ -81,6 +85,7 @@ public class GameReader {
 		//System.out.println("gson player begins");
 		Gson gson = new Gson();
 		Reader readme = new FileReader(new File(locations.get(1)));
+		//Type type = new TypeToken<Map<String, Player>>(){}.getType();
 		HashMap<String, Player> retval = gson.fromJson(readme, HashMap.class);
 		readme.close();
 		//System.out.println("player exists, returning now");
@@ -92,9 +97,43 @@ public class GameReader {
 		//System.out.println("gson property begins");
 		Gson gson = new Gson();
 		Reader readme = new FileReader(new File(locations.get(2)));
-		HashMap<String, Property> retval = gson.fromJson(readme, HashMap.class);
+		Type type = new TypeToken<Map<String, Property>>(){}.getType();
+		HashMap<String, Property> retval = gson.fromJson(readme, type);
 		readme.close();
+		System.out.println("properties size = " + retval.size());
 		//System.out.println("property exists, returning now");
+		return retval;
+	}
+	
+	public HashMap<String,Suite> getSuites(Map<String,Property> props) throws IOException{
+		Scanner filein = new Scanner(new File(locations.get(3)));
+		HashMap<String,Suite> retval = new HashMap<String,Suite>();
+		String linein = "";
+		String[] linearr;
+		
+		for(String key : props.keySet()){
+			System.out.println(key);
+		}
+		
+		while(filein.hasNextLine()){
+			
+			linein = filein.nextLine();
+			System.out.println(linein);
+			linearr = linein.split(",");
+			System.out.println("linearr length="+linearr.length);
+			if(linearr.length==3){
+				System.out.println(linearr[0]+" and "+linearr[1]+" and "+linearr[2]);
+				
+				SmallSuite small = new SmallSuite(linearr[0], (Colored)(props.get(linearr[1])), (Colored)(props.get(linearr[2])));
+				small.setPropertySuite();
+				retval.put(linearr[0], small);
+			}else if(linearr.length==4){
+				BigSuite big = new BigSuite(linearr[0], (Colored)props.get(linearr[1]), (Colored)props.get(linearr[2]), (Colored)props.get(linearr[3]));
+				big.setPropertySuite();
+				retval.put(linearr[0], big);
+			}
+		}
+		filein.close();
 		return retval;
 	}
 	

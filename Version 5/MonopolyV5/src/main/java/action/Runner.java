@@ -3,6 +3,7 @@
  */
 package main.java.action;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -12,7 +13,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import main.java.gui.BoardPanel;
+import main.java.gui.EventPanel;
 import main.java.gui.GameFrame;
+import main.java.gui.StatsPanel;
 import main.java.io.*;
 import main.java.models.*;
 
@@ -46,16 +50,50 @@ public class Runner {
 	
 	
 	public void startNewGame(){
+		playerTurn = 0;
+		gameDice = new Roll(this);
+		
 		gread = new GameReader();
+		
 		game = new GameFrame(true, this, gread);
 		sets = new Settings((JFrame)game);
+		try {
+			players = gread.getPlayers();
+			playerNames = players.keySet();
+			properties = gread.getProperties();
+			propNames = properties.keySet();
+			coloredProps = gread.getSuites(properties);
+			suiteNames = coloredProps.keySet();
+			EventPanel ep = new EventPanel(this);
+			game.giveBoardPanel(requestBoardPanel());
+			game.giveEventPanel(ep);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		game.setup();
+		
 	}
 	
 	public void startSavedGame(){
+		playerTurn = 0;
+		gameDice = new Roll(this);
+		
 		gread = new GameReader();
-		game = new GameFrame(true,this, gread);
+		
+		game = new GameFrame(true, this, gread);
 		sets = new Settings((JFrame)game);
+		try {
+			players = gread.getPlayers();
+			playerNames = players.keySet();
+			properties = gread.getProperties();
+			propNames = properties.keySet();
+			coloredProps = gread.getSuites(properties);
+			suiteNames = coloredProps.keySet();
+			
+			game.giveBoardPanel(requestBoardPanel());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		game.setup();
 	}
 	
@@ -187,8 +225,43 @@ public class Runner {
 		
 	}
 	
+	public void jailPlayer(Player p){
+		jailPlayer(p.getName());
+	}
 	
+	public void jailPlayer(String name){
+		
+	}
 	
+	public void movePlayer(Player p, int roll){
+		movePlayer(p.getName(),roll);
+	}
 	
+	public void movePlayer(String name, int roll){
+		
+	}
+	
+	private BoardPanel requestBoardPanel() throws IOException{
+		//System.out.println("requested board");
+		BoardPanel retval = gread.getBoard();
+		int[] selection = {4,2,7,5,1,3,0,6};
+		retval.pickPlayerPieces(selection, sets.textureMe());
+		retval.firstPaintBoard(sets.textureMe());
+		//System.out.println("board built");
+		return retval;
+	}
+	
+	private EventPanel requestEventPanel() throws IOException{
+		//System.out.println("requested events");
+		return gread.getEvents(this);
+	}
+	
+	private StatsPanel requestStatsPanel(){
+		//System.out.println("requested stats");
+		StatsPanel stats = new StatsPanel();
+		//TODO implement StatsPanel
+		//TODO properly initialize it here
+		return stats;
+	}
 	
 }

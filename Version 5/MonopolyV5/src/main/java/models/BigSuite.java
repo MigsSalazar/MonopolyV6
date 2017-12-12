@@ -17,7 +17,7 @@ public class BigSuite implements Suite {
 		FIRST = f;
 		SECOND = s;
 		THIRD = t;
-		setPropertySuite();
+		//setPropertySuite();
 	}
 	
 	@Override

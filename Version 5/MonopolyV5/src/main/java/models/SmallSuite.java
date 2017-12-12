@@ -15,7 +15,7 @@ public class SmallSuite implements Suite {
 		COLOR = c;
 		FIRST = f;
 		SECOND = s;
-		setPropertySuite();
+		//setPropertySuite();
 	}
 	
 	@Override

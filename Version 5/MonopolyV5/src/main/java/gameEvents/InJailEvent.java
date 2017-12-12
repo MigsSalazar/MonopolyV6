@@ -17,7 +17,6 @@ public class InJailEvent extends DiceNeededEvent {
 	public InJailEvent(EventPanel p, Runner gv, Player pl) {
 		super(p);
 		gameVars = gv;
-		board = gameVars.getFrame().getGameBoard();
 		currentPlayer = pl;
 		if(pl.getJailCount() == 3){
 			lastDay = true;
