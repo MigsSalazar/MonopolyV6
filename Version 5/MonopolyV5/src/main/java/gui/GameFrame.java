@@ -39,7 +39,7 @@ public class GameFrame extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 8200279150286115532L;
-	public GameFrame(boolean flag, Runner gv, GameReader ri){
+	public GameFrame(boolean flag, Runner gv){
 		//home = new HomePanel();
 		//c.add(home);
 		globalVars = gv;
@@ -77,7 +77,8 @@ public class GameFrame extends JFrame{
 		c.add(gameEvents, BorderLayout.SOUTH);
 		*/
 		
-		this.setResizable(false);
+		
+		this.setResizable(true);
 		this.setTitle("Migs Monopoly!");
 		this.setVisible(true);
 		this.addWindowListener(new WindowAdapter(){
@@ -190,12 +191,17 @@ public class GameFrame extends JFrame{
 	
 	public void giveBoardPanel(BoardPanel bp){
 		gameBoard = bp;
+		gameBoard.setSize(600,600);
 		content.add(gameBoard, BorderLayout.CENTER);
 	}
 	
 	public void giveEventPanel(EventPanel ep){
 		gameEvents = ep;
-		content.add(gameEvents, BorderLayout.SOUTH);
+		gameEvents.jumpStartClean();
+		gameEvents.setSize(600,200);
+		content.add(gameEvents, BorderLayout.NORTH);
+		System.out.println("Added the event panel");
+		this.repaint();
 	}
 	
 	public void giveStatsPanel(StatsPanel sp){

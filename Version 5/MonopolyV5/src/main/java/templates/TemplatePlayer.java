@@ -37,7 +37,7 @@ public class TemplatePlayer {
 		try{
 			Writer iowrite = new FileWriter(dir+"/saved-games/default-game/players.json");
 			Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
-			gson.toJson(this, iowrite);
+			gson.toJson(players, iowrite);
 			iowrite.close();
 			return true;
 		}catch(IOException ioe){

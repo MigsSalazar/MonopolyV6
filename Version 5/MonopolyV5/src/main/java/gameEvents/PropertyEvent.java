@@ -24,12 +24,14 @@ public class PropertyEvent extends AbstractEvent {
 	
 	public PropertyEvent(EventPanel p, Player pl, Property pr){
 		super(p);
+		System.out.println("in the property event constructor");
 		play = pl;
 		prop = pr;
 		status = ownership();
 		text = play.getName()+" has landed on "+prop.getName()+" which belongs to ";
+		System.out.println("starting switch statement");
 		switch(status){
-		case -1:	text += prop.getOwner().getName()+".\nYou own them $"+prop.getRent()+" in rent.";
+		case -1:	text += prop.getOwner()+".\nYou own them $"+prop.getRent()+" in rent.";
 					break;
 		case 0:		text += "no one.\nProperty is valued at $"+prop.getPrice()+".\nWhat would you like to do?";
 					break;
@@ -37,7 +39,8 @@ public class PropertyEvent extends AbstractEvent {
 					break;
 		}
 		defineComponents();
-		
+		System.out.println("finished defining components");
+		parent.paintEvent(this);
 		
 	}
 
@@ -50,6 +53,8 @@ public class PropertyEvent extends AbstractEvent {
 		if(status == 0){
 			if(e.getSource().equals(buttons[0])){
 				BankPropertyActions.sellUnownedProperty(play, prop);
+				AbstractEvent ae = new MessageEvent(parent, "You bought "+prop.getName()+"!");
+				sync(ae);
 				desync();
 			}else{
 				AbstractEvent ae = new AuctionEvent(parent, prop);
@@ -59,7 +64,10 @@ public class PropertyEvent extends AbstractEvent {
 			}
 		}else if(status == -1){
 			BankPropertyActions.rentOwnedProperty(play, prop);
+			AbstractEvent ae = new MessageEvent(parent, "You payed "+play.getName()+" for landing on "+prop.getName()+"!");
+			sync(ae);
 			desync();
+			//parent.jumpStartClean();
 		}
 	}
 

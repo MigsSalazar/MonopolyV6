@@ -23,12 +23,18 @@ public class MainMenu extends DiceNeededEvent{
 	 */
 	public MainMenu(EventPanel p) {
 		super(p);
+		//System.out.println("in the main menu contructor");
 		gameVars = p.getGlobalVars();
+		//System.out.println("grabbing global vars");
 		gameDice = gameVars.getGameDice();
+		//System.out.println("got the dice");
 		currentPlayer = gameVars.currentPlayer();
+		//System.out.println("got the first player");
 		text = currentPlayer.getName()+"'s turn.\nWhat would you like to do?";
+		//System.out.println("wrote the text: "+text);
 		defineComponents();
-		parent.paintEvent(this);
+		//System.out.println("defined components");
+		//parent.paintEvent(this);
 	}
 	
 	/**
@@ -85,7 +91,7 @@ public class MainMenu extends DiceNeededEvent{
 				
 			}
 		}
-		parent.paintEvent(this);
+		//parent.paintEvent(this);
 
 	}
 

@@ -55,7 +55,7 @@ public class Runner {
 		
 		gread = new GameReader();
 		
-		game = new GameFrame(true, this, gread);
+		game = new GameFrame(true, this);
 		sets = new Settings((JFrame)game);
 		try {
 			players = gread.getPlayers();
@@ -71,6 +71,7 @@ public class Runner {
 			e.printStackTrace();
 		}
 		game.setup();
+		//System.out.println("Runner is done");
 		
 	}
 	
@@ -80,7 +81,7 @@ public class Runner {
 		
 		gread = new GameReader();
 		
-		game = new GameFrame(true, this, gread);
+		game = new GameFrame(true, this);
 		sets = new Settings((JFrame)game);
 		try {
 			players = gread.getPlayers();
@@ -97,16 +98,16 @@ public class Runner {
 		game.setup();
 	}
 	
-	public String[] getPlayerNames(){
-		return (String[])playerNames.toArray();
+	public Set<String> getPlayerNames(){
+		return playerNames;
 	}
 	
-	public String[] getPropName(){
-		return (String[])propNames.toArray();
+	public Set<String> getPropName(){
+		return propNames;
 	}
 	
-	public String[] getSuiteName(){
-		return (String[])suiteNames.toArray();
+	public Set<String> getSuiteName(){
+		return suiteNames;
 	}
 	
 	public Map<String, Player> getPlayers(){

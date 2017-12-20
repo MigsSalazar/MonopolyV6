@@ -2,6 +2,7 @@ package main.java.gameEvents;
 
 import java.awt.event.ActionEvent;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -21,7 +22,7 @@ public class AuctionEvent extends AbstractEvent {
 	private int turn = 0;
 	private int bid = 0;
 	private int highestBidder = -1;
-	private String[] playerNames = runme.getPlayerNames();
+	private Object[] playerNames = runme.getPlayerNames().toArray();
 	private Map<String, Player> players = runme.getPlayers();
 	
 	public AuctionEvent(EventPanel p, Property pr){
@@ -40,7 +41,7 @@ public class AuctionEvent extends AbstractEvent {
 		}else if(e.getSource().equals(buttons[1]) || e.getSource().equals(buttons[2])){
 			buttonPush(e);
 			if(fullCircle()){
-				BankPropertyActions.sellUnownedProperty(players.get(playerNames[highestBidder]), prop, bid);
+				BankPropertyActions.sellUnownedProperty(players.get(playerNames[highestBidder].toString()), prop, bid);
 				MessageEvent me = new MessageEvent(parent, whoWon());
 				parent.paintEvent(me);
 				sync(me);

@@ -14,7 +14,7 @@ public class EventPanel extends JPanel {
 	
 	private Runner gameVars;
 	private JLabel text;
-	private JPanel componentPanel;
+	private JPanel componentPanel = new JPanel();
 	private AbstractEvent currentEvent;
 	private MainMenu rootMenu;
 	
@@ -24,16 +24,31 @@ public class EventPanel extends JPanel {
 	private static final long serialVersionUID = 8886595624760821726L;
 	
 	public EventPanel(Runner gv){
+		//this.setSize(600,200);
+		//this.setVisible(true);
 		gameVars = gv;
-		rootMenu = new MainMenu(this);
-		currentEvent = rootMenu;
-		paintEvent(rootMenu);
+		text = new JLabel();
+		//rootMenu = new MainMenu(this);
+		//currentEvent = rootMenu;
+		//paintEvent(rootMenu);
+		//System.out.println("root menu was painted. now where am i?");
+		this.setVisible(true);
+		this.repaint();
 	}
 	
-	public EventPanel(AbstractEvent ae){
+	public EventPanel(Runner gv, AbstractEvent ae){
+		gameVars = gv;
+		//rootMenu = new MainMenu(this);
+		//currentEvent = ae;
+		//paintEvent(rootMenu);
+		//rootMenu.forceWait(ae);
+		this.setVisible(true);
+	}
+	
+	public void jumpStartClean(){
 		rootMenu = new MainMenu(this);
-		currentEvent = ae;
-		rootMenu.forceWait(ae);
+		//currentEvent = rootMenu;
+		paintEvent(rootMenu);
 	}
 	
 	public AbstractEvent getEvent(){
@@ -45,19 +60,24 @@ public class EventPanel extends JPanel {
 	 * Repaints this EventPanel expecting to use an entirely new Events object
 	 */
 	public void paintEvent(AbstractEvent e){
-		if(currentEvent.equals(e)){
+		//System.out.println("in paintEvent");
+		if(currentEvent != null && currentEvent.equals(e)){
 			return;
 		}
+		
 		currentEvent = e;
+		//System.out.println("current Event = " + currentEvent.toString());
+		//System.out.println("current event's text: " + currentEvent.getText());
 		text.setText(currentEvent.getText());
-		
+		this.add(text, BorderLayout.NORTH);
 		buildCompPanel();
-		
+		this.repaint();
+		gameVars.getFrame().repaint();
 	}
 	
 	
 	public void buildCompPanel(){
-		componentPanel = new JPanel();
+		componentPanel.removeAll();
 		for(JComponent c : currentEvent.getComponents()){
 			componentPanel.add(c);
 		}

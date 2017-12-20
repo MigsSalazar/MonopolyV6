@@ -69,7 +69,7 @@ public abstract class DiceNeededEvent extends AbstractEvent {
 		currentPlayer.movePlayer(roll);
 		gameVars.movePlayer(currentPlayer.getName(), roll);
 		int result = gameDice.findAction(currentPlayer.getPosition());
-		
+		System.out.println("current Player Name: "+currentPlayer.getName());
 		actionDone(currentPlayer, result);
 	}
 	

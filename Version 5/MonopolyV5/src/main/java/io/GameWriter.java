@@ -23,7 +23,8 @@ public class GameWriter {
 		try{
 			gson.toJson(game.getFrame().getGameBoard(), new FileWriter(locations[0]));
 			gson.toJson(game.getPlayers(), new FileWriter(locations[1]));
-			gson.toJson(game.getProperties(), new FileWriter(locations[2]));
+			PropertyBean prbean = new PropertyBean(game.getProperties());
+			gson.toJson(prbean, new FileWriter(locations[2]));
 			gson.toJson(game.getFrame().getGameEvents(), new FileWriter(locations[3]));
 		}catch(IOException ioe){
 			return false;

@@ -14,12 +14,14 @@ public abstract class AbstractEvent implements ActionListener{
 	public AbstractEvent(EventPanel p){
 		parent = p;
 		text = "Default Event";
+		System.out.println("Finished at the non text constructor");
 	}
 	
 	public AbstractEvent(EventPanel p, String t){
 		parent = p;
 		text = t;
-		parent.paintEvent(this);
+		System.out.println("Finished at the text filled constructor");
+		//parent.paintEvent(this);
 	}
 	
 	public JComponent[] getComponents(){
@@ -37,13 +39,38 @@ public abstract class AbstractEvent implements ActionListener{
 	public abstract void defineComponents();
 
 	protected void sync(AbstractEvent ae){
+		
+		Thread t = new Thread(){
+			@Override
+			public void run(){
+				boolean flag = true;
+				while(flag){
+					try{
+						synchronized(ae){
+							ae.wait();
+						}
+					}catch(InterruptedException e){
+						e.printStackTrace();
+					}finally{
+						flag = false;
+					}
+				}
+			}
+		};
+		
+		t.start();
+		/*
 		try {
 			synchronized(ae){
+				System.out.println("Current sync trace: "+ae.toString());
+				boolean flag = true;
+				
 				ae.wait();
+				System.out.println("Im still waiting");
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	protected void desync(){

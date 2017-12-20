@@ -2,6 +2,7 @@ package main.java.models;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
 import com.google.gson.annotations.Expose;
@@ -17,7 +18,7 @@ public class Player {
 	@Expose private boolean inJail;
 	@Expose private boolean active;
 	@Expose private boolean turn;
-	private transient Map<String, Property> props;
+	@Expose private Map<String, Property> props;
 	
 	/**
 	 * Classic constructor. To be used if creating a fresh new Player
@@ -106,7 +107,10 @@ public class Player {
 	}
 	
 	private void calcWealth(){
-		Set<String> keys = props.keySet();
+		Set<String> keys = new HashSet<String>();
+		if(props.size() > 0){
+			keys = props.keySet();
+		}
 		wealth = cash;
 		for(String k : keys){
 			wealth += props.get(k).getWorth();
@@ -183,7 +187,7 @@ public class Player {
 	
 	public boolean addProperty(Property p){
 		props.put(p.getName(), p);
-		p.setOwner(this);
+		p.setOwner(getName());
 		return playerOwns(p);
 	}
 	

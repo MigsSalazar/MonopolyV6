@@ -14,6 +14,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.typeadapters.RuntimeTypeAdapterFactory;
 import com.google.gson.annotations.Expose;
 
+import main.java.io.PropertyBean;
 import main.java.models.*;
 
 public class TemplateProperty {
@@ -89,7 +90,7 @@ public class TemplateProperty {
 		//Atlanic Ave.,26,260,0,130,false,color,yellow,0
 		Colored atlave = new Colored("Atlantic Ave.",26,260,false, new int[]{22,110,330,800,975,1150,130,150}, 0);
 		//Ventnor Ave.,27,260,0,130,false,color,yellow,0
-		Colored venave = new Colored("Vetnor Ave.",27,260,false, new int[]{22,110,330,800,975,1150,130,150}, 0);
+		Colored venave = new Colored("Ventnor Ave.",27,260,false, new int[]{22,110,330,800,975,1150,130,150}, 0);
 		//WaterWorks,28,150,0,75,false,util
 		Utility watwor = new Utility("Water Works",28,150,false, utilCount);
 		//Marvin Gardens,29,280,0,140,false,color,yellow,0
@@ -176,13 +177,9 @@ public class TemplateProperty {
 	private boolean writeTemplate(){
 		try{
 			Writer iowrite = new FileWriter(dir+"/saved-games/default-game/properties.json");
-			RuntimeTypeAdapterFactory<Property> rttaf = RuntimeTypeAdapterFactory
-				    .of(Property.class, "type")
-				    .registerSubtype(Colored.class, "colored")
-				    .registerSubtype(Railroad.class, "railroad")
-				    .registerSubtype(Utility.class, "utility");
-			Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().registerTypeAdapterFactory(rttaf).create();
-			gson.toJson(properties, iowrite);
+			Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+			PropertyBean prbean = new PropertyBean(properties);
+			gson.toJson(prbean, iowrite);
 			iowrite.close();
 			return true;
 		}catch(IOException ioe){

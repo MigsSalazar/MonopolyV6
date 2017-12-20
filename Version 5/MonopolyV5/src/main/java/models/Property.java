@@ -7,7 +7,7 @@ public abstract class Property {
 	@Expose private String name;
 	@Expose private int position;
 	@Expose private int price;
-	@Expose private Player owner;
+	@Expose private String owner;
 	@Expose private boolean mBool;
 	
 	/**
@@ -56,7 +56,7 @@ public abstract class Property {
 	 * 
 	 * @return	Player object of the current owner. If unowned, owner is equal to null
 	 */
-	public Player getOwner(){
+	public String getOwner(){
 		if(owner == null){
 			return null;
 		}
@@ -67,7 +67,7 @@ public abstract class Property {
 	 * 
 	 * @param o	integer ID of the owner to be
 	 */
-	public void setOwner(Player o){
+	public void setOwner(String o){
 		owner = o;
 	}
 	

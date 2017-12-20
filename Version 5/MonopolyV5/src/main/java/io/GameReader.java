@@ -79,30 +79,26 @@ public class GameReader {
 			return retval;
 		}
 	}
+
 	
-	@SuppressWarnings("unchecked")
 	public HashMap<String, Player> getPlayers() throws IOException{
 		//System.out.println("gson player begins");
 		Gson gson = new Gson();
 		Reader readme = new FileReader(new File(locations.get(1)));
 		//Type type = new TypeToken<Map<String, Player>>(){}.getType();
-		HashMap<String, Player> retval = gson.fromJson(readme, HashMap.class);
+		Type type = new TypeToken<HashMap<String, Player>>(){}.getType();
+		HashMap<String, Player> retval = gson.fromJson(readme, type);
 		readme.close();
+		for(String s : retval.keySet()){
+			System.out.println("Current player: "+s);
+		}
 		//System.out.println("player exists, returning now");
 		return retval;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public HashMap<String, Property> getProperties() throws IOException{
-		//System.out.println("gson property begins");
-		Gson gson = new Gson();
-		Reader readme = new FileReader(new File(locations.get(2)));
-		Type type = new TypeToken<Map<String, Property>>(){}.getType();
-		HashMap<String, Property> retval = gson.fromJson(readme, type);
-		readme.close();
-		System.out.println("properties size = " + retval.size());
-		//System.out.println("property exists, returning now");
-		return retval;
+	public HashMap<String, Property> getProperties(){
+		PropertyBean getter = PropertyBean.jsonToProperties(new File(locations.get(2)));
+		return getter.getFullMap();
 	}
 	
 	public HashMap<String,Suite> getSuites(Map<String,Property> props) throws IOException{
@@ -111,27 +107,37 @@ public class GameReader {
 		String linein = "";
 		String[] linearr;
 		
+		/*
 		for(String key : props.keySet()){
 			System.out.println(key);
-		}
-		
-		while(filein.hasNextLine()){
+		}*/
+		linein = filein.nextLine();
+		while(!linein.equals("") ){
 			
-			linein = filein.nextLine();
-			System.out.println(linein);
+			/*if(linein == null){
+				break;
+			}*/
+			//System.out.println(linein);
 			linearr = linein.split(",");
-			System.out.println("linearr length="+linearr.length);
+			//System.out.println("linearr length="+linearr.length);
 			if(linearr.length==3){
-				System.out.println(linearr[0]+" and "+linearr[1]+" and "+linearr[2]);
-				
+				//System.out.println(linearr[0]+" and "+linearr[1]+" and "+linearr[2]);
+				//System.out.println(props.containsKey(linearr[1]) + " exists and " + props.containsKey(linearr[2]));
 				SmallSuite small = new SmallSuite(linearr[0], (Colored)(props.get(linearr[1])), (Colored)(props.get(linearr[2])));
 				small.setPropertySuite();
 				retval.put(linearr[0], small);
+				//System.out.println("small suite made");
 			}else if(linearr.length==4){
 				BigSuite big = new BigSuite(linearr[0], (Colored)props.get(linearr[1]), (Colored)props.get(linearr[2]), (Colored)props.get(linearr[3]));
 				big.setPropertySuite();
 				retval.put(linearr[0], big);
 			}
+			if(filein.hasNextLine()){
+				linein = filein.nextLine();
+			}else{
+				linein = "";
+			}
+			
 		}
 		filein.close();
 		return retval;

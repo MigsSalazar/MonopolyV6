@@ -1,5 +1,7 @@
 package main.java.action;
 
+import java.util.Set;
+
 import main.java.models.Dice;
 import main.java.models.Property;
 
@@ -58,7 +60,8 @@ public class Roll {
 	}
 
 	public Property findPropPosition(int pos){
-		String[] names = globalVars.getPropName();
+		Set<String> names = globalVars.getPropName();
+		
 		Property prop;
 		for(String s : names){
 			prop = globalVars.getProperties().get(s);
