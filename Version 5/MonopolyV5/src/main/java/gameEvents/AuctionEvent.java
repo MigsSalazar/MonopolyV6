@@ -2,7 +2,6 @@ package main.java.gameEvents;
 
 import java.awt.event.ActionEvent;
 import java.util.Map;
-import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -87,9 +86,9 @@ public class AuctionEvent extends AbstractEvent {
 	}
 
 	private void setText(){
-		text = "Current bid on "+prop.getName()+" is "+bid
-				+"\n"+playerNames[turn]+", will you raise or pass? Entering 0 means you pass."
-				+"\nYour offer:";
+		text = "<html>Current bid on "+prop.getName()+" is "+bid
+				+"<br>"+playerNames[turn]+", will you raise or pass? Entering 0 means you pass."
+				+"<br>Your offer:</html>";
 	}
 
 	private boolean fullCircle(){
@@ -97,7 +96,7 @@ public class AuctionEvent extends AbstractEvent {
 	}
 	
 	private String whoWon(){
-		return playerNames[highestBidder]+" has won the auction and bought\n"+prop.getName()+" for $"+bid;
+		return "<html>"+playerNames[highestBidder]+" has won the auction and bought<br>"+prop.getName()+" for $"+bid+"</html>";
 	}
 	
 	@Override

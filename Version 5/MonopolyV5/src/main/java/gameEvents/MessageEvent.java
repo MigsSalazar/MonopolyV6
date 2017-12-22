@@ -12,14 +12,14 @@ public class MessageEvent extends AbstractEvent {
 		super(p);
 		text = message;
 		defineComponents();
-		parent.paintEvent(this);
+		//parent.paintEvent(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(buttons[0])){
 			desync();
-			//parent.jumpStartClean();
+			parent.jumpStartClean();
 		}
 	}
 

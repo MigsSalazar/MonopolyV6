@@ -36,28 +36,7 @@ public class Roll {
 		return roll2;
 	}
 
-	public int findAction(int position){
-		
-		if(position == 0){
-			return 0;
-		}else if(position == 10){
-			return 1;
-		}else if(position == 20){
-			return 2;
-		}else if(position == 30){
-			return 3;
-		}else if(position == 4){
-			return 4;
-		}else if(position == 38){
-			return 5;
-		}else if(position == 2 || position == 17 || position == 33){
-			return 6;
-		}else if(position == 7 || position == 22 || position == 36){
-			return 7;
-		}else{
-			return 8;
-		}
-	}
+	
 
 	public Property findPropPosition(int pos){
 		Set<String> names = globalVars.getPropName();

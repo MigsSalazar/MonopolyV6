@@ -38,17 +38,12 @@ public class EventPanel extends JPanel {
 	
 	public EventPanel(Runner gv, AbstractEvent ae){
 		gameVars = gv;
+		text = new JLabel();
 		//rootMenu = new MainMenu(this);
 		//currentEvent = ae;
 		//paintEvent(rootMenu);
 		//rootMenu.forceWait(ae);
 		this.setVisible(true);
-	}
-	
-	public void jumpStartClean(){
-		rootMenu = new MainMenu(this);
-		//currentEvent = rootMenu;
-		paintEvent(rootMenu);
 	}
 	
 	public AbstractEvent getEvent(){
@@ -62,12 +57,19 @@ public class EventPanel extends JPanel {
 	public void paintEvent(AbstractEvent e){
 		//System.out.println("in paintEvent");
 		if(currentEvent != null && currentEvent.equals(e)){
+			System.out.println("e was determined to be useless");
+			System.out.println("currentEvent was null: "+ (currentEvent == null));
+			if(currentEvent != null){
+				System.out.println("e: "+e);
+				System.out.println("currentEvent: "+currentEvent);
+			}
 			return;
 		}
 		
 		currentEvent = e;
 		//System.out.println("current Event = " + currentEvent.toString());
 		//System.out.println("current event's text: " + currentEvent.getText());
+		System.out.println(currentEvent.getText());
 		text.setText(currentEvent.getText());
 		this.add(text, BorderLayout.NORTH);
 		buildCompPanel();
@@ -82,6 +84,16 @@ public class EventPanel extends JPanel {
 			componentPanel.add(c);
 		}
 		this.add(componentPanel, BorderLayout.CENTER);
+	}
+	
+	public void jumpStartClean(){
+		System.out.println("jump-start from clean was called");
+		componentPanel.removeAll();
+		currentEvent = null;
+		if(rootMenu == null){
+			rootMenu = new MainMenu(this);
+		}
+		paintEvent(rootMenu);
 	}
 	
 	/*

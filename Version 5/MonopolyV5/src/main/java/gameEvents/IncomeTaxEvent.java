@@ -15,25 +15,33 @@ public class IncomeTaxEvent extends AbstractEvent {
 
 	public IncomeTaxEvent(EventPanel p, Player p1) {
 		super(p);
+		System.out.println("In income tax. wheres the problem?");
 		play = p1;
+		System.out.println("step 1");
 		tax = calcTax();
-		text = play.getName()+", you must pay an income tax equivalent to\n10% of your total wealth or $200\n10% of your wealth is "+tax;
+		System.out.println("step 2");
+		text = "<html>"+play.getName()+", you must pay an income tax equivalent to"
+				+ "<br>10% of your total wealth or $200"
+				+ "<br>10% of your wealth is "+tax+"</html>";
+		System.out.println("step 3");
 		defineComponents();
-		parent.paintEvent(this);
+		System.out.println("constructor over");
+		//parent.paintEvent(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		PlayervBankEvent pbe = null;
 		if(e.getSource().equals(buttons[0])){
-			pbe = new PlayervBankEvent(parent, "You have decided to pay 10%\nThis has been taken from yuor account",play,tax);
-			sync(pbe);
-			desync();
+			pbe = new PlayervBankEvent(parent, "<html>You have decided to pay 10%"
+											+ "<br>This has been taken from yuor account</html>",play,tax);
 		}else if(e.getSource().equals(buttons[2])){
-			pbe = new PlayervBankEvent(parent, "You have decided to pay 10%\nThis has been taken from yuor account",play,tax);
-			sync(pbe);
-			desync();
+			pbe = new PlayervBankEvent(parent, "<html>You have decided to pay 10%"
+											+ "<br>This has been taken from yuor account</html>",play,tax);
 		}
+		parent.paintEvent(pbe);
+		sync(pbe);
+		desync();
 		
 	}
 

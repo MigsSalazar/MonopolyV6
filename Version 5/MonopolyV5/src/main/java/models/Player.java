@@ -188,6 +188,7 @@ public class Player {
 	public boolean addProperty(Property p){
 		props.put(p.getName(), p);
 		p.setOwner(getName());
+		calcWealth();
 		return playerOwns(p);
 	}
 	
@@ -196,22 +197,29 @@ public class Player {
 		for(String k : keys){
 			addProperty(pr.get(k));
 		}
+		calcWealth();
 	}
 	
 	public boolean removeProperty(Property p){
 		props.remove(p.getName());
-		p.setOwner(null);
+		p.setOwner("");
+		calcWealth();
 		return !( playerOwns(p) );
 	}
 	
 	public boolean removeProperty(String key){
 		Property goodBye = props.remove(key);
 		if(goodBye!=null){
-			goodBye.setOwner(null);
+			goodBye.setOwner("");
+			calcWealth();
 			return true;
 		}else{
 			return false;
 		}
+	}
+	
+	public Map<String,Property> getProps(){
+		return props;
 	}
 	
 }

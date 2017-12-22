@@ -4,6 +4,7 @@
 package main.java.action;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -33,6 +34,9 @@ public class Runner {
 	private Set<String> propNames;
 	private Set<String> suiteNames;
 	
+	private ArrayList<GameCard> commChest;
+	private ArrayList<GameCard> chance;
+	
 	private int playerTurn;
 	private Roll gameDice;
 	private GameFrame game;
@@ -60,10 +64,16 @@ public class Runner {
 		try {
 			players = gread.getPlayers();
 			playerNames = players.keySet();
+			
 			properties = gread.getProperties();
 			propNames = properties.keySet();
+			
 			coloredProps = gread.getSuites(properties);
 			suiteNames = coloredProps.keySet();
+			
+			commChest = gread.getCommChest();
+			chance = gread.getChance();
+			
 			EventPanel ep = new EventPanel(this);
 			game.giveBoardPanel(requestBoardPanel());
 			game.giveEventPanel(ep);
@@ -226,20 +236,17 @@ public class Runner {
 		
 	}
 	
-	public void jailPlayer(Player p){
+	public static void jailPlayer(Player p){
 		jailPlayer(p.getName());
 	}
 	
-	public void jailPlayer(String name){
+	public static void jailPlayer(String name){
 		
 	}
 	
 	public void movePlayer(Player p, int roll){
-		movePlayer(p.getName(),roll);
-	}
-	
-	public void movePlayer(String name, int roll){
-		
+		game.getGameBoard().movePlayer(p.getUserID(), roll);
+		//movePlayer(p.getName(),roll);
 	}
 	
 	private BoardPanel requestBoardPanel() throws IOException{
@@ -252,17 +259,43 @@ public class Runner {
 		return retval;
 	}
 	
+	@Deprecated
 	private EventPanel requestEventPanel() throws IOException{
 		//System.out.println("requested events");
 		return gread.getEvents(this);
 	}
 	
+	@Deprecated
 	private StatsPanel requestStatsPanel(){
 		//System.out.println("requested stats");
 		StatsPanel stats = new StatsPanel();
 		//TODO implement StatsPanel
 		//TODO properly initialize it here
 		return stats;
+	}
+
+
+
+	public ArrayList<GameCard> getCommChest() {
+		return commChest;
+	}
+
+
+
+	public void setCommChest(ArrayList<GameCard> commChest) {
+		this.commChest = commChest;
+	}
+
+
+
+	public ArrayList<GameCard> getChance() {
+		return chance;
+	}
+
+
+
+	public void setChance(ArrayList<GameCard> chance) {
+		this.chance = chance;
 	}
 	
 }

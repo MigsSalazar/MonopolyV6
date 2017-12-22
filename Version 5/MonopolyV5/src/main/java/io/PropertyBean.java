@@ -15,6 +15,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.reflect.TypeToken;
 
 import main.java.models.Colored;
+import main.java.models.GlobalCounter;
 import main.java.models.Property;
 import main.java.models.Railroad;
 import main.java.models.Utility;
@@ -43,17 +44,14 @@ public class PropertyBean {
 	
 	public void setPropertyList(Map<String,Property> parse){
 		Set<String> keySet = parse.keySet();
-		
 		for(String key : keySet){
 			if(parse.get(key) instanceof Colored){
 				colors.put(key, (Colored)parse.get(key));
 				
 			}else if(parse.get(key) instanceof Railroad){
 				rails.put(key, (Railroad)parse.get(key));
-				
 			}else if(parse.get(key) instanceof Utility){
 				utility.put(key, (Utility)parse.get(key));
-				
 			}
 		}
 	}
@@ -82,6 +80,23 @@ public class PropertyBean {
 	
 	public HashMap<String,Property> getFullMap(){
 		HashMap<String,Property> ret = new HashMap<String,Property>();
+		GlobalCounter rcount = null;
+		GlobalCounter ucount = null;
+		for(String r : rails.keySet()){
+			if(rcount == null){
+				rcount = rails.get(r).getGcount();
+			}else{
+				rails.get(r).setGcount(rcount);
+			}
+		}
+		
+		for(String u : utility.keySet()){
+			if(ucount == null){
+				ucount = utility.get(u).getGcount();
+			}else{
+				utility.get(u).setGcount(ucount);
+			}
+		}
 		
 		ret.putAll(colors);
 		ret.putAll(rails);

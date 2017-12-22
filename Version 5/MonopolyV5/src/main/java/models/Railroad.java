@@ -1,8 +1,10 @@
 package main.java.models;
 
+import com.google.gson.annotations.Expose;
+
 public class Railroad extends Property {
 	
-	private GlobalCounter gcount;
+	@Expose private GlobalCounter gcount;
 	
 	public Railroad(String n, int p, int pr, boolean mb, GlobalCounter gc) {
 		super(n, p, pr, mb);
@@ -20,6 +22,14 @@ public class Railroad extends Property {
 			case 4: return 200;
 			default: return 0;
 		}
+	}
+
+	public GlobalCounter getGcount() {
+		return gcount;
+	}
+
+	public void setGcount(GlobalCounter gcount) {
+		this.gcount = gcount;
 	}
 
 

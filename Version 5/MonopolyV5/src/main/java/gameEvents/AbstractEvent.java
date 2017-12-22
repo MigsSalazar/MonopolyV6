@@ -13,14 +13,14 @@ public abstract class AbstractEvent implements ActionListener{
 	
 	public AbstractEvent(EventPanel p){
 		parent = p;
-		text = "Default Event";
-		System.out.println("Finished at the non text constructor");
+		text = "<html>Default Event</html>";
+		//System.out.println("Finished at the non text constructor");
 	}
 	
 	public AbstractEvent(EventPanel p, String t){
 		parent = p;
 		text = t;
-		System.out.println("Finished at the text filled constructor");
+		//System.out.println("Finished at the text filled constructor");
 		//parent.paintEvent(this);
 	}
 	
@@ -47,14 +47,17 @@ public abstract class AbstractEvent implements ActionListener{
 				while(flag){
 					try{
 						synchronized(ae){
+							System.out.println("Starting sync");
 							ae.wait();
+							System.out.println("End sync");
 						}
 					}catch(InterruptedException e){
 						e.printStackTrace();
-					}finally{
-						flag = false;
 					}
+					flag = false;
+					System.out.println("the wait is over");
 				}
+				System.out.println("Out of the while loop");
 			}
 		};
 		
@@ -63,7 +66,7 @@ public abstract class AbstractEvent implements ActionListener{
 		try {
 			synchronized(ae){
 				System.out.println("Current sync trace: "+ae.toString());
-				boolean flag = true;
+				//boolean flag = true;
 				
 				ae.wait();
 				System.out.println("Im still waiting");

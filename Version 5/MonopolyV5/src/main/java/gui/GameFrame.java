@@ -1,16 +1,15 @@
 package main.java.gui;
 
 import main.java.action.Runner;
-import main.java.io.GameReader;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -52,7 +51,8 @@ public class GameFrame extends JFrame{
 	public void setup(){
 		this.setLayout(border);
 		this.setJMenuBar(menuBar);
-		this.setSize(640,690);
+		//this.setPreferredSize(new Dimension(640,790));
+		//this.setSize(640,590);
 		Image icon = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/frameicon.png").getImage();
 		this.setIconImage(icon);
 		/*
@@ -77,7 +77,8 @@ public class GameFrame extends JFrame{
 		c.add(gameEvents, BorderLayout.SOUTH);
 		*/
 		
-		
+		this.pack();
+		//this.setLocationRelativeTo(null);
 		this.setResizable(true);
 		this.setTitle("Migs Monopoly!");
 		this.setVisible(true);
@@ -179,6 +180,7 @@ public class GameFrame extends JFrame{
 			}
 		});
 		menuItems[4].setText("About");
+		menuItems[4].setPreferredSize(new Dimension(100, menuItems[4].getHeight()));
 		ImageIcon mark = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/aboutSmall.png");
 		menuItems[4].setIcon(mark);
 		
@@ -191,15 +193,19 @@ public class GameFrame extends JFrame{
 	
 	public void giveBoardPanel(BoardPanel bp){
 		gameBoard = bp;
-		gameBoard.setSize(600,600);
+		//gameBoard.setSize(600,600);
+		gameBoard.setPreferredSize(new Dimension(600,600));
+		gameBoard.setMaximumSize(new Dimension(600,600));
 		content.add(gameBoard, BorderLayout.CENTER);
 	}
 	
 	public void giveEventPanel(EventPanel ep){
 		gameEvents = ep;
 		gameEvents.jumpStartClean();
-		gameEvents.setSize(600,200);
-		content.add(gameEvents, BorderLayout.NORTH);
+		gameEvents.setPreferredSize(new Dimension(200,75));
+		//gameEvents.setSize(600,300);
+		//gameEvents.setMinimumSize(new Dimension(600,200));
+		content.add(gameEvents, BorderLayout.SOUTH);
 		System.out.println("Added the event panel");
 		this.repaint();
 	}
@@ -230,7 +236,7 @@ public class GameFrame extends JFrame{
 	}
 	
 	public void closeMe(){
-		this.dispose();
+		System.exit(0);
 	}
 	
 }

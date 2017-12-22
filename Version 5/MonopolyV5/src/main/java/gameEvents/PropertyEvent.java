@@ -28,19 +28,20 @@ public class PropertyEvent extends AbstractEvent {
 		play = pl;
 		prop = pr;
 		status = ownership();
-		text = play.getName()+" has landed on "+prop.getName()+" which belongs to ";
+		text = "<html>"+play.getName()+" has landed on "+prop.getName()+" which belongs to ";
 		System.out.println("starting switch statement");
 		switch(status){
-		case -1:	text += prop.getOwner()+".\nYou own them $"+prop.getRent()+" in rent.";
+		case -1:	text += prop.getOwner()+".<br>You own them $"+prop.getRent()+" in rent.";
 					break;
-		case 0:		text += "no one.\nProperty is valued at $"+prop.getPrice()+".\nWhat would you like to do?";
+		case 0:		text += "no one.<br>Property is valued at $"+prop.getPrice()+".<br>What would you like to do?";
 					break;
-		case 1:		text += "themself.\nA landlord must always check in on their asset";
+		case 1:		text += "themself.<br>A landlord must always check in on their asset";
 					break;
 		}
+		text+= "</html>";
 		defineComponents();
 		System.out.println("finished defining components");
-		parent.paintEvent(this);
+		//parent.paintEvent(this);
 		
 	}
 
@@ -54,6 +55,7 @@ public class PropertyEvent extends AbstractEvent {
 			if(e.getSource().equals(buttons[0])){
 				BankPropertyActions.sellUnownedProperty(play, prop);
 				AbstractEvent ae = new MessageEvent(parent, "You bought "+prop.getName()+"!");
+				parent.paintEvent(ae);
 				sync(ae);
 				desync();
 			}else{
@@ -65,6 +67,7 @@ public class PropertyEvent extends AbstractEvent {
 		}else if(status == -1){
 			BankPropertyActions.rentOwnedProperty(play, prop);
 			AbstractEvent ae = new MessageEvent(parent, "You payed "+play.getName()+" for landing on "+prop.getName()+"!");
+			parent.paintEvent(ae);
 			sync(ae);
 			desync();
 			//parent.jumpStartClean();
@@ -96,9 +99,9 @@ public class PropertyEvent extends AbstractEvent {
 
 	
 	private int ownership(){
-		if(prop.getOwner() == null){
+		if(prop.getOwner() == null || prop.getOwner().equals("")){
 			return 0;
-		}else if(prop.getOwner().equals(play)){
+		}else if(prop.getOwner().equals(play.getName())){
 			return 1;
 		}else{
 			return -1;

@@ -11,7 +11,6 @@ import java.util.HashMap;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.typeadapters.RuntimeTypeAdapterFactory;
 import com.google.gson.annotations.Expose;
 
 import main.java.io.PropertyBean;
@@ -33,8 +32,8 @@ public class TemplateProperty {
 	public void makeTemplateProperties(){
 		//String name, int position, int price, boolean mortbool, int[] rent, int grade
 		
-		GlobalCounter railCount = new GlobalCounter();
-		GlobalCounter utilCount = new GlobalCounter();
+		GlobalCounter railCount = new GlobalCounter(0,4);
+		GlobalCounter utilCount = new GlobalCounter(0,2);
 
 		
 		Colored medave = new Colored("Mediterranean Ave.",1,60,false, new int[]{2,10,30,90,160,250,30,30}, 0);
@@ -168,7 +167,6 @@ public class TemplateProperty {
 				index++;
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return names;

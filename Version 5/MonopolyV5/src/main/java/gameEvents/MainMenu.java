@@ -76,11 +76,17 @@ public class MainMenu extends DiceNeededEvent{
 					
 					crossGo(currentPlayer, roll);
 					
-					moveAndDo(roll);
-					
+					AbstractEvent event = moveAndDo(roll);
+					System.out.println("now painting the event to the frame");
+					parent.paintEvent(event);
+					System.out.println("syncing the event");
 					if(dice1 != dice2){
 						updateTurn();
 					}
+					sync(event);
+					System.out.println("and im out bois");
+					
+					
 					
 				}
 			}else if(me.equals(buttons[1])){
@@ -94,7 +100,7 @@ public class MainMenu extends DiceNeededEvent{
 		//parent.paintEvent(this);
 
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see main.java.action.AbstractEvent#defineComponents()
 	 */

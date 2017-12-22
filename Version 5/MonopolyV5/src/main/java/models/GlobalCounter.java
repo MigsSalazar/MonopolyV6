@@ -1,10 +1,12 @@
 package main.java.models;
 
+import com.google.gson.annotations.Expose;
+
 public class GlobalCounter {
 
 	
-	private int count;
-	private int max;
+	@Expose private int count;
+	@Expose private int max;
 	
 	/**
 	 * GlobalCounter stores a counter that can be used across objects or on a global scope.

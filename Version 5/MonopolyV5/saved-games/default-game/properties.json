@@ -377,24 +377,40 @@
   },
   "rails": {
     "Short Line": {
+      "gcount": {
+        "count": 0,
+        "max": 4
+      },
       "name": "Short Line",
       "position": 35,
       "price": 200,
       "mBool": false
     },
     "Reading Railroad": {
+      "gcount": {
+        "count": 0,
+        "max": 4
+      },
       "name": "Reading Railroad",
       "position": 5,
       "price": 200,
       "mBool": false
     },
     "Pennsylvania Railroad": {
+      "gcount": {
+        "count": 0,
+        "max": 4
+      },
       "name": "Pennsylvania Railroad",
       "position": 15,
       "price": 200,
       "mBool": false
     },
     "B\u0026O Railroad": {
+      "gcount": {
+        "count": 0,
+        "max": 4
+      },
       "name": "B\u0026O Railroad",
       "position": 25,
       "price": 60,
@@ -403,12 +419,30 @@
   },
   "utility": {
     "Electric Company": {
+      "uroll": {
+        "rando": {},
+        "diceNum": 2,
+        "sides": 6
+      },
+      "gcount": {
+        "count": 0,
+        "max": 2
+      },
       "name": "Electric Company",
       "position": 12,
       "price": 150,
       "mBool": false
     },
     "Water Works": {
+      "uroll": {
+        "rando": {},
+        "diceNum": 2,
+        "sides": 6
+      },
+      "gcount": {
+        "count": 0,
+        "max": 2
+      },
       "name": "Water Works",
       "position": 28,
       "price": 150,

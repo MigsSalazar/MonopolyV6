@@ -33,7 +33,7 @@ public abstract class Property {
 	 * @return	A copy of the name string
 	 */
 	public String getName(){
-		return name==null ? null : name.substring(0, name.length());
+		return name==null ? "" : name;
 	}
 	
 	/**

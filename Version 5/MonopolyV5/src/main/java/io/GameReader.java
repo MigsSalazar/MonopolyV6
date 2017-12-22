@@ -2,6 +2,7 @@ package main.java.io;
 
 import java.lang.reflect.Type;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -30,10 +31,12 @@ public class GameReader {
 		newGame = true;
 		String loaded = System.getProperty("user.dir")+"/saved-games/default-game/";
 		//System.out.println(loaded);
-		locations.add(loaded+"board_config.json");	//0
-		locations.add(loaded+"players.json");		//1
-		locations.add(loaded+"properties.json");	//2
-		locations.add(loaded+"suiteNames.txt");		//3
+		locations.add(loaded+"board_config.json");		//0
+		locations.add(loaded+"players.json");			//1
+		locations.add(loaded+"properties.json");		//2
+		locations.add(loaded+"suiteNames.txt");			//3
+		locations.add(loaded+"community-chest.json");	//4
+		locations.add(loaded+"chance.json");			//5
 		
 		//locations.add(loaded+"event.mns");
 	}
@@ -89,9 +92,10 @@ public class GameReader {
 		Type type = new TypeToken<HashMap<String, Player>>(){}.getType();
 		HashMap<String, Player> retval = gson.fromJson(readme, type);
 		readme.close();
+		/*
 		for(String s : retval.keySet()){
 			System.out.println("Current player: "+s);
-		}
+		}*/
 		//System.out.println("player exists, returning now");
 		return retval;
 	}
@@ -140,6 +144,43 @@ public class GameReader {
 			
 		}
 		filein.close();
+		return retval;
+	}
+	
+	public ArrayList<GameCard> getChance(){
+		Gson gson = new Gson();
+		Reader readme;
+		ArrayList<GameCard> retval = null;
+		try {
+			readme = new FileReader(new File(locations.get(5)));
+			Type type = new TypeToken<ArrayList<GameCard>>(){}.getType();
+			retval = gson.fromJson(readme, type);
+			readme.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return retval;
+	}
+	
+	
+	public ArrayList<GameCard> getCommChest(){
+		Gson gson = new Gson();
+		Reader readme;
+		ArrayList<GameCard> retval = null;
+		try {
+			readme = new FileReader(new File(locations.get(4)));
+			Type type = new TypeToken<ArrayList<GameCard>>(){}.getType();
+			retval = gson.fromJson(readme, type);
+			readme.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		return retval;
 	}
 	

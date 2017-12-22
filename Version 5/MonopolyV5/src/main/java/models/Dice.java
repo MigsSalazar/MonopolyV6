@@ -2,10 +2,12 @@ package main.java.models;
 
 import java.util.Random;
 
+import com.google.gson.annotations.Expose;
+
 public class Dice {
-	private Random rando = new Random();
-	private int diceNum;
-	private int sides;
+	@Expose private Random rando = new Random();
+	@Expose private int diceNum;
+	@Expose private int sides;
 	
 	public Dice(){
 		diceNum = 1;
