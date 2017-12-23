@@ -2,6 +2,7 @@
   "boardWidth": 30,
   "boardHeight": 30,
   "playerCount": 8,
+  "dir": "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5",
   "gamePieces": [
     {
       "team": 0,
@@ -1426,7 +1427,9 @@
     "/resources/image-sets/default-image-set/eleccomp.png",
     "/resources/image-sets/default-image-set/waterworks.png",
     "/resources/image-sets/default-image-set/parktop.png",
-    "/resources/image-sets/default-image-set/parkbot.png"
+    "/resources/image-sets/default-image-set/parkbot.png",
+    "/resources/image-sets/default-image-set/dotdie.png",
+    "/resources/image-sets/default-image-set/blankdie.png"
   ],
   "basePaint": [
     [
@@ -1633,46 +1636,14 @@
       0,
       0,
       0,
+      52,
+      52,
+      52,
       0,
       0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      7,
-      7,
-      0,
-      0,
-      0,
-      0
-    ],
-    [
-      0,
-      0,
-      0,
-      0,
-      4,
-      4,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
+      52,
+      52,
+      52,
       0,
       0,
       0,
@@ -1697,14 +1668,46 @@
       0,
       0,
       0,
+      53,
+      52,
+      53,
+      0,
+      0,
+      53,
+      52,
+      53,
       0,
       0,
       0,
       0,
       0,
+      7,
+      7,
       0,
       0,
       0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      4,
+      4,
+      0,
+      0,
+      0,
+      0,
+      0,
+      52,
+      52,
+      52,
+      0,
+      0,
+      52,
+      52,
+      52,
       0,
       0,
       0,
@@ -3746,7 +3749,21 @@
         "italics": false,
         "bold": true,
         "underline": false,
+        "border": 14
+      },
+      {
+        "engraving": " ",
+        "italics": false,
+        "bold": true,
+        "underline": false,
         "border": 2
+      },
+      {
+        "engraving": " ",
+        "italics": false,
+        "bold": true,
+        "underline": false,
+        "border": 6
       },
       {
         "engraving": " ",
@@ -3767,7 +3784,7 @@
         "italics": false,
         "bold": true,
         "underline": false,
-        "border": 2
+        "border": 14
       },
       {
         "engraving": " ",
@@ -3781,21 +3798,7 @@
         "italics": false,
         "bold": true,
         "underline": false,
-        "border": 2
-      },
-      {
-        "engraving": " ",
-        "italics": false,
-        "bold": true,
-        "underline": false,
-        "border": 2
-      },
-      {
-        "engraving": " ",
-        "italics": false,
-        "bold": true,
-        "underline": false,
-        "border": 2
+        "border": 6
       },
       {
         "engraving": " ",
@@ -3958,7 +3961,21 @@
         "italics": false,
         "bold": true,
         "underline": false,
+        "border": 7
+      },
+      {
+        "engraving": " ",
+        "italics": false,
+        "bold": true,
+        "underline": false,
         "border": 1
+      },
+      {
+        "engraving": " ",
+        "italics": false,
+        "bold": true,
+        "underline": false,
+        "border": 3
       },
       {
         "engraving": " ",
@@ -3979,7 +3996,7 @@
         "italics": false,
         "bold": true,
         "underline": false,
-        "border": 1
+        "border": 7
       },
       {
         "engraving": " ",
@@ -3993,21 +4010,7 @@
         "italics": false,
         "bold": true,
         "underline": false,
-        "border": 1
-      },
-      {
-        "engraving": " ",
-        "italics": false,
-        "bold": true,
-        "underline": false,
-        "border": 1
-      },
-      {
-        "engraving": " ",
-        "italics": false,
-        "bold": true,
-        "underline": false,
-        "border": 1
+        "border": 3
       },
       {
         "engraving": " ",
@@ -4170,7 +4173,21 @@
         "italics": false,
         "bold": true,
         "underline": false,
-        "border": 1
+        "border": 35
+      },
+      {
+        "engraving": " ",
+        "italics": false,
+        "bold": true,
+        "underline": false,
+        "border": 5
+      },
+      {
+        "engraving": " ",
+        "italics": false,
+        "bold": true,
+        "underline": false,
+        "border": 15
       },
       {
         "engraving": " ",
@@ -4191,35 +4208,21 @@
         "italics": false,
         "bold": true,
         "underline": false,
-        "border": 1
+        "border": 35
       },
       {
         "engraving": " ",
         "italics": false,
         "bold": true,
         "underline": false,
-        "border": 1
+        "border": 5
       },
       {
         "engraving": " ",
         "italics": false,
         "bold": true,
         "underline": false,
-        "border": 1
-      },
-      {
-        "engraving": " ",
-        "italics": false,
-        "bold": true,
-        "underline": false,
-        "border": 1
-      },
-      {
-        "engraving": " ",
-        "italics": false,
-        "bold": true,
-        "underline": false,
-        "border": 1
+        "border": 15
       },
       {
         "engraving": " ",

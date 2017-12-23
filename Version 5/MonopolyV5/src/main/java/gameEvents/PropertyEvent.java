@@ -24,12 +24,12 @@ public class PropertyEvent extends AbstractEvent {
 	
 	public PropertyEvent(EventPanel p, Player pl, Property pr){
 		super(p);
-		System.out.println("in the property event constructor");
+		//System.out.println("in the property event constructor");
 		play = pl;
 		prop = pr;
 		status = ownership();
 		text = "<html>"+play.getName()+" has landed on "+prop.getName()+" which belongs to ";
-		System.out.println("starting switch statement");
+		//System.out.println("starting switch statement");
 		switch(status){
 		case -1:	text += prop.getOwner()+".<br>You own them $"+prop.getRent()+" in rent.";
 					break;
@@ -40,7 +40,7 @@ public class PropertyEvent extends AbstractEvent {
 		}
 		text+= "</html>";
 		defineComponents();
-		System.out.println("finished defining components");
+		//System.out.println("finished defining components");
 		//parent.paintEvent(this);
 		
 	}

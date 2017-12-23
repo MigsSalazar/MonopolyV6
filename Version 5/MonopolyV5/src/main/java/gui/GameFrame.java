@@ -206,7 +206,7 @@ public class GameFrame extends JFrame{
 		//gameEvents.setSize(600,300);
 		//gameEvents.setMinimumSize(new Dimension(600,200));
 		content.add(gameEvents, BorderLayout.SOUTH);
-		System.out.println("Added the event panel");
+		//System.out.println("Added the event panel");
 		this.repaint();
 	}
 	

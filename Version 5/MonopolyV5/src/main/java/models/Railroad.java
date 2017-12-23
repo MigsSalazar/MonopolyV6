@@ -11,6 +11,14 @@ public class Railroad extends Property {
 		// TODO Auto-generated constructor stub
 		gcount = gc;
 	}
+	
+	@Override
+	public void setOwner(String o){
+		if(owner != null && !owner.equals("")){
+			owner = o;
+			gcount.incCount();
+		}
+	}
 
 	@Override
 	public int getRent() {

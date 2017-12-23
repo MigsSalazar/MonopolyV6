@@ -76,7 +76,7 @@ public class BoardPanel extends JPanel {
 				addLabel(r, c);
 			}
 		}
-		
+		paintDice(1,1);
 		for(Piece gp : gamePieces){
 			gp.updateIcon();
 		}
@@ -87,6 +87,101 @@ public class BoardPanel extends JPanel {
 		}
 			
 			
+	}
+	
+	public void paintDice(int d1, int d2){
+		/*
+		 * Dice one occupies areas
+		 * 	12	14
+		 * 7 0 0 0
+		 * 	 - 0 -
+		 * 9 0 0 0
+		 * 
+		 * Dice one occupies areas
+		 * 	17	19
+		 * 7 0 0 0
+		 * 	 - 0 -
+		 * 9 0 0 0
+		 *applyFullBorderStamp(6,8,11,13);
+		 *applyFullBorderStamp(6,8,16,18);
+		 *
+		 */
+		
+		if(d1 <1 || d1 > 6 || d2 < 1 || d2 > 6){
+			return;
+		}else{
+			cleanDice();
+			switch(d1){
+			case 1: changeIcon(imageIndex[52],7,12);
+					break;
+			case 2: changeIcon(imageIndex[52],6,11);
+					changeIcon(imageIndex[52],8,13);
+					break;
+			case 3: changeIcon(imageIndex[52],6,11);
+					changeIcon(imageIndex[52],7,12);
+					changeIcon(imageIndex[52],8,13);
+					break;
+			case 4: changeIcon(imageIndex[52],6,11);
+					changeIcon(imageIndex[52],8,13);
+					changeIcon(imageIndex[52],6,13);
+					changeIcon(imageIndex[52],8,11);
+					break;
+			case 5: changeIcon(imageIndex[52],6,11);
+					changeIcon(imageIndex[52],8,13);
+					changeIcon(imageIndex[52],6,13);
+					changeIcon(imageIndex[52],8,11);
+					changeIcon(imageIndex[52],7,12);
+					break;
+			case 6: changeIcon(imageIndex[52],6,11);
+					changeIcon(imageIndex[52],6,12);
+					changeIcon(imageIndex[52],6,13);
+					changeIcon(imageIndex[52],8,11);
+					changeIcon(imageIndex[52],8,12);
+					changeIcon(imageIndex[52],8,13);
+			}
+			
+			switch(d2){
+			case 1: changeIcon(imageIndex[52],7,17);
+					break;
+			case 2: changeIcon(imageIndex[52],6,16);
+					changeIcon(imageIndex[52],8,18);
+					break;
+			case 3: changeIcon(imageIndex[52],6,16);
+					changeIcon(imageIndex[52],7,17);
+					changeIcon(imageIndex[52],8,18);
+					break;
+			case 4: changeIcon(imageIndex[52],6,16);
+					changeIcon(imageIndex[52],8,18);
+					changeIcon(imageIndex[52],6,18);
+					changeIcon(imageIndex[52],8,16);
+					break;
+			case 5: changeIcon(imageIndex[52],6,16);
+					changeIcon(imageIndex[52],8,18);
+					changeIcon(imageIndex[52],6,18);
+					changeIcon(imageIndex[52],8,16);
+					changeIcon(imageIndex[52],7,17);
+					break;
+			case 6: changeIcon(imageIndex[52],6,16);
+					changeIcon(imageIndex[52],6,17);
+					changeIcon(imageIndex[52],6,18);
+					changeIcon(imageIndex[52],8,16);
+					changeIcon(imageIndex[52],8,17);
+					changeIcon(imageIndex[52],8,18);
+			}
+		}
+	}
+	
+	private void cleanDice(){
+		for(int r=6; r<9; r++){
+			for(int c=11; c<14; c++){
+				changeIcon(imageIndex[53],r,c);
+			}
+		}
+		for(int r=6; r<9; r++){
+			for(int c=16; c<19; c++){
+				changeIcon(imageIndex[53],r,c);
+			}
+		}
 	}
 	
 	public boolean movePlayer(int pid, int addedStep){

@@ -47,17 +47,17 @@ public abstract class AbstractEvent implements ActionListener{
 				while(flag){
 					try{
 						synchronized(ae){
-							System.out.println("Starting sync");
+							//System.out.println("Starting sync");
 							ae.wait();
-							System.out.println("End sync");
+							//System.out.println("End sync");
 						}
 					}catch(InterruptedException e){
 						e.printStackTrace();
 					}
 					flag = false;
-					System.out.println("the wait is over");
+					//System.out.println("the wait is over");
 				}
-				System.out.println("Out of the while loop");
+				//System.out.println("Out of the while loop");
 			}
 		};
 		

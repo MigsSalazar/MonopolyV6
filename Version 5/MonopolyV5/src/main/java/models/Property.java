@@ -4,11 +4,11 @@ import com.google.gson.annotations.Expose;
 
 public abstract class Property {
 	
-	@Expose private String name;
-	@Expose private int position;
-	@Expose private int price;
-	@Expose private String owner;
-	@Expose private boolean mBool;
+	@Expose protected String name;
+	@Expose protected int position;
+	@Expose protected int price;
+	@Expose protected String owner;
+	@Expose protected boolean mBool;
 	
 	/**
 	 * Classic constructor for Properties

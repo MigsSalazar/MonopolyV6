@@ -13,7 +13,13 @@ public class Utility extends Property {
 		gcount = gb;
 	}
 	
-	
+	@Override
+	public void setOwner(String o){
+		if(o != null && !o.equals("")){
+			owner = o;
+			gcount.incCount();
+		}
+	}
 	
 	@Override
 	public int getRent() {

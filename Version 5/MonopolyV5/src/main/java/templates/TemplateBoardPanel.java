@@ -402,6 +402,8 @@ public class TemplateBoardPanel extends JPanel {
 			}
 		}
 		
+		
+		
 		applyDownPropStampScheme(0,6);
 		applyVertNoFillStampScheme(0,8);
 		applyDownPropStampScheme(0,10);
@@ -444,6 +446,8 @@ public class TemplateBoardPanel extends JPanel {
 		
 		stampCorners();
 		applyFullBorderStamp(6,23,6,23);
+		applyFullBorderStamp(6,8,11,13);
+		applyFullBorderStamp(6,8,16,18);
 		defineEngravings();
 	}
 	
@@ -621,9 +625,9 @@ public class TemplateBoardPanel extends JPanel {
 						{0,0,5,0,0,0,		5,5,47,47,5,5,5,5,0,0,6,6,6,6,49,49,6,6,		0,0,0,0,0,0}, //4
 						{0,0,5,0,0,0,		5,5,47,47,5,5,5,5,0,0,6,6,6,6,49,49,6,6,		0,0,0,0,0,0}, //5
 						
-						{0,0,0,0,4,4,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			7,7,0,0,0,0}, //6
-						{0,0,0,0,4,4,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			7,7,0,0,0,0}, //7
-						{0,0,0,0,4,4,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			7,7,0,0,0,0}, //8
+						{0,0,0,0,4,4,		0,0,0,0,0,52,52,52,0,0,52,52,52,0,0,0,0,0,		7,7,0,0,0,0}, //6
+						{0,0,0,0,4,4,		0,0,0,0,0,53,52,53,0,0,53,52,53,0,0,0,0,0,		7,7,0,0,0,0}, //7
+						{0,0,0,0,4,4,		0,0,0,0,0,52,52,52,0,0,52,52,52,0,0,0,0,0,		7,7,0,0,0,0}, //8
 						{0,0,0,0,4,4,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			7,7,0,0,0,0}, //9
 						{0,0,0,0,45,45,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			45,45,0,0,0,0}, //10
 						{0,0,0,0,46,46,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			46,46,0,0,0,0}, //11
@@ -701,7 +705,9 @@ public class TemplateBoardPanel extends JPanel {
 							"/resources/image-sets/default-image-set/eleccomp.png",				//48
 							"/resources/image-sets/default-image-set/waterworks.png",			//49
 							"/resources/image-sets/default-image-set/parktop.png",				//50
-							"/resources/image-sets/default-image-set/parkbot.png"};				//51
+							"/resources/image-sets/default-image-set/parkbot.png",				//51
+						    "/resources/image-sets/default-image-set/dotdie.png",				//52
+						    "/resources/image-sets/default-image-set/blankdie.png"};			//53
 		iconPaths = icons;
 	}
 	

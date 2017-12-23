@@ -1,5 +1,6 @@
 package main.java.action;
 
+import java.util.Map;
 import java.util.Set;
 
 import main.java.models.Dice;
@@ -21,6 +22,7 @@ public class Roll {
 		roll1 = gameDice.roll();
 		roll2 = gameDice.roll();
 		rollSum = roll1 + roll2;
+		globalVars.changeDice(roll1, roll2);
 		return rollSum;
 	}
 	
@@ -42,8 +44,9 @@ public class Roll {
 		Set<String> names = globalVars.getPropName();
 		
 		Property prop;
+		Map<String,Property> propList = globalVars.getProperties();
 		for(String s : names){
-			prop = globalVars.getProperties().get(s);
+			prop = propList.get(s);
 			if(pos == prop.getPosition()){
 				return prop;
 			}

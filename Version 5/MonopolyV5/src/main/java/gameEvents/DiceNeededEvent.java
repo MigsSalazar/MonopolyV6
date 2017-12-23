@@ -63,8 +63,8 @@ public abstract class DiceNeededEvent extends AbstractEvent {
 	
 	protected void crossGo(Player p, int roll) {
 		if( (p.getPosition() + roll) >= 40 || (p.getPosition() + roll)==0){
-			String text = p.getName()+" has landed or passed go. Collect $200.";
-			PlayervBankEvent pbe = new PlayervBankEvent(parent, text, p, 200);
+			//String text = p.getName()+" has landed or passed go. Collect $200.";
+			GoEvent pbe = new GoEvent(parent, this);
 			sync(pbe);
 		}
 	}
@@ -85,6 +85,7 @@ public abstract class DiceNeededEvent extends AbstractEvent {
 	}
 	
 	protected AbstractEvent moveAndDo(Player player, int roll) {
+		System.out.println("player move and do roll: "+roll);
 		player.movePlayer(roll);
 		gameVars.movePlayer(player, roll);
 		int result = findAction(player.getPosition());

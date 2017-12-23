@@ -82,7 +82,11 @@ public class Player {
 	
 	public void setPosition(int p){ position = p; }
 	
-	public void movePlayer(int d){ position = (position+d)%40; }
+	public void movePlayer(int d){
+		//System.out.println("player movePlayer: d = "+d);
+		position = (position+d)%40;
+		//System.out.println("player movePlayer: new position= "+position);
+	}
 	
 	public int getCash(){ return cash; }
 	

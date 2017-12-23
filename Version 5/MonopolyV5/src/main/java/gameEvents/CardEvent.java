@@ -18,27 +18,28 @@ import main.java.models.Property;
 public class CardEvent extends DiceNeededEvent{
 
 	GameCard card;
-	Player play;
 	
 	public CardEvent(EventPanel p, Player pl, boolean chance) {
 		super(p);
+		gameVars = p.getGlobalVars();
+		gameDice = gameVars.getGameDice();
 		card = cardPicker(chance);
 		text = card.getText();
-		play = pl;
+		currentPlayer = pl;
 		defineComponents();
 	}
 
 	@Override
 	public void defineComponents() {
-		// TODO Auto-generated method stub
 		buttons = new JComponent[1];
 		buttons[0] = new JButton("Ok");
+		((JButton)buttons[0]).addActionListener(this);
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(buttons[0])){
-			runCard(parent.getGlobalVars(), card, play);
+			runCard(card);
 			desync();
 			parent.jumpStartClean();
 		}
@@ -56,105 +57,144 @@ public class CardEvent extends DiceNeededEvent{
 	public GameCard cardPicker(boolean chance){
 		ArrayList<GameCard> deck = null;
 		if(chance){
-			deck = parent.getGlobalVars().getChance();
+			deck = gameVars.getChance();
 		}else{
-			deck = parent.getGlobalVars().getCommChest();
+			deck = gameVars.getCommChest();
 		}
 		
-		Dice rando = new Dice(1, deck.size());
+		Dice rando = new Dice(1, deck.size()-1);
 		
 		return deck.get(rando.roll());
 		
 	}
 	
-	private void runCard(Runner gv, GameCard gc, Player player){
-		moneyChange(gv, gc, player);
-		movePlayer(gv, gc, player);
-		giveJailCard(gc, player);
-		sendToJail(gv, gc, player);
-		findNearestOnBoard(gv, gc, player);
-		findThisOnBoard(gv, gc, player);
-		renovateProperties(gc, player);
+	private void runCard(GameCard gc){
+		moneyChange(gc);
+		movePlayer(gc);
+		giveJailCard(gc);
+		sendToJail(gc);
+		findNearestOnBoard(gc);
+		findThisOnBoard(gc);
+		renovateProperties(gc);
 	}
 	
-	private void moneyChange(Runner gv, GameCard gc, Player player){
+	private void moneyChange( GameCard gc){
 		if(gc.isGlobalFunds()){
-			Map<String, Player> plays = gv.getPlayers();
-			for(String s : gv.getPlayerNames()){
-				if(!plays.get(s).equals(player)){
+			Map<String, Player> plays = gameVars.getPlayers();
+			for(String s : gameVars.getPlayerNames()){
+				if(!plays.get(s).equals(currentPlayer)){
 					plays.get(s).subCash(gc.getMoneyEarned());
 				}
 			}
 		}
 		
-		player.addCash(gc.getMoneyEarned());
+		currentPlayer.addCash(gc.getMoneyEarned());
 		
 	}
 	
-	private void movePlayer(Runner gv, GameCard gc, Player player){
+	private void movePlayer(GameCard gc){
 		if(gc.getBaseMovement() != 0){
-			gv.movePlayer(player, gc.getBaseMovement());
-			player.movePlayer(gc.getBaseMovement());
-			AbstractEvent caseOf = moveAndDo(player, gc.getBaseMovement());
+			gameVars.movePlayer(currentPlayer, gc.getBaseMovement());
+			currentPlayer.movePlayer(gc.getBaseMovement());
+			AbstractEvent caseOf = moveAndDo(currentPlayer, gc.getBaseMovement());
 			sync(caseOf);
 		}
 	}
 	
-	private void giveJailCard(GameCard gc, Player player){
+	private void giveJailCard(GameCard gc){
 		if(gc.isGetOutOfJail()){
-			player.addJailCard();
+			currentPlayer.addJailCard();
 		}
 	}
 	
-	private void sendToJail(Runner gv, GameCard gc, Player player){
+	private void sendToJail(GameCard gc){
 		if(gc.isGoToJail()){
-			player.setInJail(true);
-			Runner.jailPlayer(player);
+			currentPlayer.setInJail(true);
+			Runner.jailPlayer(currentPlayer);
 		}
 	}
 	
-	private void findNearestOnBoard(Runner gv, GameCard gc, Player player){
+	private void findNearestOnBoard(GameCard gc){
+		AbstractEvent event = null;
 		switch(gc.getFindNearest()){
-		case "railroad":if(player.getPosition() > 35 || player.getPosition() < 5){
-							
-						}else if(player.getPosition() > 5 && player.getPosition() < 15){
-							
-						}else if(player.getPosition() > 15 && player.getPosition() < 25){
-							
-						}else if(player.getPosition() > 25 && player.getPosition() < 35){
-							
-						}
+		case "railroad":event = findRailroad(currentPlayer);
 			break;
-		case "utility":
+		case "utility": event = findUtility(currentPlayer);
 			break;
-		case "chance":
-			break;
-		case "commchest":
-			break;
-		case "":
-			break;
+		case "": return;
+		default: return;
 		}
+		if(event == null){
+			System.out.println("FindNearestOnBoard returned null");
+			return;
+		}
+		sync(event);
 	}
 	
-	private void findThisOnBoard(Runner gv, GameCard gc, Player player){
+	private AbstractEvent findUtility(Player player){
+		int moveBy = 0;
+		
+		if(player.getPosition() < 12 || player.getPosition() > 28){
+			if(player.getPosition() < 12){
+				moveBy = 12 - player.getPosition();
+			}else{
+				moveBy = 52 - player.getPosition();
+			}
+		}else{
+			moveBy = 28 - player.getPosition();
+		}
+		
+		AbstractEvent event = moveAndDo(player, moveBy);
+		return event;
+	}
+
+	private AbstractEvent findRailroad(Player player) {
+		int moveBy = 0;
+		if(player.getPosition() > 35 || player.getPosition() < 5){
+			if(player.getPosition() < 5){
+				moveBy = 5 - player.getPosition();
+			}else{
+				moveBy = 45 - player.getPosition();
+				
+			}
+		}else if(player.getPosition() > 5 && player.getPosition() < 15){
+			moveBy = 15 - player.getPosition();
+		}else if(player.getPosition() > 15 && player.getPosition() < 25){
+			moveBy = 25 - player.getPosition();
+		}else if(player.getPosition() > 25 && player.getPosition() < 35){
+			moveBy = 35 - player.getPosition();
+		}
+		AbstractEvent event = moveAndDo(player, moveBy);
+		return event;
+	}
+	
+	private void findThisOnBoard(GameCard gc){
+		AbstractEvent event = null;
+		int moveBy = 0;
 		switch(gc.getFindThis()){
 		case "": return;
-		case "go":
-			break;
-		case "freeparking":
-			break;
-		case "chance":
-			break;
-		case "commchest":
-			break;
-		default:
-			break;
+		case "go":	moveBy = 40 - currentPlayer.getPosition();
+					event = moveAndDo(currentPlayer, moveBy);
+					break;
+		default:if(gameVars.getProperties().containsKey(gc.getFindThis())){
+					Property prop = gameVars.getProperties().get(gc.getFindThis());
+					if(currentPlayer.getPosition() > prop.getPosition()){
+						moveBy = (40+prop.getPosition()) - currentPlayer.getPosition();
+					}else{
+						moveBy = prop.getPosition() - currentPlayer.getPosition();
+					}
+					event = moveAndDo(currentPlayer,moveBy);
+				}
 		}
+		if(event == null){
+			return;
+		}
+		sync(event);
 	}
 	
-	private void renovateProperties(GameCard gc, Player player){
+	private void renovateProperties(GameCard gc){
 		if(gc.isPropRenovation()){
-			Map<String, Property> props = player.getProps();
+			Map<String, Property> props = currentPlayer.getProps();
 			int total = 0;
 			for(String s : props.keySet()){
 				if(props.get(s) instanceof Colored){
@@ -165,7 +205,7 @@ public class CardEvent extends DiceNeededEvent{
 					}
 				}
 			}
-			player.subCash(total);
+			currentPlayer.subCash(total);
 		}
 	}
 

@@ -68,7 +68,6 @@ public class MainMenu extends DiceNeededEvent{
 				if(currentPlayer.isInJail()){
 					//TODO make jail event to see if player will get out of jail
 				}else{
-					//TODO have the dice displayed somewhere on the board so the players can see the dice rolls
 					
 					int roll = gameDice.diceRoll();
 					int dice1 = gameDice.getLastDice1();
@@ -77,14 +76,14 @@ public class MainMenu extends DiceNeededEvent{
 					crossGo(currentPlayer, roll);
 					
 					AbstractEvent event = moveAndDo(roll);
-					System.out.println("now painting the event to the frame");
+					//System.out.println("now painting the event to the frame");
 					parent.paintEvent(event);
-					System.out.println("syncing the event");
+					//System.out.println("syncing the event");
 					if(dice1 != dice2){
 						updateTurn();
 					}
 					sync(event);
-					System.out.println("and im out bois");
+					//System.out.println("and im out bois");
 					
 					
 					

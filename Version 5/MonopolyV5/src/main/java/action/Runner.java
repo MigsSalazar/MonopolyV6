@@ -249,6 +249,10 @@ public class Runner {
 		//movePlayer(p.getName(),roll);
 	}
 	
+	public void changeDice(int d1, int d2){
+		game.getGameBoard().paintDice(d1, d2);
+	}
+	
 	private BoardPanel requestBoardPanel() throws IOException{
 		//System.out.println("requested board");
 		BoardPanel retval = gread.getBoard();
@@ -259,40 +263,18 @@ public class Runner {
 		return retval;
 	}
 	
-	@Deprecated
-	private EventPanel requestEventPanel() throws IOException{
-		//System.out.println("requested events");
-		return gread.getEvents(this);
-	}
-	
-	@Deprecated
-	private StatsPanel requestStatsPanel(){
-		//System.out.println("requested stats");
-		StatsPanel stats = new StatsPanel();
-		//TODO implement StatsPanel
-		//TODO properly initialize it here
-		return stats;
-	}
-
-
 
 	public ArrayList<GameCard> getCommChest() {
 		return commChest;
 	}
 
-
-
 	public void setCommChest(ArrayList<GameCard> commChest) {
 		this.commChest = commChest;
 	}
 
-
-
 	public ArrayList<GameCard> getChance() {
 		return chance;
 	}
-
-
 
 	public void setChance(ArrayList<GameCard> chance) {
 		this.chance = chance;
