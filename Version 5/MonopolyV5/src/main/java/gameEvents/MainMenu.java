@@ -8,8 +8,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 
+import main.java.action.TradeManager;
 import main.java.gui.BoardPanel;
 import main.java.gui.EventPanel;
+import main.java.gui.MortManagerFrame;
 
 /**
  * @author Miguel Salazar
@@ -91,8 +93,10 @@ public class MainMenu extends DiceNeededEvent{
 			}else if(me.equals(buttons[1])){
 				
 			}else if(me.equals(buttons[2])){
-				
+				TradeManager tm = new TradeManager(gameVars, currentPlayer, gameVars.getPlayers());
+				tm.runManager();
 			}else if(me.equals(buttons[3])){
+				MortManagerFrame mmf = new MortManagerFrame(gameVars, currentPlayer);
 				
 			}
 		}

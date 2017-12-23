@@ -51,6 +51,10 @@ public class Colored extends Property {
 		return rent[grade];
 	}
 	
+	public int getRentAt(int in){
+		return rent[in];
+	}
+	
 	public int getGrade(){
 		return grade;
 	}

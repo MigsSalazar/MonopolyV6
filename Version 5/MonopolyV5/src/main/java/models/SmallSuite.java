@@ -7,9 +7,9 @@ import com.google.gson.annotations.Expose;
 
 public class SmallSuite implements Suite {
 	
-	@Expose private final String COLOR;
-	@Expose private final Colored FIRST;
-	@Expose private final Colored SECOND;
+	@Expose public final String COLOR;
+	@Expose public final Colored FIRST;
+	@Expose public final Colored SECOND;
 	
 	public SmallSuite(String c, Colored f, Colored s){
 		COLOR = c;

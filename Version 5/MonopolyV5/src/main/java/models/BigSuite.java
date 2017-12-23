@@ -7,10 +7,10 @@ import com.google.gson.annotations.Expose;
 
 public class BigSuite implements Suite {
 
-	@Expose private final String COLOR;
-	@Expose private final Colored FIRST;
-	@Expose private final Colored SECOND;
-	@Expose private final Colored THIRD;
+	@Expose public final String COLOR;
+	@Expose public final Colored FIRST;
+	@Expose public final Colored SECOND;
+	@Expose public final Colored THIRD;
 	
 	public BigSuite(String c, Colored f, Colored s, Colored t){
 		COLOR = c;
