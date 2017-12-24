@@ -76,7 +76,7 @@ public class BoardPanel extends JPanel {
 				addLabel(r, c);
 			}
 		}
-		paintDice(1,1);
+		paintDice(0,0);
 		for(Piece gp : gamePieces){
 			gp.updateIcon();
 		}
@@ -106,67 +106,109 @@ public class BoardPanel extends JPanel {
 		 *applyFullBorderStamp(6,8,16,18);
 		 *
 		 */
-		
+		setDoubles(false);
+		cleanDice();
 		if(d1 <1 || d1 > 6 || d2 < 1 || d2 > 6){
 			return;
 		}else{
-			cleanDice();
-			switch(d1){
-			case 1: changeIcon(imageIndex[52],7,12);
-					break;
-			case 2: changeIcon(imageIndex[52],6,11);
-					changeIcon(imageIndex[52],8,13);
-					break;
-			case 3: changeIcon(imageIndex[52],6,11);
-					changeIcon(imageIndex[52],7,12);
-					changeIcon(imageIndex[52],8,13);
-					break;
-			case 4: changeIcon(imageIndex[52],6,11);
-					changeIcon(imageIndex[52],8,13);
-					changeIcon(imageIndex[52],6,13);
-					changeIcon(imageIndex[52],8,11);
-					break;
-			case 5: changeIcon(imageIndex[52],6,11);
-					changeIcon(imageIndex[52],8,13);
-					changeIcon(imageIndex[52],6,13);
-					changeIcon(imageIndex[52],8,11);
-					changeIcon(imageIndex[52],7,12);
-					break;
-			case 6: changeIcon(imageIndex[52],6,11);
-					changeIcon(imageIndex[52],6,12);
-					changeIcon(imageIndex[52],6,13);
-					changeIcon(imageIndex[52],8,11);
-					changeIcon(imageIndex[52],8,12);
-					changeIcon(imageIndex[52],8,13);
-			}
+			dice1(d1);
 			
-			switch(d2){
-			case 1: changeIcon(imageIndex[52],7,17);
-					break;
-			case 2: changeIcon(imageIndex[52],6,16);
-					changeIcon(imageIndex[52],8,18);
-					break;
-			case 3: changeIcon(imageIndex[52],6,16);
-					changeIcon(imageIndex[52],7,17);
-					changeIcon(imageIndex[52],8,18);
-					break;
-			case 4: changeIcon(imageIndex[52],6,16);
-					changeIcon(imageIndex[52],8,18);
-					changeIcon(imageIndex[52],6,18);
-					changeIcon(imageIndex[52],8,16);
-					break;
-			case 5: changeIcon(imageIndex[52],6,16);
-					changeIcon(imageIndex[52],8,18);
-					changeIcon(imageIndex[52],6,18);
-					changeIcon(imageIndex[52],8,16);
-					changeIcon(imageIndex[52],7,17);
-					break;
-			case 6: changeIcon(imageIndex[52],6,16);
-					changeIcon(imageIndex[52],6,17);
-					changeIcon(imageIndex[52],6,18);
-					changeIcon(imageIndex[52],8,16);
-					changeIcon(imageIndex[52],8,17);
-					changeIcon(imageIndex[52],8,18);
+			dice2(d2);
+			if(d1==d2){
+				setDoubles(true);
+			}
+		}
+	}
+
+	private void dice2(int d2) {
+		switch(d2){
+		case 1: changeIcon(imageIndex[52],7,17);
+				break;
+		case 2: changeIcon(imageIndex[52],6,16);
+				changeIcon(imageIndex[52],8,18);
+				break;
+		case 3: changeIcon(imageIndex[52],6,16);
+				changeIcon(imageIndex[52],7,17);
+				changeIcon(imageIndex[52],8,18);
+				break;
+		case 4: changeIcon(imageIndex[52],6,16);
+				changeIcon(imageIndex[52],8,18);
+				changeIcon(imageIndex[52],6,18);
+				changeIcon(imageIndex[52],8,16);
+				break;
+		case 5: changeIcon(imageIndex[52],6,16);
+				changeIcon(imageIndex[52],8,18);
+				changeIcon(imageIndex[52],6,18);
+				changeIcon(imageIndex[52],8,16);
+				changeIcon(imageIndex[52],7,17);
+				break;
+		case 6: changeIcon(imageIndex[52],6,16);
+				changeIcon(imageIndex[52],6,17);
+				changeIcon(imageIndex[52],6,18);
+				changeIcon(imageIndex[52],8,16);
+				changeIcon(imageIndex[52],8,17);
+				changeIcon(imageIndex[52],8,18);
+		}
+	}
+
+	private void dice1(int d1) {
+		switch(d1){
+		case 1: changeIcon(imageIndex[52],7,12);
+				break;
+		case 2: changeIcon(imageIndex[52],6,11);
+				changeIcon(imageIndex[52],8,13);
+				break;
+		case 3: changeIcon(imageIndex[52],6,11);
+				changeIcon(imageIndex[52],7,12);
+				changeIcon(imageIndex[52],8,13);
+				break;
+		case 4: changeIcon(imageIndex[52],6,11);
+				changeIcon(imageIndex[52],8,13);
+				changeIcon(imageIndex[52],6,13);
+				changeIcon(imageIndex[52],8,11);
+				break;
+		case 5: changeIcon(imageIndex[52],6,11);
+				changeIcon(imageIndex[52],8,13);
+				changeIcon(imageIndex[52],6,13);
+				changeIcon(imageIndex[52],8,11);
+				changeIcon(imageIndex[52],7,12);
+				break;
+		case 6: changeIcon(imageIndex[52],6,11);
+				changeIcon(imageIndex[52],6,12);
+				changeIcon(imageIndex[52],6,13);
+				changeIcon(imageIndex[52],8,11);
+				changeIcon(imageIndex[52],8,12);
+				changeIcon(imageIndex[52],8,13);
+		}
+	}
+	
+	public void paintDice(int d1){
+		cleanDice();
+		dice1(d1);
+	}
+	
+	private void setDoubles(boolean flag){
+		String setme;
+		if(flag){
+			setme = "DOUBLES";
+			//System.out.println("set doubles: doubles found");
+		}else{
+			setme = "       ";
+			//System.out.println("no doubles:"+setme+":");
+		}
+		for(int i=0; i<setme.length(); i++){
+			Component com;
+			ImageIcon icon = displayedBoard[10][i+11];
+			com = this.getComponent(10*displayedBoard.length+(i+11));
+
+			if( com instanceof JLabel ){
+				JLabel comp = (JLabel)com;
+				comp.setIconTextGap(-30);
+				comp.setOpaque(true);
+				comp.setLayout(null);
+				stampCollection[10][i+11].setEngraving(setme.charAt(i));
+				stampCollection[10][i+11].engraveLabel(comp);
+				changeIcon(icon, 10, (i+11));
 			}
 		}
 	}

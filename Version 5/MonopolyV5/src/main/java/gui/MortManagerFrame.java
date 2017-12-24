@@ -87,8 +87,8 @@ public class MortManagerFrame extends JDialog {
 		setBounds(100, 100, 350, 140);
 		setResizable(false);
 		setVisible(true);
-		setBounds(100, 100, 350, 140);
-		setResizable(false);
+		//setBounds(100, 100, 350, 140);
+		//setResizable(false);
 	}
 	
 	/**

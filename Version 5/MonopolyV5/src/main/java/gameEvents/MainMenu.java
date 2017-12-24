@@ -12,6 +12,7 @@ import main.java.action.TradeManager;
 import main.java.gui.BoardPanel;
 import main.java.gui.EventPanel;
 import main.java.gui.MortManagerFrame;
+import main.java.gui.MortgageManager;
 
 /**
  * @author Miguel Salazar
@@ -96,8 +97,8 @@ public class MainMenu extends DiceNeededEvent{
 				TradeManager tm = new TradeManager(gameVars, currentPlayer, gameVars.getPlayers());
 				tm.runManager();
 			}else if(me.equals(buttons[3])){
-				MortManagerFrame mmf = new MortManagerFrame(gameVars, currentPlayer);
-				
+				MortgageManager mm = new MortgageManager(gameVars, currentPlayer);
+				mm.beginManager();
 			}
 		}
 		//parent.paintEvent(this);

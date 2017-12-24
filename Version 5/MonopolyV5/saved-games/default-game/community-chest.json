@@ -53,7 +53,7 @@
     "hotelCost": 0
   },
   {
-    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eGet out of jail free!\u003cbr\u003eThis card may be kept until needed,\u003cbr\u003eor traded/sold.\u003c/html\u003e",
+    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eGet out of jail free!\u003cbr\u003eThis card may be kept until needed, or traded/sold.\u003c/html\u003e",
     "moneyEarned": 0,
     "globalFunds": false,
     "baseMovement": 0,
@@ -79,7 +79,7 @@
     "hotelCost": 0
   },
   {
-    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eGrand Opera Night!\u003cbr\u003eCollect $50 from every player\u003cbr\u003eforopening night seats.\u003c/html\u003e",
+    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eGrand Opera Night!\u003cbr\u003eCollect $50 from every player for opening night seats.\u003c/html\u003e",
     "moneyEarned": 50,
     "globalFunds": true,
     "baseMovement": 0,
@@ -183,7 +183,7 @@
     "hotelCost": 0
   },
   {
-    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eYou are assessed for stree repairs-\u003cbr\u003e$40 per house\u003cbr\u003e$115 per hotel\u003c/html\u003e",
+    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eYou are assessed for stree repairs-\u003cbr\u003ePay $40 per house and $115 per hotel\u003c/html\u003e",
     "moneyEarned": 0,
     "globalFunds": false,
     "baseMovement": 0,
@@ -196,7 +196,7 @@
     "hotelCost": 115
   },
   {
-    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eYou have won second prize\u003cbr\u003ein a beauty contest!\u003cbr\u003eCollect $10\u003c/html\u003e",
+    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eYou have won second prize in a beauty contest!\u003cbr\u003eCollect $10\u003c/html\u003e",
     "moneyEarned": 10,
     "globalFunds": false,
     "baseMovement": 0,

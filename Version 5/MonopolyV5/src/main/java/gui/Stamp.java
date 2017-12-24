@@ -75,10 +75,17 @@ public class Stamp {
 		if( engraving != ' '){
 			//System.out.println("engraving = "+engraved);
 			label.setText(engraved);
-			label.setHorizontalAlignment(JLabel.CENTER);
-			label.setVerticalAlignment(JLabel.CENTER);
+			
+			//label.setHorizontalAlignment(JLabel.CENTER);
+			
+			//label.setVerticalAlignment(JLabel.CENTER);
+		}else{
+			label.setText(""+engraved);
+			//label.setHorizontalAlignment(JLabel.RIGHT);
+			//label.setVerticalAlignment(JLabel.CENTER);
 		}
-		
+		label.setHorizontalTextPosition(JLabel.CENTER);
+		label.setVerticalTextPosition(JLabel.CENTER);
 		
 	}
 	

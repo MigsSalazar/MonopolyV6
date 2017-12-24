@@ -17,14 +17,16 @@ import main.java.models.Property;
 
 public class CardEvent extends DiceNeededEvent{
 
-	GameCard card;
+	private GameCard card;
 	
 	public CardEvent(EventPanel p, Player pl, boolean chance) {
 		super(p);
 		gameVars = p.getGlobalVars();
 		gameDice = gameVars.getGameDice();
 		card = cardPicker(chance);
-		text = card.getText();
+		//< h t m l >
+		text = "<html>You landed on "+(chance?"Chance":"Community Chest!")+". Your card reads:"
+				+ "<br>"+card.getText().substring(6,card.getText().length());
 		currentPlayer = pl;
 		defineComponents();
 	}
@@ -41,7 +43,7 @@ public class CardEvent extends DiceNeededEvent{
 		if(e.getSource().equals(buttons[0])){
 			runCard(card);
 			desync();
-			parent.jumpStartClean();
+			//parent.jumpStartClean();
 		}
 
 	}
@@ -79,24 +81,26 @@ public class CardEvent extends DiceNeededEvent{
 	}
 	
 	private void moneyChange( GameCard gc){
+		AbstractEvent event = null;
 		if(gc.isGlobalFunds()){
-			Map<String, Player> plays = gameVars.getPlayers();
-			for(String s : gameVars.getPlayerNames()){
-				if(!plays.get(s).equals(currentPlayer)){
-					plays.get(s).subCash(gc.getMoneyEarned());
-				}
-			}
+			event = new PlayervPlayerEvent(parent, "<html>The money has been transfered out<html>",
+											currentPlayer, gameVars.getPlayers(), gc.getMoneyEarned());
+		}else{
+			event = new PlayervBankEvent(parent, "<html>The money has been payed to the bank",
+										currentPlayer, gc.getMoneyEarned());
 		}
-		
-		currentPlayer.addCash(gc.getMoneyEarned());
+		//EventPanel p, String message, Player p1, ArrayList<Player> plays, int cost
+		parent.paintEvent(event);
+		sync(event);
 		
 	}
 	
 	private void movePlayer(GameCard gc){
 		if(gc.getBaseMovement() != 0){
-			gameVars.movePlayer(currentPlayer, gc.getBaseMovement());
-			currentPlayer.movePlayer(gc.getBaseMovement());
+			//gameVars.movePlayer(currentPlayer, gc.getBaseMovement());
+			//currentPlayer.movePlayer(gc.getBaseMovement());
 			AbstractEvent caseOf = moveAndDo(currentPlayer, gc.getBaseMovement());
+			parent.paintEvent(caseOf);
 			sync(caseOf);
 		}
 	}
@@ -104,6 +108,9 @@ public class CardEvent extends DiceNeededEvent{
 	private void giveJailCard(GameCard gc){
 		if(gc.isGetOutOfJail()){
 			currentPlayer.addJailCard();
+			MessageEvent event = new MessageEvent(parent,"Total Jail Cards: "+currentPlayer.getJailCards());
+			parent.paintEvent(event);
+			sync(event);
 		}
 	}
 	
@@ -111,6 +118,9 @@ public class CardEvent extends DiceNeededEvent{
 		if(gc.isGoToJail()){
 			currentPlayer.setInJail(true);
 			Runner.jailPlayer(currentPlayer);
+			MessageEvent event = new MessageEvent(parent, "You have been sent to Jail!");
+			parent.paintEvent(event);
+			sync(event);
 		}
 	}
 	
@@ -128,6 +138,7 @@ public class CardEvent extends DiceNeededEvent{
 			System.out.println("FindNearestOnBoard returned null");
 			return;
 		}
+		parent.paintEvent(event);
 		sync(event);
 	}
 	
@@ -189,6 +200,7 @@ public class CardEvent extends DiceNeededEvent{
 		if(event == null){
 			return;
 		}
+		parent.paintEvent(event);
 		sync(event);
 	}
 	
@@ -196,16 +208,31 @@ public class CardEvent extends DiceNeededEvent{
 		if(gc.isPropRenovation()){
 			Map<String, Property> props = currentPlayer.getProps();
 			int total = 0;
+			int houses = 0;
+			int housenum = 0;
+			int hotels = 0;
+			int hotelnum = 0;
 			for(String s : props.keySet()){
 				if(props.get(s) instanceof Colored){
 					if(((Colored)props.get(s)).getGrade() == 5){
-						total += gc.getHotelCost();
+						hotels += gc.getHotelCost();
+						total += hotels;
+						hotelnum++;
 					}else if(((Colored)props.get(s)).getGrade() > 0){
-						total += gc.getHouseCost();
+						houses += gc.getHouseCost() * ((Colored)props.get(s)).getGrade();
+						total += houses;
+						housenum++;
 					}
 				}
 			}
-			currentPlayer.subCash(total);
+			String textOut = "<html>Renovation Costs:"
+							+ "<br>Hotels: "+hotelnum+"    Cost: $"+hotels
+							+ "<br>Houses: "+housenum+"    Cost: $"+houses
+							+ "<br>Complete Total:          $"+total+"</html>";
+			PlayervBankEvent event = new PlayervBankEvent(parent, textOut,currentPlayer, (total * -1) );
+			//currentPlayer.subCash(total);
+			parent.paintEvent(event);
+			sync(event);
 		}
 	}
 

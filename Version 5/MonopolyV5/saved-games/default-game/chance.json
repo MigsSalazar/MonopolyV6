@@ -26,7 +26,7 @@
     "hotelCost": 0
   },
   {
-    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eAdvance token to the nearest Utility\u003cbr\u003eIf unowned, you may buy it from the bank.\u003cbr\u003eIf owned, throw the dice and pay the owner\u003cbr\u003eten times the amount thrown\u003c/html\u003e",
+    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eAdvance token to the nearest Utility - If unowned, you may buy it from the bank.\u003cbr\u003eIf owned, throw the dice and pay the owner ten times the amount thrown\u003c/html\u003e",
     "moneyEarned": 0,
     "globalFunds": false,
     "baseMovement": 0,
@@ -52,7 +52,7 @@
     "hotelCost": 0
   },
   {
-    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eGet out of jail free!\u003cbr\u003e(This card may be kept until needed,\u003cbr\u003eor traded/sold)\u003c/html\u003e",
+    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eGet out of jail free!\u003cbr\u003e(This card may be kept until needed, or traded/sold)\u003c/html\u003e",
     "moneyEarned": 0,
     "globalFunds": false,
     "baseMovement": 0,
@@ -78,7 +78,7 @@
     "hotelCost": 0
   },
   {
-    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eGo directly to jail.\u003cbr\u003eDo not pass go,\u003cbr\u003edo not collect $200\u003c/html\u003e",
+    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eGo directly to jail.\u003cbr\u003eDo not pass go, do not collect $200\u003c/html\u003e",
     "moneyEarned": 0,
     "globalFunds": false,
     "baseMovement": 0,
@@ -91,7 +91,7 @@
     "hotelCost": 0
   },
   {
-    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eMake general repairs on all your property\u003cbr\u003eFor each house pay $25\u003cbr\u003eFor each hotel pay $100\u003c/html\u003e",
+    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eMake general repairs on all your property- For each house pay $25\u003cbr\u003eFor each hotel pay $100\u003c/html\u003e",
     "moneyEarned": 0,
     "globalFunds": false,
     "baseMovement": 0,

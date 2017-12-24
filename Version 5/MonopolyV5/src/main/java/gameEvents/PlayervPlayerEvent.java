@@ -1,6 +1,7 @@
 package main.java.gameEvents;
 
-import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import java.util.Map;
 
 import main.java.gui.EventPanel;
 import main.java.models.Player;
@@ -11,18 +12,21 @@ public class PlayervPlayerEvent extends MessageEvent {
 		super(p, message);
 		p1.addCash(cost);
 		p2.subCash(cost);
+		//defineComponents();
 	}
 
-	public PlayervPlayerEvent(EventPanel p, String message, Player p1, ArrayList<Player> plays, int cost) {
+	public PlayervPlayerEvent(EventPanel p, String message, Player p1, Map<String, Player> plays, int cost) {
 		super(p,message);
-		for(Player pl : plays){
-			if( !p1.equals(pl) ){
+		for(String pname : plays.keySet()){
+			if( !plays.get(pname).equals(p1) ){
+				plays.get(pname).subCash(cost);
 				p1.addCash(cost);
-				pl.subCash(cost);
 			}
 		}
+		//defineComponents();
 		
 	}
+	
 	
 	
 }
