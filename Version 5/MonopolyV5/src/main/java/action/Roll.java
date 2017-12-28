@@ -26,6 +26,12 @@ public class Roll {
 		return rollSum;
 	}
 	
+	public int diceRollHalf(){
+		roll1 = gameDice.roll();
+		globalVars.changeDice(roll1);
+		return roll1;
+	}
+	
 	public int getLastRoll(){
 		return rollSum;
 	}
@@ -42,11 +48,12 @@ public class Roll {
 
 	public Property findPropPosition(int pos){
 		Set<String> names = globalVars.getPropName();
-		
+		//System.out.println("Position at int: "+pos);
 		Property prop;
 		Map<String,Property> propList = globalVars.getProperties();
 		for(String s : names){
 			prop = propList.get(s);
+			//System.out.println(prop.getName() + " lies at position " + prop.getPosition());
 			if(pos == prop.getPosition()){
 				return prop;
 			}

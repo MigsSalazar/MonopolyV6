@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 
+import main.java.action.Roll;
 import main.java.io.PropertyBean;
 import main.java.models.*;
 
@@ -56,7 +57,8 @@ public class TemplateProperty {
 		//St. Charles Place,11,140,0,70,false,color,pink,0
 		Colored stchpl = new Colored("St. Charles Place",11,140,false, new int[]{10,50,150,450,625,750,70,100}, 0);
 		//Electric Company,12,150,0,75,false,util
-		Utility elecom = new Utility("Electric Company",12,150,false, utilCount);
+		Roll uroll = new Roll(null);
+		Utility elecom = new Utility("Electric Company",12,150,false, uroll, utilCount);
 		//States Ave.,13,140,0,70,false,color,pink,0
 		Colored staave = new Colored("States Ave.",13,140,false, new int[]{10,50,150,450,625,750,70,100}, 0);
 		//Virginia Ave.,14,160,0,80,false,color,pink,0
@@ -91,7 +93,7 @@ public class TemplateProperty {
 		//Ventnor Ave.,27,260,0,130,false,color,yellow,0
 		Colored venave = new Colored("Ventnor Ave.",27,260,false, new int[]{22,110,330,800,975,1150,130,150}, 0);
 		//WaterWorks,28,150,0,75,false,util
-		Utility watwor = new Utility("Water Works",28,150,false, utilCount);
+		Utility watwor = new Utility("Water Works",28,150,false, uroll, utilCount);
 		//Marvin Gardens,29,280,0,140,false,color,yellow,0
 		Colored margar = new Colored("Marvin Gardens",29,280,false, new int[]{24,120,360,850,1025,1200,140,150}, 0);
 		

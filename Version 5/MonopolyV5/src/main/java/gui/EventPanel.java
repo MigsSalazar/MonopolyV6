@@ -92,9 +92,10 @@ public class EventPanel extends JPanel {
 		//System.out.println("jump-start from clean was called");
 		componentPanel.removeAll();
 		currentEvent = null;
-		if(rootMenu == null){
-			rootMenu = new MainMenu(this);
-		}
+		rootMenu = new MainMenu(this);
+		System.out.println("rootMenu: "+rootMenu.getText());
+		//rootMenu.updateText();
+		//System.out.println("rootMenu: "+rootMenu.getText());
 		paintEvent(rootMenu);
 	}
 	

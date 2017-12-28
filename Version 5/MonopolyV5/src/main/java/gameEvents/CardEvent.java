@@ -116,8 +116,7 @@ public class CardEvent extends DiceNeededEvent{
 	
 	private void sendToJail(GameCard gc){
 		if(gc.isGoToJail()){
-			currentPlayer.setInJail(true);
-			Runner.jailPlayer(currentPlayer);
+			gameVars.jailPlayer(currentPlayer);
 			MessageEvent event = new MessageEvent(parent, "You have been sent to Jail!");
 			parent.paintEvent(event);
 			sync(event);

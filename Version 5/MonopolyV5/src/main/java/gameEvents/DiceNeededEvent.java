@@ -20,32 +20,27 @@ public abstract class DiceNeededEvent extends AbstractEvent {
 	private AbstractEvent actionDone(Player p, int result) {
 		AbstractEvent event;
 		switch(result){
+		case 0: event = new GoEvent(parent, currentPlayer, this);
+				break;
 		case 1:event = new MessageEvent(parent, "<html>You are passing through jail.<br>Say hi to the jailbirds!</html>");
-				//sync(event);
 			break;
 		case 2:event = new MessageEvent(parent,"Free Parking! Nothing happens");
-				//sync(event);
 			break;
-		case 3:	p.setPosition(40);
-				Runner.jailPlayer(p.getName());
-				p.setInJail(true);
-				p.spendANightInJail();
+		case 3:	gameVars.jailPlayer(p);
+				//p.setPosition(10);
 				event = new MessageEvent(parent, "<html>"+p.getName()+", you must go to jail!<br>Do not pass Go, do not collect $200!</html>");
-				//sync(event);
 			break;
 		case 4:	event = new IncomeTaxEvent(parent, p);
-				//sync(event);
 			break;
 		case 5: event = new PlayervBankEvent(parent, "<html>"+p.getName()+", you must pay the $75 luxury tax!</html>", p, -75);
-				//sync(event);
 			break;
 		case 6:	event = new CardEvent(parent, p, false);
 			break;
 		case 7: event = new CardEvent(parent, p, true);
 			break;
-		case 8:Property passMe = gameDice.findPropPosition(p.getPosition());
-				event = new PropertyEvent(parent, p, passMe);
-				//sync(event);
+		case 8: System.out.println("p position = "+ p.getPosition());
+				Property passMe = gameDice.findPropPosition(p.getPosition());
+				event = new PropertyEvent(parent, gameVars, p, passMe);
 			break;
 		default: event = new MessageEvent(parent, "<html>Something went wrong. Defaulted</html>");
 			break;
@@ -64,15 +59,18 @@ public abstract class DiceNeededEvent extends AbstractEvent {
 	protected void crossGo(Player p, int roll) {
 		if( (p.getPosition() + roll) >= 40 || (p.getPosition() + roll)==0){
 			//String text = p.getName()+" has landed or passed go. Collect $200.";
-			GoEvent pbe = new GoEvent(parent, this);
+			GoEvent pbe = new GoEvent(parent, currentPlayer, this);
 			sync(pbe);
 		}
 	}
 	
 	protected void updateTurn(){
+		System.out.println("UpdateTurn: called with current player = " + currentPlayer.getName());
 		gameVars.cyclePlayer();
 		currentPlayer = gameVars.currentPlayer();
+		System.out.println("UpdateTurn: New current player has been set to "+ currentPlayer.getName());
 		text = currentPlayer.getName()+"'s turn.\nWhat would you like to do?";
+		System.out.println(text);
 		//parent.paintEvent(this);
 	}
 	
@@ -80,7 +78,7 @@ public abstract class DiceNeededEvent extends AbstractEvent {
 		currentPlayer.movePlayer(roll);
 		gameVars.movePlayer(currentPlayer, roll);
 		int result = findAction(currentPlayer.getPosition());
-		//System.out.println("current Player Name: "+currentPlayer.getName());
+		System.out.println("current Player Name: "+currentPlayer.getName());
 		return actionDone(currentPlayer, result);
 	}
 	

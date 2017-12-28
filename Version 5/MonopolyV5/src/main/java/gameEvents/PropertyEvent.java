@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 
-import main.java.action.BankPropertyActions;
+import main.java.action.Runner;
 import main.java.gui.EventPanel;
 import main.java.models.Player;
 import main.java.models.Property;
@@ -18,15 +18,17 @@ import main.java.models.Property;
  */
 public class PropertyEvent extends AbstractEvent {
 	
-	int status;
-	Player play;
-	Property prop;
+	private int status;
+	private Player play;
+	private Property prop;
+	private Runner gameVars;
 	
-	public PropertyEvent(EventPanel p, Player pl, Property pr){
+	public PropertyEvent(EventPanel p, Runner gv, Player pl, Property pr){
 		super(p);
 		//System.out.println("in the property event constructor");
 		play = pl;
 		prop = pr;
+		gameVars = gv;
 		status = ownership();
 		text = "<html>"+play.getName()+" has landed on "+prop.getName()+" which belongs to ";
 		//System.out.println("starting switch statement");
@@ -53,8 +55,8 @@ public class PropertyEvent extends AbstractEvent {
 		
 		if(status == 0){
 			if(e.getSource().equals(buttons[0])){
-				BankPropertyActions.sellUnownedProperty(play, prop);
-				AbstractEvent ae = new MessageEvent(parent, "You bought "+prop.getName()+"!");
+				//BankPropertyActions.sellUnownedProperty(play, prop);
+				AbstractEvent ae = new PlayervPropertyEvent(parent, "You bought "+prop.getName()+"!", play, prop);
 				parent.paintEvent(ae);
 				sync(ae);
 				desync();
@@ -65,12 +67,20 @@ public class PropertyEvent extends AbstractEvent {
 				desync();
 			}
 		}else if(status == -1){
-			BankPropertyActions.rentOwnedProperty(play, prop);
-			AbstractEvent ae = new MessageEvent(parent, "You payed "+play.getName()+" for landing on "+prop.getName()+"!");
+			//BankPropertyActions.rentOwnedProperty(play, prop);
+			
+			Player p2 = gameVars.getPlayers().get(prop.getOwner());
+			String outText = "You payed "+play.getName()+" $"+prop.getRent()+" for landing on "+prop.getName()+"!";
+			
+			AbstractEvent ae = new PlayervPlayerEvent(parent, outText, play, p2, prop.getRent());
+			//AbstractEvent a = new MessageEvent(parent, "You payed "+play.getName()+" for landing on "+prop.getName()+"!");
 			parent.paintEvent(ae);
 			sync(ae);
 			desync();
 			//parent.jumpStartClean();
+		}else if(status == 1){
+			desync();
+			parent.jumpStartClean();
 		}
 	}
 

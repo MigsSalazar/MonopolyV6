@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.reflect.TypeToken;
 
+import main.java.action.Roll;
 import main.java.models.Colored;
 import main.java.models.GlobalCounter;
 import main.java.models.Property;
@@ -65,11 +66,9 @@ public class PropertyBean {
 			retval = gson.fromJson(readme, PropertyBean.class);
 			readme.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
@@ -78,7 +77,7 @@ public class PropertyBean {
 		return retval;
 	}
 	
-	public HashMap<String,Property> getFullMap(){
+	public HashMap<String,Property> getFullMap(Roll uroll){
 		HashMap<String,Property> ret = new HashMap<String,Property>();
 		GlobalCounter rcount = null;
 		GlobalCounter ucount = null;
@@ -91,6 +90,7 @@ public class PropertyBean {
 		}
 		
 		for(String u : utility.keySet()){
+			utility.get(u).setUroll(uroll);
 			if(ucount == null){
 				ucount = utility.get(u).getGcount();
 			}else{

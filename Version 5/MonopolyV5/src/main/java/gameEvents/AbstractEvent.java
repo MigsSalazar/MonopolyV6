@@ -36,6 +36,7 @@ public abstract class AbstractEvent implements ActionListener{
 		text = t;
 	}
 	
+	
 	public abstract void defineComponents();
 
 	protected void sync(AbstractEvent ae){

@@ -23,7 +23,7 @@ public class PlayerTest {
 	public static void beforeClassTest(){
 		junk = new Colored("Junk Ave.", 13, 130, true, rents, 0 );
 		metra = new Railroad("Metra", 15, 200, false, rcount);
-		comcast = new Utility("Comcast", 13, 150, false, rcount);
+		comcast = new Utility("Comcast", 13, 150, false, null, rcount);
 		properties = new HashMap<String, Property>();
 		properties.put("Junk Ave.", junk);
 		properties.put("Metra", metra);

@@ -65,7 +65,7 @@ public class Runner {
 			players = gread.getPlayers();
 			playerNames = players.keySet();
 			
-			properties = gread.getProperties();
+			properties = gread.getProperties(gameDice);
 			propNames = properties.keySet();
 			
 			coloredProps = gread.getSuites(properties);
@@ -96,7 +96,7 @@ public class Runner {
 		try {
 			players = gread.getPlayers();
 			playerNames = players.keySet();
-			properties = gread.getProperties();
+			properties = gread.getProperties(gameDice);
 			propNames = properties.keySet();
 			coloredProps = gread.getSuites(properties);
 			suiteNames = coloredProps.keySet();
@@ -236,12 +236,17 @@ public class Runner {
 		
 	}
 	
-	public static void jailPlayer(Player p){
-		jailPlayer(p.getName());
-	}
 	
-	public static void jailPlayer(String name){
-		
+	public boolean jailPlayer(Player jailBird){
+		if(jailBird == null){
+			return false;
+		}
+		game.getGameBoard().jailPlayer(jailBird.getUserID());
+		jailBird.setInJail(true);
+		jailBird.resetJailCount();
+		jailBird.setPosition(10);
+		jailBird.spendANightInJail();
+		return true;
 	}
 	
 	public void movePlayer(Player p, int roll){
@@ -253,12 +258,17 @@ public class Runner {
 		game.getGameBoard().paintDice(d1, d2);
 	}
 	
+	public void changeDice(int d1){
+		game.getGameBoard().paintDice(d1);
+	}
+	
 	private BoardPanel requestBoardPanel() throws IOException{
 		//System.out.println("requested board");
 		BoardPanel retval = gread.getBoard();
 		int[] selection = {4,2,7,5,1,3,0,6};
 		retval.pickPlayerPieces(selection, sets.textureMe());
-		retval.firstPaintBoard(sets.textureMe());
+		ArrayList<Player> pl = new ArrayList<Player>(players.values());
+		retval.firstPaintBoard(sets.textureMe(), pl);
 		//System.out.println("board built");
 		return retval;
 	}

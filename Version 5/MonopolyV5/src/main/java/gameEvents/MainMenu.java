@@ -33,7 +33,8 @@ public class MainMenu extends DiceNeededEvent{
 		//System.out.println("got the dice");
 		currentPlayer = gameVars.currentPlayer();
 		//System.out.println("got the first player");
-		text = currentPlayer.getName()+"'s turn.\nWhat would you like to do?";
+		text = "<html>"+currentPlayer.getName()+"'s turn.<br>What would you like to do?</html>";
+		System.out.println(text);
 		//System.out.println("wrote the text: "+text);
 		defineComponents();
 		//System.out.println("defined components");
@@ -64,12 +65,25 @@ public class MainMenu extends DiceNeededEvent{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		System.out.println("Current player = " + currentPlayer.getName());
+		currentPlayer = gameVars.currentPlayer();
+		//updateText();
+		//text = 
+		System.out.println("Current player has changed to: "+currentPlayer.getName());
+		//System.out.println("e has been found in action performed");
 		if(e.getSource() instanceof JButton){
 			JButton me = (JButton)e.getSource();
 			
 			if(me.equals(buttons[0])){
+				//System.out.println("Roll button pressed");
 				if(currentPlayer.isInJail()){
-					//TODO make jail event to see if player will get out of jail
+					//System.out.println("This dude is locked up");
+					AbstractEvent jailTime = new InJailEvent(parent, gameVars, currentPlayer);
+					parent.paintEvent(jailTime);
+					sync(jailTime);
+					//updateTurn();
+					currentPlayer = gameVars.currentPlayer();
+					
 				}else{
 					
 					int roll = gameDice.diceRoll();
@@ -102,7 +116,8 @@ public class MainMenu extends DiceNeededEvent{
 			}
 		}
 		//parent.paintEvent(this);
-
+		currentPlayer = gameVars.currentPlayer();
+		//updateText();
 	}
 	
 	/* (non-Javadoc)

@@ -6,6 +6,7 @@ package main.java.gui;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -14,6 +15,7 @@ import javax.swing.JPanel;
 import com.google.gson.annotations.Expose;
 
 import main.java.models.GamePath;
+import main.java.models.Player;
 
 /**
  * @author Miguel Salazar
@@ -56,11 +58,43 @@ public class BoardPanel extends JPanel {
 	
 	public void jailPlayer(int player){
 		Piece playerPiece = gamePieces.get(player);
-		updateIcon(playerPiece, 10);
+		int[] coords = findJailCoords(player);
+		updateIcon(playerPiece, 10,coords[0],coords[1]);
 		
 	}
+
+	private int[] findJailCoords(int player) {
+		int[] coords = new int[2];
+		switch(player){
+		case 0: coords[0] = 25;
+				coords[1]= 2;
+				break;
+		case 1:coords[0]= 26;
+				coords[1]= 2;
+				break;
+		case 2:coords[0]= 27;
+				coords[1]= 2;
+				break;
+		case 3:coords[0]= 27;
+				coords[1]= 3;
+				break;
+		case 4:coords[0]= 27;
+				coords[1]= 4;
+				break;
+		case 5:coords[1]= 26;
+				coords[1]= 4;
+				break;
+		case 6:	coords[1]= 25;
+				coords[1]= 4;
+				break;
+		case 7:coords[1]= 25;
+				coords[1]= 3;
+				break;
+		}
+		return coords;
+	}
 	
-	public void firstPaintBoard(String dir) throws NullPointerException{
+	public void firstPaintBoard(String dir, ArrayList<Player> players) throws NullPointerException{
 		makeGrid();
 		this.setLayout(grid);
 		
@@ -83,7 +117,14 @@ public class BoardPanel extends JPanel {
 		
 		
 		for(int i=0; i<getPlayerCount(); i++){
-			updateIcon(gamePieces.get(i), 0);
+			Piece plPiece = gamePieces.get(i);
+			if(players.get(i).isInJail()){
+				int id = players.get(i).getUserID();
+				int[] coords = findJailCoords(id);
+				updateIcon(plPiece, plPiece.getTravelPath().getCurrentStep(), coords[0], coords[1]);
+			}else{
+				updateIcon(plPiece, plPiece.getTravelPath().getCurrentStep());
+			}
 		}
 			
 			
@@ -232,6 +273,13 @@ public class BoardPanel extends JPanel {
 		return updateIcon(p, addedStep);
 	}
 
+	/**
+	 * Takes in a player ID and passes the corresponding Piece (not Player object)
+	 * to the proper method
+	 * @param pid
+	 * @param newPosition
+	 * @return
+	 */
 	public boolean updateIcon(int pid, int newPosition){
 		Piece p = gamePieces.get(pid);
 		return updateIcon(p, newPosition);
@@ -248,16 +296,18 @@ public class BoardPanel extends JPanel {
 		}
 	}
 	
-	private void clearPiece(GamePath gp) {
+	private void clearPiece(GamePath gp, int pnum) {
 		int currR = gp.getCurrentRow();
 		int currC = gp.getCurrentCol();
 		changeIcon(imageIndex[ basePaint[currR][currC] ], currR, currC);
+		int[] coords = findJailCoords(pnum);
+		changeIcon(imageIndex[ basePaint[coords[0]][coords[1]] ], coords[0], coords[1]);;
 	}
 	
 	public boolean updateIcon(Piece p, int newposition, int r, int c){
 		try{
 			GamePath gp = p.getTravelPath();
-			clearPiece(gp);
+			clearPiece(gp, p.getTeam());
 			
 			gp.setCurrentStep(newposition);
 			int currR = r;
@@ -275,7 +325,7 @@ public class BoardPanel extends JPanel {
 	public boolean updateIcon(Piece p, int newposition){
 		try{
 			GamePath gp = p.getTravelPath();
-			clearPiece(gp);
+			clearPiece(gp, p.getTeam());
 			
 			gp.setCurrentStep(newposition);
 			int currR = gp.getCurrentRow();

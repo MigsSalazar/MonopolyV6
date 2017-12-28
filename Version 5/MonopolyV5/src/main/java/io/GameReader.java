@@ -18,6 +18,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import main.java.action.Roll;
 import main.java.action.Runner;
 import main.java.gui.*;
 import main.java.models.*;
@@ -100,9 +101,9 @@ public class GameReader {
 		return retval;
 	}
 	
-	public HashMap<String, Property> getProperties(){
+	public HashMap<String, Property> getProperties(Roll uroll){
 		PropertyBean getter = PropertyBean.jsonToProperties(new File(locations.get(2)));
-		return getter.getFullMap();
+		return getter.getFullMap(uroll);
 	}
 	
 	public HashMap<String,Suite> getSuites(Map<String,Property> props) throws IOException{

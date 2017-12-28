@@ -7,7 +7,6 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
-import main.java.action.BankPropertyActions;
 import main.java.action.Runner;
 import main.java.gui.EventPanel;
 import main.java.models.Player;
@@ -40,8 +39,8 @@ public class AuctionEvent extends AbstractEvent {
 		}else if(e.getSource().equals(buttons[1]) || e.getSource().equals(buttons[2])){
 			buttonPush(e);
 			if(fullCircle()){
-				BankPropertyActions.sellUnownedProperty(players.get(playerNames[highestBidder].toString()), prop, bid);
-				MessageEvent me = new MessageEvent(parent, whoWon());
+				//BankPropertyActions.sellUnownedProperty(players.get(playerNames[highestBidder].toString()), prop, bid);
+				MessageEvent me = new PlayervPropertyEvent(parent, whoWon(), players.get(playerNames[highestBidder]), prop, bid);
 				parent.paintEvent(me);
 				sync(me);
 				desync();

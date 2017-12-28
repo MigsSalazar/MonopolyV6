@@ -19,11 +19,13 @@ public class MessageEvent extends AbstractEvent {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(buttons[0])){
 			//System.out.println("message action performed started");
-			desync();
 			parent.jumpStartClean();
+			desync();
+			
 			//System.out.println("message action performed over");
 		}
 	}
+	
 
 	@Override
 	public void defineComponents() {

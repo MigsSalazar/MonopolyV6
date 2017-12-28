@@ -18,16 +18,17 @@ public class InJailEvent extends DiceNeededEvent {
 		super(p);
 		gameVars = gv;
 		currentPlayer = pl;
-		if(pl.getJailCount() == 3){
-			lastDay = true;
-			text = "<html>This is your last day in jail. Would you like to"
-					+ "<br>role for freedom or pay $50 bail?</html>";
-		}else{
+		gameDice = gameVars.getGameDice();
+		if(pl.getJailCount() < 3){
 			lastDay = false;
 			text = "<html>You are in jail. Day: "+pl.getJailCount()+". Would you like to"
 					+ "<br>role for freedom or pay $50 bail?</html>";
+		}else{
+			lastDay = true;
+			text = "<html>This is your last day in jail. Would you like to"
+					+ "<br>role for freedom or pay $50 bail?</html>";
 		}
-		
+		defineComponents();
 	}
 
 	@Override
@@ -36,58 +37,80 @@ public class InJailEvent extends DiceNeededEvent {
 		gameDice.diceRoll();
 		int dice1 = gameDice.getLastDice1();
 		int dice2 = gameDice.getLastDice2();
-		String t = "<html>Dice: d1="+dice1+"    d2="+dice2;
+		String t;
 		AbstractEvent event;
 		if(e.getSource().equals(buttons[0])){
 			if(dice1==dice2){
-				t += "<br>You have rolled doubles and are now free to go!"
-					+ "<br>You will be moved the distance given by the dice roll"
-					+ "<br>but you will not roll again.</html>";
+				t = "<html>You have rolled doubles and are now free to go!"
+					+ "<br>Roll again to move.</html>";
 				releasePrisoner();
-				int roll = dice1 + dice2;
 				
-				moveAndDo(roll);
-				updateTurn();
+				//int roll = dice1 + dice2;
 				event = new MessageEvent(parent, t);
 				parent.paintEvent(event);
 				sync(event);
 				desync();
+				
+				//event = moveAndDo(roll);
+				//updateTurn();
+				//event = new MessageEvent(parent, t);
+				//parent.paintEvent(event);
+				//sync(event);
+				
 			}else{
 				if(lastDay){
 					releasePrisoner();
-					t +="<br>You failed your role but you must leave."
-						+ "<br>Now taking $50 bail from your account."
-						+ "<br>You will be moved equal to your dice roll</html>";
+					t = "<html>You failed your role but you must leave."
+						+ "<br>Now taking $50 bail from your account.</html>";
 					event = new PlayervBankEvent(parent, t, currentPlayer, (-50));
+					releasePrisoner();
 					parent.paintEvent(event);
 					sync(event);
-					moveAndDo(gameDice.getLastRoll());
-					updateTurn();
 					desync();
+					//parent.paintEvent(event);
+					//holdIt(event);
+					
+					
+					//event = moveAndDo(gameDice.getLastRoll());
+					//parent.paintEvent(event);
+					
+					//updateTurn();
+					
 				}else{
+					System.out.println("roll failed at InJailEvent");
 					currentPlayer.spendANightInJail();
-					t = "You failed your role but you may"
-					+ "<br>stay another "+(3-currentPlayer.getJailCount() +"night(s)</html>");
+					System.out.println("current player = " + currentPlayer.getName());
+					t = "<html>You failed your role but you may"
+					+ "<br>stay another "+(4-currentPlayer.getJailCount() +" night(s)</html>");
 					event = new MessageEvent(parent, t);
-					parent.paintEvent(event);
-					sync(event);
-					moveAndDo(gameDice.getLastRoll());
 					updateTurn();
+					parent.paintEvent(event);
+					
+					sync(event);
+					//updateTurn();
+					System.out.println("Next player = "+currentPlayer.getName());
 					desync();
+					//parent.jumpStartClean();
+					//moveAndDo(gameDice.getLastRoll());
+					//updateTurn();
+					
 				}
 			}
 			
 		}else if(e.getSource().equals(buttons[1])){
-			t = "You've paid the $50 bail!"
+			t = "<html>You've paid the $50 bail!"
 			+ "<br>Freedom is yours!"
-			+ "<br>We've rolled for you"
-			+ "<br>"+t+""
-			+ "<br>You will be moved "+gameDice.getLastRoll()+" spaces.</html>";
+			+ "<br>Please roll to move.</html>";
 			event = new PlayervBankEvent(parent, t, currentPlayer, (-50));
-			sync(event);
 			releasePrisoner();
-			moveAndDo(gameDice.getLastRoll());
-			updateTurn();
+			parent.paintEvent(event);
+			//holdIt(event);
+			
+			
+			//event = moveAndDo(gameDice.getLastRoll());
+			//parent.paintEvent(event);
+			sync(event);
+			//updateTurn();
 			desync();
 		}
 	}
@@ -108,5 +131,20 @@ public class InJailEvent extends DiceNeededEvent {
 		buttons[1] = new JButton("Bail");
 		((JButton)buttons[1]).addActionListener(this);
 	}
+	
+	/*
+	private void holdIt(AbstractEvent ae){
+		try {
+			synchronized(ae){
+				System.out.println("Current sync trace: "+ae.toString());
+				//boolean flag = true;
+				parent.paintEvent(ae);
+				ae.wait();
+				System.out.println("Im still waiting");
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}*/
 
 }

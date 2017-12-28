@@ -2,12 +2,14 @@ package main.java.models;
 
 import com.google.gson.annotations.Expose;
 
+import main.java.action.Roll;
+
 public class Utility extends Property {
 	
-	@Expose private Dice uroll = new Dice(2,6);
+	private transient Roll uroll;
 	@Expose private GlobalCounter gcount;
 
-	public Utility(String n, int p, int pr, boolean mb, GlobalCounter gb) {
+	public Utility(String n, int p, int pr, boolean mb, Roll ur, GlobalCounter gb) {
 		super(n, p, pr, mb);
 		// TODO Auto-generated constructor stub
 		gcount = gb;
@@ -15,16 +17,15 @@ public class Utility extends Property {
 	
 	@Override
 	public void setOwner(String o){
-		if(o != null && !o.equals("")){
-			owner = o;
+		if(owner == null || !owner.equals("")){
 			gcount.incCount();
 		}
+		owner = o;
 	}
 	
 	@Override
 	public int getRent() {
-		// TODO Auto-generated method stub
-		int rent = uroll.roll();
+		int rent = uroll.diceRollHalf();
 		if(gcount.getCount() == 1){
 			rent = rent*4;
 		}else if(gcount.getCount() == 2){
@@ -34,6 +35,9 @@ public class Utility extends Property {
 	}
 
 
+	public void setUroll(Roll ur){
+		uroll = ur;
+	}
 
 	public GlobalCounter getGcount() {
 		return gcount;

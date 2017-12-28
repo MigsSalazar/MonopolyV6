@@ -1,6 +1,5 @@
 package main.java.gameEvents;
 
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 import main.java.gui.EventPanel;

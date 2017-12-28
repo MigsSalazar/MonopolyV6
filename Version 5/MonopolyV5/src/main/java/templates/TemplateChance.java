@@ -73,7 +73,7 @@ public class TemplateChance {
 				0, false,0,false,false,"","Board Walk",false, 0, 0));
 		
 		me.commChest.add(new GameCard("<html>You have been elected Chairman"
-									+ "<br>of the Boars, Pay each player $50</html>",
+									+ "<br>of the Board, Pay each player $50</html>",
 				-50, true,0,false,false,"","",false, 0, 0));
 		
 		me.commChest.add(new GameCard("<html>You building and loan matures"

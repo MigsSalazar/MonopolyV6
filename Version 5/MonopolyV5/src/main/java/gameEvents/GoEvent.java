@@ -6,14 +6,16 @@ import javax.swing.JComponent;
 import javax.swing.JButton;
 
 import main.java.gui.EventPanel;
+import main.java.models.Player;
 
 public class GoEvent extends AbstractEvent {
 
 	AbstractEvent root;
 	
-	public GoEvent(EventPanel p, AbstractEvent root) {
+	public GoEvent(EventPanel p, Player pl, AbstractEvent root) {
 		super(p);
 		text = "<html>You have passed Go!<br>Collect $200!</html>";
+		pl.addCash(200);
 		this.root = root;
 		defineComponents();
 	}

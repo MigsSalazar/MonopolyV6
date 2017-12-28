@@ -14,9 +14,11 @@ public class Railroad extends Property {
 	
 	@Override
 	public void setOwner(String o){
-		if(owner != null && !owner.equals("")){
+		if(owner == null || !owner.equals("")){
 			owner = o;
 			gcount.incCount();
+		}else{
+			owner = o;
 		}
 	}
 

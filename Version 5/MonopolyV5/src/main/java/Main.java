@@ -12,7 +12,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		JOptionPane.showMessageDialog(null, "Still in the works. Currently little is available");
+		//JOptionPane.showMessageDialog(null, "Still in the works. Currently little is available");
 		//Properties sysprops = System.getProperties();
 		
 		PreGameFrame pgf = new PreGameFrame();
