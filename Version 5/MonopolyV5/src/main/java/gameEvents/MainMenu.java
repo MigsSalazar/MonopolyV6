@@ -108,8 +108,8 @@ public class MainMenu extends DiceNeededEvent{
 			}else if(me.equals(buttons[1])){
 				
 			}else if(me.equals(buttons[2])){
-				TradeManager tm = new TradeManager(gameVars, currentPlayer, gameVars.getPlayers());
-				tm.runManager();
+				//TradeManager tm = new TradeManager(gameVars, currentPlayer, gameVars.getPlayers());
+				//tm.runManager();
 			}else if(me.equals(buttons[3])){
 				MortgageManager mm = new MortgageManager(gameVars, currentPlayer);
 				mm.beginManager();

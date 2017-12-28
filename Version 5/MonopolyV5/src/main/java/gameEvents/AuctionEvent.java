@@ -1,6 +1,8 @@
 package main.java.gameEvents;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Map;
 
 import javax.swing.JButton;
@@ -12,7 +14,7 @@ import main.java.gui.EventPanel;
 import main.java.models.Player;
 import main.java.models.Property;
 
-public class AuctionEvent extends AbstractEvent {
+public class AuctionEvent extends AbstractEvent implements KeyListener {
 
 	private Runner runme = parent.getGlobalVars();
 	
@@ -35,6 +37,7 @@ public class AuctionEvent extends AbstractEvent {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(buttons[0])){
 			JTextField useme = (JTextField)buttons[0];
+			System.out.println("JtextField in auction has changed");
 			bidInput(useme);
 		}else if(e.getSource().equals(buttons[1]) || e.getSource().equals(buttons[2])){
 			buttonPush(e);
@@ -48,22 +51,32 @@ public class AuctionEvent extends AbstractEvent {
 		}
 	}
 
+	
 
 	private void buttonPush(ActionEvent e) {
+		//bidInput((JTextField)buttons[0]);
+		JTextField bidField = (JTextField)buttons[0];
 		if(e.getSource().equals(buttons[1])){
-			if( Integer.parseInt(  ((JTextField)buttons[0]).getText()  ) == 0 ){
+			
+			if( bidField.getText().equals("")
+				|| Integer.parseInt(  bidField.getText()  ) == 0 
+				|| Integer.parseInt( bidField.getText() ) == bid){
 				((JButton)buttons[2]).doClick();
 			}else{
-				bid = Integer.parseInt(((JTextField)buttons[0]).getText());
+				bid = Integer.parseInt(bidField.getText());
 				highestBidder = turn;
 				turn = (turn+1)%playerNames.length;
+				bidField.setText(""+(bid+1));
 				setText();
+				
 				parent.softRepaint();
 				
 			}
 		}else if(e.getSource().equals(buttons[2])){
 			turn = (turn+1)%playerNames.length;
+			bidField.setText(""+(bid+1));
 			setText();
+			
 			parent.softRepaint();
 			
 		}
@@ -74,23 +87,39 @@ public class AuctionEvent extends AbstractEvent {
 	private void bidInput(JTextField useme) {
 		try{
 			int offer = Integer.parseInt(useme.getText());
-			if(offer >=  players.get(playerNames[turn]).getCash() || (offer<bid && bid !=0)){
+			if(offer >=  players.get(playerNames[turn]).getCash() || (offer<=bid && bid !=0)){
 				((JButton)buttons[1]).setEnabled(false);
 			}else if(offer > bid || offer==0){
 				((JButton)buttons[1]).setEnabled(true);
 			}
 		}catch(NumberFormatException nfe){
-			((JTextField)buttons[0]).setText(""+(bid+1));
+			if(!((JTextField)buttons[0]).getText().equals("")){
+				((JTextField)buttons[0]).setText(""+(bid+1));
+			}
+			//((JTextField)buttons[0]).setText(""+(bid+1));
 		}
 	}
 
 	private void setText(){
-		text = "<html>Current bid on "+prop.getName()+" is "+bid
+		if(buttons != null){
+			bidInput((JTextField)buttons[0]);
+		}
+		
+		String person;
+		if(highestBidder > -1){
+			person = " by " + (String) playerNames[highestBidder];
+		}else{
+			person = "";
+		}
+		text = "<html>Current bid on "+prop.getName()+" is $"+bid + person
 				+"<br>"+playerNames[turn]+", will you raise or pass? Entering 0 means you pass."
 				+"<br>Your offer:</html>";
 	}
 
 	private boolean fullCircle(){
+		if(bid == 0 || highestBidder == -1){
+			return false;
+		}
 		return highestBidder==turn;
 	}
 	
@@ -103,11 +132,31 @@ public class AuctionEvent extends AbstractEvent {
 		buttons = new JComponent[3];
 		buttons[0] = new JTextField();
 		((JTextField)buttons[0]).setText("1");
-		((JTextField)buttons[0]).addActionListener(this);
+		((JTextField)buttons[0]).addKeyListener(this);
+		((JTextField)buttons[0]).setColumns(5);
+		//((JTextField)buttons[0]).setDragEnabled(false);
 		buttons[1] = new JButton("Raise");
 		((JButton)buttons[1]).addActionListener(this);
 		buttons[2] = new JButton("Pass");
 		((JButton)buttons[2]).addActionListener(this);
+	}
+
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		bidInput((JTextField)e.getSource());
+	}
+
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		bidInput((JTextField)e.getSource());
+	}
+
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		bidInput((JTextField)e.getSource());
 	}
 
 

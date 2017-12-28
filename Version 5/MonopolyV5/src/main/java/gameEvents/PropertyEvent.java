@@ -72,7 +72,7 @@ public class PropertyEvent extends AbstractEvent {
 			Player p2 = gameVars.getPlayers().get(prop.getOwner());
 			String outText = "You payed "+play.getName()+" $"+prop.getRent()+" for landing on "+prop.getName()+"!";
 			
-			AbstractEvent ae = new PlayervPlayerEvent(parent, outText, play, p2, prop.getRent());
+			AbstractEvent ae = new PlayervPlayerEvent(parent, outText, play, p2, (-1)*prop.getRent());
 			//AbstractEvent a = new MessageEvent(parent, "You payed "+play.getName()+" for landing on "+prop.getName()+"!");
 			parent.paintEvent(ae);
 			sync(ae);

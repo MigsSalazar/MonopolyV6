@@ -77,6 +77,7 @@ public class Runner {
 			EventPanel ep = new EventPanel(this);
 			game.giveBoardPanel(requestBoardPanel());
 			game.giveEventPanel(ep);
+			game.giveStatsPanel(new StatsPanel(this));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -147,6 +148,12 @@ public class Runner {
 	}
 	
 	public Player currentPlayer(){
+		if(game != null){
+			if(game.getGameStats() != null){
+				game.getGameStats().updatePlayers();
+			}
+		}
+		
 		for(String p : playerNames){
 			if(playerTurn == players.get(p).getUserID()){
 				return players.get(p);
@@ -161,6 +168,7 @@ public class Runner {
 		playerTurn = (playerTurn + 1)%players.size();
 		current = currentPlayer();
 		current.setTurn(true);
+		game.getGameStats().updatePlayers();
 	}
 
 	public GameFrame getFrame(){
@@ -246,20 +254,24 @@ public class Runner {
 		jailBird.resetJailCount();
 		jailBird.setPosition(10);
 		jailBird.spendANightInJail();
+		game.getGameStats().updatePlayers();
 		return true;
 	}
 	
 	public void movePlayer(Player p, int roll){
 		game.getGameBoard().movePlayer(p.getUserID(), roll);
+		game.getGameStats().updatePlayers();
 		//movePlayer(p.getName(),roll);
 	}
 	
 	public void changeDice(int d1, int d2){
 		game.getGameBoard().paintDice(d1, d2);
+		game.getGameStats().updatePlayers();
 	}
 	
 	public void changeDice(int d1){
 		game.getGameBoard().paintDice(d1);
+		game.getGameStats().updatePlayers();
 	}
 	
 	private BoardPanel requestBoardPanel() throws IOException{

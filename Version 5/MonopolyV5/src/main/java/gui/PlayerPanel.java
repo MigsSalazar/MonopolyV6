@@ -1,6 +1,7 @@
 package main.java.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.Map;
 
@@ -26,8 +27,9 @@ public class PlayerPanel extends JPanel {
 
 	private Player myPlayer;
 	
-	private JPanel labels = new JPanel(new GridLayout(7,1));
+	private JPanel labels = new JPanel(new GridLayout(8,1));
 	private JLabel name;
+	private JLabel wealth;
 	private JLabel bank;
 	private JLabel posi;
 	private JLabel jail;
@@ -52,7 +54,7 @@ public class PlayerPanel extends JPanel {
 		
 		formJList();
 		this.add(pListScroller, BorderLayout.CENTER);
-		
+		this.setPreferredSize(new Dimension(175,300));
 	}
 	
 	/**
@@ -60,15 +62,17 @@ public class PlayerPanel extends JPanel {
 	 */
 	public void formLabels(){
 		
-		name = new JLabel(myPlayer.getName()+" has a cumulative $"+myPlayer.getWealth());
-		bank = new JLabel("$"+myPlayer.getCash()+" of which is liquid cash.");
-		posi = new JLabel("Currently in position "+myPlayer.getPosition());
-		jail = new JLabel("In Jail?: "+myPlayer.isInJail());
-		card = new JLabel("Number of Get our of Jail Cards: "+myPlayer.getJailCards());
+		name = new JLabel(myPlayer.getName());
+		wealth = new JLabel("Cumulative wealth: $"+myPlayer.getWealth());
+		bank = new JLabel("Liquid cash: $"+myPlayer.getCash());
+		posi = new JLabel("Current Position: "+myPlayer.getPosition());
+		jail = new JLabel("Jail Status: "+myPlayer.isInJail());
+		card = new JLabel("Get our of Jail Cards: "+myPlayer.getJailCards());
 		actv = new JLabel("Is active: "+myPlayer.isActive());
 		prop = new JLabel("Properties owned: ");
 		
 		labels.add(name);
+		labels.add(wealth);
 		labels.add(bank);
 		labels.add(posi);
 		labels.add(jail);
@@ -89,7 +93,7 @@ public class PlayerPanel extends JPanel {
 		String fullList = "";
 		Map<String,Property> props = myPlayer.getProps();
 		for(String key : props.keySet()){
-			fullList += key;
+			fullList += key+"\n";
 		}
 		
 		pTextArea.setText(fullList);
@@ -104,11 +108,12 @@ public class PlayerPanel extends JPanel {
 	 */
 	public void updatePanel(){
 		
-		name.setText(myPlayer.getName()+" has a cumulative $"+myPlayer.getWealth());
-		bank.setText("$"+myPlayer.getCash()+" of which is liquid cash.");
-		posi.setText("Currently in position "+myPlayer.getPosition());
-		jail.setText("In Jail?: "+myPlayer.isInJail());
-		card.setText("Number of Get our of Jail Cards: "+myPlayer.getJailCards());
+		name.setText(myPlayer.getName());
+		wealth.setText("Cumulative Wealth: $"+myPlayer.getWealth());
+		bank.setText("Liquid Cash: $"+myPlayer.getCash());
+		posi.setText("Current Position "+myPlayer.getPosition());
+		jail.setText("Jail Status: "+myPlayer.isInJail());
+		card.setText("Get our of Jail Cards: "+myPlayer.getJailCards());
 		actv.setText("Is active: "+myPlayer.isActive());
 		
 		String fullList = "";

@@ -83,10 +83,10 @@ public class CardEvent extends DiceNeededEvent{
 	private void moneyChange( GameCard gc){
 		AbstractEvent event = null;
 		if(gc.isGlobalFunds()){
-			event = new PlayervPlayerEvent(parent, "<html>The money has been transfered out<html>",
+			event = new PlayervPlayerEvent(parent, "<html>Player transaction complete<br>Over seen by the bank.<html>",
 											currentPlayer, gameVars.getPlayers(), gc.getMoneyEarned());
 		}else{
-			event = new PlayervBankEvent(parent, "<html>The money has been payed to the bank",
+			event = new PlayervBankEvent(parent, "<html>Bank transaction complete.</html>",
 										currentPlayer, gc.getMoneyEarned());
 		}
 		//EventPanel p, String message, Player p1, ArrayList<Player> plays, int cost
