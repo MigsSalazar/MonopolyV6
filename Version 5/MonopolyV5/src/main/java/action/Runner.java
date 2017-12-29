@@ -68,6 +68,8 @@ public class Runner {
 			properties = gread.getProperties(gameDice);
 			propNames = properties.keySet();
 			
+			giveProperties();
+			
 			coloredProps = gread.getSuites(properties);
 			suiteNames = coloredProps.keySet();
 			
@@ -84,6 +86,14 @@ public class Runner {
 		game.setup();
 		//System.out.println("Runner is done");
 		
+	}
+	
+	private void giveProperties(){
+		for(Property p : properties.values()){
+			if(players.containsKey(p.getOwner())){
+				players.get(p.getOwner()).addProperty(p);
+			}
+		}
 	}
 	
 	public void startSavedGame(){

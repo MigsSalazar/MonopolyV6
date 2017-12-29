@@ -66,8 +66,8 @@ public class SmallSuite implements Suite {
 		SECOND.setSuite(this);
 	}
 	
-	public List<Property> getProperties(){
-		ArrayList<Property> props = new ArrayList<Property>();
+	public List<Colored> getProperties(){
+		ArrayList<Colored> props = new ArrayList<Colored>();
 		props.add(FIRST);
 		props.add(SECOND);
 		return props;

@@ -44,6 +44,6 @@ public interface Suite {
 	
 	public abstract void setPropertySuite();
 	
-	public abstract List<Property> getProperties();
+	public abstract List<Colored> getProperties();
 
 }

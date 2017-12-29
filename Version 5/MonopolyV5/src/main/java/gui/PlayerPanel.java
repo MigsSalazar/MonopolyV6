@@ -90,11 +90,7 @@ public class PlayerPanel extends JPanel {
 		pTextArea = new JTextArea();
 		pTextArea.setEditable(false);
 		
-		String fullList = "";
-		Map<String,Property> props = myPlayer.getProps();
-		for(String key : props.keySet()){
-			fullList += key+"\n";
-		}
+		String fullList = getPropertyList();
 		
 		pTextArea.setText(fullList);
 		
@@ -116,13 +112,23 @@ public class PlayerPanel extends JPanel {
 		card.setText("Get our of Jail Cards: "+myPlayer.getJailCards());
 		actv.setText("Is active: "+myPlayer.isActive());
 		
-		String fullList = "";
-		for(String key : myPlayer.getProps().keySet()){
-			fullList += key+"\n";
-		}
+		String fullList = getPropertyList();
 		
 		pTextArea.setText(fullList);
 		
+	}
+
+	private String getPropertyList() {
+		String fullList = "";
+		Map<String,Property> props = myPlayer.getProps();
+		for(String key : props.keySet()){
+			fullList += key;
+			if(props.get(key).isMortgaged()){
+				fullList += "-Mortgaged";
+			}
+			fullList += "\n";
+		}
+		return fullList;
 	}
 	
 }

@@ -9,8 +9,8 @@ public class Utility extends Property {
 	private transient Roll uroll;
 	@Expose private GlobalCounter gcount;
 
-	public Utility(String n, int p, int pr, boolean mb, Roll ur, GlobalCounter gb) {
-		super(n, p, pr, mb);
+	public Utility(String n, String o, int p, int pr, boolean mb, Roll ur, GlobalCounter gb) {
+		super(n, o, p, pr, mb);
 		// TODO Auto-generated constructor stub
 		gcount = gb;
 	}

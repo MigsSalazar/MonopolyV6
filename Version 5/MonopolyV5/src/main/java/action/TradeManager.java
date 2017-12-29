@@ -91,7 +91,6 @@ public class TradeManager{
 	 * Performs the trade.
 	 */
 	public void doTheTrade(){
-		JOptionPane.showMessageDialog(gameVars.getFrame(), "Yup this all worked a-ok");
 		
 		if(tradeAsset.getType().equals("prop") ){
 			Property tradeProp = null;
@@ -129,6 +128,8 @@ public class TradeManager{
 		}
 		
 		gameVars.getFrame().getGameStats();
+		
+		JOptionPane.showMessageDialog(gameVars.getFrame(), "The bank handled oversaw this transaction.");
 		
 	}
 	

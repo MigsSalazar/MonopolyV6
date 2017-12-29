@@ -55,13 +55,11 @@ public class BigSuite implements Suite {
 
 	@Override
 	public boolean hasMortgage() {
-		// TODO Auto-generated method stub
 		return FIRST.isMortgaged() || SECOND.isMortgaged() || THIRD.isMortgaged();
 	}
 
 	@Override
 	public int gradeDisparity() {
-		// TODO Auto-generated method stub
 		return largestGrade() - smallestGrade();
 	}
 	
@@ -71,8 +69,8 @@ public class BigSuite implements Suite {
 		THIRD.setSuite(this);
 	}
 	
-	public List<Property> getProperties(){
-		ArrayList<Property> props = new ArrayList<Property>();
+	public List<Colored> getProperties(){
+		ArrayList<Colored> props = new ArrayList<Colored>();
 		props.add(FIRST);
 		props.add(SECOND);
 		props.add(THIRD);

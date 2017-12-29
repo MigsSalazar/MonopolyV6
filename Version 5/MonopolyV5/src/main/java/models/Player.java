@@ -18,7 +18,7 @@ public class Player {
 	@Expose private boolean inJail;
 	@Expose private boolean active;
 	@Expose private boolean turn;
-	@Expose private Map<String, Property> props;
+	private transient Map<String, Property> props;
 	
 	/**
 	 * Classic constructor. To be used if creating a fresh new Player
@@ -111,6 +111,7 @@ public class Player {
 	}
 	
 	private void calcWealth(){
+		propsExists();
 		Set<String> keys = new HashSet<String>();
 		if(props.size() > 0){
 			keys = props.keySet();
@@ -121,8 +122,15 @@ public class Player {
 		}
 		
 	}
+
+	private void propsExists() {
+		if(props == null){
+			props = new HashMap<String,Property>();
+		}
+	}
 	
 	public int getRedeemableWealth(){
+		propsExists();
 		Set<String> keys = props.keySet();
 		
 		int redeemable = cash;
@@ -182,6 +190,7 @@ public class Player {
 	public void resetJailCount(){ jailCount = 0; }
 	
 	public boolean playerOwns(Property p){
+		propsExists();
 		return props.containsValue(p);
 	}
 	
@@ -190,6 +199,7 @@ public class Player {
 	}
 	
 	public boolean addProperty(Property p){
+		propsExists();
 		props.put(p.getName(), p);
 		p.setOwner(getName());
 		calcWealth();
@@ -197,6 +207,7 @@ public class Player {
 	}
 	
 	public void addProperties(HashMap<String, Property> pr){
+		propsExists();
 		Set<String> keys = pr.keySet();
 		for(String k : keys){
 			addProperty(pr.get(k));
@@ -205,24 +216,29 @@ public class Player {
 	}
 	
 	public boolean removeProperty(Property p){
-		props.remove(p.getName());
-		p.setOwner("");
-		calcWealth();
+		propsExists();
+		if(props.containsKey(p.getName())){
+			props.remove(p.getName());
+			p.setOwner("");
+			calcWealth();
+		}
 		return !( playerOwns(p) );
 	}
 	
 	public boolean removeProperty(String key){
-		Property goodBye = props.remove(key);
-		if(goodBye!=null){
-			goodBye.setOwner("");
-			calcWealth();
-			return true;
-		}else{
-			return false;
+		if(props.containsKey(key)){
+			Property goodBye = props.remove(key);
+			if(goodBye!=null){
+				goodBye.setOwner("");
+				calcWealth();
+				return true;
+			}
 		}
+		return false;
 	}
 	
 	public Map<String,Property> getProps(){
+		propsExists();
 		return props;
 	}
 	

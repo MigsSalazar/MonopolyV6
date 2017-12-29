@@ -7,12 +7,13 @@ public abstract class Property {
 	@Expose protected String name;
 	@Expose protected int position;
 	@Expose protected int price;
-	@Expose protected String owner;
+	@Expose protected String owner = "";
 	@Expose protected boolean mBool;
 	
 	/**
 	 * Classic constructor for Properties
 	 * @param n		name of the property as a string
+	 * @param o		name of the player who owns this property
 	 * @param p		position of the property on the board as an integer
 	 * @param s		suite the property belongs to as an integer
 	 * @param pr	price of the property as an integer
@@ -20,11 +21,11 @@ public abstract class Property {
 	 * @param m		mortgage value saved as an integer
 	 * @param mb	boolean stating if property is mortgaged: mortgaged = true, not mortgaged = false
 	 */
-	public Property(String n, int p, int pr, boolean mb) {
+	public Property(String n, String o, int p, int pr, boolean mb) {
 		name = n;
 		position = p;
 		price = pr;
-		owner = null;
+		owner = o;
 		mBool = mb;
 	}
 	

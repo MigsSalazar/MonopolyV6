@@ -22,6 +22,7 @@ public class PropertyEvent extends AbstractEvent {
 	private Player play;
 	private Property prop;
 	private Runner gameVars;
+	private int rentOut = 0;
 	
 	public PropertyEvent(EventPanel p, Runner gv, Player pl, Property pr){
 		super(p);
@@ -33,7 +34,8 @@ public class PropertyEvent extends AbstractEvent {
 		text = "<html>"+play.getName()+" has landed on "+prop.getName()+" which belongs to ";
 		//System.out.println("starting switch statement");
 		switch(status){
-		case -1:	text += prop.getOwner()+".<br>You own them $"+prop.getRent()+" in rent.";
+		case -1:	rentOut = prop.getRent();
+					text += prop.getOwner()+".<br>You own them $"+rentOut+" in rent.";
 					break;
 		case 0:		text += "no one.<br>Property is valued at $"+prop.getPrice()+".<br>What would you like to do?";
 					break;
@@ -70,9 +72,9 @@ public class PropertyEvent extends AbstractEvent {
 			//BankPropertyActions.rentOwnedProperty(play, prop);
 			
 			Player p2 = gameVars.getPlayers().get(prop.getOwner());
-			String outText = "You payed "+play.getName()+" $"+prop.getRent()+" for landing on "+prop.getName()+"!";
+			String outText = "You payed "+play.getName()+" $"+rentOut+" for landing on "+prop.getName()+"!";
 			
-			AbstractEvent ae = new PlayervPlayerEvent(parent, outText, play, p2, (-1)*prop.getRent());
+			AbstractEvent ae = new PlayervPlayerEvent(parent, outText, play, p2, (-1)*rentOut);
 			//AbstractEvent a = new MessageEvent(parent, "You payed "+play.getName()+" for landing on "+prop.getName()+"!");
 			parent.paintEvent(ae);
 			sync(ae);

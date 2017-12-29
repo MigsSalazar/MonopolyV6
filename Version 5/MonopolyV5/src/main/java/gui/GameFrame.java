@@ -33,6 +33,7 @@ public class GameFrame extends JFrame{
 	private EventPanel gameEvents;
 	private Runner globalVars;
 	private Container content;
+	private Image titleIcon;
 	
 	/**
 	 * 
@@ -53,8 +54,8 @@ public class GameFrame extends JFrame{
 		this.setJMenuBar(menuBar);
 		//this.setPreferredSize(new Dimension(640,790));
 		//this.setSize(640,590);
-		Image icon = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/frameicon.png").getImage();
-		this.setIconImage(icon);
+		titleIcon = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/frameicon.png").getImage();
+		this.setIconImage(titleIcon);
 		/*
 		try{
 			//System.out.println("Started try");
@@ -181,6 +182,7 @@ public class GameFrame extends JFrame{
 		});
 		menuItems[4].setText("About");
 		menuItems[4].setPreferredSize(new Dimension(100, menuItems[4].getHeight()));
+		menuItems[4].setSize(100, menuItems[4].getHeight());
 		ImageIcon mark = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/aboutSmall.png");
 		menuItems[4].setIcon(mark);
 		
@@ -237,6 +239,10 @@ public class GameFrame extends JFrame{
 	
 	public void closeMe(){
 		System.exit(0);
+	}
+	
+	public Image getTitleIcon(){
+		return titleIcon;
 	}
 	
 }

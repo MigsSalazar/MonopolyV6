@@ -36,7 +36,7 @@ public class TPrompt extends JDialog {
 	private Player player1;
 	private Map<String,Player> players;
 	
-	private int currentI = 0;
+	//private int currentI = 0;
 	private Player currentP;
 	private Asset currentA;
 	
@@ -97,9 +97,10 @@ public class TPrompt extends JDialog {
 		pList.addListSelectionListener(new ListSelectionListener(){
 			public void valueChanged(ListSelectionEvent e){
 				//System.out.println("DEBUG: Different item selected in players");
+				@SuppressWarnings("unchecked")
 				JList<String> jl = (JList<String>)e.getSource();
-				currentI = jl.getSelectedIndex();
-				currentP = currentI>=(player1.getUserID()) ? players.get(currentI+1) : players.get(currentI);
+				//currentI = jl.getSelectedIndex();
+				currentP = players.get(jl.getSelectedValue());
 				findAssets(currentP);
 				//System.out.println(aList.toString());
 				aList.setModel(aListModel);
@@ -136,6 +137,7 @@ public class TPrompt extends JDialog {
 		aList.addListSelectionListener(new ListSelectionListener(){
 			public void valueChanged(ListSelectionEvent e){
 				//System.out.println("DEBUG: Different item selected in assets");
+				@SuppressWarnings("unchecked")
 				JList<String> jl = (JList<String>)e.getSource();
 				String a= jl.getModel().getElementAt(jl.getSelectedIndex());
 				String t="";
@@ -212,9 +214,10 @@ public class TPrompt extends JDialog {
 	public DefaultListModel<String> findPlayers(){
 		DefaultListModel<String> listModel = new DefaultListModel<String>();
 		//listModel.addElement("");
-		for(int i=0; i<players.size(); i++){
-			if( !players.get(i).equals(player1) && players.get(i).isActive()){
-				listModel.addElement(players.get(i).getName());
+		
+		for(String s : players.keySet()){
+			if( !players.get(s).equals(player1) && players.get(s).isActive()){
+				listModel.addElement(players.get(s).getName());
 			}
 		}
 		return listModel;
@@ -235,6 +238,7 @@ public class TPrompt extends JDialog {
 	 */
 	public void findAssets(Player p){
 		aListModel = new DefaultListModel<String>();
+		
 		for(int i=0; i<p.getJailCards(); i++){
 			aListModel.addElement("Get out of Jail Free Card");
 		}

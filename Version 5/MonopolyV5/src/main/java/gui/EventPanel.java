@@ -93,7 +93,7 @@ public class EventPanel extends JPanel {
 		componentPanel.removeAll();
 		currentEvent = null;
 		rootMenu = new MainMenu(this);
-		System.out.println("rootMenu: "+rootMenu.getText());
+		//System.out.println("rootMenu: "+rootMenu.getText());
 		//rootMenu.updateText();
 		//System.out.println("rootMenu: "+rootMenu.getText());
 		paintEvent(rootMenu);

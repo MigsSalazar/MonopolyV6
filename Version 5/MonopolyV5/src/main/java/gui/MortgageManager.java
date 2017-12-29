@@ -58,6 +58,7 @@ public class MortgageManager extends JDialog implements ActionListener{
 			this.add(topPanel, BorderLayout.NORTH);
 			this.add(midPanel, BorderLayout.CENTER);
 			this.add(botPanel, BorderLayout.SOUTH);
+			this.setIconImage(gameVars.getFrame().getTitleIcon());
 			setBounds(100, 100, 350, 140);
 			setResizable(false);
 			setVisible(true);
@@ -158,41 +159,45 @@ public class MortgageManager extends JDialog implements ActionListener{
 		if(e.getSource().equals(confirm)){
 			if(curProp.isMortgaged()){
 				if( !setUnmort.isEnabled() ){
-					JOptionPane.showMessageDialog(gameVars.getFrame(), "You want to pay the mortgage!");
+					JOptionPane.showMessageDialog(this, "You have payed of the mortgage on:"+curProp.getName());
 					curProp.setMortgage(false);
 					int payout = (curProp.getMortgageValue() + (int)(curProp.getMortgageValue() * 0.1) );
 					player.subCash(payout);
 				}
 			}else if(!curProp.isMortgaged()){
 				if( !setMort.isEnabled() ){
-					JOptionPane.showMessageDialog(gameVars.getFrame(), "You want to take out a mortgage!");
+					JOptionPane.showMessageDialog(this, "You have taken out a mortgage on:\n"+curProp.getName());
 					curProp.setMortgage(true);
 					player.addCash(curProp.getPrice()/2);
 				}
 			}
+			curStatus.setText(curProp.isMortgaged() ? "Mortgaged" : "Not Mortgaged");
+			gameVars.getFrame().getGameStats().updatePlayers();
 		}else if(e.getSource().equals(propertyNames)){
 			curProp = props.get((String)propertyNames.getSelectedItem());
+			
 			boolean isMort = curProp.isMortgaged();
 			setMort.setEnabled(!isMort);
 			setMort.setToolTipText(""+curProp.getMortgageValue());
 			setUnmort.setEnabled(isMort);
 			setUnmort.setToolTipText("" + (curProp.getMortgageValue() + (int)(curProp.getMortgageValue() * 0.1) ));
+			curStatus.setText(curProp.isMortgaged() ? "Mortgaged" : "Not Mortgaged");
 		}else if(e.getSource().equals(question)){
-			JOptionPane.showMessageDialog(gameVars.getFrame(), "MORTGAGE MANAGER"
-															+"\n====================="
-															+"\nHere you can select the property you want"
-															+"\nto take out a mortgage on or pay off an"
-															+"\nexisting mortgage to the bank. Taking a"
-															+"\nwill net you half the property's original"
-															+"\nvalue. Paying it back will cost you the"
-															+"\nmortgage price plus 10% intrest. To confirm"
-															+"\nchanges, press the ok button. Net earned and"
-															+"\nnet payment can be gotten for a gotten for"
-															+"\nthe current property by hovering over the"
-															+"\ncorresponding button. Changing to another"
-															+"\nproperty without confirming WILL SCRAP ANY"
-															+"\nCHANGES MADE. ALL TRANSACTIONS ARE FINAL."
-															+"\nTo leave, simply x out of the manager.");
+			JOptionPane.showMessageDialog(this, "MORTGAGE MANAGER"
+											+"\n====================="
+											+"\nHere you can select the property you want"
+											+"\nto take out a mortgage on or pay off an"
+											+"\nexisting mortgage to the bank. Taking a"
+											+"\nwill net you half the property's original"
+											+"\nvalue. Paying it back will cost you the"
+											+"\nmortgage price plus 10% intrest. To confirm"
+											+"\nchanges, press the ok button. Net earned and"
+											+"\nnet payment can be gotten for a gotten for"
+											+"\nthe current property by hovering over the"
+											+"\ncorresponding button. Changing to another"
+											+"\nproperty without confirming WILL SCRAP ANY"
+											+"\nCHANGES MADE. ALL TRANSACTIONS ARE FINAL."
+											+"\nTo leave, simply x out of the manager.");
 		}else if(e.getSource().equals(setMort)){
 			setMort.setEnabled(false);
 			setUnmort.setEnabled(true);
@@ -201,11 +206,6 @@ public class MortgageManager extends JDialog implements ActionListener{
 			setUnmort.setEnabled(false);
 		}
 		
-		
 	}
-	
-	
-	
-	
 	
 }

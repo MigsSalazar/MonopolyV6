@@ -6,8 +6,8 @@ public class Railroad extends Property {
 	
 	@Expose private GlobalCounter gcount;
 	
-	public Railroad(String n, int p, int pr, boolean mb, GlobalCounter gc) {
-		super(n, p, pr, mb);
+	public Railroad(String n, String o, int p, int pr, boolean mb, GlobalCounter gc) {
+		super(n, o, p, pr, mb);
 		// TODO Auto-generated constructor stub
 		gcount = gc;
 	}

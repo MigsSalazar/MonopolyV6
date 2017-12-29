@@ -38,7 +38,7 @@ public abstract class DiceNeededEvent extends AbstractEvent {
 			break;
 		case 7: event = new CardEvent(parent, p, true);
 			break;
-		case 8: System.out.println("p position = "+ p.getPosition());
+		case 8: //System.out.println("p position = "+ p.getPosition());
 				Property passMe = gameDice.findPropPosition(p.getPosition());
 				event = new PropertyEvent(parent, gameVars, p, passMe);
 			break;
@@ -65,12 +65,12 @@ public abstract class DiceNeededEvent extends AbstractEvent {
 	}
 	
 	protected void updateTurn(){
-		System.out.println("UpdateTurn: called with current player = " + currentPlayer.getName());
+		//System.out.println("UpdateTurn: called with current player = " + currentPlayer.getName());
 		gameVars.cyclePlayer();
 		currentPlayer = gameVars.currentPlayer();
-		System.out.println("UpdateTurn: New current player has been set to "+ currentPlayer.getName());
+		//System.out.println("UpdateTurn: New current player has been set to "+ currentPlayer.getName());
 		text = currentPlayer.getName()+"'s turn.\nWhat would you like to do?";
-		System.out.println(text);
+		//System.out.println(text);
 		//parent.paintEvent(this);
 	}
 	
@@ -78,12 +78,12 @@ public abstract class DiceNeededEvent extends AbstractEvent {
 		currentPlayer.movePlayer(roll);
 		gameVars.movePlayer(currentPlayer, roll);
 		int result = findAction(currentPlayer.getPosition());
-		System.out.println("current Player Name: "+currentPlayer.getName());
+		//System.out.println("current Player Name: "+currentPlayer.getName());
 		return actionDone(currentPlayer, result);
 	}
 	
 	protected AbstractEvent moveAndDo(Player player, int roll) {
-		System.out.println("player move and do roll: "+roll);
+		//System.out.println("player move and do roll: "+roll);
 		player.movePlayer(roll);
 		gameVars.movePlayer(player, roll);
 		int result = findAction(player.getPosition());

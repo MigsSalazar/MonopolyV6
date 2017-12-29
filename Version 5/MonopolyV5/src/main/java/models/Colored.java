@@ -13,6 +13,7 @@ public class Colored extends Property {
 	 * Child to Property class
 	 * This Property type is meant to be upgradeable and signified with a color on the board
 	 * @param n		String name of the Colored Property
+	 * @param o		String name of the owner
 	 * @param p		int position of the Colored Property
 	 * @param pr	int price  of the Colored Property
 	 * @param o		Owner object of the Colored Property. is null if unowned
@@ -21,8 +22,8 @@ public class Colored extends Property {
 	 * @param r		array of integers defining the Colored Property's rent values depending on the grade
 	 * @param g		int grade of the Colored Property
 	 */
-	public Colored(String n, int p, int pr, boolean mb, int[] r, int g) {
-		super(n, p, pr, mb);
+	public Colored(String n, String o, int p, int pr, boolean mb, int[] r, int g) {
+		super(n, o, p, pr, mb);
 		// TODO Auto-generated constructor stub
 		
 		rent = r;
