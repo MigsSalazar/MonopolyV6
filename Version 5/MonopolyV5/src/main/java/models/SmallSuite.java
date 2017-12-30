@@ -20,20 +20,17 @@ public class SmallSuite implements Suite {
 	
 	@Override
 	public String getColor() {
-		// TODO Auto-generated method stub
 		return COLOR;
 	}
 
 	@Override
 	public boolean playerHasMonopoly(Player pl) {
-		// TODO Auto-generated method stub
-		
-		return false;
+		String name = pl.getName();
+		return FIRST.getOwner().equals(name) && SECOND.getOwner().equals(name);
 	}
 
 	@Override
 	public int largestGrade() {
-		// TODO Auto-generated method stub
 		int max = 0;
 		max = FIRST.getGrade()>max ? FIRST.getGrade() : max;
 		max = SECOND.getGrade()>max ? SECOND.getGrade() : max;
@@ -42,7 +39,6 @@ public class SmallSuite implements Suite {
 
 	@Override
 	public int smallestGrade() {
-		// TODO Auto-generated method stub
 		int min = 10;
 		min = FIRST.getGrade()<min ? FIRST.getGrade() : min;
 		min = SECOND.getGrade()<min ? SECOND.getGrade() : min;
@@ -51,13 +47,11 @@ public class SmallSuite implements Suite {
 
 	@Override
 	public boolean hasMortgage() {
-		// TODO Auto-generated method stub
 		return FIRST.isMortgaged() || SECOND.isMortgaged();
 	}
 
 	@Override
 	public int gradeDisparity() {
-		// TODO Auto-generated method stub
 		return largestGrade() - smallestGrade();
 	}
 	

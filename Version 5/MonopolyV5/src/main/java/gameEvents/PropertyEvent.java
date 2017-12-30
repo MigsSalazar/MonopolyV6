@@ -72,7 +72,7 @@ public class PropertyEvent extends AbstractEvent {
 			//BankPropertyActions.rentOwnedProperty(play, prop);
 			
 			Player p2 = gameVars.getPlayers().get(prop.getOwner());
-			String outText = "You payed "+play.getName()+" $"+rentOut+" for landing on "+prop.getName()+"!";
+			String outText = "You payed "+prop.getOwner()+" $"+rentOut+" for landing on "+prop.getName()+"!";
 			
 			AbstractEvent ae = new PlayervPlayerEvent(parent, outText, play, p2, (-1)*rentOut);
 			//AbstractEvent a = new MessageEvent(parent, "You payed "+play.getName()+" for landing on "+prop.getName()+"!");

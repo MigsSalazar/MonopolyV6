@@ -16,6 +16,7 @@ import com.google.gson.annotations.Expose;
 
 import main.java.models.GamePath;
 import main.java.models.Player;
+import main.java.models.Property;
 
 /**
  * @author Miguel Salazar
@@ -55,6 +56,8 @@ public class BoardPanel extends JPanel {
 			}
 		}
 	}
+	
+	
 	
 	public void jailPlayer(int player){
 		Piece playerPiece = gamePieces.get(player);
@@ -285,6 +288,11 @@ public class BoardPanel extends JPanel {
 		return updateIcon(p, newPosition);
 	}
 	
+	public void changeIcon(int icon, int currR, int currC){
+		ImageIcon pass = imageIndex[icon];
+		changeIcon(pass, currR, currC);
+	}
+	
 	private void changeIcon(ImageIcon icon, int currR, int currC) {
 		Component com;
 		displayedBoard[currR][currC] = icon;
@@ -366,6 +374,10 @@ public class BoardPanel extends JPanel {
 		grid = new GridLayout(boardWidth, boardHeight);
 	}
 
+	public int[][] getBasePaint(){
+		return basePaint;
+	}
+	
 	/**
 	 * @return the playerCount
 	 */

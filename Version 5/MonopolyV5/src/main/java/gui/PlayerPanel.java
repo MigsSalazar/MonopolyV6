@@ -67,7 +67,7 @@ public class PlayerPanel extends JPanel {
 		bank = new JLabel("Liquid cash: $"+myPlayer.getCash());
 		posi = new JLabel("Current Position: "+myPlayer.getPosition());
 		jail = new JLabel("Jail Status: "+myPlayer.isInJail());
-		card = new JLabel("Get our of Jail Cards: "+myPlayer.getJailCards());
+		card = new JLabel("Get out of Jail Cards: "+myPlayer.getJailCards());
 		actv = new JLabel("Is active: "+myPlayer.isActive());
 		prop = new JLabel("Properties owned: ");
 		

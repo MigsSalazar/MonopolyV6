@@ -618,80 +618,80 @@ public class TemplateBoardPanel extends JPanel {
 	}
 	
 	private void templateBasePaint(){
-		int[][] temp = {{0,0,0,0,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			0,0,0,0,0,0}, //0
-						{0,0,0,0,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			0,0,0,0,0,0}, //1
-						{0,0,5,50,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			0,0,0,0,0,0}, //2
-						{0,0,5,51,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			0,0,0,0,0,0}, //3
-						{0,0,5,0,0,0,		5,5,47,47,5,5,5,5,0,0,6,6,6,6,49,49,6,6,		0,0,0,0,0,0}, //4
-						{0,0,5,0,0,0,		5,5,47,47,5,5,5,5,0,0,6,6,6,6,49,49,6,6,		0,0,0,0,0,0}, //5
+		int[][] temp = {{0,0,0,0,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,0,0,0,0,0}, //0
+						{0,0,0,0,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,0,0,0,0,0}, //1
+						{0,0,21,50,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,0,0,0,0,0}, //2
+						{0,0,21,51,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,0,0,0,0,0}, //3
+						{0,0,21,0,0,0,		21,21,47,47,21,21,21,21,0,0,26,26,26,26,49,49,26,26,	0,0,0,0,0,0}, //4
+						{0,0,21,0,0,0,		21,21,47,47,21,21,21,21,0,0,26,26,26,26,49,49,26,26,	0,0,0,0,0,0}, //5
 						
-						{0,0,0,0,4,4,		0,0,0,0,0,52,52,52,0,0,52,52,52,0,0,0,0,0,		7,7,0,0,0,0}, //6
-						{0,0,0,0,4,4,		0,0,0,0,0,53,52,53,0,0,53,52,53,0,0,0,0,0,		7,7,0,0,0,0}, //7
-						{0,0,0,0,4,4,		0,0,0,0,0,52,52,52,0,0,52,52,52,0,0,0,0,0,		7,7,0,0,0,0}, //8
-						{0,0,0,0,4,4,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			7,7,0,0,0,0}, //9
-						{0,0,0,0,45,45,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			45,45,0,0,0,0}, //10
-						{0,0,0,0,46,46,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			46,46,0,0,0,0}, //11
-						{0,0,0,0,4,4,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			7,7,0,0,0,0}, //12
-						{0,0,0,0,4,4,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			7,7,0,0,0,0}, //13
-						{0,0,0,0,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			0,0,0,0,0,0}, //14
-						{0,0,0,0,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			0,0,0,0,0,0}, //15
-						{0,0,0,0,3,3,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			47,47,0,0,0,0}, //16
-						{0,0,0,0,3,3,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			47,47,0,0,0,0}, //17
-						{0,0,0,0,3,3,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			8,8,0,0,0,0}, //18
-						{0,0,0,0,3,3,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			8,8,0,0,0,0}, //19
-						{0,0,0,0,48,48,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			0,0,0,0,0,0}, //20
-						{0,0,0,0,48,48,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			0,0,0,0,0,0}, //21
-						{0,0,0,0,3,3,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			8,8,0,0,0,0}, //22
-						{0,0,0,0,3,3,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			8,8,0,0,0,0}, //23
+						{0,0,0,0,16,16,		0,0,0,0,0,52,52,52,0,0,52,52,52,0,0,0,0,0,				31,31,0,0,0,0}, //6
+						{0,0,0,0,16,16,		0,0,0,0,0,53,52,53,0,0,53,52,53,0,0,0,0,0,				31,31,0,0,0,0}, //7
+						{0,0,0,0,16,16,		0,0,0,0,0,52,52,52,0,0,52,52,52,0,0,0,0,0,				31,31,0,0,0,0}, //8
+						{0,0,0,0,16,16,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					31,31,0,0,0,0}, //9
+						{0,0,0,0,45,45,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					45,45,0,0,0,0}, //10
+						{0,0,0,0,46,46,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					46,46,0,0,0,0}, //11
+						{0,0,0,0,16,16,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					31,31,0,0,0,0}, //12
+						{0,0,0,0,16,16,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					31,31,0,0,0,0}, //13
+						{0,0,0,0,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,0,0,0,0,0}, //14
+						{0,0,0,0,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,0,0,0,0,0}, //15
+						{0,0,0,0,11,11,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					47,47,0,0,0,0}, //16
+						{0,0,0,0,11,11,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					47,47,0,0,0,0}, //17
+						{0,0,0,0,11,11,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					36,36,0,0,0,0}, //18
+						{0,0,0,0,11,11,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					36,36,0,0,0,0}, //19
+						{0,0,0,0,48,48,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,0,0,0,0,0}, //20
+						{0,0,0,0,48,48,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,0,0,0,0,0}, //21
+						{0,0,0,0,11,11,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					36,36,0,0,0,0}, //22
+						{0,0,0,0,11,11,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					36,36,0,0,0,0}, //23
 							
-						{0,44,44,44,44,44,	2,2,2,2,47,47,2,2,0,0,0,0,1,1,45,45,1,1,		0,0,0,0,0,0}, //24
-						{0,44,0,0,0,44,		2,2,2,2,47,47,2,2,0,0,0,0,1,1,46,46,1,1,		0,0,0,0,0,0}, //25
-						{0,44,0,44,0,44,	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			0,0,0,0,0,0}, //26
-						{0,44,0,0,0,44,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			0,41,0,0,0,0}, //27
-						{0,44,44,44,44,44,	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			42,5,5,5,5,5}, //28
-						{0,0,0,0,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,			0,43,0,0,0,0}};//29
+						{0,44,44,44,44,44,	6,6,6,6,47,47,6,6,0,0,0,0,1,1,45,45,1,1,				0,0,0,0,0,0}, //24
+						{0,44,0,0,0,44,		6,6,6,6,47,47,6,6,0,0,0,0,1,1,46,46,1,1,				0,0,0,0,0,0}, //25
+						{0,44,0,44,0,44,	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,0,0,0,0,0}, //26
+						{0,44,0,0,0,44,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,41,0,0,0,0}, //27
+						{0,44,44,44,44,44,	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					42,21,21,21,21,21}, //28
+						{0,0,0,0,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,43,0,0,0,0}};//29
 		basePaint = temp;
 	}
 	
 	private void templateImageIndex(){
 		String[] icons = {	"/resources/image-sets/default-image-set/baseboard.png",			//0
 							"/resources/image-sets/default-image-set/purple.png",				//1
-							"/resources/image-sets/default-image-set/lightblue.png",			//2
-							"/resources/image-sets/default-image-set/pink.png",					//3
-							"/resources/image-sets/default-image-set/orange.png",				//4
-							"/resources/image-sets/default-image-set/red.png",					//5
-							"/resources/image-sets/default-image-set/yellow.png",				//6
-							"/resources/image-sets/default-image-set/green.png",				//7
-							"/resources/image-sets/default-image-set/blue.png",					//8
-							"/resources/image-sets/default-image-set/purplehouse.png",			//9
-							"/resources/image-sets/default-image-set/lightbluehouse.png",		//10
-							"/resources/image-sets/default-image-set/pinkhouse.png",			//11
-							"/resources/image-sets/default-image-set/orangehouse.png",			//12
-							"/resources/image-sets/default-image-set/redhouse.png",				//13
-							"/resources/image-sets/default-image-set/yellowhouse.png",			//14
-							"/resources/image-sets/default-image-set/greenhouse.png",			//15
-							"/resources/image-sets/default-image-set/bluehouse.png",			//16
-							"/resources/image-sets/default-image-set/purplehotelleft.png",		//17
-							"/resources/image-sets/default-image-set/purplehotelright.png",		//18
-							"/resources/image-sets/default-image-set/purplehotelbottom.png",	//19
-							"/resources/image-sets/default-image-set/lightbluehotelleft.png",	//20
-							"/resources/image-sets/default-image-set/lightbluehotelright.png",	//21
-							"/resources/image-sets/default-image-set/lightbluehotelbottom.png", //22
-							"/resources/image-sets/default-image-set/pinkhotelleft.png",		//23
-							"/resources/image-sets/default-image-set/pinkhotelright.png",		//24
-							"/resources/image-sets/default-image-set/pinkhotelbottom.png",		//25
-							"/resources/image-sets/default-image-set/orangehotelleft.png",		//26
-							"/resources/image-sets/default-image-set/orangehotelright.png",		//27
-							"/resources/image-sets/default-image-set/orangehotelbottom.png",	//28
-							"/resources/image-sets/default-image-set/redhotelleft.png",			//29
-							"/resources/image-sets/default-image-set/redhotelright.png",		//30
-							"/resources/image-sets/default-image-set/redhotelbottom.png",		//31
-							"/resources/image-sets/default-image-set/yellowhotelleft.png",		//32
-							"/resources/image-sets/default-image-set/yellowhotelright.png",		//33
-							"/resources/image-sets/default-image-set/yellowhotelbottom.png",	//34
-							"/resources/image-sets/default-image-set/greenhotelleft.png",		//35
-							"/resources/image-sets/default-image-set/greenhotelright.png",		//36
-							"/resources/image-sets/default-image-set/greenhotelbottom.png",		//37
+							"/resources/image-sets/default-image-set/purplehouse.png",			//2
+							"/resources/image-sets/default-image-set/purplehotelleft.png",		//3
+							"/resources/image-sets/default-image-set/purplehotelright.png",		//4
+							"/resources/image-sets/default-image-set/purplehotelbottom.png",	//5
+							"/resources/image-sets/default-image-set/lightblue.png",			//6
+							"/resources/image-sets/default-image-set/lightbluehouse.png",		//7
+							"/resources/image-sets/default-image-set/lightbluehotelleft.png",	//8
+							"/resources/image-sets/default-image-set/lightbluehotelright.png",	//9
+							"/resources/image-sets/default-image-set/lightbluehotelbottom.png", //10
+							"/resources/image-sets/default-image-set/pink.png",					//11
+							"/resources/image-sets/default-image-set/pinkhouse.png",			//12
+							"/resources/image-sets/default-image-set/pinkhotelleft.png",		//13
+							"/resources/image-sets/default-image-set/pinkhotelright.png",		//14
+							"/resources/image-sets/default-image-set/pinkhotelbottom.png",		//15
+							"/resources/image-sets/default-image-set/orange.png",				//16
+							"/resources/image-sets/default-image-set/orangehouse.png",			//17
+							"/resources/image-sets/default-image-set/orangehotelleft.png",		//18
+							"/resources/image-sets/default-image-set/orangehotelright.png",		//19
+							"/resources/image-sets/default-image-set/orangehotelbottom.png",	//20
+							"/resources/image-sets/default-image-set/red.png",					//21
+							"/resources/image-sets/default-image-set/redhouse.png",				//22
+							"/resources/image-sets/default-image-set/redhotelleft.png",			//23
+							"/resources/image-sets/default-image-set/redhotelright.png",		//24
+							"/resources/image-sets/default-image-set/redhotelbottom.png",		//25
+							"/resources/image-sets/default-image-set/yellow.png",				//26
+							"/resources/image-sets/default-image-set/yellowhouse.png",			//27
+							"/resources/image-sets/default-image-set/yellowhotelleft.png",		//28
+							"/resources/image-sets/default-image-set/yellowhotelright.png",		//29
+							"/resources/image-sets/default-image-set/yellowhotelbottom.png",	//30
+							"/resources/image-sets/default-image-set/green.png",				//31
+							"/resources/image-sets/default-image-set/greenhouse.png",			//32
+							"/resources/image-sets/default-image-set/greenhotelleft.png",		//33
+							"/resources/image-sets/default-image-set/greenhotelright.png",		//34
+							"/resources/image-sets/default-image-set/greenhotelbottom.png",		//35
+							"/resources/image-sets/default-image-set/blue.png",					//36
+							"/resources/image-sets/default-image-set/bluehouse.png",			//37
 							"/resources/image-sets/default-image-set/bluehotelleft.png",		//38
 							"/resources/image-sets/default-image-set/bluehotelright.png",		//39
 							"/resources/image-sets/default-image-set/bluehotelbottom.png",		//40

@@ -80,6 +80,7 @@ public class Runner {
 			game.giveBoardPanel(requestBoardPanel());
 			game.giveEventPanel(ep);
 			game.giveStatsPanel(new StatsPanel(this));
+			paintHousing();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -272,6 +273,115 @@ public class Runner {
 		game.getGameBoard().movePlayer(p.getUserID(), roll);
 		game.getGameStats().updatePlayers();
 		//movePlayer(p.getName(),roll);
+	}
+	
+	public void paintHousing(){
+		BoardPanel board = game.getGameBoard();
+		int[][] basePaint = board.getBasePaint();
+		for(String key : properties.keySet()){
+			Property prop = properties.get(key);
+			if(prop instanceof Colored){
+				Colored color = (Colored)prop;
+				
+				int[] coords = findBoardCoord(color.getPosition());
+				
+				int num = basePaint[coords[0]][coords[1]];
+				board.changeIcon(num, coords[0], coords[1]);
+				board.changeIcon(num, coords[0], coords[1]+1);
+				board.changeIcon(num, coords[0]+1, coords[1]);
+				board.changeIcon(num, coords[0]+1, coords[1]+1);
+				
+				switch(color.getGrade()){
+				case 5:	board.changeIcon(num+3, coords[0], coords[1]);
+						board.changeIcon(num+2, coords[0], coords[1]+1);
+						board.changeIcon(num+4, coords[0]+1, coords[1]);
+						board.changeIcon(num+4, coords[0]+1, coords[1]+1);
+						break;
+				case 4:	board.changeIcon(num+1, coords[0]+1, coords[1]+1);
+				case 3:	board.changeIcon(num+1, coords[0], coords[1]+1);
+				case 2:	board.changeIcon(num+1, coords[0]+1, coords[1]);
+				case 1:	board.changeIcon(num+1, coords[0], coords[1]);
+						break;
+				}
+				
+			}
+		}
+		
+	}
+	
+	private int[] findBoardCoord(int position){
+		int[] coords = new int[2];
+		
+		switch(position){
+		case 1: coords[0] = 24;
+				coords[1] = 22;
+				break;
+		case 3:	coords[0] = 24;
+				coords[1] = 18;
+				break;
+		case 6:	coords[0] = 24;
+				coords[1] = 12;
+				break;
+		case 8:	coords[0] = 24;
+				coords[1] = 8;
+				break;
+		case 9:	coords[0] = 24;
+				coords[1] = 6;
+				break;
+		case 11:coords[1] = 6;
+				coords[0] = 22;
+				break;
+		case 13:coords[1] = 6;
+				coords[0] = 18;
+				break;
+		case 14:coords[1] = 6;
+				coords[0] = 16;
+				break;
+		case 16:coords[1] = 6;
+				coords[0] = 12;
+				break;
+		case 18:coords[1] = 6;
+				coords[0] = 8;
+				break;
+		case 19:coords[1] = 6;
+				coords[0] = 6;
+				break;
+		case 21:coords[0] = 4;
+				coords[1] = 6;
+				break;
+		case 23:coords[0] = 4;
+				coords[1] = 10;
+				break;
+		case 24:coords[0] = 4;
+				coords[1] = 12;
+				break;
+		case 26:coords[0] = 4;
+				coords[1] = 16;
+				break;
+		case 27:coords[0] = 4;
+				coords[1] = 18;
+				break;
+		case 29:coords[0] = 4;
+				coords[1] = 22;
+				break;
+		case 31:coords[1] = 24;
+				coords[0] = 6;
+				break;
+		case 32:coords[1] = 24;
+				coords[0] = 8;
+				break;
+		case 34:coords[1] = 24;
+				coords[0] = 12;
+				break;
+		case 37:coords[1] = 24;
+				coords[0] = 18;
+				break;
+		case 39:coords[1] = 24;
+				coords[0] = 22;
+				break;
+		}
+		
+		return coords;
 	}
 	
 	public void changeDice(int d1, int d2){

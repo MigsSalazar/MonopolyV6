@@ -28,7 +28,6 @@ public class TradeManager{
 	private Asset tradeAsset;
 	private ArrayList<Asset> offeredAsset;
 	
-	
 	private TPrompt prompt;
 	private TOffer offer;
 	private TConfirm confirm;
