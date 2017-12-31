@@ -3,6 +3,8 @@
  */
 package main.java.gui;
 
+import java.io.File;
+
 import javax.swing.ImageIcon;
 
 import main.java.models.GamePath;
@@ -29,9 +31,24 @@ public class Piece {
 	
 	public void updateIcon(){
 		if(getFileLocation()!=null){
-			setIcon(new ImageIcon(getFileLocation()));
+			//System.out.println("Plain get FileLocation: "+getFileLocation());
+			//getFileLocation().
+			if( getFileLocation().indexOf("C:") != 0 &&
+					getFileLocation().indexOf("root") != 0){
+				dir = System.getProperty("user.dir");
+			}else{
+				dir = "";
+			}
+			//System.out.println("File Location + dir: " + dir+getFileLocation());
+			
+			if(new File(dir+getFileLocation()).exists()  ){
+				setIcon(new ImageIcon(dir+getFileLocation()));
+			}else{
+				setIcon(new ImageIcon(System.getProperty("user.dir")+"/resources/image-sets/default-image-set/404ERROR.png"));
+			}
+			//setIcon(new ImageIcon(dir+getFileLocation()));
 		}else{
-			setIcon(new ImageIcon(dir+"/resources/image-sets/default-image-set/404ERROR.png"));
+			setIcon(new ImageIcon(System.getProperty("user.dir")+"/resources/image-sets/default-image-set/404ERROR.png"));
 		}
 	}
 

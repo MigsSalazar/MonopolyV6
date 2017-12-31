@@ -11,11 +11,11 @@
         110,
         150
       ],
-      "grade": 0,
+      "grade": 2,
       "name": "Indiana Ave.",
       "position": 23,
       "price": 220,
-      "owner": "",
+      "owner": "4",
       "mBool": false
     },
     "St. Charles Place": {
@@ -33,7 +33,7 @@
       "name": "St. Charles Place",
       "position": 11,
       "price": 140,
-      "owner": "",
+      "owner": "2",
       "mBool": false
     },
     "New York Ave.": {
@@ -51,7 +51,7 @@
       "name": "New York Ave.",
       "position": 19,
       "price": 200,
-      "owner": "",
+      "owner": "1",
       "mBool": false
     },
     "States Ave.": {
@@ -69,7 +69,7 @@
       "name": "States Ave.",
       "position": 13,
       "price": 140,
-      "owner": "",
+      "owner": "2",
       "mBool": false
     },
     "Oriental Ave.": {
@@ -87,7 +87,7 @@
       "name": "Oriental Ave.",
       "position": 6,
       "price": 100,
-      "owner": "",
+      "owner": "1",
       "mBool": false
     },
     "North Carolina Ave.": {
@@ -105,7 +105,7 @@
       "name": "North Carolina Ave.",
       "position": 32,
       "price": 300,
-      "owner": "",
+      "owner": "6",
       "mBool": false
     },
     "Park Place": {
@@ -123,7 +123,7 @@
       "name": "Park Place",
       "position": 37,
       "price": 350,
-      "owner": "",
+      "owner": "7",
       "mBool": false
     },
     "Board Walk": {
@@ -141,7 +141,7 @@
       "name": "Board Walk",
       "position": 39,
       "price": 400,
-      "owner": "",
+      "owner": "7",
       "mBool": false
     },
     "Tennessee Ave.": {
@@ -159,7 +159,7 @@
       "name": "Tennessee Ave.",
       "position": 18,
       "price": 180,
-      "owner": "",
+      "owner": "1",
       "mBool": false
     },
     "Baltic Ave.": {
@@ -173,11 +173,11 @@
         30,
         30
       ],
-      "grade": 0,
+      "grade": 5,
       "name": "Baltic Ave.",
       "position": 3,
       "price": 60,
-      "owner": "",
+      "owner": "0",
       "mBool": false
     },
     "Mediterranean Ave.": {
@@ -191,11 +191,11 @@
         30,
         30
       ],
-      "grade": 0,
+      "grade": 5,
       "name": "Mediterranean Ave.",
       "position": 1,
       "price": 60,
-      "owner": "",
+      "owner": "0",
       "mBool": false
     },
     "Pacific Ave.": {
@@ -213,7 +213,7 @@
       "name": "Pacific Ave.",
       "position": 31,
       "price": 300,
-      "owner": "",
+      "owner": "6",
       "mBool": false
     },
     "Connecticut Ave.": {
@@ -231,7 +231,7 @@
       "name": "Connecticut Ave.",
       "position": 9,
       "price": 120,
-      "owner": "",
+      "owner": "1",
       "mBool": false
     },
     "Pennsylvania Ave.": {
@@ -249,7 +249,7 @@
       "name": "Pennsylvania Ave.",
       "position": 34,
       "price": 320,
-      "owner": "",
+      "owner": "6",
       "mBool": false
     },
     "Illinois Ave.": {
@@ -263,11 +263,11 @@
         120,
         150
       ],
-      "grade": 0,
+      "grade": 2,
       "name": "Illinois Ave.",
       "position": 24,
       "price": 240,
-      "owner": "",
+      "owner": "4",
       "mBool": false
     },
     "Kentucky Ave.": {
@@ -281,11 +281,11 @@
         110,
         150
       ],
-      "grade": 0,
+      "grade": 2,
       "name": "Kentucky Ave.",
       "position": 21,
       "price": 220,
-      "owner": "",
+      "owner": "4",
       "mBool": false
     },
     "St. James Place": {
@@ -303,7 +303,7 @@
       "name": "St. James Place",
       "position": 16,
       "price": 180,
-      "owner": "",
+      "owner": "1",
       "mBool": false
     },
     "Atlantic Ave.": {
@@ -321,7 +321,7 @@
       "name": "Atlantic Ave.",
       "position": 26,
       "price": 260,
-      "owner": "",
+      "owner": "0",
       "mBool": false
     },
     "Virginia Ave.": {
@@ -339,7 +339,7 @@
       "name": "Virginia Ave.",
       "position": 14,
       "price": 60,
-      "owner": "",
+      "owner": "2",
       "mBool": false
     },
     "Vermont Ave.": {
@@ -357,7 +357,7 @@
       "name": "Vermont Ave.",
       "position": 8,
       "price": 100,
-      "owner": "",
+      "owner": "1",
       "mBool": false
     },
     "Marvin Gardens": {
@@ -375,7 +375,7 @@
       "name": "Marvin Gardens",
       "position": 29,
       "price": 280,
-      "owner": "",
+      "owner": "0",
       "mBool": false
     },
     "Ventnor Ave.": {
@@ -393,77 +393,77 @@
       "name": "Ventnor Ave.",
       "position": 27,
       "price": 260,
-      "owner": "",
+      "owner": "0",
       "mBool": false
     }
   },
   "rails": {
     "Short Line": {
       "gcount": {
-        "count": 0,
+        "count": 4,
         "max": 4
       },
       "name": "Short Line",
       "position": 35,
       "price": 200,
-      "owner": "",
+      "owner": "0",
       "mBool": false
     },
     "Reading Railroad": {
       "gcount": {
-        "count": 0,
+        "count": 4,
         "max": 4
       },
       "name": "Reading Railroad",
       "position": 5,
       "price": 200,
-      "owner": "",
+      "owner": "0",
       "mBool": false
     },
     "Pennsylvania Railroad": {
       "gcount": {
-        "count": 0,
+        "count": 4,
         "max": 4
       },
       "name": "Pennsylvania Railroad",
       "position": 15,
       "price": 200,
-      "owner": "",
+      "owner": "0",
       "mBool": false
     },
     "B\u0026O Railroad": {
       "gcount": {
-        "count": 0,
+        "count": 4,
         "max": 4
       },
       "name": "B\u0026O Railroad",
       "position": 25,
       "price": 60,
-      "owner": "",
+      "owner": "0",
       "mBool": false
     }
   },
   "utility": {
     "Electric Company": {
       "gcount": {
-        "count": 0,
+        "count": 2,
         "max": 2
       },
       "name": "Electric Company",
       "position": 12,
       "price": 150,
-      "owner": "",
+      "owner": "7",
       "mBool": false
     },
     "Water Works": {
       "gcount": {
-        "count": 0,
+        "count": 2,
         "max": 2
       },
       "name": "Water Works",
       "position": 28,
       "price": 150,
-      "owner": "",
+      "owner": "7",
       "mBool": false
     }
   }

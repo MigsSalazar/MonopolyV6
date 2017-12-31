@@ -28,6 +28,7 @@ public class TemplatePlayer {
 			p = new Player(i, ""+i);
 			players.put(p.getName(), p);
 		}
+		players.get("0").setTurn(true);
 		writeTemplate();
 		
 	}

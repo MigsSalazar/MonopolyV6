@@ -77,9 +77,9 @@ public class InJailEvent extends DiceNeededEvent {
 					//updateTurn();
 					
 				}else{
-					System.out.println("roll failed at InJailEvent");
+					//System.out.println("roll failed at InJailEvent");
 					currentPlayer.spendANightInJail();
-					System.out.println("current player = " + currentPlayer.getName());
+					//System.out.println("current player = " + currentPlayer.getName());
 					t = "<html>You failed your role but you may"
 					+ "<br>stay another "+(4-currentPlayer.getJailCount() +" night(s)</html>");
 					event = new MessageEvent(parent, t);
@@ -88,7 +88,7 @@ public class InJailEvent extends DiceNeededEvent {
 					
 					sync(event);
 					//updateTurn();
-					System.out.println("Next player = "+currentPlayer.getName());
+					//System.out.println("Next player = "+currentPlayer.getName());
 					desync();
 					//parent.jumpStartClean();
 					//moveAndDo(gameDice.getLastRoll());

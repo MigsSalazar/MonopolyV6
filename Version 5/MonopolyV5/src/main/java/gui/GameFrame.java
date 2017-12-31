@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -83,9 +84,15 @@ public class GameFrame extends JFrame{
 		this.setResizable(true);
 		this.setTitle("Migs Monopoly!");
 		this.setVisible(true);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter(){
+			
 		    public void windowClosing(WindowEvent e){
-		        closeMe();
+		    	//e.getWindow().
+		        if(closeMe()){
+		        	System.exit(0);
+		        }
+		        //this.
 		    }
 		});
 	}
@@ -130,25 +137,31 @@ public class GameFrame extends JFrame{
 		for(int i=0; i<menuItems.length; i++){
 			menuItems[i] = new JMenuItem();
 		}
+		
+		
 		//make a new game from scratch
 		menuItems[0].addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				Runner newGame = new Runner();
-				newGame.startNewGame();
-				closeMe();
+				if(newGame.startNewGame()){
+					closeMe();
+				}
 			}
 		});
 		menuItems[0].setText("New");
 		menus[0].add(menuItems[0]);
 		
+		
+		
 		//open a prevously saved game
 		menuItems[1].addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				
+				globalVars.saveThisGame();
 			}
 		});
 		menuItems[1].setText("Save");
 		menus[0].add(menuItems[1]);
+		
 		
 		//make a game from a save file
 		menuItems[2].addActionListener(new ActionListener(){
@@ -161,11 +174,14 @@ public class GameFrame extends JFrame{
 		menuItems[2].setText("Load");
 		menus[0].add(menuItems[2]);
 		
+		
+		
 		//Exits current game
 		menuItems[3].addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				dispose();
+				
+				closeMe();
 			}
 		});
 		menuItems[3].setText("Exit");
@@ -212,6 +228,8 @@ public class GameFrame extends JFrame{
 		this.repaint();
 	}
 	
+	
+	
 	public void giveStatsPanel(StatsPanel sp){
 		gameStats = sp;
 		content.add(gameStats, BorderLayout.EAST);
@@ -237,8 +255,23 @@ public class GameFrame extends JFrame{
 		return serialVersionUID;
 	}
 	
-	public void closeMe(){
-		System.exit(0);
+	public boolean closeMe(){
+		
+		int choice = JOptionPane.showConfirmDialog(gameBoard,  "Would you like to save before you exit?");
+		if(choice == JOptionPane.YES_OPTION){
+			globalVars.saveThisGame();
+			dispose();
+			return true;
+		}else if(choice == JOptionPane.NO_OPTION){
+			dispose();
+			return true;
+		}else if(choice == JOptionPane.CANCEL_OPTION){
+			this.setVisible(true);
+			return false;
+		}
+		return false;
+		
+		//this.dispose();
 	}
 	
 	public Image getTitleIcon(){

@@ -78,6 +78,8 @@ public class Player {
 	
 	public String getName(){ return name; }
 	
+	public void setName(String n){name = n;}
+	
 	public int getPosition(){ return position; }
 	
 	public void setPosition(int p){ position = p; }

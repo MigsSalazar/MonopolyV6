@@ -3,6 +3,7 @@
  */
 package main.java.action;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,12 +12,14 @@ import java.util.Set;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import main.java.gui.BoardPanel;
 import main.java.gui.EventPanel;
 import main.java.gui.GameFrame;
+import main.java.gui.NewGameStartUp;
 import main.java.gui.StatsPanel;
 import main.java.io.*;
 import main.java.models.*;
@@ -45,15 +48,21 @@ public class Runner {
 	
 	public void saveThisGame(){
 		if(gread.isNewGame()){
-			GameWriter.writeOutNewGame(game, game.getGameBoard(), game.getGameEvents().getEvent() , players, properties);
+			String gameName = GameWriter.writeOutNewGame(game, game.getGameBoard(), coloredProps, players, properties, commChest, chance);
+			//System.out.println("Runner received gameName: "+gameName);
+			gread.setLoaded(new File(gameName) );
+			gread.setNewGame(false);
+		}else{
+			if(!GameWriter.writeOutOldGame(this, gread)){
+				JOptionPane.showMessageDialog(getFrame(), "Game failed to save!");
+			}
 		}
-		
 		
 	}
 	
 	
 	
-	public void startNewGame(){
+	public boolean startNewGame(){
 		playerTurn = 0;
 		gameDice = new Roll(this);
 		
@@ -62,7 +71,14 @@ public class Runner {
 		game = new GameFrame(true, this);
 		sets = new Settings((JFrame)game);
 		try {
-			players = gread.getPlayers();
+			
+			game.giveBoardPanel(requestBoardPanel());
+			
+			if(!playerSelection()){
+				return false;
+			}
+			
+			
 			playerNames = players.keySet();
 			
 			properties = gread.getProperties(gameDice);
@@ -77,7 +93,7 @@ public class Runner {
 			chance = gread.getChance();
 			
 			EventPanel ep = new EventPanel(this);
-			game.giveBoardPanel(requestBoardPanel());
+			
 			game.giveEventPanel(ep);
 			game.giveStatsPanel(new StatsPanel(this));
 			paintHousing();
@@ -86,7 +102,61 @@ public class Runner {
 		}
 		game.setup();
 		//System.out.println("Runner is done");
+		return true;
 		
+	}
+
+
+
+	private boolean playerSelection() throws IOException {
+		String[] playerPiecePaths = game.getGameBoard().getPlayerIconPaths();
+		
+		ImageIcon[] playerPieceIcons = new ImageIcon[playerPiecePaths.length];
+		String dir = System.getProperty("user.dir");
+		for(int i=0; i<playerPiecePaths.length; i++){
+			//System.out.println("playerPiecePath at "+i+": "+playerPiecePaths[i]);
+			playerPieceIcons[i] = new ImageIcon(dir + playerPiecePaths[i]);
+		}
+		
+		ArrayList<Pair<String,Integer>> fillMe = new ArrayList<Pair<String,Integer>>();
+		
+		while(fillMe.size() == 0){
+			NewGameStartUp ngsu = new NewGameStartUp(null, playerPieceIcons, fillMe);
+			ngsu.beginDialog();
+		}
+		if(fillMe.size() == 1){
+			return false;
+		}
+		//System.exit(1);
+		
+		Map<String, Player> tempPlayers = gread.getPlayers();
+		players = new HashMap<String,Player>();
+		int[] selection = new int[fillMe.size()];
+		for(String s : tempPlayers.keySet()){
+			if(tempPlayers.get(s).getUserID() < fillMe.size()){
+				Player play = tempPlayers.get(s);
+				
+				Pair<String,Integer> currPair = fillMe.get(play.getUserID());
+				String name = currPair.first;
+				play.setName(name);
+				
+				players.put(play.getName(), play);
+				selection[play.getUserID()] = currPair.second;
+			}
+		}
+		
+		/*
+		int[] selection = {4,2,7,5,1,3,0,6};
+		retval.pickPlayerPieces(selection, sets.textureMe());
+		ArrayList<Player> pl = new ArrayList<Player>(players.values());
+		retval.firstPaintBoard(sets.textureMe(), pl);
+		*/
+		BoardPanel board = game.getGameBoard();
+		board.setPlayerCount(fillMe.size());
+		board.pickPlayerPieces(selection, dir);
+		ArrayList<Player> pl = new ArrayList<Player>(players.values());
+		board.firstPaintBoard(sets.textureMe(), pl);
+		return true;
 	}
 	
 	private void giveProperties(){
@@ -97,27 +167,67 @@ public class Runner {
 		}
 	}
 	
-	public void startSavedGame(){
+	public boolean startSavedGame(){
+		
 		playerTurn = 0;
 		gameDice = new Roll(this);
 		
-		gread = new GameReader();
-		
 		game = new GameFrame(true, this);
 		sets = new Settings((JFrame)game);
+		
+		JFileChooser fc = new JFileChooser(System.getProperty("user.dir")+"/saved-games/locations-folder/");
+		int retval = fc.showOpenDialog(game);
+		File fin;
+		if(retval == JFileChooser.APPROVE_OPTION){
+			fin = fc.getSelectedFile();
+		}else{
+			return false;
+		}
+		
+		gread = new GameReader(fin);
+		
 		try {
+			
+			game.giveBoardPanel(requestBoardPanel());
+			
 			players = gread.getPlayers();
 			playerNames = players.keySet();
 			properties = gread.getProperties(gameDice);
 			propNames = properties.keySet();
+			
+			giveProperties();
+			
 			coloredProps = gread.getSuites(properties);
 			suiteNames = coloredProps.keySet();
 			
-			game.giveBoardPanel(requestBoardPanel());
+			BoardPanel board = game.getGameBoard();
+			ArrayList<Player> pl = new ArrayList<Player>(players.values());
+			board.firstPaintBoard(sets.textureMe(), pl);
+			
+			commChest = gread.getCommChest();
+			chance = gread.getChance();
+			
+			EventPanel ep = new EventPanel(this);
+			
+			game.giveEventPanel(ep);
+			game.giveStatsPanel(new StatsPanel(this));
+			paintHousing();
+			
+			findTurn();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		game.setup();
+		return true;
+	}
+	
+	private void findTurn(){
+		for(String s : players.keySet()){
+			if(players.get(s).isTurn()){
+				playerTurn = players.get(s).getUserID();
+			}
+		}
 	}
 	
 	public Set<String> getPlayerNames(){
@@ -397,11 +507,14 @@ public class Runner {
 	private BoardPanel requestBoardPanel() throws IOException{
 		//System.out.println("requested board");
 		BoardPanel retval = gread.getBoard();
+		/*
 		int[] selection = {4,2,7,5,1,3,0,6};
 		retval.pickPlayerPieces(selection, sets.textureMe());
 		ArrayList<Player> pl = new ArrayList<Player>(players.values());
 		retval.firstPaintBoard(sets.textureMe(), pl);
 		//System.out.println("board built");
+		 * 
+		 */
 		return retval;
 	}
 	

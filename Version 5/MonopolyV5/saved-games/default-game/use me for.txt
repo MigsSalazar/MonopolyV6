@@ -1,1 +1,3 @@
-Used to test upgrading and downgrading monopolies in the game
+DEFAULT GAME
+MADE FROM TEMPLATES
+DO NOT ALTER

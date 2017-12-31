@@ -69,8 +69,9 @@ public class PreGameFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e){
 				Runner newGame = new Runner();
-				newGame.startNewGame();
-				closeMe();
+				if(newGame.startNewGame()){
+					closeMe();
+				}
 			}
 		});
 		
@@ -78,8 +79,9 @@ public class PreGameFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e){
 				Runner oldGame = new Runner();
-				oldGame.startSavedGame();
-				closeMe();
+				if(oldGame.startSavedGame()){
+					closeMe();
+				}
 			}
 		});
 		

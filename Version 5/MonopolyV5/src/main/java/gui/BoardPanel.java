@@ -289,6 +289,7 @@ public class BoardPanel extends JPanel {
 	}
 	
 	public void changeIcon(int icon, int currR, int currC){
+		//System.out.println("icon: "+icon+" currR: "+currR+" currC: "+currC);
 		ImageIcon pass = imageIndex[icon];
 		changeIcon(pass, currR, currC);
 	}
@@ -383,5 +384,19 @@ public class BoardPanel extends JPanel {
 	 */
 	public int getPlayerCount() {
 		return playerCount;
+	}
+
+	public void setPlayerCount(int pc){
+		playerCount = pc;
+	}
+
+	public String[] getPlayerIconPaths() {
+		return playerIconPaths;
+	}
+
+
+
+	public void setPlayerIconPaths(String[] playerIconPaths) {
+		this.playerIconPaths = playerIconPaths;
 	}
 }

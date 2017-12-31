@@ -27,6 +27,7 @@ public class GameReader {
 	
 	private ArrayList<String> locations = new ArrayList<String>();
 	private boolean newGame;
+	private File loaded;
 	
 	public GameReader(){
 		newGame = true;
@@ -42,16 +43,20 @@ public class GameReader {
 		//locations.add(loaded+"event.mns");
 	}
 	
-	public GameReader(File loaded){
+	public GameReader(File l){
+		loaded = l;
+		//System.out.println(""+loaded);
 		newGame = false;
+		String dir = System.getProperty("user.dir")+"\\saved-games";
 		try{
 			Scanner in = new Scanner(loaded);
 			while(in.hasNextLine()){
-				locations.add(in.nextLine());
+				locations.add(dir+in.nextLine());
+				//System.out.println(locations.get(locations.size()-1));
 			}
 			in.close();
 		}catch(Exception e){
-			
+			e.printStackTrace();
 		}
 		
 		
@@ -199,6 +204,18 @@ public class GameReader {
 	
 	public boolean isNewGame(){
 		return newGame;
+	}
+
+	public void setNewGame(boolean ng){
+		newGame = ng;
+	}
+	
+	public File getLoaded() {
+		return loaded;
+	}
+
+	public void setLoaded(File loaded) {
+		this.loaded = loaded;
 	}
 	
 }
