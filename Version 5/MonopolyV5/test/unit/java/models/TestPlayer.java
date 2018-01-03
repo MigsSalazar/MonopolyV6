@@ -7,7 +7,7 @@ import org.junit.Test;
 import main.java.models.*;
 import java.util.*;
 
-public class PlayerTest {
+public class TestPlayer {
 	
 	public static Player freshPlayer;
 	public static Player oldPlayer;
@@ -45,7 +45,76 @@ public class PlayerTest {
 		oldPlayer = new Player("Paul", 6, 10, 1000, 0, 1, true, true, false, properties);
 		freshPlayer = new Player(1, "John");
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testGivePropertyMap(){
+		freshPlayer.giveProperties(null);
+		assertEquals(freshPlayer.getProps().size(),0);
+		freshPlayer.giveProperties((HashMap<String,Property>)properties);
+		assertEquals(freshPlayer.getProps(), properties);
+	}
+	
+	@Test
+	public void testRemovePropertyByString(){
+		assertTrue(oldPlayer.playerOwns(comcast));
+		assertTrue(oldPlayer.removeProperty(comcast.getName()));
+		assertFalse(oldPlayer.removeProperty("argblarg"));
+	}
 
+	@Test
+	public void testRemovePropertyByObject(){
+		assertTrue(oldPlayer.playerOwns(comcast));
+		assertTrue(oldPlayer.removeProperty(comcast));
+		assertFalse(oldPlayer.removeProperty((Property)null));
+		Property crap = new Colored("Crap Ave.","", 10, 100, true, null, 0 );
+		assertFalse(oldPlayer.removeProperty(crap));
+	}
+	
+	@Test
+	public void testGiveMapProps(){
+		Map<String,Property> tempProps;
+		tempProps = new TreeMap<String,Property>();
+		
+		oldPlayer = new Player("Paul", 6, 10, 1000, 0, 1, true, true, false, tempProps);
+		assertEquals(oldPlayer.getProps().size(), 0);
+		assertEquals(oldPlayer.getProps().keySet(), tempProps.keySet());
+		tempProps.put(comcast.getName(), comcast);
+		oldPlayer = new Player("Paul", 6, 10, 1000, 0, 1, true, true, false, tempProps);
+		assertEquals(oldPlayer.getProps().keySet(), tempProps.keySet());
+	}
+	
+	@Test
+	public void testGiveNullProperty(){
+		oldPlayer = new Player("Paul", 6, 10, 1000, 0, 1, true, true, false, null);
+		assertEquals(oldPlayer.getProps().size(),0);
+	}
+	
+	@Test
+	public void testSetPlayerName(){
+		assertEquals(freshPlayer.getName(), "John");
+		assertEquals(oldPlayer.getName(), "Paul");
+		
+		freshPlayer.setName("qwerty");
+		oldPlayer.setName("hobo");
+		
+		assertEquals(freshPlayer.getName(),"qwerty");
+		assertEquals(oldPlayer.getName(), "hobo");
+		
+	}
+	
+	@Test
+	public void testMovePlayer(){
+		//System.out.println("freshplayer position = "+freshPlayer.getPosition());
+		//System.out.println("oldplayer position = "+oldPlayer.getPosition());
+		freshPlayer.movePlayer(10);
+		oldPlayer.movePlayer(-3);
+		//System.out.println("freshplayer position = "+freshPlayer.getPosition());
+		//System.out.println("oldplayer position = "+oldPlayer.getPosition());
+		assertEquals(freshPlayer.getPosition(), 10);
+		assertEquals(oldPlayer.getPosition(), 7);
+	}
+	
 	@Test
 	public void testGetUserID() {
 		assertEquals(freshPlayer.getUserID(), 1);

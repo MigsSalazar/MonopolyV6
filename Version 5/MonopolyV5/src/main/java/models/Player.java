@@ -71,6 +71,24 @@ public class Player {
 			props = new HashMap<String, Property>();
 			addProperties( (HashMap<String, Property>)pr);
 			calcWealth();
+		}else{
+			userid = uid;
+			name = n;
+			position = p;
+			cash = c;
+			jailCard = jc;
+			inJail = ij;
+			active = a;
+			turn = t;
+			jailCount = jcount;
+			props = new HashMap<String, Property>();
+			if(pr != null){
+				for(String key : pr.keySet()){
+					addProperty(pr.get(key));
+				}
+			}
+			
+			calcWealth();
 		}
 	}
 	
@@ -219,22 +237,24 @@ public class Player {
 	
 	public boolean removeProperty(Property p){
 		propsExists();
+		if(p == null){
+			return false;
+		}
 		if(props.containsKey(p.getName())){
 			props.remove(p.getName());
 			p.setOwner("");
 			calcWealth();
+			return true;
 		}
-		return !( playerOwns(p) );
+		return false;
 	}
 	
 	public boolean removeProperty(String key){
 		if(props.containsKey(key)){
 			Property goodBye = props.remove(key);
-			if(goodBye!=null){
-				goodBye.setOwner("");
-				calcWealth();
-				return true;
-			}
+			goodBye.setOwner("");
+			calcWealth();
+			return true;
 		}
 		return false;
 	}
