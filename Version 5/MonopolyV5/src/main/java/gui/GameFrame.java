@@ -142,7 +142,7 @@ public class GameFrame extends JFrame{
 		//make a new game from scratch
 		menuItems[0].addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				Runner newGame = new Runner();
+				Runner newGame = new Runner(globalVars.getSettings());
 				if(newGame.startNewGame()){
 					closeMe();
 				}
@@ -166,7 +166,7 @@ public class GameFrame extends JFrame{
 		//make a game from a save file
 		menuItems[2].addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				Runner oldGame = new Runner();
+				Runner oldGame = new Runner(globalVars.getSettings());
 				oldGame.startSavedGame();
 				closeMe();
 			}

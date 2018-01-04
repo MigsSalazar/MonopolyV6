@@ -1,9 +1,11 @@
 package main.java.models;
 
+import com.google.gson.annotations.Expose;
+
 public class Pair<K, V> {
 	
-	public K first;
-	public V second;
+	@Expose public K first;
+	@Expose public V second;
 	
 	public Pair(K f, V s){
 		first = f;

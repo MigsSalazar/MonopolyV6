@@ -16,6 +16,7 @@ import javax.swing.JButton;
 
 import main.java.Main;
 import main.java.action.Runner;
+import main.java.action.Settings;
 
 /**
  * @author Miguel Salazar
@@ -27,15 +28,15 @@ public class PreGameFrame extends JFrame {
 	 */
 	private static final long serialVersionUID = -7859011893692247775L;
 	private JPanel innerPanel = new JPanel();
-	ImageIcon picture;
-	JButton newGame;
-	JButton loadGame;
-	JButton settings;
-	JButton about;
-	PreGameFrame me = this;
+	private ImageIcon picture;
+	private JButton newGame;
+	private JButton loadGame;
+	private JButton settings;
+	private JButton about;
+	private Settings sets;
 
 	public PreGameFrame(){
-		
+		sets = new Settings(this);
 		//c.setLayout(box);
 		picture = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/topintroimage.png" );
 		newGame = new JButton("New Game");
@@ -55,7 +56,7 @@ public class PreGameFrame extends JFrame {
 	public void start(){
 		Container c = this.getContentPane();
 		c.add(innerPanel);
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(420,480);
 		this.setTitle("Migs Monopoly!");
 		Image icon = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/frameicon.png").getImage();
@@ -68,7 +69,7 @@ public class PreGameFrame extends JFrame {
 		newGame.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				Runner newGame = new Runner();
+				Runner newGame = new Runner(sets);
 				if(newGame.startNewGame()){
 					closeMe();
 				}
@@ -78,7 +79,7 @@ public class PreGameFrame extends JFrame {
 		loadGame.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				Runner oldGame = new Runner();
+				Runner oldGame = new Runner(sets);
 				if(oldGame.startSavedGame()){
 					closeMe();
 				}
@@ -88,7 +89,7 @@ public class PreGameFrame extends JFrame {
 		settings.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				Main.settingsLaunch(me);
+				sets.setup();
 			}
 		});
 		

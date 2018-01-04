@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import main.java.action.Runner;
 import main.java.action.TradeManager;
 import main.java.models.Player;
 import main.java.models.Property;
@@ -33,6 +34,8 @@ public class TOffer extends JDialog {
 	private static final long serialVersionUID = -7579917849501934789L;
 
 	private TradeManager tManage;
+	
+	private Runner gameVars;
 	
 	private Player player1;
 	
@@ -78,8 +81,9 @@ public class TOffer extends JDialog {
 	 * @param p		Player who wishes to make an offer
 	 * @param tm	Trade Manager object that called this JDialog
 	 */
-	public TOffer(JFrame frame, Player p, TradeManager tm){
+	public TOffer(JFrame frame, Runner gv, Player p, TradeManager tm){
 		super(frame, "Trade Manager - Step 2", true);
+		gameVars = gv;
 		player1 = p;
 		tManage = tm;
 		setLayout( new BorderLayout() );
@@ -103,9 +107,9 @@ public class TOffer extends JDialog {
 	public void formTopPanel(){
 		JLabel label1 = new JLabel("Select the assets you wish to trade.\nOnly one at a time may be selected.");
 		
-		topFullCash = new JLabel("Your bank:     $"+player1.getCash()+"   ");
+		topFullCash = new JLabel("Your bank:     "+gameVars.getCurrencySymbol()+player1.getCash()+"   ");
 		
-		topOfferCash = new JLabel("Your cash offer:     $");
+		topOfferCash = new JLabel("Your cash offer:     "+gameVars.getCurrencySymbol());
 		
 		topTakeCash = new JTextArea(1,15);
 		topTakeCash.setText("0");
@@ -432,7 +436,6 @@ public class TOffer extends JDialog {
 	public DefaultListModel<String> findAssets(){
 		DefaultListModel<String> listModel = new DefaultListModel<String>();
 		
-		//listModel.addElement("cash $"+player1.getBank());
 		
 		for(int i=0; i<player1.getJailCards(); i++){
 			listModel.addElement("Get out of Jail Free Card");

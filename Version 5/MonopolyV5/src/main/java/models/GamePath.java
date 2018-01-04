@@ -8,31 +8,31 @@ import com.google.gson.annotations.Expose;
 public class GamePath {
 
 	
-	@Expose private ArrayList<CoordPair> steps;
+	@Expose private ArrayList<Pair<Integer,Integer>> steps;
 	@Expose private int currentStep = 0;
 	@Expose private boolean locked = false;
 	
 	public GamePath(){
-		steps = new ArrayList<CoordPair>();
+		steps = new ArrayList<Pair<Integer,Integer>>();
 	}
 	
-	public GamePath(ArrayList<CoordPair> s){
+	public GamePath(ArrayList<Pair<Integer,Integer>> s){
 		steps = s;
 	}
 	
-	public GamePath(ArrayList<CoordPair> s, int cs){
+	public GamePath(ArrayList<Pair<Integer,Integer>> s, int cs){
 		steps = s;
 		currentStep = cs;
 	}
 	
-	public CoordPair forward(){
+	public Pair<Integer,Integer> forward(){
 		if( !locked ){
 			currentStep = (currentStep+1)%steps.size();
 		}
 		return steps.get(currentStep);
 	}
 	
-	public CoordPair getStepAt(int index){
+	public Pair<Integer,Integer> getStepAt(int index){
 		return steps.get(index);
 	}
 	
@@ -71,16 +71,16 @@ public class GamePath {
 		return locked;
 	}
 	
-	public void addStep(CoordPair cp){
+	public void addStep(Pair<Integer,Integer> cp){
 		steps.add(cp);
 	}
 	
 	public int getCurrentRow(){
-		return steps.get(currentStep).getRow();
+		return steps.get(currentStep).first;
 	}
 	
 	public int getCurrentCol(){
-		return steps.get(currentStep).getCol();
+		return steps.get(currentStep).second;
 	}
 	
 }

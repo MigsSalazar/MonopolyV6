@@ -28,11 +28,11 @@ public abstract class DiceNeededEvent extends AbstractEvent {
 			break;
 		case 3:	gameVars.jailPlayer(p);
 				//p.setPosition(10);
-				event = new MessageEvent(parent, "<html>"+p.getName()+", you must go to jail!<br>Do not pass Go, do not collect $200!</html>");
+				event = new MessageEvent(parent, "<html>"+p.getName()+", you must go to jail!<br>Do not pass Go, do not collect "+parent.getCurrencySymbol()+"200!</html>");
 			break;
 		case 4:	event = new IncomeTaxEvent(parent, p);
 			break;
-		case 5: event = new PlayervBankEvent(parent, "<html>"+p.getName()+", you must pay the $75 luxury tax!</html>", p, -75);
+		case 5: event = new PlayervBankEvent(parent, "<html>"+p.getName()+", you must pay the "+parent.getCurrencySymbol()+"75 luxury tax!</html>", p, -75);
 			break;
 		case 6:	event = new CardEvent(parent, p, false);
 			break;
@@ -58,7 +58,6 @@ public abstract class DiceNeededEvent extends AbstractEvent {
 	
 	protected void crossGo(Player p, int roll) {
 		if( (p.getPosition() + roll) >= 40 || (p.getPosition() + roll)==0){
-			//String text = p.getName()+" has landed or passed go. Collect $200.";
 			GoEvent pbe = new GoEvent(parent, currentPlayer, this);
 			sync(pbe);
 		}

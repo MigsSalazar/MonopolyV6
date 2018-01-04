@@ -1,6 +1,7 @@
 package main.java.io;
 
 import java.lang.reflect.Type;
+import java.awt.Dimension;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -20,6 +21,7 @@ import com.google.gson.reflect.TypeToken;
 
 import main.java.action.Roll;
 import main.java.action.Runner;
+import main.java.action.Settings;
 import main.java.gui.*;
 import main.java.models.*;
 
@@ -29,9 +31,9 @@ public class GameReader {
 	private boolean newGame;
 	private File loaded;
 	
-	public GameReader(){
+	public GameReader(Settings sets){
 		newGame = true;
-		String loaded = System.getProperty("user.dir")+"/saved-games/default-game/";
+		String loaded = sets.textureMe();
 		//System.out.println(loaded);
 		locations.add(loaded+"board_config.json");		//0
 		locations.add(loaded+"players.json");			//1
@@ -65,35 +67,28 @@ public class GameReader {
 	public BoardPanel getBoard() throws IOException{
 		//System.out.println("gson board begins");
 		Gson gson = new Gson();
-		Reader readme = new FileReader(new File(locations.get(0)));
+		File boardFile = new File(locations.get(0));
+		if(!boardFile.exists()){
+			boardFile = new File("C:/Users/Unknown/git/Monopoly/Version 5/MonopolyV5/resources/image-sets/default-image-set/board_config.json");
+		}
+		Reader readme = new FileReader(boardFile);
 		BoardPanel retval = gson.fromJson(readme, BoardPanel.class);
+		retval.setPreferredSize(new Dimension(retval.getBoardPixWidth(),retval.getBoardPixHeight()));
 		//System.out.println("board exists and has been make. returning now");
 		//System.out.println("Board: " + retval.toString() );
 		readme.close();
 		return retval;
 	}
 	
-	public EventPanel getEvents(Runner gv) throws IOException{
-		//System.out.println("gson events begins");
-		if(newGame){
-			//System.out.println("event doesnt exist, starting from scratch");
-			return (new EventPanel(gv));
-		}else{
-			Gson gson = new Gson();
-			Reader readme = new FileReader(new File(locations.get(3)));
-			EventPanel retval = gson.fromJson(readme, EventPanel.class);
-			readme.close();
-			//System.out.println("event does exist, returning now");
-			//System.out.println("Event: " + retval.toString() );
-			return retval;
-		}
-	}
-
 	
 	public HashMap<String, Player> getPlayers() throws IOException{
 		//System.out.println("gson player begins");
 		Gson gson = new Gson();
-		Reader readme = new FileReader(new File(locations.get(1)));
+		File playersFile = new File(locations.get(1));
+		if(!playersFile.exists()){
+			playersFile = new File("C:/Users/Unknown/git/Monopoly/Version 5/MonopolyV5/resources/image-sets/default-image-set/players.json");
+		}
+		Reader readme = new FileReader(playersFile);
 		//Type type = new TypeToken<Map<String, Player>>(){}.getType();
 		Type type = new TypeToken<HashMap<String, Player>>(){}.getType();
 		HashMap<String, Player> retval = gson.fromJson(readme, type);
@@ -107,12 +102,21 @@ public class GameReader {
 	}
 	
 	public HashMap<String, Property> getProperties(Roll uroll){
-		PropertyBean getter = PropertyBean.jsonToProperties(new File(locations.get(2)));
+		File propFile = new File(locations.get(2));
+		if(!propFile.exists()){
+			propFile = new File("C:/Users/Unknown/git/Monopoly/Version 5/MonopolyV5/resources/image-sets/default-image-set/properties.json");
+		}
+		PropertyBean getter = PropertyBean.jsonToProperties(propFile);
 		return getter.getFullMap(uroll);
 	}
 	
 	public HashMap<String,Suite> getSuites(Map<String,Property> props) throws IOException{
-		Scanner filein = new Scanner(new File(locations.get(3)));
+		File suiteFile = new File(locations.get(3));
+		if(!suiteFile.exists()){
+			suiteFile = new File("C:/Users/Unknown/git/Monopoly/Version 5/MonopolyV5/resources/image-sets/default-image-set/suiteNames.txt");
+		}
+		
+		Scanner filein = new Scanner(suiteFile);
 		HashMap<String,Suite> retval = new HashMap<String,Suite>();
 		String linein = "";
 		String[] linearr;
@@ -158,7 +162,11 @@ public class GameReader {
 		Reader readme;
 		ArrayList<GameCard> retval = null;
 		try {
-			readme = new FileReader(new File(locations.get(5)));
+			File chanceFile = new File(locations.get(5));
+			if(!chanceFile.exists()){
+				chanceFile = new File("C:/Users/Unknown/git/Monopoly/Version 5/MonopolyV5/resources/image-sets/default-image-set/chance.json");
+			}
+			readme = new FileReader(chanceFile);
 			Type type = new TypeToken<ArrayList<GameCard>>(){}.getType();
 			retval = gson.fromJson(readme, type);
 			readme.close();
@@ -177,7 +185,11 @@ public class GameReader {
 		Reader readme;
 		ArrayList<GameCard> retval = null;
 		try {
-			readme = new FileReader(new File(locations.get(4)));
+			File commChestFile = new File(locations.get(4));
+			if(!commChestFile.exists()){
+				commChestFile = new File("C:/Users/Unknown/git/Monopoly/Version 5/MonopolyV5/resources/image-sets/default-image-set/community-chest.json");
+			}
+			readme = new FileReader(commChestFile);
 			Type type = new TypeToken<ArrayList<GameCard>>(){}.getType();
 			retval = gson.fromJson(readme, type);
 			readme.close();

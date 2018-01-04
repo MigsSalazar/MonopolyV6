@@ -34,7 +34,7 @@ public class StatsPanel extends JPanel {
 		panels = new PlayerPanel[players.size()];
 		
 		for(int i=0; i<players.size(); i++){
-			panels[i] = new PlayerPanel(players.get(i));
+			panels[i] = new PlayerPanel(players.get(i), gameVars.getCurrencySymbol());
 		}
 		
 		int width = (int)Math.ceil(players.size()/2);

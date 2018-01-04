@@ -7,6 +7,7 @@ import java.io.File;
 
 import javax.swing.ImageIcon;
 
+import main.java.action.Settings;
 import main.java.models.GamePath;
 
 import com.google.gson.annotations.Expose;
@@ -29,20 +30,16 @@ public class Piece {
 		icon = i;
 	}
 	
-	public void updateIcon(){
+	public void updateIcon(String d){
 		if(getFileLocation()!=null){
 			//System.out.println("Plain get FileLocation: "+getFileLocation());
-			//getFileLocation().
-			if( getFileLocation().indexOf("C:") != 0 &&
-					getFileLocation().indexOf("root") != 0){
-				dir = System.getProperty("user.dir");
-			}else{
-				dir = "";
-			}
+			dir = d;
 			//System.out.println("File Location + dir: " + dir+getFileLocation());
 			
 			if(new File(dir+getFileLocation()).exists()  ){
 				setIcon(new ImageIcon(dir+getFileLocation()));
+			}else if(new File(getFileLocation()).exists()){
+				setIcon(new ImageIcon(getFileLocation()));
 			}else{
 				setIcon(new ImageIcon(System.getProperty("user.dir")+"/resources/image-sets/default-image-set/404ERROR.png"));
 			}

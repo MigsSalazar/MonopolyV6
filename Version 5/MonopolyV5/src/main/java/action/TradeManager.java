@@ -67,7 +67,7 @@ public class TradeManager{
 					//System.out.print("DEBUG: Player1: "+player1.getName()+" Player2: "+player2.getName()+" Desired asset: "+tradeAsset.toString() );
 					break;
 			case 1: step = 3;
-					offer = new TOffer(gameVars.getFrame(), player1, this);
+					offer = new TOffer(gameVars.getFrame(), gameVars, player1, this);
 					offer.setBounds(100,100,450,500);
 					offer.setVisible(true);
 					offer.setResizable(false);

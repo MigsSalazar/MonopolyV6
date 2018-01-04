@@ -97,12 +97,11 @@ public class TConfirm extends JDialog {
 		
 		label2 = new JLabel(passedAsset);
 		
-		label3 = new JLabel("Which is worth: $"+tradeAsset.getWorth());
+		label3 = new JLabel("Which is worth: "+gameVars.getCurrencySymbol()+tradeAsset.getWorth());
 		
 		topBlock.add(label1, BorderLayout.NORTH);
 		topBlock.add(label2, BorderLayout.CENTER);
-		topBlock.add(label3, BorderLayout.SOUTH);
-		
+		topBlock.add(label3, BorderLayout.SOUTH);	
 	}
 	
 	/**
@@ -128,7 +127,7 @@ public class TConfirm extends JDialog {
 		
 		oScroller = new JScrollPane(offeredTextArea);
 		
-		JLabel label5 = new JLabel("Which is worth: $"+worth);
+		JLabel label5 = new JLabel("Which is worth: "+gameVars.getCurrencySymbol()+worth);
 		
 		cenBlock.add(label4, BorderLayout.NORTH);
 		cenBlock.add(oScroller, BorderLayout.CENTER);

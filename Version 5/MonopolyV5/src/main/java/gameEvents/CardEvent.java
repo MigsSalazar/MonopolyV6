@@ -225,9 +225,9 @@ public class CardEvent extends DiceNeededEvent{
 				}
 			}
 			String textOut = "<html>Renovation Costs:"
-							+ "<br>Hotels: "+hotelnum+"    Cost: $"+hotels
-							+ "<br>Houses: "+housenum+"    Cost: $"+houses
-							+ "<br>Complete Total:          $"+total+"</html>";
+							+ "<br>Hotels: "+hotelnum+"    Cost: "+parent.getCurrencySymbol()+hotels
+							+ "<br>Houses: "+housenum+"    Cost: "+parent.getCurrencySymbol()+houses
+							+ "<br>Complete Total:          "+parent.getCurrencySymbol()+total+"</html>";
 			PlayervBankEvent event = new PlayervBankEvent(parent, textOut,currentPlayer, (total * -1) );
 			//currentPlayer.subCash(total);
 			parent.paintEvent(event);

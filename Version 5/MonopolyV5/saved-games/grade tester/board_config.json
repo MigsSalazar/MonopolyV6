@@ -1,1434 +1,1437 @@
 {
   "boardWidth": 30,
   "boardHeight": 30,
+  "boardPixWidth": 600,
+  "boardPixHeight": 600,
   "playerCount": 8,
+  "dir": "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5",
   "gamePieces": [
     {
       "team": 0,
       "travelPath": {
         "steps": [
           {
-            "row": 25,
-            "col": 25
+            "first": 25,
+            "second": 25
           },
           {
-            "row": 26,
-            "col": 22
+            "first": 26,
+            "second": 22
           },
           {
-            "row": 26,
-            "col": 20
+            "first": 26,
+            "second": 20
           },
           {
-            "row": 26,
-            "col": 18
+            "first": 26,
+            "second": 18
           },
           {
-            "row": 26,
-            "col": 16
+            "first": 26,
+            "second": 16
           },
           {
-            "row": 26,
-            "col": 14
+            "first": 26,
+            "second": 14
           },
           {
-            "row": 26,
-            "col": 12
+            "first": 26,
+            "second": 12
           },
           {
-            "row": 26,
-            "col": 10
+            "first": 26,
+            "second": 10
           },
           {
-            "row": 26,
-            "col": 8
+            "first": 26,
+            "second": 8
           },
           {
-            "row": 26,
-            "col": 6
+            "first": 26,
+            "second": 6
           },
           {
-            "row": 25,
-            "col": 0
+            "first": 25,
+            "second": 0
           },
           {
-            "row": 22,
-            "col": 0
+            "first": 22,
+            "second": 0
           },
           {
-            "row": 20,
-            "col": 0
+            "first": 20,
+            "second": 0
           },
           {
-            "row": 18,
-            "col": 0
+            "first": 18,
+            "second": 0
           },
           {
-            "row": 16,
-            "col": 0
+            "first": 16,
+            "second": 0
           },
           {
-            "row": 14,
-            "col": 0
+            "first": 14,
+            "second": 0
           },
           {
-            "row": 12,
-            "col": 0
+            "first": 12,
+            "second": 0
           },
           {
-            "row": 10,
-            "col": 0
+            "first": 10,
+            "second": 0
           },
           {
-            "row": 8,
-            "col": 0
+            "first": 8,
+            "second": 0
           },
           {
-            "row": 6,
-            "col": 0
+            "first": 6,
+            "second": 0
           },
           {
-            "row": 2,
-            "col": 0
+            "first": 2,
+            "second": 0
           },
           {
-            "row": 0,
-            "col": 6
+            "first": 0,
+            "second": 6
           },
           {
-            "row": 0,
-            "col": 8
+            "first": 0,
+            "second": 8
           },
           {
-            "row": 0,
-            "col": 10
+            "first": 0,
+            "second": 10
           },
           {
-            "row": 0,
-            "col": 12
+            "first": 0,
+            "second": 12
           },
           {
-            "row": 0,
-            "col": 14
+            "first": 0,
+            "second": 14
           },
           {
-            "row": 0,
-            "col": 16
+            "first": 0,
+            "second": 16
           },
           {
-            "row": 0,
-            "col": 18
+            "first": 0,
+            "second": 18
           },
           {
-            "row": 0,
-            "col": 20
+            "first": 0,
+            "second": 20
           },
           {
-            "row": 0,
-            "col": 22
+            "first": 0,
+            "second": 22
           },
           {
-            "row": 1,
-            "col": 25
+            "first": 1,
+            "second": 25
           },
           {
-            "row": 6,
-            "col": 26
+            "first": 6,
+            "second": 26
           },
           {
-            "row": 8,
-            "col": 26
+            "first": 8,
+            "second": 26
           },
           {
-            "row": 10,
-            "col": 26
+            "first": 10,
+            "second": 26
           },
           {
-            "row": 12,
-            "col": 26
+            "first": 12,
+            "second": 26
           },
           {
-            "row": 14,
-            "col": 26
+            "first": 14,
+            "second": 26
           },
           {
-            "row": 16,
-            "col": 26
+            "first": 16,
+            "second": 26
           },
           {
-            "row": 18,
-            "col": 26
+            "first": 18,
+            "second": 26
           },
           {
-            "row": 20,
-            "col": 26
+            "first": 20,
+            "second": 26
           },
           {
-            "row": 22,
-            "col": 26
+            "first": 22,
+            "second": 26
           }
         ],
         "currentStep": 0,
         "locked": false
       },
-      "fileLocation": "/resources/image-sets/default-image-set/pupper.png"
+      "fileLocation": "pupper.png"
     },
     {
       "team": 1,
       "travelPath": {
         "steps": [
           {
-            "row": 25,
-            "col": 26
+            "first": 25,
+            "second": 26
           },
           {
-            "row": 26,
-            "col": 23
+            "first": 26,
+            "second": 23
           },
           {
-            "row": 26,
-            "col": 21
+            "first": 26,
+            "second": 21
           },
           {
-            "row": 26,
-            "col": 19
+            "first": 26,
+            "second": 19
           },
           {
-            "row": 26,
-            "col": 17
+            "first": 26,
+            "second": 17
           },
           {
-            "row": 26,
-            "col": 15
+            "first": 26,
+            "second": 15
           },
           {
-            "row": 26,
-            "col": 13
+            "first": 26,
+            "second": 13
           },
           {
-            "row": 26,
-            "col": 11
+            "first": 26,
+            "second": 11
           },
           {
-            "row": 26,
-            "col": 9
+            "first": 26,
+            "second": 9
           },
           {
-            "row": 26,
-            "col": 7
+            "first": 26,
+            "second": 7
           },
           {
-            "row": 26,
-            "col": 0
+            "first": 26,
+            "second": 0
           },
           {
-            "row": 22,
-            "col": 1
+            "first": 22,
+            "second": 1
           },
           {
-            "row": 20,
-            "col": 1
+            "first": 20,
+            "second": 1
           },
           {
-            "row": 18,
-            "col": 1
+            "first": 18,
+            "second": 1
           },
           {
-            "row": 16,
-            "col": 1
+            "first": 16,
+            "second": 1
           },
           {
-            "row": 14,
-            "col": 1
+            "first": 14,
+            "second": 1
           },
           {
-            "row": 12,
-            "col": 1
+            "first": 12,
+            "second": 1
           },
           {
-            "row": 10,
-            "col": 1
+            "first": 10,
+            "second": 1
           },
           {
-            "row": 8,
-            "col": 1
+            "first": 8,
+            "second": 1
           },
           {
-            "row": 6,
-            "col": 1
+            "first": 6,
+            "second": 1
           },
           {
-            "row": 2,
-            "col": 1
+            "first": 2,
+            "second": 1
           },
           {
-            "row": 0,
-            "col": 7
+            "first": 0,
+            "second": 7
           },
           {
-            "row": 0,
-            "col": 9
+            "first": 0,
+            "second": 9
           },
           {
-            "row": 0,
-            "col": 11
+            "first": 0,
+            "second": 11
           },
           {
-            "row": 0,
-            "col": 13
+            "first": 0,
+            "second": 13
           },
           {
-            "row": 0,
-            "col": 15
+            "first": 0,
+            "second": 15
           },
           {
-            "row": 0,
-            "col": 17
+            "first": 0,
+            "second": 17
           },
           {
-            "row": 0,
-            "col": 19
+            "first": 0,
+            "second": 19
           },
           {
-            "row": 0,
-            "col": 21
+            "first": 0,
+            "second": 21
           },
           {
-            "row": 0,
-            "col": 23
+            "first": 0,
+            "second": 23
           },
           {
-            "row": 1,
-            "col": 26
+            "first": 1,
+            "second": 26
           },
           {
-            "row": 6,
-            "col": 27
+            "first": 6,
+            "second": 27
           },
           {
-            "row": 8,
-            "col": 27
+            "first": 8,
+            "second": 27
           },
           {
-            "row": 10,
-            "col": 27
+            "first": 10,
+            "second": 27
           },
           {
-            "row": 12,
-            "col": 27
+            "first": 12,
+            "second": 27
           },
           {
-            "row": 14,
-            "col": 27
+            "first": 14,
+            "second": 27
           },
           {
-            "row": 16,
-            "col": 27
+            "first": 16,
+            "second": 27
           },
           {
-            "row": 18,
-            "col": 27
+            "first": 18,
+            "second": 27
           },
           {
-            "row": 20,
-            "col": 27
+            "first": 20,
+            "second": 27
           },
           {
-            "row": 22,
-            "col": 27
+            "first": 22,
+            "second": 27
           }
         ],
         "currentStep": 0,
         "locked": false
       },
-      "fileLocation": "/resources/image-sets/default-image-set/thimble.png"
+      "fileLocation": "thimble.png"
     },
     {
       "team": 2,
       "travelPath": {
         "steps": [
           {
-            "row": 25,
-            "col": 27
+            "first": 25,
+            "second": 27
           },
           {
-            "row": 27,
-            "col": 22
+            "first": 27,
+            "second": 22
           },
           {
-            "row": 27,
-            "col": 20
+            "first": 27,
+            "second": 20
           },
           {
-            "row": 27,
-            "col": 18
+            "first": 27,
+            "second": 18
           },
           {
-            "row": 27,
-            "col": 16
+            "first": 27,
+            "second": 16
           },
           {
-            "row": 27,
-            "col": 14
+            "first": 27,
+            "second": 14
           },
           {
-            "row": 27,
-            "col": 12
+            "first": 27,
+            "second": 12
           },
           {
-            "row": 27,
-            "col": 10
+            "first": 27,
+            "second": 10
           },
           {
-            "row": 27,
-            "col": 8
+            "first": 27,
+            "second": 8
           },
           {
-            "row": 27,
-            "col": 6
+            "first": 27,
+            "second": 6
           },
           {
-            "row": 27,
-            "col": 0
+            "first": 27,
+            "second": 0
           },
           {
-            "row": 22,
-            "col": 2
+            "first": 22,
+            "second": 2
           },
           {
-            "row": 20,
-            "col": 2
+            "first": 20,
+            "second": 2
           },
           {
-            "row": 18,
-            "col": 2
+            "first": 18,
+            "second": 2
           },
           {
-            "row": 16,
-            "col": 2
+            "first": 16,
+            "second": 2
           },
           {
-            "row": 14,
-            "col": 2
+            "first": 14,
+            "second": 2
           },
           {
-            "row": 12,
-            "col": 2
+            "first": 12,
+            "second": 2
           },
           {
-            "row": 10,
-            "col": 2
+            "first": 10,
+            "second": 2
           },
           {
-            "row": 8,
-            "col": 2
+            "first": 8,
+            "second": 2
           },
           {
-            "row": 6,
-            "col": 2
+            "first": 6,
+            "second": 2
           },
           {
-            "row": 2,
-            "col": 4
+            "first": 2,
+            "second": 4
           },
           {
-            "row": 1,
-            "col": 6
+            "first": 1,
+            "second": 6
           },
           {
-            "row": 1,
-            "col": 8
+            "first": 1,
+            "second": 8
           },
           {
-            "row": 1,
-            "col": 10
+            "first": 1,
+            "second": 10
           },
           {
-            "row": 1,
-            "col": 12
+            "first": 1,
+            "second": 12
           },
           {
-            "row": 1,
-            "col": 14
+            "first": 1,
+            "second": 14
           },
           {
-            "row": 1,
-            "col": 16
+            "first": 1,
+            "second": 16
           },
           {
-            "row": 1,
-            "col": 18
+            "first": 1,
+            "second": 18
           },
           {
-            "row": 1,
-            "col": 20
+            "first": 1,
+            "second": 20
           },
           {
-            "row": 1,
-            "col": 22
+            "first": 1,
+            "second": 22
           },
           {
-            "row": 1,
-            "col": 27
+            "first": 1,
+            "second": 27
           },
           {
-            "row": 6,
-            "col": 28
+            "first": 6,
+            "second": 28
           },
           {
-            "row": 8,
-            "col": 28
+            "first": 8,
+            "second": 28
           },
           {
-            "row": 10,
-            "col": 28
+            "first": 10,
+            "second": 28
           },
           {
-            "row": 12,
-            "col": 28
+            "first": 12,
+            "second": 28
           },
           {
-            "row": 14,
-            "col": 28
+            "first": 14,
+            "second": 28
           },
           {
-            "row": 16,
-            "col": 28
+            "first": 16,
+            "second": 28
           },
           {
-            "row": 18,
-            "col": 28
+            "first": 18,
+            "second": 28
           },
           {
-            "row": 20,
-            "col": 28
+            "first": 20,
+            "second": 28
           },
           {
-            "row": 22,
-            "col": 28
+            "first": 22,
+            "second": 28
           }
         ],
         "currentStep": 0,
         "locked": false
       },
-      "fileLocation": "/resources/image-sets/default-image-set/boot.png"
+      "fileLocation": "boot.png"
     },
     {
       "team": 3,
       "travelPath": {
         "steps": [
           {
-            "row": 25,
-            "col": 28
+            "first": 25,
+            "second": 28
           },
           {
-            "row": 27,
-            "col": 23
+            "first": 27,
+            "second": 23
           },
           {
-            "row": 27,
-            "col": 21
+            "first": 27,
+            "second": 21
           },
           {
-            "row": 27,
-            "col": 19
+            "first": 27,
+            "second": 19
           },
           {
-            "row": 27,
-            "col": 17
+            "first": 27,
+            "second": 17
           },
           {
-            "row": 27,
-            "col": 15
+            "first": 27,
+            "second": 15
           },
           {
-            "row": 27,
-            "col": 13
+            "first": 27,
+            "second": 13
           },
           {
-            "row": 27,
-            "col": 11
+            "first": 27,
+            "second": 11
           },
           {
-            "row": 27,
-            "col": 9
+            "first": 27,
+            "second": 9
           },
           {
-            "row": 27,
-            "col": 7
+            "first": 27,
+            "second": 7
           },
           {
-            "row": 28,
-            "col": 0
+            "first": 28,
+            "second": 0
           },
           {
-            "row": 22,
-            "col": 3
+            "first": 22,
+            "second": 3
           },
           {
-            "row": 20,
-            "col": 3
+            "first": 20,
+            "second": 3
           },
           {
-            "row": 18,
-            "col": 3
+            "first": 18,
+            "second": 3
           },
           {
-            "row": 16,
-            "col": 3
+            "first": 16,
+            "second": 3
           },
           {
-            "row": 14,
-            "col": 3
+            "first": 14,
+            "second": 3
           },
           {
-            "row": 12,
-            "col": 3
+            "first": 12,
+            "second": 3
           },
           {
-            "row": 10,
-            "col": 3
+            "first": 10,
+            "second": 3
           },
           {
-            "row": 8,
-            "col": 3
+            "first": 8,
+            "second": 3
           },
           {
-            "row": 6,
-            "col": 3
+            "first": 6,
+            "second": 3
           },
           {
-            "row": 2,
-            "col": 5
+            "first": 2,
+            "second": 5
           },
           {
-            "row": 1,
-            "col": 7
+            "first": 1,
+            "second": 7
           },
           {
-            "row": 1,
-            "col": 9
+            "first": 1,
+            "second": 9
           },
           {
-            "row": 1,
-            "col": 11
+            "first": 1,
+            "second": 11
           },
           {
-            "row": 1,
-            "col": 13
+            "first": 1,
+            "second": 13
           },
           {
-            "row": 1,
-            "col": 15
+            "first": 1,
+            "second": 15
           },
           {
-            "row": 1,
-            "col": 17
+            "first": 1,
+            "second": 17
           },
           {
-            "row": 1,
-            "col": 19
+            "first": 1,
+            "second": 19
           },
           {
-            "row": 1,
-            "col": 21
+            "first": 1,
+            "second": 21
           },
           {
-            "row": 1,
-            "col": 23
+            "first": 1,
+            "second": 23
           },
           {
-            "row": 1,
-            "col": 28
+            "first": 1,
+            "second": 28
           },
           {
-            "row": 6,
-            "col": 29
+            "first": 6,
+            "second": 29
           },
           {
-            "row": 8,
-            "col": 29
+            "first": 8,
+            "second": 29
           },
           {
-            "row": 10,
-            "col": 29
+            "first": 10,
+            "second": 29
           },
           {
-            "row": 12,
-            "col": 29
+            "first": 12,
+            "second": 29
           },
           {
-            "row": 14,
-            "col": 29
+            "first": 14,
+            "second": 29
           },
           {
-            "row": 16,
-            "col": 29
+            "first": 16,
+            "second": 29
           },
           {
-            "row": 18,
-            "col": 29
+            "first": 18,
+            "second": 29
           },
           {
-            "row": 20,
-            "col": 29
+            "first": 20,
+            "second": 29
           },
           {
-            "row": 22,
-            "col": 29
+            "first": 22,
+            "second": 29
           }
         ],
         "currentStep": 0,
         "locked": false
       },
-      "fileLocation": "/resources/image-sets/default-image-set/boat.png"
+      "fileLocation": "boat.png"
     },
     {
       "team": 4,
       "travelPath": {
         "steps": [
           {
-            "row": 26,
-            "col": 25
+            "first": 26,
+            "second": 25
           },
           {
-            "row": 28,
-            "col": 22
+            "first": 28,
+            "second": 22
           },
           {
-            "row": 28,
-            "col": 20
+            "first": 28,
+            "second": 20
           },
           {
-            "row": 28,
-            "col": 18
+            "first": 28,
+            "second": 18
           },
           {
-            "row": 28,
-            "col": 16
+            "first": 28,
+            "second": 16
           },
           {
-            "row": 28,
-            "col": 14
+            "first": 28,
+            "second": 14
           },
           {
-            "row": 28,
-            "col": 12
+            "first": 28,
+            "second": 12
           },
           {
-            "row": 28,
-            "col": 10
+            "first": 28,
+            "second": 10
           },
           {
-            "row": 28,
-            "col": 8
+            "first": 28,
+            "second": 8
           },
           {
-            "row": 28,
-            "col": 6
+            "first": 28,
+            "second": 6
           },
           {
-            "row": 29,
-            "col": 1
+            "first": 29,
+            "second": 1
           },
           {
-            "row": 23,
-            "col": 0
+            "first": 23,
+            "second": 0
           },
           {
-            "row": 21,
-            "col": 0
+            "first": 21,
+            "second": 0
           },
           {
-            "row": 19,
-            "col": 0
+            "first": 19,
+            "second": 0
           },
           {
-            "row": 17,
-            "col": 0
+            "first": 17,
+            "second": 0
           },
           {
-            "row": 15,
-            "col": 0
+            "first": 15,
+            "second": 0
           },
           {
-            "row": 13,
-            "col": 0
+            "first": 13,
+            "second": 0
           },
           {
-            "row": 11,
-            "col": 0
+            "first": 11,
+            "second": 0
           },
           {
-            "row": 9,
-            "col": 0
+            "first": 9,
+            "second": 0
           },
           {
-            "row": 7,
-            "col": 0
+            "first": 7,
+            "second": 0
           },
           {
-            "row": 3,
-            "col": 0
+            "first": 3,
+            "second": 0
           },
           {
-            "row": 2,
-            "col": 6
+            "first": 2,
+            "second": 6
           },
           {
-            "row": 2,
-            "col": 8
+            "first": 2,
+            "second": 8
           },
           {
-            "row": 2,
-            "col": 10
+            "first": 2,
+            "second": 10
           },
           {
-            "row": 2,
-            "col": 12
+            "first": 2,
+            "second": 12
           },
           {
-            "row": 2,
-            "col": 14
+            "first": 2,
+            "second": 14
           },
           {
-            "row": 2,
-            "col": 16
+            "first": 2,
+            "second": 16
           },
           {
-            "row": 2,
-            "col": 18
+            "first": 2,
+            "second": 18
           },
           {
-            "row": 2,
-            "col": 20
+            "first": 2,
+            "second": 20
           },
           {
-            "row": 2,
-            "col": 22
+            "first": 2,
+            "second": 22
           },
           {
-            "row": 2,
-            "col": 25
+            "first": 2,
+            "second": 25
           },
           {
-            "row": 7,
-            "col": 26
+            "first": 7,
+            "second": 26
           },
           {
-            "row": 9,
-            "col": 26
+            "first": 9,
+            "second": 26
           },
           {
-            "row": 11,
-            "col": 26
+            "first": 11,
+            "second": 26
           },
           {
-            "row": 13,
-            "col": 26
+            "first": 13,
+            "second": 26
           },
           {
-            "row": 15,
-            "col": 26
+            "first": 15,
+            "second": 26
           },
           {
-            "row": 17,
-            "col": 26
+            "first": 17,
+            "second": 26
           },
           {
-            "row": 19,
-            "col": 26
+            "first": 19,
+            "second": 26
           },
           {
-            "row": 21,
-            "col": 26
+            "first": 21,
+            "second": 26
           },
           {
-            "row": 23,
-            "col": 26
+            "first": 23,
+            "second": 26
           }
         ],
         "currentStep": 0,
         "locked": false
       },
-      "fileLocation": "/resources/image-sets/default-image-set/wheelbarrow.png"
+      "fileLocation": "wheelbarrow.png"
     },
     {
       "team": 5,
       "travelPath": {
         "steps": [
           {
-            "row": 26,
-            "col": 26
+            "first": 26,
+            "second": 26
           },
           {
-            "row": 28,
-            "col": 23
+            "first": 28,
+            "second": 23
           },
           {
-            "row": 28,
-            "col": 21
+            "first": 28,
+            "second": 21
           },
           {
-            "row": 28,
-            "col": 19
+            "first": 28,
+            "second": 19
           },
           {
-            "row": 28,
-            "col": 17
+            "first": 28,
+            "second": 17
           },
           {
-            "row": 28,
-            "col": 15
+            "first": 28,
+            "second": 15
           },
           {
-            "row": 28,
-            "col": 13
+            "first": 28,
+            "second": 13
           },
           {
-            "row": 28,
-            "col": 11
+            "first": 28,
+            "second": 11
           },
           {
-            "row": 28,
-            "col": 9
+            "first": 28,
+            "second": 9
           },
           {
-            "row": 28,
-            "col": 7
+            "first": 28,
+            "second": 7
           },
           {
-            "row": 29,
-            "col": 2
+            "first": 29,
+            "second": 2
           },
           {
-            "row": 23,
-            "col": 1
+            "first": 23,
+            "second": 1
           },
           {
-            "row": 21,
-            "col": 1
+            "first": 21,
+            "second": 1
           },
           {
-            "row": 19,
-            "col": 1
+            "first": 19,
+            "second": 1
           },
           {
-            "row": 17,
-            "col": 1
+            "first": 17,
+            "second": 1
           },
           {
-            "row": 15,
-            "col": 1
+            "first": 15,
+            "second": 1
           },
           {
-            "row": 13,
-            "col": 1
+            "first": 13,
+            "second": 1
           },
           {
-            "row": 11,
-            "col": 1
+            "first": 11,
+            "second": 1
           },
           {
-            "row": 9,
-            "col": 1
+            "first": 9,
+            "second": 1
           },
           {
-            "row": 7,
-            "col": 1
+            "first": 7,
+            "second": 1
           },
           {
-            "row": 3,
-            "col": 1
+            "first": 3,
+            "second": 1
           },
           {
-            "row": 2,
-            "col": 7
+            "first": 2,
+            "second": 7
           },
           {
-            "row": 2,
-            "col": 9
+            "first": 2,
+            "second": 9
           },
           {
-            "row": 2,
-            "col": 11
+            "first": 2,
+            "second": 11
           },
           {
-            "row": 2,
-            "col": 13
+            "first": 2,
+            "second": 13
           },
           {
-            "row": 2,
-            "col": 15
+            "first": 2,
+            "second": 15
           },
           {
-            "row": 2,
-            "col": 17
+            "first": 2,
+            "second": 17
           },
           {
-            "row": 2,
-            "col": 19
+            "first": 2,
+            "second": 19
           },
           {
-            "row": 2,
-            "col": 21
+            "first": 2,
+            "second": 21
           },
           {
-            "row": 2,
-            "col": 23
+            "first": 2,
+            "second": 23
           },
           {
-            "row": 2,
-            "col": 26
+            "first": 2,
+            "second": 26
           },
           {
-            "row": 7,
-            "col": 27
+            "first": 7,
+            "second": 27
           },
           {
-            "row": 9,
-            "col": 27
+            "first": 9,
+            "second": 27
           },
           {
-            "row": 11,
-            "col": 27
+            "first": 11,
+            "second": 27
           },
           {
-            "row": 13,
-            "col": 27
+            "first": 13,
+            "second": 27
           },
           {
-            "row": 15,
-            "col": 27
+            "first": 15,
+            "second": 27
           },
           {
-            "row": 17,
-            "col": 27
+            "first": 17,
+            "second": 27
           },
           {
-            "row": 19,
-            "col": 27
+            "first": 19,
+            "second": 27
           },
           {
-            "row": 21,
-            "col": 27
+            "first": 21,
+            "second": 27
           },
           {
-            "row": 23,
-            "col": 27
+            "first": 23,
+            "second": 27
           }
         ],
         "currentStep": 0,
         "locked": false
       },
-      "fileLocation": "/resources/image-sets/default-image-set/hat.png"
+      "fileLocation": "hat.png"
     },
     {
       "team": 6,
       "travelPath": {
         "steps": [
           {
-            "row": 26,
-            "col": 27
+            "first": 26,
+            "second": 27
           },
           {
-            "row": 29,
-            "col": 22
+            "first": 29,
+            "second": 22
           },
           {
-            "row": 29,
-            "col": 20
+            "first": 29,
+            "second": 20
           },
           {
-            "row": 29,
-            "col": 18
+            "first": 29,
+            "second": 18
           },
           {
-            "row": 29,
-            "col": 16
+            "first": 29,
+            "second": 16
           },
           {
-            "row": 29,
-            "col": 14
+            "first": 29,
+            "second": 14
           },
           {
-            "row": 29,
-            "col": 12
+            "first": 29,
+            "second": 12
           },
           {
-            "row": 29,
-            "col": 10
+            "first": 29,
+            "second": 10
           },
           {
-            "row": 29,
-            "col": 8
+            "first": 29,
+            "second": 8
           },
           {
-            "row": 29,
-            "col": 6
+            "first": 29,
+            "second": 6
           },
           {
-            "row": 29,
-            "col": 3
+            "first": 29,
+            "second": 3
           },
           {
-            "row": 23,
-            "col": 2
+            "first": 23,
+            "second": 2
           },
           {
-            "row": 21,
-            "col": 2
+            "first": 21,
+            "second": 2
           },
           {
-            "row": 19,
-            "col": 2
+            "first": 19,
+            "second": 2
           },
           {
-            "row": 17,
-            "col": 2
+            "first": 17,
+            "second": 2
           },
           {
-            "row": 15,
-            "col": 2
+            "first": 15,
+            "second": 2
           },
           {
-            "row": 13,
-            "col": 2
+            "first": 13,
+            "second": 2
           },
           {
-            "row": 11,
-            "col": 2
+            "first": 11,
+            "second": 2
           },
           {
-            "row": 9,
-            "col": 2
+            "first": 9,
+            "second": 2
           },
           {
-            "row": 7,
-            "col": 2
+            "first": 7,
+            "second": 2
           },
           {
-            "row": 3,
-            "col": 4
+            "first": 3,
+            "second": 4
           },
           {
-            "row": 3,
-            "col": 6
+            "first": 3,
+            "second": 6
           },
           {
-            "row": 3,
-            "col": 8
+            "first": 3,
+            "second": 8
           },
           {
-            "row": 3,
-            "col": 10
+            "first": 3,
+            "second": 10
           },
           {
-            "row": 3,
-            "col": 12
+            "first": 3,
+            "second": 12
           },
           {
-            "row": 3,
-            "col": 14
+            "first": 3,
+            "second": 14
           },
           {
-            "row": 3,
-            "col": 16
+            "first": 3,
+            "second": 16
           },
           {
-            "row": 3,
-            "col": 18
+            "first": 3,
+            "second": 18
           },
           {
-            "row": 3,
-            "col": 20
+            "first": 3,
+            "second": 20
           },
           {
-            "row": 3,
-            "col": 22
+            "first": 3,
+            "second": 22
           },
           {
-            "row": 2,
-            "col": 27
+            "first": 2,
+            "second": 27
           },
           {
-            "row": 7,
-            "col": 28
+            "first": 7,
+            "second": 28
           },
           {
-            "row": 9,
-            "col": 28
+            "first": 9,
+            "second": 28
           },
           {
-            "row": 11,
-            "col": 28
+            "first": 11,
+            "second": 28
           },
           {
-            "row": 13,
-            "col": 28
+            "first": 13,
+            "second": 28
           },
           {
-            "row": 15,
-            "col": 28
+            "first": 15,
+            "second": 28
           },
           {
-            "row": 17,
-            "col": 28
+            "first": 17,
+            "second": 28
           },
           {
-            "row": 19,
-            "col": 28
+            "first": 19,
+            "second": 28
           },
           {
-            "row": 21,
-            "col": 28
+            "first": 21,
+            "second": 28
           },
           {
-            "row": 23,
-            "col": 28
+            "first": 23,
+            "second": 28
           }
         ],
         "currentStep": 0,
         "locked": false
       },
-      "fileLocation": "/resources/image-sets/default-image-set/iron.png"
+      "fileLocation": "iron.png"
     },
     {
       "team": 7,
       "travelPath": {
         "steps": [
           {
-            "row": 26,
-            "col": 28
+            "first": 26,
+            "second": 28
           },
           {
-            "row": 29,
-            "col": 23
+            "first": 29,
+            "second": 23
           },
           {
-            "row": 29,
-            "col": 21
+            "first": 29,
+            "second": 21
           },
           {
-            "row": 29,
-            "col": 19
+            "first": 29,
+            "second": 19
           },
           {
-            "row": 29,
-            "col": 17
+            "first": 29,
+            "second": 17
           },
           {
-            "row": 29,
-            "col": 15
+            "first": 29,
+            "second": 15
           },
           {
-            "row": 29,
-            "col": 13
+            "first": 29,
+            "second": 13
           },
           {
-            "row": 29,
-            "col": 11
+            "first": 29,
+            "second": 11
           },
           {
-            "row": 29,
-            "col": 9
+            "first": 29,
+            "second": 9
           },
           {
-            "row": 29,
-            "col": 7
+            "first": 29,
+            "second": 7
           },
           {
-            "row": 29,
-            "col": 4
+            "first": 29,
+            "second": 4
           },
           {
-            "row": 23,
-            "col": 3
+            "first": 23,
+            "second": 3
           },
           {
-            "row": 21,
-            "col": 3
+            "first": 21,
+            "second": 3
           },
           {
-            "row": 19,
-            "col": 3
+            "first": 19,
+            "second": 3
           },
           {
-            "row": 17,
-            "col": 3
+            "first": 17,
+            "second": 3
           },
           {
-            "row": 15,
-            "col": 3
+            "first": 15,
+            "second": 3
           },
           {
-            "row": 13,
-            "col": 3
+            "first": 13,
+            "second": 3
           },
           {
-            "row": 11,
-            "col": 3
+            "first": 11,
+            "second": 3
           },
           {
-            "row": 9,
-            "col": 3
+            "first": 9,
+            "second": 3
           },
           {
-            "row": 7,
-            "col": 3
+            "first": 7,
+            "second": 3
           },
           {
-            "row": 3,
-            "col": 5
+            "first": 3,
+            "second": 5
           },
           {
-            "row": 3,
-            "col": 7
+            "first": 3,
+            "second": 7
           },
           {
-            "row": 3,
-            "col": 9
+            "first": 3,
+            "second": 9
           },
           {
-            "row": 3,
-            "col": 11
+            "first": 3,
+            "second": 11
           },
           {
-            "row": 3,
-            "col": 13
+            "first": 3,
+            "second": 13
           },
           {
-            "row": 3,
-            "col": 15
+            "first": 3,
+            "second": 15
           },
           {
-            "row": 3,
-            "col": 17
+            "first": 3,
+            "second": 17
           },
           {
-            "row": 3,
-            "col": 19
+            "first": 3,
+            "second": 19
           },
           {
-            "row": 3,
-            "col": 21
+            "first": 3,
+            "second": 21
           },
           {
-            "row": 3,
-            "col": 23
+            "first": 3,
+            "second": 23
           },
           {
-            "row": 2,
-            "col": 28
+            "first": 2,
+            "second": 28
           },
           {
-            "row": 7,
-            "col": 29
+            "first": 7,
+            "second": 29
           },
           {
-            "row": 9,
-            "col": 29
+            "first": 9,
+            "second": 29
           },
           {
-            "row": 11,
-            "col": 29
+            "first": 11,
+            "second": 29
           },
           {
-            "row": 13,
-            "col": 29
+            "first": 13,
+            "second": 29
           },
           {
-            "row": 15,
-            "col": 29
+            "first": 15,
+            "second": 29
           },
           {
-            "row": 17,
-            "col": 29
+            "first": 17,
+            "second": 29
           },
           {
-            "row": 19,
-            "col": 29
+            "first": 19,
+            "second": 29
           },
           {
-            "row": 21,
-            "col": 29
+            "first": 21,
+            "second": 29
           },
           {
-            "row": 23,
-            "col": 29
+            "first": 23,
+            "second": 29
           }
         ],
         "currentStep": 0,
         "locked": false
       },
-      "fileLocation": "/resources/image-sets/default-image-set/car.png"
+      "fileLocation": "car.png"
     }
   ],
   "playerIconPaths": [
-    "/resources/image-sets/default-image-set/pupper.png",
-    "/resources/image-sets/default-image-set/thimble.png",
-    "/resources/image-sets/default-image-set/boot.png",
-    "/resources/image-sets/default-image-set/boat.png",
-    "/resources/image-sets/default-image-set/wheelbarrow.png",
-    "/resources/image-sets/default-image-set/hat.png",
-    "/resources/image-sets/default-image-set/iron.png",
-    "/resources/image-sets/default-image-set/car.png"
+    "pupper.png",
+    "thimble.png",
+    "boot.png",
+    "boat.png",
+    "wheelbarrow.png",
+    "hat.png",
+    "iron.png",
+    "car.png"
   ],
   "iconPaths": [
-    "/resources/image-sets/default-image-set/baseboard.png",
-    "/resources/image-sets/default-image-set/purple.png",
-    "/resources/image-sets/default-image-set/purplehouse.png",
-    "/resources/image-sets/default-image-set/purplehotelleft.png",
-    "/resources/image-sets/default-image-set/purplehotelright.png",
-    "/resources/image-sets/default-image-set/purplehotelbottom.png",
-    "/resources/image-sets/default-image-set/lightblue.png",
-    "/resources/image-sets/default-image-set/lightbluehouse.png",
-    "/resources/image-sets/default-image-set/lightbluehotelleft.png",
-    "/resources/image-sets/default-image-set/lightbluehotelright.png",
-    "/resources/image-sets/default-image-set/lightbluehotelbottom.png",
-    "/resources/image-sets/default-image-set/pink.png",
-    "/resources/image-sets/default-image-set/pinkhouse.png",
-    "/resources/image-sets/default-image-set/pinkhotelleft.png",
-    "/resources/image-sets/default-image-set/pinkhotelright.png",
-    "/resources/image-sets/default-image-set/pinkhotelbottom.png",
-    "/resources/image-sets/default-image-set/orange.png",
-    "/resources/image-sets/default-image-set/orangehouse.png",
-    "/resources/image-sets/default-image-set/orangehotelleft.png",
-    "/resources/image-sets/default-image-set/orangehotelright.png",
-    "/resources/image-sets/default-image-set/orangehotelbottom.png",
-    "/resources/image-sets/default-image-set/red.png",
-    "/resources/image-sets/default-image-set/redhouse.png",
-    "/resources/image-sets/default-image-set/redhotelleft.png",
-    "/resources/image-sets/default-image-set/redhotelright.png",
-    "/resources/image-sets/default-image-set/redhotelbottom.png",
-    "/resources/image-sets/default-image-set/yellow.png",
-    "/resources/image-sets/default-image-set/yellowhouse.png",
-    "/resources/image-sets/default-image-set/yellowhotelleft.png",
-    "/resources/image-sets/default-image-set/yellowhotelright.png",
-    "/resources/image-sets/default-image-set/yellowhotelbottom.png",
-    "/resources/image-sets/default-image-set/green.png",
-    "/resources/image-sets/default-image-set/greenhouse.png",
-    "/resources/image-sets/default-image-set/greenhotelleft.png",
-    "/resources/image-sets/default-image-set/greenhotelright.png",
-    "/resources/image-sets/default-image-set/greenhotelbottom.png",
-    "/resources/image-sets/default-image-set/blue.png",
-    "/resources/image-sets/default-image-set/bluehouse.png",
-    "/resources/image-sets/default-image-set/bluehotelleft.png",
-    "/resources/image-sets/default-image-set/bluehotelright.png",
-    "/resources/image-sets/default-image-set/bluehotelbottom.png",
-    "/resources/image-sets/default-image-set/gotop.png",
-    "/resources/image-sets/default-image-set/gomid.png",
-    "/resources/image-sets/default-image-set/gobot.png",
-    "/resources/image-sets/default-image-set/jail.png",
-    "/resources/image-sets/default-image-set/chesttop.png",
-    "/resources/image-sets/default-image-set/chestbottom.png",
-    "/resources/image-sets/default-image-set/chance.png",
-    "/resources/image-sets/default-image-set/eleccomp.png",
-    "/resources/image-sets/default-image-set/waterworks.png",
-    "/resources/image-sets/default-image-set/parktop.png",
-    "/resources/image-sets/default-image-set/parkbot.png",
-    "/resources/image-sets/default-image-set/dotdie.png",
-    "/resources/image-sets/default-image-set/blankdie.png"
+    "baseboard.png",
+    "purple.png",
+    "purplehouse.png",
+    "purplehotelleft.png",
+    "purplehotelright.png",
+    "purplehotelbottom.png",
+    "lightblue.png",
+    "lightbluehouse.png",
+    "lightbluehotelleft.png",
+    "lightbluehotelright.png",
+    "lightbluehotelbottom.png",
+    "pink.png",
+    "pinkhouse.png",
+    "pinkhotelleft.png",
+    "pinkhotelright.png",
+    "pinkhotelbottom.png",
+    "orange.png",
+    "orangehouse.png",
+    "orangehotelleft.png",
+    "orangehotelright.png",
+    "orangehotelbottom.png",
+    "red.png",
+    "redhouse.png",
+    "redhotelleft.png",
+    "redhotelright.png",
+    "redhotelbottom.png",
+    "yellow.png",
+    "yellowhouse.png",
+    "yellowhotelleft.png",
+    "yellowhotelright.png",
+    "yellowhotelbottom.png",
+    "green.png",
+    "greenhouse.png",
+    "greenhotelleft.png",
+    "greenhotelright.png",
+    "greenhotelbottom.png",
+    "blue.png",
+    "bluehouse.png",
+    "bluehotelleft.png",
+    "bluehotelright.png",
+    "bluehotelbottom.png",
+    "gotop.png",
+    "gomid.png",
+    "gobot.png",
+    "jail.png",
+    "chesttop.png",
+    "chestbottom.png",
+    "chance.png",
+    "eleccomp.png",
+    "waterworks.png",
+    "parktop.png",
+    "parkbot.png",
+    "dotdie.png",
+    "blankdie.png"
   ],
   "basePaint": [
     [

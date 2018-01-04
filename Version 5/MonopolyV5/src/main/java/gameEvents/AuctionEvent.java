@@ -111,7 +111,7 @@ public class AuctionEvent extends AbstractEvent implements KeyListener {
 		}else{
 			person = "";
 		}
-		text = "<html>Current bid on "+prop.getName()+" is $"+bid + person
+		text = "<html>Current bid on "+prop.getName()+" is "+parent.getCurrencySymbol()+bid + person
 				+"<br>"+playerNames[turn]+", will you raise or pass? Entering 0 means you pass."
 				+"<br>Your offer:</html>";
 	}
@@ -124,7 +124,7 @@ public class AuctionEvent extends AbstractEvent implements KeyListener {
 	}
 	
 	private String whoWon(){
-		return "<html>"+playerNames[highestBidder]+" has won the auction and bought<br>"+prop.getName()+" for $"+bid+"</html>";
+		return "<html>"+playerNames[highestBidder]+" has won the auction and bought<br>"+prop.getName()+" for "+parent.getCurrencySymbol()+bid+"</html>";
 	}
 	
 	@Override

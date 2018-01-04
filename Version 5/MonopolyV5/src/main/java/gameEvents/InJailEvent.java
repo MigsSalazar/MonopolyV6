@@ -22,11 +22,11 @@ public class InJailEvent extends DiceNeededEvent {
 		if(pl.getJailCount() < 3){
 			lastDay = false;
 			text = "<html>You are in jail. Day: "+pl.getJailCount()+". Would you like to"
-					+ "<br>role for freedom or pay $50 bail?</html>";
+					+ "<br>role for freedom or pay "+parent.getCurrencySymbol()+"50 bail?</html>";
 		}else{
 			lastDay = true;
 			text = "<html>This is your last day in jail. Would you like to"
-					+ "<br>role for freedom or pay $50 bail?</html>";
+					+ "<br>role for freedom or pay "+parent.getCurrencySymbol()+"50 bail?</html>";
 		}
 		defineComponents();
 	}
@@ -61,7 +61,7 @@ public class InJailEvent extends DiceNeededEvent {
 				if(lastDay){
 					releasePrisoner();
 					t = "<html>You failed your role but you must leave."
-						+ "<br>Now taking $50 bail from your account.</html>";
+						+ "<br>Now taking "+parent.getCurrencySymbol()+"50 bail from your account.</html>";
 					event = new PlayervBankEvent(parent, t, currentPlayer, (-50));
 					releasePrisoner();
 					parent.paintEvent(event);
@@ -98,7 +98,7 @@ public class InJailEvent extends DiceNeededEvent {
 			}
 			
 		}else if(e.getSource().equals(buttons[1])){
-			t = "<html>You've paid the $50 bail!"
+			t = "<html>You've paid the "+parent.getCurrencySymbol()+"50 bail!"
 			+ "<br>Freedom is yours!"
 			+ "<br>Please roll to move.</html>";
 			event = new PlayervBankEvent(parent, t, currentPlayer, (-50));

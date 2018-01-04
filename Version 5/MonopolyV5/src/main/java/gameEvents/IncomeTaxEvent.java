@@ -21,7 +21,7 @@ public class IncomeTaxEvent extends AbstractEvent {
 		tax = calcTax();
 		//System.out.println("step 2");
 		text = "<html>"+play.getName()+", you must pay an income tax equivalent to"
-				+ "<br>10% of your total wealth or $200"
+				+ "<br>10% of your total wealth or "+parent.getCurrencySymbol()+"200"
 				+ "<br>10% of your wealth is "+tax+"</html>";
 		//System.out.println("step 3");
 		defineComponents();
@@ -36,7 +36,7 @@ public class IncomeTaxEvent extends AbstractEvent {
 			pbe = new PlayervBankEvent(parent, "<html>You have decided to pay 10%"
 											+ "<br>This has been taken from yuor account</html>",play,(-1)*tax);
 		}else if(e.getSource().equals(buttons[1])){
-			pbe = new PlayervBankEvent(parent, "<html>You have decided to pay $200"
+			pbe = new PlayervBankEvent(parent, "<html>You have decided to pay "+parent.getCurrencySymbol()+"200"
 											+ "<br>This has been taken from yuor account</html>",play,(-200));
 		}
 		parent.paintEvent(pbe);
@@ -49,10 +49,10 @@ public class IncomeTaxEvent extends AbstractEvent {
 	public void defineComponents() {
 		buttons = new JComponent[2];
 		
-		buttons[0] = new JButton("$"+tax);
+		buttons[0] = new JButton(parent.getCurrencySymbol()+tax);
 		((JButton)buttons[0]).addActionListener(this);
 		
-		buttons[1] = new JButton("$200");
+		buttons[1] = new JButton(parent.getCurrencySymbol()+"200");
 		((JButton)buttons[1]).addActionListener(this);
 		
 	}

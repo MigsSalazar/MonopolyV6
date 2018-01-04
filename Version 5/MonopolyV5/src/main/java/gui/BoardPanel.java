@@ -5,8 +5,8 @@ package main.java.gui;
 
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.io.File;
 import java.util.ArrayList;
-import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -15,17 +15,20 @@ import javax.swing.JPanel;
 import com.google.gson.annotations.Expose;
 
 import main.java.models.GamePath;
+import main.java.models.Pair;
 import main.java.models.Player;
-import main.java.models.Property;
 
 /**
  * @author Miguel Salazar
  *
  */
+@SuppressWarnings("serial")
 public class BoardPanel extends JPanel {
 	
-	@Expose private int boardWidth = 30;					//width of the board by icons, not by pixels
-	@Expose private int boardHeight = 30;					//height of the board by icons, not by pixels
+	@Expose private int boardWidth;					//width of the board by icons, not by pixels
+	@Expose private int boardHeight;					//height of the board by icons, not by pixels
+	@Expose private int boardPixWidth;
+	@Expose private int boardPixHeight;
 	@Expose private int playerCount;						//number of players in the game (used for player displaying)
 	@Expose private ArrayList<Piece> gamePieces;			//pieces that move around the board
 	@Expose private String[] playerIconPaths;				//stores the path as a string of the icons that gamepieces uses to display themselves
@@ -61,40 +64,37 @@ public class BoardPanel extends JPanel {
 	
 	public void jailPlayer(int player){
 		Piece playerPiece = gamePieces.get(player);
-		int[] coords = findJailCoords(player);
-		updateIcon(playerPiece, 10,coords[0],coords[1]);
+		Pair<Integer,Integer> coords = findJailCoords(player);
+		updateIcon(playerPiece, 10,coords.first,coords.second);
 		
 	}
 
-	private int[] findJailCoords(int player) {
-		int[] coords = new int[2];
+	private Pair<Integer,Integer> findJailCoords(int player) {
+		Pair<Integer,Integer> coords;
 		switch(player){
-		case 0: coords[0] = 25;
-				coords[1]= 2;
+		case 0: coords = new Pair<Integer,Integer>(25,2);
 				break;
-		case 1:coords[0]= 26;
-				coords[1]= 2;
+		case 1:coords = new Pair<Integer,Integer>(26,2);
 				break;
-		case 2:coords[0]= 27;
-				coords[1]= 2;
+		case 2:coords = new Pair<Integer,Integer>(27,2);
 				break;
-		case 3:coords[0]= 27;
-				coords[1]= 3;
+		case 3:coords = new Pair<Integer,Integer>(27,3);
 				break;
-		case 4:coords[0]= 27;
-				coords[1]= 4;
+		case 4:coords = new Pair<Integer,Integer>(27,4);
 				break;
-		case 5:coords[1]= 26;
-				coords[1]= 4;
+		case 5:coords = new Pair<Integer,Integer>(26,4);
 				break;
-		case 6:	coords[1]= 25;
-				coords[1]= 4;
+		case 6:	coords = new Pair<Integer,Integer>(25,4);
 				break;
-		case 7:coords[1]= 25;
-				coords[1]= 3;
+		case 7:coords = new Pair<Integer,Integer>(25,3);
 				break;
+		default:coords = new Pair<Integer,Integer>(26,3);
 		}
 		return coords;
+	}
+	
+	public void firstPaintBoard(ArrayList<Player> players) throws NullPointerException{
+		firstPaintBoard("", players);
 	}
 	
 	public void firstPaintBoard(String dir, ArrayList<Player> players) throws NullPointerException{
@@ -103,7 +103,14 @@ public class BoardPanel extends JPanel {
 		
 		imageIndex = new ImageIcon[iconPaths.length];
 		for(int i=0; i<imageIndex.length; i++){
-			imageIndex[i] = new ImageIcon(dir+iconPaths[i]);
+			if(new File(dir+iconPaths[i]).exists()){
+				imageIndex[i] = new ImageIcon(dir+iconPaths[i]);
+			}else if(new File(System.getProperty("user.dir")+"/resources/image-sets/default-image-set/"+iconPaths[i]  ).exists()){
+				imageIndex[i] = new ImageIcon(System.getProperty("user.dir")+"/resources/image-sets/default-image-set/"+iconPaths[i]);
+			}else{
+				imageIndex[i] = new ImageIcon(System.getProperty("user.dir")+"/resources/image-sets/default-image-set/404ERROR.png");
+			}
+			
 		}
 		
 		displayedBoard = new ImageIcon[boardWidth][boardHeight];
@@ -115,7 +122,7 @@ public class BoardPanel extends JPanel {
 		}
 		paintDice(0,0);
 		for(Piece gp : gamePieces){
-			gp.updateIcon();
+			gp.updateIcon(dir);
 		}
 		
 		
@@ -123,8 +130,8 @@ public class BoardPanel extends JPanel {
 			Piece plPiece = gamePieces.get(i);
 			if(players.get(i).isInJail()){
 				int id = players.get(i).getUserID();
-				int[] coords = findJailCoords(id);
-				updateIcon(plPiece, plPiece.getTravelPath().getCurrentStep(), coords[0], coords[1]);
+				Pair<Integer,Integer> coords = findJailCoords(id);
+				updateIcon(plPiece, plPiece.getTravelPath().getCurrentStep(), coords.first, coords.second);
 			}else{
 				updateIcon(plPiece, plPiece.getTravelPath().getCurrentStep());
 			}
@@ -166,63 +173,48 @@ public class BoardPanel extends JPanel {
 
 	private void dice2(int d2) {
 		switch(d2){
+		case 5: changeIcon(imageIndex[52],6,18);
+				changeIcon(imageIndex[52],8,16);
+				
+		case 3: changeIcon(imageIndex[52],6,16);
+				changeIcon(imageIndex[52],8,18);
+				
 		case 1: changeIcon(imageIndex[52],7,17);
 				break;
+				
+		case 6: changeIcon(imageIndex[52],6,17);
+				changeIcon(imageIndex[52],8,17);
+				
+		case 4: changeIcon(imageIndex[52],6,18);
+				changeIcon(imageIndex[52],8,16);
+				
 		case 2: changeIcon(imageIndex[52],6,16);
 				changeIcon(imageIndex[52],8,18);
 				break;
-		case 3: changeIcon(imageIndex[52],6,16);
-				changeIcon(imageIndex[52],7,17);
-				changeIcon(imageIndex[52],8,18);
-				break;
-		case 4: changeIcon(imageIndex[52],6,16);
-				changeIcon(imageIndex[52],8,18);
-				changeIcon(imageIndex[52],6,18);
-				changeIcon(imageIndex[52],8,16);
-				break;
-		case 5: changeIcon(imageIndex[52],6,16);
-				changeIcon(imageIndex[52],8,18);
-				changeIcon(imageIndex[52],6,18);
-				changeIcon(imageIndex[52],8,16);
-				changeIcon(imageIndex[52],7,17);
-				break;
-		case 6: changeIcon(imageIndex[52],6,16);
-				changeIcon(imageIndex[52],6,17);
-				changeIcon(imageIndex[52],6,18);
-				changeIcon(imageIndex[52],8,16);
-				changeIcon(imageIndex[52],8,17);
-				changeIcon(imageIndex[52],8,18);
+		
 		}
 	}
 
 	private void dice1(int d1) {
 		switch(d1){
+		case 5: changeIcon(imageIndex[52],6,13);
+				changeIcon(imageIndex[52],8,11);
+				
+		case 3: changeIcon(imageIndex[52],6,11);
+				changeIcon(imageIndex[52],8,13);
+				
 		case 1: changeIcon(imageIndex[52],7,12);
 				break;
+		
+		case 6: changeIcon(imageIndex[52],6,12);
+				changeIcon(imageIndex[52],8,12);
+				
+		case 4: changeIcon(imageIndex[52],6,13);
+				changeIcon(imageIndex[52],8,11);
+				
 		case 2: changeIcon(imageIndex[52],6,11);
 				changeIcon(imageIndex[52],8,13);
 				break;
-		case 3: changeIcon(imageIndex[52],6,11);
-				changeIcon(imageIndex[52],7,12);
-				changeIcon(imageIndex[52],8,13);
-				break;
-		case 4: changeIcon(imageIndex[52],6,11);
-				changeIcon(imageIndex[52],8,13);
-				changeIcon(imageIndex[52],6,13);
-				changeIcon(imageIndex[52],8,11);
-				break;
-		case 5: changeIcon(imageIndex[52],6,11);
-				changeIcon(imageIndex[52],8,13);
-				changeIcon(imageIndex[52],6,13);
-				changeIcon(imageIndex[52],8,11);
-				changeIcon(imageIndex[52],7,12);
-				break;
-		case 6: changeIcon(imageIndex[52],6,11);
-				changeIcon(imageIndex[52],6,12);
-				changeIcon(imageIndex[52],6,13);
-				changeIcon(imageIndex[52],8,11);
-				changeIcon(imageIndex[52],8,12);
-				changeIcon(imageIndex[52],8,13);
 		}
 	}
 	
@@ -309,8 +301,8 @@ public class BoardPanel extends JPanel {
 		int currR = gp.getCurrentRow();
 		int currC = gp.getCurrentCol();
 		changeIcon(imageIndex[ basePaint[currR][currC] ], currR, currC);
-		int[] coords = findJailCoords(pnum);
-		changeIcon(imageIndex[ basePaint[coords[0]][coords[1]] ], coords[0], coords[1]);;
+		Pair<Integer,Integer> coords = findJailCoords(pnum);
+		changeIcon(imageIndex[ basePaint[coords.first][coords.second] ], coords.first, coords.second);;
 	}
 	
 	public boolean updateIcon(Piece p, int newposition, int r, int c){
@@ -398,5 +390,29 @@ public class BoardPanel extends JPanel {
 
 	public void setPlayerIconPaths(String[] playerIconPaths) {
 		this.playerIconPaths = playerIconPaths;
+	}
+
+
+
+	public int getBoardPixWidth() {
+		return boardPixWidth;
+	}
+
+
+
+	public void setBoardPixWidth(int boardPixWidth) {
+		this.boardPixWidth = boardPixWidth;
+	}
+
+
+
+	public int getBoardPixHeight() {
+		return boardPixHeight;
+	}
+
+
+
+	public void setBoardPixHeight(int boardPixHeight) {
+		this.boardPixHeight = boardPixHeight;
 	}
 }

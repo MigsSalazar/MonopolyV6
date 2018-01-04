@@ -13,6 +13,7 @@ import main.java.action.Runner;
 public class EventPanel extends JPanel {
 	
 	private Runner gameVars;
+	private String currencySymbol;
 	private JLabel text;
 	private JPanel componentPanel = new JPanel();
 	private AbstractEvent currentEvent;
@@ -27,6 +28,7 @@ public class EventPanel extends JPanel {
 		//this.setSize(600,200);
 		//this.setVisible(true);
 		gameVars = gv;
+		currencySymbol = gameVars.getCurrencySymbol();
 		text = new JLabel();
 		//rootMenu = new MainMenu(this);
 		//currentEvent = rootMenu;
@@ -110,6 +112,10 @@ public class EventPanel extends JPanel {
 	
 	public Runner getGlobalVars(){
 		return gameVars;
+	}
+
+	public String getCurrencySymbol() {
+		return currencySymbol;
 	}
 	
 }

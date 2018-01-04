@@ -27,6 +27,8 @@ public class PlayerPanel extends JPanel {
 
 	private Player myPlayer;
 	
+	private String currencySymbol;
+	
 	private JPanel labels = new JPanel(new GridLayout(8,1));
 	private JLabel name;
 	private JLabel wealth;
@@ -45,7 +47,8 @@ public class PlayerPanel extends JPanel {
 	 * information pertaining to the passed player object needed for game play
 	 * @param p	Player object for which to display the current standings
 	 */
-	public PlayerPanel(Player p){
+	public PlayerPanel(Player p, String cs){
+		currencySymbol = cs;
 		myPlayer=p;
 		this.setLayout(new BorderLayout());
 		
@@ -63,8 +66,8 @@ public class PlayerPanel extends JPanel {
 	public void formLabels(){
 		
 		name = new JLabel(myPlayer.getName());
-		wealth = new JLabel("Cumulative wealth: $"+myPlayer.getWealth());
-		bank = new JLabel("Liquid cash: $"+myPlayer.getCash());
+		wealth = new JLabel("Cumulative wealth: "+currencySymbol+myPlayer.getWealth());
+		bank = new JLabel("Liquid cash: "+currencySymbol+myPlayer.getCash());
 		posi = new JLabel("Current Position: "+myPlayer.getPosition());
 		jail = new JLabel("Jail Status: "+myPlayer.isInJail());
 		card = new JLabel("Get out of Jail Cards: "+myPlayer.getJailCards());
@@ -105,8 +108,8 @@ public class PlayerPanel extends JPanel {
 	public void updatePanel(){
 		
 		name.setText(myPlayer.getName());
-		wealth.setText("Cumulative Wealth: $"+myPlayer.getWealth());
-		bank.setText("Liquid Cash: $"+myPlayer.getCash());
+		wealth.setText("Cumulative Wealth: "+currencySymbol+myPlayer.getWealth());
+		bank.setText("Liquid Cash: "+currencySymbol+myPlayer.getCash());
 		posi.setText("Current Position "+myPlayer.getPosition());
 		jail.setText("Jail Status: "+myPlayer.isInJail());
 		card.setText("Get our of Jail Cards: "+myPlayer.getJailCards());

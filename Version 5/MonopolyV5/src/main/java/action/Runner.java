@@ -44,7 +44,11 @@ public class Runner {
 	private Roll gameDice;
 	private GameFrame game;
 	private GameReader gread;
-	Settings sets;
+	private Settings sets;
+	
+	public Runner(Settings s){
+		sets = s;
+	}
 	
 	public void saveThisGame(){
 		if(gread.isNewGame()){
@@ -63,18 +67,18 @@ public class Runner {
 	
 	
 	public boolean startNewGame(){
+		game = new GameFrame(true, this);
 		playerTurn = 0;
 		gameDice = new Roll(this);
 		
-		gread = new GameReader();
+		gread = new GameReader(sets);
 		
-		game = new GameFrame(true, this);
-		sets = new Settings((JFrame)game);
+		
+		
 		try {
 			
 			game.giveBoardPanel(requestBoardPanel());
-			
-			if(!playerSelection()){
+			if(!playerSelection(sets.textureMe())){
 				return false;
 			}
 			
@@ -108,14 +112,14 @@ public class Runner {
 
 
 
-	private boolean playerSelection() throws IOException {
+	private boolean playerSelection(String textureDir) throws IOException {
 		String[] playerPiecePaths = game.getGameBoard().getPlayerIconPaths();
 		
 		ImageIcon[] playerPieceIcons = new ImageIcon[playerPiecePaths.length];
-		String dir = System.getProperty("user.dir");
+		//String dir = System.getProperty("user.dir");
 		for(int i=0; i<playerPiecePaths.length; i++){
 			//System.out.println("playerPiecePath at "+i+": "+playerPiecePaths[i]);
-			playerPieceIcons[i] = new ImageIcon(dir + playerPiecePaths[i]);
+			playerPieceIcons[i] = new ImageIcon(textureDir + playerPiecePaths[i]);
 		}
 		
 		ArrayList<Pair<String,Integer>> fillMe = new ArrayList<Pair<String,Integer>>();
@@ -153,9 +157,9 @@ public class Runner {
 		*/
 		BoardPanel board = game.getGameBoard();
 		board.setPlayerCount(fillMe.size());
-		board.pickPlayerPieces(selection, dir);
+		board.pickPlayerPieces(selection, textureDir);
 		ArrayList<Player> pl = new ArrayList<Player>(players.values());
-		board.firstPaintBoard(sets.textureMe(), pl);
+		board.firstPaintBoard(textureDir, pl);
 		return true;
 	}
 	
@@ -173,7 +177,7 @@ public class Runner {
 		gameDice = new Roll(this);
 		
 		game = new GameFrame(true, this);
-		sets = new Settings((JFrame)game);
+		//sets = new Settings((JFrame)game);
 		
 		JFileChooser fc = new JFileChooser(System.getProperty("user.dir")+"/saved-games/locations-folder/");
 		int retval = fc.showOpenDialog(game);
@@ -202,7 +206,7 @@ public class Runner {
 			
 			BoardPanel board = game.getGameBoard();
 			ArrayList<Player> pl = new ArrayList<Player>(players.values());
-			board.firstPaintBoard(sets.textureMe(), pl);
+			board.firstPaintBoard(pl);
 			
 			commChest = gread.getCommChest();
 			chance = gread.getChance();
@@ -393,24 +397,24 @@ public class Runner {
 			if(prop instanceof Colored){
 				Colored color = (Colored)prop;
 				
-				int[] coords = findBoardCoord(color.getPosition());
+				Pair<Integer,Integer> coords = findBoardCoord(color.getPosition());
 				
-				int num = basePaint[coords[0]][coords[1]];
-				board.changeIcon(num, coords[0], coords[1]);
-				board.changeIcon(num, coords[0], coords[1]+1);
-				board.changeIcon(num, coords[0]+1, coords[1]);
-				board.changeIcon(num, coords[0]+1, coords[1]+1);
+				int num = basePaint[coords.first][coords.second];
+				board.changeIcon(num, coords.first, coords.second);
+				board.changeIcon(num, coords.first, coords.second+1);
+				board.changeIcon(num, coords.first+1, coords.second);
+				board.changeIcon(num, coords.first+1, coords.second+1);
 				
 				switch(color.getGrade()){
-				case 5:	board.changeIcon(num+3, coords[0], coords[1]);
-						board.changeIcon(num+2, coords[0], coords[1]+1);
-						board.changeIcon(num+4, coords[0]+1, coords[1]);
-						board.changeIcon(num+4, coords[0]+1, coords[1]+1);
+				case 5:	board.changeIcon(num+3, coords.first, coords.second);
+						board.changeIcon(num+2, coords.first, coords.second+1);
+						board.changeIcon(num+4, coords.first+1, coords.second);
+						board.changeIcon(num+4, coords.first+1, coords.second+1);
 						break;
-				case 4:	board.changeIcon(num+1, coords[0]+1, coords[1]+1);
-				case 3:	board.changeIcon(num+1, coords[0], coords[1]+1);
-				case 2:	board.changeIcon(num+1, coords[0]+1, coords[1]);
-				case 1:	board.changeIcon(num+1, coords[0], coords[1]);
+				case 4:	board.changeIcon(num+1, coords.first+1, coords.second+1);
+				case 3:	board.changeIcon(num+1, coords.first, coords.second+1);
+				case 2:	board.changeIcon(num+1, coords.first+1, coords.second);
+				case 1:	board.changeIcon(num+1, coords.first, coords.second);
 						break;
 				}
 				
@@ -419,78 +423,56 @@ public class Runner {
 		
 	}
 	
-	private int[] findBoardCoord(int position){
-		int[] coords = new int[2];
+	private Pair<Integer,Integer> findBoardCoord(int position){
+		Pair<Integer,Integer> coords;
 		
 		switch(position){
-		case 1: coords[0] = 24;
-				coords[1] = 22;
+		case 1: coords = new Pair<Integer,Integer>(24,22);
 				break;
-		case 3:	coords[0] = 24;
-				coords[1] = 18;
+		case 3:	coords = new Pair<Integer,Integer>(24,18);
 				break;
-		case 6:	coords[0] = 24;
-				coords[1] = 12;
+		case 6:	coords = new Pair<Integer,Integer>(24,12);
 				break;
-		case 8:	coords[0] = 24;
-				coords[1] = 8;
+		case 8:	coords = new Pair<Integer,Integer>(24,8);
 				break;
-		case 9:	coords[0] = 24;
-				coords[1] = 6;
+		case 9:	coords = new Pair<Integer,Integer>(24,6);
 				break;
-		case 11:coords[1] = 6;
-				coords[0] = 22;
+		case 11:coords = new Pair<Integer,Integer>(6,22);
 				break;
-		case 13:coords[1] = 6;
-				coords[0] = 18;
+		case 13:coords = new Pair<Integer,Integer>(18,6);
 				break;
-		case 14:coords[1] = 6;
-				coords[0] = 16;
+		case 14:coords = new Pair<Integer,Integer>(16,6);
 				break;
-		case 16:coords[1] = 6;
-				coords[0] = 12;
+		case 16:coords = new Pair<Integer,Integer>(12,6);
 				break;
-		case 18:coords[1] = 6;
-				coords[0] = 8;
+		case 18:coords = new Pair<Integer,Integer>(8,6);
 				break;
-		case 19:coords[1] = 6;
-				coords[0] = 6;
+		case 19:coords = new Pair<Integer,Integer>(6,6);
 				break;
-		case 21:coords[0] = 4;
-				coords[1] = 6;
+		case 21:coords = new Pair<Integer,Integer>(4,6);
 				break;
-		case 23:coords[0] = 4;
-				coords[1] = 10;
+		case 23:coords = new Pair<Integer,Integer>(4,10);
 				break;
-		case 24:coords[0] = 4;
-				coords[1] = 12;
+		case 24:coords = new Pair<Integer,Integer>(4,12);
 				break;
-		case 26:coords[0] = 4;
-				coords[1] = 16;
+		case 26:coords = new Pair<Integer,Integer>(4,16);
 				break;
-		case 27:coords[0] = 4;
-				coords[1] = 18;
+		case 27:coords = new Pair<Integer,Integer>(4,18);
 				break;
-		case 29:coords[0] = 4;
-				coords[1] = 22;
+		case 29:coords = new Pair<Integer,Integer>(4,22);
 				break;
-		case 31:coords[1] = 24;
-				coords[0] = 6;
+		case 31:coords = new Pair<Integer,Integer>(6,24);
 				break;
-		case 32:coords[1] = 24;
-				coords[0] = 8;
+		case 32:coords = new Pair<Integer,Integer>(8,24);
 				break;
-		case 34:coords[1] = 24;
-				coords[0] = 12;
+		case 34:coords = new Pair<Integer,Integer>(12,24);
 				break;
-		case 37:coords[1] = 24;
-				coords[0] = 18;
+		case 37:coords = new Pair<Integer,Integer>(18,24);
 				break;
-		case 39:coords[1] = 24;
-				coords[0] = 22;
+		case 39:coords = new Pair<Integer,Integer>(22,24);
 				break;
+		default:coords = new Pair<Integer,Integer>(10,10);
 		}
-		
 		return coords;
 	}
 	
@@ -533,6 +515,12 @@ public class Runner {
 
 	public void setChance(ArrayList<GameCard> chance) {
 		this.chance = chance;
+	}
+
+
+
+	public String getCurrencySymbol() {
+		return sets.getSigil();
 	}
 	
 }

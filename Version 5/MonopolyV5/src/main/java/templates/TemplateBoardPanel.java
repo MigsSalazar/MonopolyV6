@@ -19,9 +19,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import main.java.models.GamePath;
+import main.java.models.Pair;
 import main.java.gui.Stamp;
 import main.java.gui.Piece;
-import main.java.models.CoordPair;
 
 
 /**
@@ -37,6 +37,8 @@ public class TemplateBoardPanel extends JPanel {
 	
 	@Expose private int boardWidth = 30;
 	@Expose private int boardHeight = 30;
+	@Expose private int boardPixWidth = 600;
+	@Expose private int boardPixHeight = 600;
 	@Expose private int playerCount = 8;
 	@Expose private String dir = System.getProperty("user.dir");
 	@Expose private ArrayList<Piece> gamePieces;
@@ -98,14 +100,14 @@ public class TemplateBoardPanel extends JPanel {
 	}
 	
 	private void generatePlayerIconPaths(){
-		String[] playerip = {"/resources/image-sets/default-image-set/pupper.png",
-							 "/resources/image-sets/default-image-set/thimble.png",
-							 "/resources/image-sets/default-image-set/boot.png",
-							 "/resources/image-sets/default-image-set/boat.png",
-							 "/resources/image-sets/default-image-set/wheelbarrow.png",
-							 "/resources/image-sets/default-image-set/hat.png",
-							 "/resources/image-sets/default-image-set/iron.png",
-							 "/resources/image-sets/default-image-set/car.png"};
+		String[] playerip = {"pupper.png",
+							 "thimble.png",
+							 "boot.png",
+							 "boat.png",
+							 "wheelbarrow.png",
+							 "hat.png",
+							 "iron.png",
+							 "car.png"};
 		playerIconPaths = playerip;
 		
 	}
@@ -187,8 +189,8 @@ public class TemplateBoardPanel extends JPanel {
 	
 	public void printPath(GamePath p){
 		for(int i=0; i<40; i++){
-			int r = p.getStepAt(i).getRow();
-			int c = p.getStepAt(i).getCol();
+			int r = p.getStepAt(i).first;
+			int c = p.getStepAt(i).second;
 			displayedBoard[r][c] = imageIndex[22];
 			
 			Component com = this.getComponent(r*displayedBoard.length+c);
@@ -213,21 +215,21 @@ public class TemplateBoardPanel extends JPanel {
 	
 	private void generatePath1(){
 		GamePath p = new GamePath();
-		p.addStep(new CoordPair(25,25));
+		p.addStep(new Pair<Integer,Integer>(25,25));
 		for(int c=22; c > 5; c=c-2){
-			p.addStep(new CoordPair(26,c));
+			p.addStep(new Pair<Integer,Integer>(26,c));
 		}
-		p.addStep(new CoordPair(25,0));
+		p.addStep(new Pair<Integer,Integer>(25,0));
 		for(int r=22; r>5; r=r-2){
-			p.addStep(new CoordPair(r,0));
+			p.addStep(new Pair<Integer,Integer>(r,0));
 		}
-		p.addStep(new CoordPair(2,0));
+		p.addStep(new Pair<Integer,Integer>(2,0));
 		for(int c=6; c<23; c=c+2){
-			p.addStep(new CoordPair(0,c));
+			p.addStep(new Pair<Integer,Integer>(0,c));
 		}
-		p.addStep(new CoordPair(1,25));
+		p.addStep(new Pair<Integer,Integer>(1,25));
 		for(int r=6; r<23; r=r+2){
-			p.addStep(new CoordPair(r,26));
+			p.addStep(new Pair<Integer,Integer>(r,26));
 		}
 		
 		paths.add(p);
@@ -236,21 +238,21 @@ public class TemplateBoardPanel extends JPanel {
 	
 	private void generatePath2(){
 		GamePath p = new GamePath();
-		p.addStep(new CoordPair(25,26));
+		p.addStep(new Pair<Integer,Integer>(25,26));
 		for(int c=23; c > 5; c=c-2){
-			p.addStep(new CoordPair(26,c));
+			p.addStep(new Pair<Integer,Integer>(26,c));
 		}
-		p.addStep(new CoordPair(26,0));
+		p.addStep(new Pair<Integer,Integer>(26,0));
 		for(int r=22; r>5; r=r-2){
-			p.addStep(new CoordPair(r,1));
+			p.addStep(new Pair<Integer,Integer>(r,1));
 		}
-		p.addStep(new CoordPair(2,1));
+		p.addStep(new Pair<Integer,Integer>(2,1));
 		for(int c=7; c<24; c=c+2){
-			p.addStep(new CoordPair(0,c));
+			p.addStep(new Pair<Integer,Integer>(0,c));
 		}
-		p.addStep(new CoordPair(1,26));
+		p.addStep(new Pair<Integer,Integer>(1,26));
 		for(int r=6; r<24; r=r+2){
-			p.addStep(new CoordPair(r,27));
+			p.addStep(new Pair<Integer,Integer>(r,27));
 		}
 		
 		paths.add(p);
@@ -259,21 +261,21 @@ public class TemplateBoardPanel extends JPanel {
 	
 	private void generatePath3(){
 		GamePath p = new GamePath();
-		p.addStep(new CoordPair(25,27));
+		p.addStep(new Pair<Integer,Integer>(25,27));
 		for(int c=22; c > 5; c=c-2){
-			p.addStep(new CoordPair(27,c));
+			p.addStep(new Pair<Integer,Integer>(27,c));
 		}
-		p.addStep(new CoordPair(27,0));
+		p.addStep(new Pair<Integer,Integer>(27,0));
 		for(int r=22; r>5; r=r-2){
-			p.addStep(new CoordPair(r,2));
+			p.addStep(new Pair<Integer,Integer>(r,2));
 		}
-		p.addStep(new CoordPair(2,4));
+		p.addStep(new Pair<Integer,Integer>(2,4));
 		for(int c=6; c<24; c=c+2){
-			p.addStep(new CoordPair(1,c));
+			p.addStep(new Pair<Integer,Integer>(1,c));
 		}
-		p.addStep(new CoordPair(1,27));
+		p.addStep(new Pair<Integer,Integer>(1,27));
 		for(int r=6; r<24; r=r+2){
-			p.addStep(new CoordPair(r,28));
+			p.addStep(new Pair<Integer,Integer>(r,28));
 		}
 		
 		paths.add(p);
@@ -282,21 +284,21 @@ public class TemplateBoardPanel extends JPanel {
 	
 	private void generatePath4(){
 		GamePath p = new GamePath();
-		p.addStep(new CoordPair(25,28));
+		p.addStep(new Pair<Integer,Integer>(25,28));
 		for(int c=23; c > 5; c=c-2){
-			p.addStep(new CoordPair(27,c));
+			p.addStep(new Pair<Integer,Integer>(27,c));
 		}
-		p.addStep(new CoordPair(28,0));
+		p.addStep(new Pair<Integer,Integer>(28,0));
 		for(int r=22; r>5; r=r-2){
-			p.addStep(new CoordPair(r,3));
+			p.addStep(new Pair<Integer,Integer>(r,3));
 		}
-		p.addStep(new CoordPair(2,5));
+		p.addStep(new Pair<Integer,Integer>(2,5));
 		for(int c=7; c<24; c=c+2){
-			p.addStep(new CoordPair(1,c));
+			p.addStep(new Pair<Integer,Integer>(1,c));
 		}
-		p.addStep(new CoordPair(1,28));
+		p.addStep(new Pair<Integer,Integer>(1,28));
 		for(int r=6; r<24; r=r+2){
-			p.addStep(new CoordPair(r,29));
+			p.addStep(new Pair<Integer,Integer>(r,29));
 		}
 		
 		paths.add(p);
@@ -305,21 +307,21 @@ public class TemplateBoardPanel extends JPanel {
 	
 	private void generatePath5(){
 		GamePath p = new GamePath();
-		p.addStep(new CoordPair(26,25));
+		p.addStep(new Pair<Integer,Integer>(26,25));
 		for(int c=22; c > 5; c=c-2){
-			p.addStep(new CoordPair(28,c));
+			p.addStep(new Pair<Integer,Integer>(28,c));
 		}
-		p.addStep(new CoordPair(29,1));
+		p.addStep(new Pair<Integer,Integer>(29,1));
 		for(int r=23; r>5; r=r-2){
-			p.addStep(new CoordPair(r,0));
+			p.addStep(new Pair<Integer,Integer>(r,0));
 		}
-		p.addStep(new CoordPair(3,0));
+		p.addStep(new Pair<Integer,Integer>(3,0));
 		for(int c=6; c<24; c=c+2){
-			p.addStep(new CoordPair(2,c));
+			p.addStep(new Pair<Integer,Integer>(2,c));
 		}
-		p.addStep(new CoordPair(2,25));
+		p.addStep(new Pair<Integer,Integer>(2,25));
 		for(int r=7; r<24; r=r+2){
-			p.addStep(new CoordPair(r,26));
+			p.addStep(new Pair<Integer,Integer>(r,26));
 		}
 		
 		paths.add(p);
@@ -328,21 +330,21 @@ public class TemplateBoardPanel extends JPanel {
 	
 	private void generatePath6(){
 		GamePath p = new GamePath();
-		p.addStep(new CoordPair(26,26));
+		p.addStep(new Pair<Integer,Integer>(26,26));
 		for(int c=23; c > 5; c=c-2){
-			p.addStep(new CoordPair(28,c));
+			p.addStep(new Pair<Integer,Integer>(28,c));
 		}
-		p.addStep(new CoordPair(29,2));
+		p.addStep(new Pair<Integer,Integer>(29,2));
 		for(int r=23; r>5; r=r-2){
-			p.addStep(new CoordPair(r,1));
+			p.addStep(new Pair<Integer,Integer>(r,1));
 		}
-		p.addStep(new CoordPair(3,1));
+		p.addStep(new Pair<Integer,Integer>(3,1));
 		for(int c=7; c<24; c=c+2){
-			p.addStep(new CoordPair(2,c));
+			p.addStep(new Pair<Integer,Integer>(2,c));
 		}
-		p.addStep(new CoordPair(2,26));
+		p.addStep(new Pair<Integer,Integer>(2,26));
 		for(int r=7; r<24; r=r+2){
-			p.addStep(new CoordPair(r,27));
+			p.addStep(new Pair<Integer,Integer>(r,27));
 		}
 		
 		paths.add(p);
@@ -351,21 +353,21 @@ public class TemplateBoardPanel extends JPanel {
 	
 	private void generatePath7(){
 		GamePath p = new GamePath();
-		p.addStep(new CoordPair(26,27));
+		p.addStep(new Pair<Integer,Integer>(26,27));
 		for(int c=22; c > 5; c=c-2){
-			p.addStep(new CoordPair(29,c));
+			p.addStep(new Pair<Integer,Integer>(29,c));
 		}
-		p.addStep(new CoordPair(29,3));
+		p.addStep(new Pair<Integer,Integer>(29,3));
 		for(int r=23; r>5; r=r-2){
-			p.addStep(new CoordPair(r,2));
+			p.addStep(new Pair<Integer,Integer>(r,2));
 		}
-		p.addStep(new CoordPair(3,4));
+		p.addStep(new Pair<Integer,Integer>(3,4));
 		for(int c=6; c<24; c=c+2){
-			p.addStep(new CoordPair(3,c));
+			p.addStep(new Pair<Integer,Integer>(3,c));
 		}
-		p.addStep(new CoordPair(2,27));
+		p.addStep(new Pair<Integer,Integer>(2,27));
 		for(int r=7; r<24; r=r+2){
-			p.addStep(new CoordPair(r,28));
+			p.addStep(new Pair<Integer,Integer>(r,28));
 		}
 		
 		paths.add(p);
@@ -374,21 +376,21 @@ public class TemplateBoardPanel extends JPanel {
 	
 	private void generatePath8(){
 		GamePath p = new GamePath();
-		p.addStep(new CoordPair(26,28));
+		p.addStep(new Pair<Integer,Integer>(26,28));
 		for(int c=23; c > 5; c=c-2){
-			p.addStep(new CoordPair(29,c));
+			p.addStep(new Pair<Integer,Integer>(29,c));
 		}
-		p.addStep(new CoordPair(29,4));
+		p.addStep(new Pair<Integer,Integer>(29,4));
 		for(int r=23; r>5; r=r-2){
-			p.addStep(new CoordPair(r,3));
+			p.addStep(new Pair<Integer,Integer>(r,3));
 		}
-		p.addStep(new CoordPair(3,5));
+		p.addStep(new Pair<Integer,Integer>(3,5));
 		for(int c=7; c<24; c=c+2){
-			p.addStep(new CoordPair(3,c));
+			p.addStep(new Pair<Integer,Integer>(3,c));
 		}
-		p.addStep(new CoordPair(2,28));
+		p.addStep(new Pair<Integer,Integer>(2,28));
 		for(int r=7; r<24; r=r+2){
-			p.addStep(new CoordPair(r,29));
+			p.addStep(new Pair<Integer,Integer>(r,29));
 		}
 		
 		paths.add(p);
@@ -654,60 +656,60 @@ public class TemplateBoardPanel extends JPanel {
 	}
 	
 	private void templateImageIndex(){
-		String[] icons = {	"/resources/image-sets/default-image-set/baseboard.png",			//0
-							"/resources/image-sets/default-image-set/purple.png",				//1
-							"/resources/image-sets/default-image-set/purplehouse.png",			//2
-							"/resources/image-sets/default-image-set/purplehotelleft.png",		//3
-							"/resources/image-sets/default-image-set/purplehotelright.png",		//4
-							"/resources/image-sets/default-image-set/purplehotelbottom.png",	//5
-							"/resources/image-sets/default-image-set/lightblue.png",			//6
-							"/resources/image-sets/default-image-set/lightbluehouse.png",		//7
-							"/resources/image-sets/default-image-set/lightbluehotelleft.png",	//8
-							"/resources/image-sets/default-image-set/lightbluehotelright.png",	//9
-							"/resources/image-sets/default-image-set/lightbluehotelbottom.png", //10
-							"/resources/image-sets/default-image-set/pink.png",					//11
-							"/resources/image-sets/default-image-set/pinkhouse.png",			//12
-							"/resources/image-sets/default-image-set/pinkhotelleft.png",		//13
-							"/resources/image-sets/default-image-set/pinkhotelright.png",		//14
-							"/resources/image-sets/default-image-set/pinkhotelbottom.png",		//15
-							"/resources/image-sets/default-image-set/orange.png",				//16
-							"/resources/image-sets/default-image-set/orangehouse.png",			//17
-							"/resources/image-sets/default-image-set/orangehotelleft.png",		//18
-							"/resources/image-sets/default-image-set/orangehotelright.png",		//19
-							"/resources/image-sets/default-image-set/orangehotelbottom.png",	//20
-							"/resources/image-sets/default-image-set/red.png",					//21
-							"/resources/image-sets/default-image-set/redhouse.png",				//22
-							"/resources/image-sets/default-image-set/redhotelleft.png",			//23
-							"/resources/image-sets/default-image-set/redhotelright.png",		//24
-							"/resources/image-sets/default-image-set/redhotelbottom.png",		//25
-							"/resources/image-sets/default-image-set/yellow.png",				//26
-							"/resources/image-sets/default-image-set/yellowhouse.png",			//27
-							"/resources/image-sets/default-image-set/yellowhotelleft.png",		//28
-							"/resources/image-sets/default-image-set/yellowhotelright.png",		//29
-							"/resources/image-sets/default-image-set/yellowhotelbottom.png",	//30
-							"/resources/image-sets/default-image-set/green.png",				//31
-							"/resources/image-sets/default-image-set/greenhouse.png",			//32
-							"/resources/image-sets/default-image-set/greenhotelleft.png",		//33
-							"/resources/image-sets/default-image-set/greenhotelright.png",		//34
-							"/resources/image-sets/default-image-set/greenhotelbottom.png",		//35
-							"/resources/image-sets/default-image-set/blue.png",					//36
-							"/resources/image-sets/default-image-set/bluehouse.png",			//37
-							"/resources/image-sets/default-image-set/bluehotelleft.png",		//38
-							"/resources/image-sets/default-image-set/bluehotelright.png",		//39
-							"/resources/image-sets/default-image-set/bluehotelbottom.png",		//40
-							"/resources/image-sets/default-image-set/gotop.png",				//41
-							"/resources/image-sets/default-image-set/gomid.png",				//42
-							"/resources/image-sets/default-image-set/gobot.png",				//43
-							"/resources/image-sets/default-image-set/jail.png",					//44
-							"/resources/image-sets/default-image-set/chesttop.png",				//45
-							"/resources/image-sets/default-image-set/chestbottom.png",			//46
-							"/resources/image-sets/default-image-set/chance.png",				//47
-							"/resources/image-sets/default-image-set/eleccomp.png",				//48
-							"/resources/image-sets/default-image-set/waterworks.png",			//49
-							"/resources/image-sets/default-image-set/parktop.png",				//50
-							"/resources/image-sets/default-image-set/parkbot.png",				//51
-						    "/resources/image-sets/default-image-set/dotdie.png",				//52
-						    "/resources/image-sets/default-image-set/blankdie.png"};			//53
+		String[] icons = {	"baseboard.png",			//0
+							"purple.png",				//1
+							"purplehouse.png",			//2
+							"purplehotelleft.png",		//3
+							"purplehotelright.png",		//4
+							"purplehotelbottom.png",	//5
+							"lightblue.png",			//6
+							"lightbluehouse.png",		//7
+							"lightbluehotelleft.png",	//8
+							"lightbluehotelright.png",	//9
+							"lightbluehotelbottom.png", //10
+							"pink.png",					//11
+							"pinkhouse.png",			//12
+							"pinkhotelleft.png",		//13
+							"pinkhotelright.png",		//14
+							"pinkhotelbottom.png",		//15
+							"orange.png",				//16
+							"orangehouse.png",			//17
+							"orangehotelleft.png",		//18
+							"orangehotelright.png",		//19
+							"orangehotelbottom.png",	//20
+							"red.png",					//21
+							"redhouse.png",				//22
+							"redhotelleft.png",			//23
+							"redhotelright.png",		//24
+							"redhotelbottom.png",		//25
+							"yellow.png",				//26
+							"yellowhouse.png",			//27
+							"yellowhotelleft.png",		//28
+							"yellowhotelright.png",		//29
+							"yellowhotelbottom.png",	//30
+							"green.png",				//31
+							"greenhouse.png",			//32
+							"greenhotelleft.png",		//33
+							"greenhotelright.png",		//34
+							"greenhotelbottom.png",		//35
+							"blue.png",					//36
+							"bluehouse.png",			//37
+							"bluehotelleft.png",		//38
+							"bluehotelright.png",		//39
+							"bluehotelbottom.png",		//40
+							"gotop.png",				//41
+							"gomid.png",				//42
+							"gobot.png",				//43
+							"jail.png",					//44
+							"chesttop.png",				//45
+							"chestbottom.png",			//46
+							"chance.png",				//47
+							"eleccomp.png",				//48
+							"waterworks.png",			//49
+							"parktop.png",				//50
+							"parkbot.png",				//51
+						    "dotdie.png",				//52
+						    "blankdie.png"};			//53
 		iconPaths = icons;
 	}
 	

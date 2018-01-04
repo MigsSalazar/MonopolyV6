@@ -1,13 +1,15 @@
 package main.java.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -16,7 +18,7 @@ import javax.swing.event.ChangeListener;
 
 import main.java.models.Pair;
 
-public class NewGameStartUp extends JDialog implements ActionListener, ChangeListener{
+public class NewGameStartUp extends JDialog implements ActionListener, ChangeListener, KeyListener{
 	
 	private class IndexJButton extends JButton{
 		
@@ -45,6 +47,7 @@ public class NewGameStartUp extends JDialog implements ActionListener, ChangeLis
 	
 	
 	private JPanel playerSpecs;
+	private JLabel valid;
 	private JPanel[] nameSpinnerPairs;
 	private JLabel[] namePrompts;
 	private JTextField[] names;
@@ -55,7 +58,6 @@ public class NewGameStartUp extends JDialog implements ActionListener, ChangeLis
 	private JButton cancel;
 	
 	private ArrayList<Pair<String,Integer>> fillMe;
-	
 	
 	public NewGameStartUp(JFrame parent, ImageIcon[] selection, ArrayList<Pair<String,Integer>> fm){
 		super(parent, "New Game", true);
@@ -106,9 +108,12 @@ public class NewGameStartUp extends JDialog implements ActionListener, ChangeLis
 	}
 	
 	private void developPlayerSpecs(){
-		playerSpecs = new JPanel(new GridLayout(8,1));
+		playerSpecs = new JPanel(new GridLayout(9,1));
 		Border title = BorderFactory.createTitledBorder("Define your players");
 		playerSpecs.setBorder(title);
+		
+		valid = new JLabel("Invalid names!");
+		valid.setVisible(false);
 		
 		nameSpinnerPairs = new JPanel[8];
 		
@@ -124,7 +129,7 @@ public class NewGameStartUp extends JDialog implements ActionListener, ChangeLis
 			namePrompts[i] = new JLabel("Player "+(i+1)+" name: ");
 			names[i] = new JTextField();
 			names[i].setColumns(10);
-			
+			names[i].addKeyListener(this);;
 			//SpinnerListModel model = new SpinnerListModel(pieceSelection);
 			
 			playerIcons.add(new IndexJButton(pieceSelection[i],i));
@@ -144,7 +149,7 @@ public class NewGameStartUp extends JDialog implements ActionListener, ChangeLis
 			
 			playerSpecs.add(nameSpinnerPairs[i]);
 		}
-		
+		playerSpecs.add(valid);
 		//playerSpecs.setPreferredSize(new Dimension(400,600));
 		
 	}
@@ -170,9 +175,7 @@ public class NewGameStartUp extends JDialog implements ActionListener, ChangeLis
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		if(e.getSource().equals(cancel)){
-			//TODO destroy this code and replace it with something useable
 			Pair<String,Integer> blep = new Pair<String, Integer>("",0);
 			fillMe.add(blep);
 			this.dispose();
@@ -198,10 +201,24 @@ public class NewGameStartUp extends JDialog implements ActionListener, ChangeLis
 			this.dispose();
 		}
 	}
+	
+	private void enableAllNames(){
+		ok.setEnabled(true);
+		valid.setVisible(false);
+	}
+	
+	private void disableInvalidNames(HashMap<String,JTextField> inputs, int enabled){
+		valid.setVisible(true);
+		for(int i=0; i<enabled; i++){
+			if(!names[i].equals(inputs.get(names[i].getText()))){
+				//namePrompts[i].setBackground(Color.RED);
+				ok.setEnabled(false);
+			}
+		}
+	}
 
 	@Override
 	public void stateChanged(ChangeEvent e) {
-		// TODO Auto-generated method stub
 		if(e.getSource().equals(numSpin)){
 			//System.out.println("JSpinner registered a change");
 			int num = (Integer)numSpin.getValue();
@@ -217,6 +234,40 @@ public class NewGameStartUp extends JDialog implements ActionListener, ChangeLis
 				}
 			}
 		}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		//System.out.println("textarea change");
+		//System.out.println(e.getSource().toString());
+		if(e.getSource() instanceof JTextField){
+			
+			HashMap<String, JTextField> inputs = new HashMap<String, JTextField>();
+			//System.out.println("old size: "+inputs.size());
+			int numEnabled = 0;
+			for(JTextField n : names){
+				if(n.isEnabled()){
+					inputs.put(n.getText(), n);
+					numEnabled++;
+				}
+			}
+			//System.out.println("enabled: "+numEnabled+" size: "+inputs.size());
+			if(inputs.size() != numEnabled){
+				disableInvalidNames(inputs, numEnabled);
+			}else if(!ok.isEnabled()){
+				enableAllNames();
+			}
+		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		
 	}
 	
 	

@@ -35,9 +35,9 @@ public class PropertyEvent extends AbstractEvent {
 		//System.out.println("starting switch statement");
 		switch(status){
 		case -1:	rentOut = prop.getRent();
-					text += prop.getOwner()+".<br>You own them $"+rentOut+" in rent.";
+					text += prop.getOwner()+".<br>You own them "+parent.getCurrencySymbol()+rentOut+" in rent.";
 					break;
-		case 0:		text += "no one.<br>Property is valued at $"+prop.getPrice()+".<br>What would you like to do?";
+		case 0:		text += "no one.<br>Property is valued at "+parent.getCurrencySymbol()+prop.getPrice()+".<br>What would you like to do?";
 					break;
 		case 1:		text += "themself.<br>A landlord must always check in on their asset";
 					break;
@@ -72,7 +72,7 @@ public class PropertyEvent extends AbstractEvent {
 			//BankPropertyActions.rentOwnedProperty(play, prop);
 			
 			Player p2 = gameVars.getPlayers().get(prop.getOwner());
-			String outText = "You payed "+prop.getOwner()+" $"+rentOut+" for landing on "+prop.getName()+"!";
+			String outText = "You payed "+prop.getOwner()+" "+parent.getCurrencySymbol()+rentOut+" for landing on "+prop.getName()+"!";
 			
 			AbstractEvent ae = new PlayervPlayerEvent(parent, outText, play, p2, (-1)*rentOut);
 			//AbstractEvent a = new MessageEvent(parent, "You payed "+play.getName()+" for landing on "+prop.getName()+"!");

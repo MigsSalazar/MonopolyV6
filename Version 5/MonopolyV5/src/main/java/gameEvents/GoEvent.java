@@ -14,7 +14,7 @@ public class GoEvent extends AbstractEvent {
 	
 	public GoEvent(EventPanel p, Player pl, AbstractEvent root) {
 		super(p);
-		text = "<html>You have passed Go!<br>Collect $200!</html>";
+		text = "<html>You have passed Go!<br>Collect "+parent.getCurrencySymbol()+"200!</html>";
 		pl.addCash(200);
 		this.root = root;
 		defineComponents();
