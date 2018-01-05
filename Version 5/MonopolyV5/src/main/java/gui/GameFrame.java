@@ -1,6 +1,7 @@
 package main.java.gui;
 
 import main.java.action.Runner;
+import main.java.action.Settings;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -25,6 +26,7 @@ import javax.swing.JOptionPane;
  */
 public class GameFrame extends JFrame{
 	
+	private JFrame me;
 	private BorderLayout border;
 	private JMenuBar menuBar;
 	private JMenu[] menus;
@@ -41,6 +43,7 @@ public class GameFrame extends JFrame{
 	 */
 	private static final long serialVersionUID = 8200279150286115532L;
 	public GameFrame(boolean flag, Runner gv){
+		me = this;
 		//home = new HomePanel();
 		//c.add(home);
 		globalVars = gv;
@@ -143,7 +146,9 @@ public class GameFrame extends JFrame{
 		menuItems[0].addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				Runner newGame = new Runner();
-				if(newGame.startNewGame()){
+				Settings sets = new Settings(me);
+				sets.setup();
+				if(newGame.startNewGame(sets)){
 					closeMe();
 				}
 			}

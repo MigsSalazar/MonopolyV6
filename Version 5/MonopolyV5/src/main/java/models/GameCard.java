@@ -1,10 +1,8 @@
 package main.java.models;
 
-import java.util.Map;
 
 import com.google.gson.annotations.Expose;
 
-import main.java.action.Runner;
 
 public class GameCard {
 	

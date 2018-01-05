@@ -7,7 +7,6 @@ import java.io.File;
 
 import javax.swing.ImageIcon;
 
-import main.java.action.Settings;
 import main.java.models.GamePath;
 
 import com.google.gson.annotations.Expose;

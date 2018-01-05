@@ -27,7 +27,7 @@ import java.awt.Dimension;
  * @author Miguel Salazar
  *
  */
-public class TOffer extends JDialog {
+public class TOffer extends JDialog implements ListSelectionListener{
 	/**
 	 * 
 	 */
@@ -225,18 +225,7 @@ public class TOffer extends JDialog {
 		aList.setVisibleRowCount(-1);
 		
 		
-		aList.addListSelectionListener(new ListSelectionListener(){
-			public void valueChanged(ListSelectionEvent e){
-				//System.out.println("DEBUG: Different item selected in players");
-				JList<String> jl = (JList<String>)e.getSource();
-				if(jl.getSelectedIndex()>=0){
-					currentTI = jl.getSelectedIndex();
-					//System.out.println(""+jl.getSelectedIndex());
-					currentTS = jl.getSelectedValue();
-					//System.out.println(jl.getSelectedValue());
-				}
-			}
-		});
+		aList.addListSelectionListener(this);
 		
 		aList.setSelectedIndex(0);
 		
@@ -359,16 +348,7 @@ public class TOffer extends JDialog {
 		oList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		oList.setVisibleRowCount(-1);
 		
-		oList.addListSelectionListener(new ListSelectionListener(){
-			public void valueChanged(ListSelectionEvent e){
-				//System.out.println("DEBUG: Different item selected in players");
-				JList<String> jl = (JList<String>)e.getSource();
-				if(jl.getSelectedIndex()>=0){
-					currentBI = jl.getSelectedIndex();
-					currentBS = jl.getModel().getElementAt(jl.getSelectedIndex());
-				}
-			}
-		});
+		oList.addListSelectionListener(this);
 		
 		olistScroller = new JScrollPane(oList);
 		olistScroller.setPreferredSize(new Dimension(100, 150));
@@ -498,6 +478,20 @@ public class TOffer extends JDialog {
 	 */
 	public void imDoneToo(){
 		this.dispose();
+	}
+
+	@Override
+	public void valueChanged(ListSelectionEvent e) {
+		if(e.getSource().equals(aList)){
+			currentTI = aList.getSelectedIndex();
+			//System.out.println(""+jl.getSelectedIndex());
+			currentTS = aList.getSelectedValue();
+			//System.out.println(jl.getSelectedValue());
+		}else if(e.getSource().equals(oList)){
+			currentBI = oList.getSelectedIndex();
+			currentBS = oList.getModel().getElementAt(oList.getSelectedIndex());
+		
+		}
 	}
 	
 }

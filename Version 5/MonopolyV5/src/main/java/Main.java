@@ -1,6 +1,5 @@
 package main.java;
 
-import main.java.action.Settings;
 import main.java.gui.PreGameFrame;
 
 public class Main {

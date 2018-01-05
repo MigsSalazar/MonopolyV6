@@ -1,7 +1,6 @@
 package main.java.gui;
 
 import java.awt.GridLayout;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 

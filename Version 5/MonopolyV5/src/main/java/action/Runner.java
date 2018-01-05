@@ -13,7 +13,6 @@ import java.util.Set;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import main.java.gui.BoardPanel;
@@ -62,11 +61,11 @@ public class Runner {
 	
 	
 	
-	public boolean startNewGame(){
+	public boolean startNewGame(Settings s){
 		
 		game = new GameFrame(true, this);
-		sets = new Settings(game);
-		sets.setup();
+		sets = s;
+		//sets.setup();
 		playerTurn = 0;
 		gameDice = new Roll(this);
 		

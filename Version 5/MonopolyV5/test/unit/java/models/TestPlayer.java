@@ -46,7 +46,6 @@ public class TestPlayer {
 		freshPlayer = new Player(1, "John");
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testGivePropertyMap(){
 		freshPlayer.giveProperties(null);

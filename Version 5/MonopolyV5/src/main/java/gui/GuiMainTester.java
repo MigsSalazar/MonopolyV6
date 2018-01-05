@@ -1,6 +1,7 @@
 package main.java.gui;
 
 import java.awt.Container;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,15 +9,18 @@ import java.io.Reader;
 import java.util.Scanner;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.google.gson.Gson;
 
 import main.java.action.Runner;
+import main.java.action.UnzipUtility;
 import main.java.models.Dice;
 import main.java.models.Player;
 import main.java.templates.TemplateBoardPanel;
 import main.java.templates.TemplatePiece;
 
+@SuppressWarnings("unused")
 public class GuiMainTester {
 	
 	//this class is meant only to test gui functions and resources
@@ -98,6 +102,58 @@ public class GuiMainTester {
 		bp.traversePaths();
 	}
 	/**/
+	
+	/**
+	 * Man method to test if the Zip utility works
+	 * @param args
+	 *
+	public static void main(String[] args){
+		UnzipUtility unzip = new UnzipUtility();
+		
+		JFileChooser jfc = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Compressed Folder","zip");
+		jfc.setAcceptAllFileFilterUsed(false);
+		jfc.setFileFilter(filter);
+		
+		jfc.setDialogTitle("Select your zip file!");
+		
+		jfc.showOpenDialog(null);
+		
+		File zipedFolder = jfc.getSelectedFile();
+		
+		JFileChooser jffc = new JFileChooser();
+		jffc.setAcceptAllFileFilterUsed(false);
+		jffc.setCurrentDirectory(new java.io.File("."));
+		jffc.setDialogTitle("Select the destination folder");
+		jffc.showSaveDialog(null);
+		jffc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		jffc.setFileFilter(null);
+		
+		
+		File desktop = jffc.getCurrentDirectory(); //file path redacted
+		
+		if(!zipedFolder.exists()){
+			System.out.println("failure. Zip file doesn't exist");
+			System.exit(1);
+		}
+		
+		if(!desktop.exists()){
+			System.out.println("failure. Desktop file doesn't exist");
+			System.exit(1);
+		}
+		
+		System.out.println(zipedFolder.getAbsolutePath());
+		System.out.println(desktop.getAbsolutePath());
+		try {
+			unzip.unzip(zipedFolder, desktop);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	/**/
+	
 	/*
 	 * 
 	 *

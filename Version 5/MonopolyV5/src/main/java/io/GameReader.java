@@ -20,7 +20,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import main.java.action.Roll;
-import main.java.action.Runner;
 import main.java.action.Settings;
 import main.java.gui.*;
 import main.java.models.*;

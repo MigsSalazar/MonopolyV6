@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 
-import main.java.action.Runner;
 import main.java.gui.EventPanel;
 import main.java.models.Colored;
 import main.java.models.Dice;

@@ -1,7 +1,6 @@
 package main.java.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -18,6 +17,7 @@ import javax.swing.event.ChangeListener;
 
 import main.java.models.Pair;
 
+@SuppressWarnings("serial")
 public class NewGameStartUp extends JDialog implements ActionListener, ChangeListener, KeyListener{
 	
 	private class IndexJButton extends JButton{

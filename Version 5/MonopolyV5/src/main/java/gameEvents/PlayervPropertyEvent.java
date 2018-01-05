@@ -1,6 +1,5 @@
 package main.java.gameEvents;
 
-import main.java.action.Runner;
 import main.java.gui.EventPanel;
 import main.java.models.Player;
 import main.java.models.Property;

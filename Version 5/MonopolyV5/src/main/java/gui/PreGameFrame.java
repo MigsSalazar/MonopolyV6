@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 
-import main.java.Main;
 import main.java.action.Runner;
 import main.java.action.Settings;
 
@@ -70,7 +69,7 @@ public class PreGameFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e){
 				Runner newGame = new Runner();
-				if(newGame.startNewGame()){
+				if(newGame.startNewGame(sets)){
 					closeMe();
 				}
 			}

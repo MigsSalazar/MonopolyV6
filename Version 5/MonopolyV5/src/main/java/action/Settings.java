@@ -9,19 +9,34 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.google.gson.annotations.Expose;
 
@@ -39,10 +54,20 @@ public class Settings implements ActionListener,ChangeListener,WindowListener{
 	private transient JLabel currencyStatus;
 	private transient JComboBox<String> currency;
 	private transient String[] symbols;
+
+	private transient JPanel texturePicker;
+	private transient JLabel textureTitle;
+	private transient JLabel textureChoice;
+	private transient JButton textureSearch;
+	private transient JButton textureImport;
+	
+	private transient JButton accept;
+	
+	@Expose private String texturePath = System.getProperty("user.dir")+"/resources/image-sets/default-image-set/";
 	
 	@Expose private String sigil;
 	
-	private String texturePath = System.getProperty("user.dir")+"/resources/image-sets/default-image-set/";
+	
 	
 	public Settings(JFrame parent){
 		settingsDisplay = new JDialog(parent, false);
@@ -52,7 +77,14 @@ public class Settings implements ActionListener,ChangeListener,WindowListener{
 		bl.setVgap(5);
 		settingsDisplay.setLayout(bl);
 		defineCurrency();
+		defineTexture();
+		
+		accept = new JButton("Ok");
+		accept.addActionListener(this);
+		
 		settingsDisplay.add(currencyPicker, BorderLayout.NORTH);
+		settingsDisplay.add(texturePicker, BorderLayout.CENTER);
+		settingsDisplay.add(accept, BorderLayout.SOUTH);
 		settingsDisplay.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		settingsDisplay.addWindowListener(this);
 	}
@@ -69,6 +101,28 @@ public class Settings implements ActionListener,ChangeListener,WindowListener{
 		
 		settingsDisplay.setIconImage(gear);
 		settingsDisplay.setVisible(true);
+	}
+	
+	private void defineTexture(){
+		texturePicker = new JPanel(new GridLayout(4,1));
+		
+		textureTitle = new JLabel("Selected Texture Pack");
+		
+		textureChoice = new JLabel("Default");
+		
+		textureSearch = new JButton("Select");
+		textureSearch.addActionListener(this);
+		
+		textureImport = new JButton("Import");
+		textureImport.addActionListener(this);
+		
+		texturePicker.add(textureTitle);
+		texturePicker.add(textureChoice);
+		texturePicker.add(textureSearch);
+		texturePicker.add(textureImport);
+		
+		texturePicker.setPreferredSize(new Dimension(200,100) );
+		
 	}
 	
 	private void defineCurrency(){
@@ -156,7 +210,108 @@ public class Settings implements ActionListener,ChangeListener,WindowListener{
 		if(ae.getSource().equals(currency)){
 			//System.out.println("statechange sigil: "+sigil);
 			sigil = (String)currency.getSelectedItem();
+		}else if(ae.getSource().equals(textureSearch)){
+			discoverTextures();
+		}else if(ae.getSource().equals(textureImport)){
+			importZipTextures();
+		}else if(ae.getSource().equals(accept)){
+			settingsDisplay.dispose();
 		}
 	}
+
+
+
+	private void importZipTextures() {
+		File search;
+		JFileChooser jfc = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Compressed Folder","zip");
+		jfc.setFileFilter(filter);
+		int option = jfc.showOpenDialog(settingsDisplay);
+		if(option == JFileChooser.APPROVE_OPTION){
+			search = jfc.getSelectedFile();
+		}else{
+			return;
+		}
+		
+		String path = search.getPath();
+		System.out.println(search.getName());
+		
+		String trueName = search.getName();
+		trueName = trueName.substring(0, trueName.lastIndexOf(".zip"));
+		
+		File home = new File(System.getProperty("user.dir")+"/resources/image-sets/"+trueName );
+		home.mkdir();
+		System.out.println(home.getName());
+		
+		UnzipUtility unzip = new UnzipUtility();
+		try {
+			unzip.unzip(path, ""+home);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
+
+	private void discoverTextures() {
+		JDialog getme = new JDialog(settingsDisplay,"Pick your texture",true);
+		JButton closeOut = new JButton("Ok");
+		closeOut.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				getme.dispose();
+			}
+		});
+		
+		HashMap<String,File> names = new HashMap<String,File>();
+		
+		
+		File setsFolder = new File(System.getProperty("user.dir")+"/resources/image-sets/");
+		
+		//names.put("default", new File(setsFolder+"default-image-set"));
+		DefaultListModel<String> tListModel = new DefaultListModel<String>();
+		
+		names.put("Default", new File(setsFolder+"/default-image-set/"));
+		tListModel.addElement("Default");
+		for(File f : setsFolder.listFiles()){
+			//System.out.println("settings file name search: "+f.getName());
+			if(!f.getName().equals("default-image-set")){
+				names.put(f.getName(),f);
+				tListModel.addElement(f.getName());
+			}
+			
+		}
+		
+		JList<String> tList = new JList<String>(tListModel);
+		
+		tList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		tList.setSelectedIndex(0);
+		
+		JScrollPane tlistScroller = new JScrollPane(tList);
+		
+		JPanel fullPanel = new JPanel(new BorderLayout());
+		fullPanel.add(tlistScroller,BorderLayout.CENTER);
+		fullPanel.add(closeOut, BorderLayout.SOUTH);
+		
+		getme.add(fullPanel);
+		
+		getme.setResizable(false);
+		getme.setPreferredSize(new Dimension(300,200));
+		getme.pack();
+		getme.setVisible(true);
+		
+		File getter = names.get(tList.getSelectedValue());
+		
+		texturePath = getter.getPath()+"/";
+		//System.out.println("texturePath: "+texturePath);
+		if(getter.getName().equals("default-image-set")){
+			textureChoice.setText("Default");
+		}else{
+			textureChoice.setText(getter.getName());
+		}
+	}
+	
+	
 	
 }
