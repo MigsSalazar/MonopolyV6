@@ -41,6 +41,7 @@ public class GameReader {
 		locations.add(loaded+"suiteNames.txt");			//3
 		locations.add(loaded+"community-chest.json");	//4
 		locations.add(loaded+"chance.json");			//5
+		locations.add(loaded+"settings.json");			//6
 		
 		//locations.add(loaded+"event.mns");
 	}
@@ -196,6 +197,24 @@ public class GameReader {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return retval;
+	}
+	
+	public Settings getSettings(){
+		Gson gson = new Gson();
+		Reader readme;
+		Settings retval = new Settings(null);
+		try{
+			File setin = new File(locations.get(6));
+			if(setin.exists()){
+				readme = new FileReader(setin);
+				retval = gson.fromJson(readme, Settings.class);
+				readme.close();
+			}
+		}catch(IOException e){
 			e.printStackTrace();
 		}
 		

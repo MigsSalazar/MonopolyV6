@@ -13,6 +13,7 @@ import com.google.gson.GsonBuilder;
 import main.java.models.*;
 import main.java.gui.*;
 import main.java.action.Runner;
+import main.java.action.Settings;
 
 public class GameWriter {
 	
@@ -82,7 +83,8 @@ public class GameWriter {
 										Map<String, Player> players,
 										Map<String, Property> props,
 										ArrayList<GameCard> comm,
-										ArrayList<GameCard> chance){
+										ArrayList<GameCard> chance,
+										Settings sets){
 		
 		//String dir = System.getProperty("user.dir")+"/saved-games/locations-folder/";
 		/*
@@ -119,6 +121,7 @@ public class GameWriter {
 				outLines.add( suiteWriter(path+"/suiteNames.txt", suites) );
 				outLines.add( objectWriter(path+"/community-chest.json", comm) );
 				outLines.add( objectWriter(path+"/chance.json", chance) );
+				outLines.add( objectWriter(path+"/settings.json", sets) );
 				
 				File location = new File(System.getProperty("user.dir")+"/saved-games/locations-folder/"+path+".mns");
 				

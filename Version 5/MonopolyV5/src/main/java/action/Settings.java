@@ -23,36 +23,52 @@ import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import com.google.gson.annotations.Expose;
+
 
 /**
  * @author Miguel Salazar
  *
  */
-public class Settings extends JDialog implements ActionListener,ChangeListener,WindowListener{
+public class Settings implements ActionListener,ChangeListener,WindowListener{
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8037425504189246209L;
 	
-	private JPanel currencyPicker;
-	private JLabel currencyStatus;
-	private JComboBox<String> currency;
-	private String[] symbols;
-	private String sigil;
+	private transient JDialog settingsDisplay;
+	
+	private transient JPanel currencyPicker;
+	private transient JLabel currencyStatus;
+	private transient JComboBox<String> currency;
+	private transient String[] symbols;
+	
+	@Expose private String sigil;
 	
 	private String texturePath = System.getProperty("user.dir")+"/resources/image-sets/default-image-set/";
 	
 	public Settings(JFrame parent){
-		super(parent, false);
+		settingsDisplay = new JDialog(parent, false);
+		//superDialog = super;
 		BorderLayout bl = new BorderLayout();
 		bl.setHgap(5);
 		bl.setVgap(5);
-		setLayout(bl);
+		settingsDisplay.setLayout(bl);
 		defineCurrency();
-		add(currencyPicker, BorderLayout.NORTH);
-		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-		this.addWindowListener(this);
+		settingsDisplay.add(currencyPicker, BorderLayout.NORTH);
+		settingsDisplay.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+		settingsDisplay.addWindowListener(this);
+	}
+	
+	
+	
+	public void setup(){
+		//settingsDisplay.setBounds(50, 50, 200, 200);
+		settingsDisplay.pack();
+		settingsDisplay.setResizable(false);
+		settingsDisplay.setTitle("Settings");
+		settingsDisplay.setModal(true);
+		Image gear = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/smallGear.png").getImage(); 
+		
+		settingsDisplay.setIconImage(gear);
+		settingsDisplay.setVisible(true);
 	}
 	
 	private void defineCurrency(){
@@ -97,18 +113,6 @@ public class Settings extends JDialog implements ActionListener,ChangeListener,W
 		currencyPicker.add(currency, BorderLayout.EAST);
 	}
 	
-	public void setup(){
-		//this.setBounds(50, 50, 200, 200);
-		this.pack();
-		this.setResizable(false);
-		this.setTitle("Settings");
-		this.setModal(true);
-		Image gear = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/smallGear.png").getImage(); 
-		
-		this.setIconImage(gear);
-		this.setVisible(true);
-	}
-	
 	public String getSigil(){
 		//System.out.println("getSigil: "+sigil);
 		return sigil;
@@ -131,8 +135,8 @@ public class Settings extends JDialog implements ActionListener,ChangeListener,W
 
 	@Override
 	public void windowClosing(WindowEvent arg0) {
-		this.setVisible(false);
-		this.setModal(false);
+		settingsDisplay.setVisible(false);
+		settingsDisplay.setModal(false);
 	}
 
 	@Override

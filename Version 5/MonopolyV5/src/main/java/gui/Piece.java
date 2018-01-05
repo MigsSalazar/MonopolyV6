@@ -40,6 +40,8 @@ public class Piece {
 				setIcon(new ImageIcon(dir+getFileLocation()));
 			}else if(new File(getFileLocation()).exists()){
 				setIcon(new ImageIcon(getFileLocation()));
+			}else if(new File(System.getProperty("user.dir")+"/resources/image-sets/default-image-set/"+getFileLocation()).exists()){
+				setIcon(new ImageIcon(System.getProperty("user.dir")+"/resources/image-sets/default-image-set/"+getFileLocation()));
 			}else{
 				setIcon(new ImageIcon(System.getProperty("user.dir")+"/resources/image-sets/default-image-set/404ERROR.png"));
 			}

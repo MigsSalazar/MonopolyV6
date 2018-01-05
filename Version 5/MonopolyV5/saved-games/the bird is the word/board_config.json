@@ -3,7 +3,7 @@
   "boardHeight": 30,
   "boardPixWidth": 600,
   "boardPixHeight": 600,
-  "playerCount": 8,
+  "playerCount": 2,
   "gamePieces": [
     {
       "team": 0,
@@ -173,7 +173,7 @@
         "currentStep": 0,
         "locked": false
       },
-      "fileLocation": "pupper.png"
+      "fileLocation": "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/pupper.png"
     },
     {
       "team": 1,
@@ -343,7 +343,7 @@
         "currentStep": 0,
         "locked": false
       },
-      "fileLocation": "thimble.png"
+      "fileLocation": "C:\\Users\\Unknown\\git\\Monopoly\\Version 5\\MonopolyV5/resources/image-sets/default-image-set/thimble.png"
     },
     {
       "team": 2,

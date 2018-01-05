@@ -46,13 +46,9 @@ public class Runner {
 	private GameReader gread;
 	private Settings sets;
 	
-	public Runner(Settings s){
-		sets = s;
-	}
-	
 	public void saveThisGame(){
 		if(gread.isNewGame()){
-			String gameName = GameWriter.writeOutNewGame(game, game.getGameBoard(), coloredProps, players, properties, commChest, chance);
+			String gameName = GameWriter.writeOutNewGame(game, game.getGameBoard(), coloredProps, players, properties, commChest, chance, sets);
 			//System.out.println("Runner received gameName: "+gameName);
 			gread.setLoaded(new File(gameName) );
 			gread.setNewGame(false);
@@ -67,7 +63,10 @@ public class Runner {
 	
 	
 	public boolean startNewGame(){
+		
 		game = new GameFrame(true, this);
+		sets = new Settings(game);
+		sets.setup();
 		playerTurn = 0;
 		gameDice = new Roll(this);
 		
@@ -191,7 +190,9 @@ public class Runner {
 		gread = new GameReader(fin);
 		
 		try {
-			
+			if(!requestSettings()){
+				return false;
+			}
 			game.giveBoardPanel(requestBoardPanel());
 			
 			players = gread.getPlayers();
@@ -489,15 +490,13 @@ public class Runner {
 	private BoardPanel requestBoardPanel() throws IOException{
 		//System.out.println("requested board");
 		BoardPanel retval = gread.getBoard();
-		/*
-		int[] selection = {4,2,7,5,1,3,0,6};
-		retval.pickPlayerPieces(selection, sets.textureMe());
-		ArrayList<Player> pl = new ArrayList<Player>(players.values());
-		retval.firstPaintBoard(sets.textureMe(), pl);
-		//System.out.println("board built");
-		 * 
-		 */
 		return retval;
+	}
+	
+	private boolean requestSettings(){
+		sets = null;
+		sets = gread.getSettings();
+		return sets!=null;
 	}
 	
 

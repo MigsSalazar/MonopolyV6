@@ -69,7 +69,7 @@ public class PreGameFrame extends JFrame {
 		newGame.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				Runner newGame = new Runner(sets);
+				Runner newGame = new Runner();
 				if(newGame.startNewGame()){
 					closeMe();
 				}
@@ -79,7 +79,7 @@ public class PreGameFrame extends JFrame {
 		loadGame.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				Runner oldGame = new Runner(sets);
+				Runner oldGame = new Runner();
 				if(oldGame.startSavedGame()){
 					closeMe();
 				}
