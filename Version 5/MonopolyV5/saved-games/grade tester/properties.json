@@ -11,11 +11,11 @@
         110,
         150
       ],
-      "grade": 2,
+      "grade": 5,
       "name": "Indiana Ave.",
       "position": 23,
       "price": 220,
-      "owner": "4",
+      "owner": "",
       "mBool": false
     },
     "St. Charles Place": {
@@ -29,11 +29,11 @@
         70,
         100
       ],
-      "grade": 0,
+      "grade": 5,
       "name": "St. Charles Place",
       "position": 11,
       "price": 140,
-      "owner": "2",
+      "owner": "",
       "mBool": false
     },
     "New York Ave.": {
@@ -47,11 +47,11 @@
         100,
         100
       ],
-      "grade": 0,
+      "grade": 5,
       "name": "New York Ave.",
       "position": 19,
       "price": 200,
-      "owner": "1",
+      "owner": "",
       "mBool": false
     },
     "States Ave.": {
@@ -65,11 +65,11 @@
         70,
         100
       ],
-      "grade": 0,
+      "grade": 5,
       "name": "States Ave.",
       "position": 13,
       "price": 140,
-      "owner": "2",
+      "owner": "",
       "mBool": false
     },
     "Oriental Ave.": {
@@ -83,11 +83,11 @@
         50,
         50
       ],
-      "grade": 0,
+      "grade": 5,
       "name": "Oriental Ave.",
       "position": 6,
       "price": 100,
-      "owner": "1",
+      "owner": "",
       "mBool": false
     },
     "North Carolina Ave.": {
@@ -101,11 +101,11 @@
         150,
         200
       ],
-      "grade": 0,
+      "grade": 5,
       "name": "North Carolina Ave.",
       "position": 32,
       "price": 300,
-      "owner": "6",
+      "owner": "",
       "mBool": false
     },
     "Park Place": {
@@ -119,11 +119,11 @@
         175,
         200
       ],
-      "grade": 0,
+      "grade": 5,
       "name": "Park Place",
       "position": 37,
       "price": 350,
-      "owner": "7",
+      "owner": "",
       "mBool": false
     },
     "Board Walk": {
@@ -137,11 +137,11 @@
         200,
         200
       ],
-      "grade": 0,
+      "grade": 5,
       "name": "Board Walk",
       "position": 39,
       "price": 400,
-      "owner": "7",
+      "owner": "",
       "mBool": false
     },
     "Tennessee Ave.": {
@@ -155,11 +155,11 @@
         90,
         100
       ],
-      "grade": 0,
+      "grade": 5,
       "name": "Tennessee Ave.",
       "position": 18,
       "price": 180,
-      "owner": "1",
+      "owner": "",
       "mBool": false
     },
     "Baltic Ave.": {
@@ -177,7 +177,7 @@
       "name": "Baltic Ave.",
       "position": 3,
       "price": 60,
-      "owner": "0",
+      "owner": "",
       "mBool": false
     },
     "Mediterranean Ave.": {
@@ -195,7 +195,7 @@
       "name": "Mediterranean Ave.",
       "position": 1,
       "price": 60,
-      "owner": "0",
+      "owner": "",
       "mBool": false
     },
     "Pacific Ave.": {
@@ -209,11 +209,11 @@
         150,
         200
       ],
-      "grade": 0,
+      "grade": 5,
       "name": "Pacific Ave.",
       "position": 31,
       "price": 300,
-      "owner": "6",
+      "owner": "",
       "mBool": false
     },
     "Connecticut Ave.": {
@@ -227,11 +227,11 @@
         50,
         50
       ],
-      "grade": 0,
+      "grade": 5,
       "name": "Connecticut Ave.",
       "position": 9,
       "price": 120,
-      "owner": "1",
+      "owner": "",
       "mBool": false
     },
     "Pennsylvania Ave.": {
@@ -245,11 +245,11 @@
         160,
         200
       ],
-      "grade": 0,
+      "grade": 5,
       "name": "Pennsylvania Ave.",
       "position": 34,
       "price": 320,
-      "owner": "6",
+      "owner": "",
       "mBool": false
     },
     "Illinois Ave.": {
@@ -263,11 +263,11 @@
         120,
         150
       ],
-      "grade": 2,
+      "grade": 5,
       "name": "Illinois Ave.",
       "position": 24,
       "price": 240,
-      "owner": "4",
+      "owner": "",
       "mBool": false
     },
     "Kentucky Ave.": {
@@ -281,11 +281,11 @@
         110,
         150
       ],
-      "grade": 2,
+      "grade": 5,
       "name": "Kentucky Ave.",
       "position": 21,
       "price": 220,
-      "owner": "4",
+      "owner": "",
       "mBool": false
     },
     "St. James Place": {
@@ -299,11 +299,11 @@
         90,
         100
       ],
-      "grade": 0,
+      "grade": 5,
       "name": "St. James Place",
       "position": 16,
       "price": 180,
-      "owner": "1",
+      "owner": "",
       "mBool": false
     },
     "Atlantic Ave.": {
@@ -317,11 +317,11 @@
         130,
         150
       ],
-      "grade": 0,
+      "grade": 5,
       "name": "Atlantic Ave.",
       "position": 26,
       "price": 260,
-      "owner": "0",
+      "owner": "",
       "mBool": false
     },
     "Virginia Ave.": {
@@ -335,11 +335,11 @@
         80,
         100
       ],
-      "grade": 0,
+      "grade": 5,
       "name": "Virginia Ave.",
       "position": 14,
       "price": 60,
-      "owner": "2",
+      "owner": "",
       "mBool": false
     },
     "Vermont Ave.": {
@@ -353,11 +353,11 @@
         50,
         50
       ],
-      "grade": 0,
+      "grade": 5,
       "name": "Vermont Ave.",
       "position": 8,
       "price": 100,
-      "owner": "1",
+      "owner": "",
       "mBool": false
     },
     "Marvin Gardens": {
@@ -371,11 +371,11 @@
         140,
         150
       ],
-      "grade": 0,
+      "grade": 5,
       "name": "Marvin Gardens",
       "position": 29,
       "price": 280,
-      "owner": "0",
+      "owner": "",
       "mBool": false
     },
     "Ventnor Ave.": {
@@ -389,81 +389,81 @@
         130,
         150
       ],
-      "grade": 0,
+      "grade": 5,
       "name": "Ventnor Ave.",
       "position": 27,
       "price": 260,
-      "owner": "0",
+      "owner": "",
       "mBool": false
     }
   },
   "rails": {
     "Short Line": {
       "gcount": {
-        "count": 4,
+        "count": 0,
         "max": 4
       },
       "name": "Short Line",
       "position": 35,
       "price": 200,
-      "owner": "0",
+      "owner": "",
       "mBool": false
     },
     "Reading Railroad": {
       "gcount": {
-        "count": 4,
+        "count": 0,
         "max": 4
       },
       "name": "Reading Railroad",
       "position": 5,
       "price": 200,
-      "owner": "0",
+      "owner": "",
       "mBool": false
     },
     "Pennsylvania Railroad": {
       "gcount": {
-        "count": 4,
+        "count": 0,
         "max": 4
       },
       "name": "Pennsylvania Railroad",
       "position": 15,
       "price": 200,
-      "owner": "0",
+      "owner": "",
       "mBool": false
     },
     "B\u0026O Railroad": {
       "gcount": {
-        "count": 4,
+        "count": 0,
         "max": 4
       },
       "name": "B\u0026O Railroad",
       "position": 25,
       "price": 60,
-      "owner": "0",
+      "owner": "",
       "mBool": false
     }
   },
   "utility": {
     "Electric Company": {
       "gcount": {
-        "count": 2,
+        "count": 0,
         "max": 2
       },
       "name": "Electric Company",
       "position": 12,
       "price": 150,
-      "owner": "7",
+      "owner": "",
       "mBool": false
     },
     "Water Works": {
       "gcount": {
-        "count": 2,
+        "count": 0,
         "max": 2
       },
       "name": "Water Works",
       "position": 28,
       "price": 150,
-      "owner": "7",
+      "owner": "",
       "mBool": false
     }
   }

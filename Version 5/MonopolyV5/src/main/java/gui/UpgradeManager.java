@@ -13,6 +13,7 @@ import java.util.Map;
 
 import main.java.action.Runner;
 import main.java.models.Colored;
+import main.java.models.GlobalCounter;
 import main.java.models.Player;
 import main.java.models.Suite;
 
@@ -55,12 +56,17 @@ public class UpgradeManager extends JDialog implements ActionListener{
 	private int subCost;
 	private int subed;
 	
+	private GlobalCounter housecount;
+	private GlobalCounter hotelcount;
+	
 	//TODO make 3 JLabels for the total costs, the total upgrade costs, and the total downgrade costs within a third JPanel
 	
 	
 	public UpgradeManager(Runner gv, Player pl) {
 		super(gv.getFrame(), "Upgrade Manager", true);
 		gameVars = gv;
+		housecount = gameVars.getHouseCount();
+		hotelcount = gameVars.getHotelCount();
 		player = pl;
 		suites = gameVars.getColoredProps();
 		
@@ -84,6 +90,7 @@ public class UpgradeManager extends JDialog implements ActionListener{
 			this.setIconImage(gameVars.getFrame().getTitleIcon());
 			this.setResizable(false);
 			this.setVisible(true);
+			this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		}catch(Exception e){
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(gameVars.getFrame(), "Cannot start Upgrade Manager");
@@ -268,6 +275,10 @@ public class UpgradeManager extends JDialog implements ActionListener{
 	private void completeAddSub(List<Colored> props){
 		//Reseting all buttons to a default state
 		
+		for(int i=0; i<3; i++){
+			add.get(i).setEnabled(false);
+			sub.get(i).setEnabled(false);
+		}
 		
 		int smallGrade = smallestGrade();
 		int largeGrade = largestGrade();
@@ -282,7 +293,7 @@ public class UpgradeManager extends JDialog implements ActionListener{
 			
 			
 			//System.out.println("add check: current.getGrade - suite's smallest grade: "+(grades[i] - currSuite.smallestGrade()));
-			if(grades[i] - smallGrade < 1 && grades[i] < 5){
+			if(grades[i] - smallGrade < 1 && grades[i] < 5 && ampleSupply()){
 				add.get(i).setEnabled(true);
 			}else{
 				add.get(i).setEnabled(false);
@@ -401,12 +412,46 @@ public class UpgradeManager extends JDialog implements ActionListener{
 		if(choice == JOptionPane.YES_OPTION){
 			for(int i=0; i<props.size(); i++){
 				props.get(i).setGrade(grades[i]);
+				if(grades[i] == 5){
+					hotelcount.incCount();
+				}else{
+					int num = grades[i] - props.get(i).getGrade();
+					housecount.incCount(num);
+				}
 			}
 			player.subCash(total);
 			gameVars.getFrame().getGameStats().updatePlayers();
 			gameVars.paintHousing();
 		}
 		
+	}
+	
+	private boolean ampleSupply(){
+		boolean retval = true;
+		int combinedHouse = 0;
+		int combinedHotel = 0;
+		props = currSuite.getProperties();
+		for(int i=0; i<props.size(); i++){
+			Colored p = props.get(i);
+			if(grades[i] == 5 && p.getGrade() < 5){
+				combinedHouse -= p.getGrade();
+				combinedHotel++;
+			}else if(grades[i] < 5 && p.getGrade() == 5){
+				combinedHotel--;
+				combinedHouse += grades[i];
+			}else if(grades[i] < 5 && p.getGrade() < 5 && grades[i] != p.getGrade()){
+				combinedHouse += grades[i] - p.getGrade();
+			}
+		}
+		
+		if(housecount.getCount() + combinedHouse > housecount.getMax()){
+			retval = false;
+		}
+		if(hotelcount.getCount() + combinedHotel > hotelcount.getMax()){
+			retval = false;
+		}
+		
+		return retval;
 	}
 	
 	private void buttonPush(JButton as){

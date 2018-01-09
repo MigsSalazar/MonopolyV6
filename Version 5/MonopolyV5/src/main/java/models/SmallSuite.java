@@ -60,6 +60,11 @@ public class SmallSuite implements Suite {
 		SECOND.setSuite(this);
 	}
 	
+	@Override
+	public int getCumulativeGrade() {
+		return FIRST.getGrade()+SECOND.getGrade();
+	}
+	
 	public List<Colored> getProperties(){
 		ArrayList<Colored> props = new ArrayList<Colored>();
 		props.add(FIRST);

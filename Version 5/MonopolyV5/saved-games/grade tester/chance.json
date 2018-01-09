@@ -1,6 +1,6 @@
 [
   {
-    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eAdvance to Go!\u003cbr\u003e(Collect $200)\u003c/html\u003e",
+    "text": "\u003chtml\u003eAdvance to Go!\u003cbr\u003e(Collect $200)\u003c/html\u003e",
     "moneyEarned": 200,
     "globalFunds": false,
     "baseMovement": 0,
@@ -13,7 +13,7 @@
     "hotelCost": 0
   },
   {
-    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eAdvance to Illinois Ave.!\u003cbr\u003e(If you ass Go, collect $200)\u003c/html\u003e",
+    "text": "\u003chtml\u003eAdvance to Illinois Ave.!\u003cbr\u003e(If you ass Go, collect $200)\u003c/html\u003e",
     "moneyEarned": 0,
     "globalFunds": false,
     "baseMovement": 0,
@@ -26,7 +26,7 @@
     "hotelCost": 0
   },
   {
-    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eAdvance token to the nearest Utility - If unowned, you may buy it from the bank.\u003cbr\u003eIf owned, throw the dice and pay the owner ten times the amount thrown\u003c/html\u003e",
+    "text": "\u003chtml\u003eAdvance token to the nearest Utility\u003cbr\u003eIf unowned, you may buy it from the bank.\u003cbr\u003eIf owned, throw the dice and pay the owner\u003cbr\u003eten times the amount thrown\u003c/html\u003e",
     "moneyEarned": 0,
     "globalFunds": false,
     "baseMovement": 0,
@@ -39,7 +39,7 @@
     "hotelCost": 0
   },
   {
-    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eBank pays you dividends of $50\u003c/html\u003e",
+    "text": "\u003chtml\u003eBank pays you dividends of $50\u003c/html\u003e",
     "moneyEarned": 50,
     "globalFunds": false,
     "baseMovement": 0,
@@ -52,7 +52,7 @@
     "hotelCost": 0
   },
   {
-    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eGet out of jail free!\u003cbr\u003e(This card may be kept until needed, or traded/sold)\u003c/html\u003e",
+    "text": "\u003chtml\u003eGet out of jail free!\u003cbr\u003e(This card may be kept until needed,\u003cbr\u003eor traded/sold)\u003c/html\u003e",
     "moneyEarned": 0,
     "globalFunds": false,
     "baseMovement": 0,
@@ -65,7 +65,7 @@
     "hotelCost": 0
   },
   {
-    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eGo back 3 spaces\u003c/html\u003e",
+    "text": "\u003chtml\u003eGo back 3 spaces\u003c/html\u003e",
     "moneyEarned": 0,
     "globalFunds": false,
     "baseMovement": -3,
@@ -78,7 +78,7 @@
     "hotelCost": 0
   },
   {
-    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eGo directly to jail.\u003cbr\u003eDo not pass go, do not collect $200\u003c/html\u003e",
+    "text": "\u003chtml\u003eGo directly to jail.\u003cbr\u003eDo not pass go,\u003cbr\u003edo not collect $200\u003c/html\u003e",
     "moneyEarned": 0,
     "globalFunds": false,
     "baseMovement": 0,
@@ -91,7 +91,7 @@
     "hotelCost": 0
   },
   {
-    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eMake general repairs on all your property- For each house pay $25\u003cbr\u003eFor each hotel pay $100\u003c/html\u003e",
+    "text": "\u003chtml\u003eMake general repairs on all your property\u003cbr\u003eFor each house pay $25\u003cbr\u003eFor each hotel pay $100\u003c/html\u003e",
     "moneyEarned": 0,
     "globalFunds": false,
     "baseMovement": 0,
@@ -104,7 +104,7 @@
     "hotelCost": 100
   },
   {
-    "text": "\u003chtml\u003eChance Card:\u003cbr\u003ePay poor tax of $15\u003c/html\u003e",
+    "text": "\u003chtml\u003ePay poor tax of $15\u003c/html\u003e",
     "moneyEarned": -15,
     "globalFunds": false,
     "baseMovement": 0,
@@ -117,7 +117,7 @@
     "hotelCost": 0
   },
   {
-    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eTake a trip to Reading Railraod\u003c/html\u003e",
+    "text": "\u003chtml\u003eTake a trip to Reading Railraod\u003c/html\u003e",
     "moneyEarned": 0,
     "globalFunds": false,
     "baseMovement": 0,
@@ -130,7 +130,7 @@
     "hotelCost": 0
   },
   {
-    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eAdvance token to Boardwalk\u003c/html\u003e",
+    "text": "\u003chtml\u003eAdvance token to Boardwalk\u003c/html\u003e",
     "moneyEarned": 0,
     "globalFunds": false,
     "baseMovement": 0,
@@ -143,7 +143,7 @@
     "hotelCost": 0
   },
   {
-    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eYou have been elected Chairman\u003cbr\u003eof the Board, Pay each player $50\u003c/html\u003e",
+    "text": "\u003chtml\u003eYou have been elected Chairman\u003cbr\u003eof the Board, Pay each player $50\u003c/html\u003e",
     "moneyEarned": -50,
     "globalFunds": true,
     "baseMovement": 0,
@@ -156,7 +156,7 @@
     "hotelCost": 0
   },
   {
-    "text": "\u003chtml\u003eChance Card:\u003cbr\u003eYou building and loan matures\u003cbr\u003eCollect $150\u003c/html\u003e",
+    "text": "\u003chtml\u003eYou building and loan matures\u003cbr\u003eCollect $150\u003c/html\u003e",
     "moneyEarned": 150,
     "globalFunds": false,
     "baseMovement": 0,

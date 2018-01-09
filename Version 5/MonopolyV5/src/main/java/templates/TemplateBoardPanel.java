@@ -46,6 +46,7 @@ public class TemplateBoardPanel extends JPanel {
 	@Expose private String[] iconPaths;
 	@Expose private int[][] basePaint;
 	@Expose private Stamp[][] stampCollection = new Stamp[30][30];
+	private transient ArrayList<Pair<Integer,Integer>> jailSpots;
 	private transient GridLayout grid = new GridLayout(boardWidth,boardHeight);
 	private transient ImageIcon[][] displayedBoard;
 	private transient ImageIcon[] playerIcons;
@@ -82,11 +83,31 @@ public class TemplateBoardPanel extends JPanel {
 		
 	}
 	
+	private void formJailSpots(){
+		
+		/*
+		case 6:	coords = new Pair<Integer,Integer>(25,4);
+				break;
+		case 7:coords = new Pair<Integer,Integer>(25,3);
+				break;
+		 */
+		jailSpots = new ArrayList<Pair<Integer,Integer>>();
+		jailSpots.add( new Pair<Integer,Integer>(25,2) );	//0
+		jailSpots.add( new Pair<Integer,Integer>(26,2) );	//1
+		jailSpots.add( new Pair<Integer,Integer>(27,2) );	//2
+		jailSpots.add( new Pair<Integer,Integer>(27,3) );	//3
+		jailSpots.add( new Pair<Integer,Integer>(27,4) );	//4
+		jailSpots.add( new Pair<Integer,Integer>(26,4) );	//5
+		jailSpots.add( new Pair<Integer,Integer>(25,4) ); 	//6
+		jailSpots.add( new Pair<Integer,Integer>(25,3) );	//7
+	}
+	
 	private void generatePieces(){
 		Piece toSave;
+		formJailSpots();
 		gamePieces = new ArrayList<Piece>();
 		for(int i=0; i<playerIcons.length; i++){
-			toSave = new Piece(i, paths.get(i), playerIconPaths[i], playerIcons[i]);
+			toSave = new Piece(i, paths.get(i), playerIconPaths[i], playerIcons[i], jailSpots.get(i));
 			gamePieces.add(toSave);
 			
 		}
@@ -95,7 +116,7 @@ public class TemplateBoardPanel extends JPanel {
 	private void developIcons(){
 		playerIcons = new ImageIcon[8];
 		for(int i=0; i<playerIconPaths.length; i++){
-			playerIcons[i] = new ImageIcon(dir+playerIconPaths[i]);
+			playerIcons[i] = new ImageIcon(dir+"\\resources\\image-sets\\default-image-set\\"+playerIconPaths[i]);
 		}
 	}
 	
@@ -162,6 +183,18 @@ public class TemplateBoardPanel extends JPanel {
 					}
 				}
 				
+			}else if(choice.equals("jail")){
+				for(Piece p : gamePieces){
+					Pair<Integer,Integer> coord = p.specialCase(0);
+					displayedBoard[coord.first][coord.second] = p.getIcon();
+					
+					Component com = this.getComponent(coord.first*displayedBoard.length+coord.second);
+
+					if( com instanceof JLabel ){
+						((JLabel) com).setIcon(displayedBoard[coord.first][coord.second]);
+						com.repaint();
+					}
+				}
 			}
 			
 		}
@@ -615,101 +648,107 @@ public class TemplateBoardPanel extends JPanel {
 	private void fillImageIndex(){
 		imageIndex = new ImageIcon[iconPaths.length];
 		for(int i=0; i<iconPaths.length; i++){
-			imageIndex[i] = new ImageIcon(dir+iconPaths[i]);
+			//System.out.println(dir+"\\resources\\image-sets\\default-image-set\\"+iconPaths[i]);
+			imageIndex[i] = new ImageIcon(dir+"\\resources\\image-sets\\default-image-set\\"+iconPaths[i]);
 		}
 	}
 	
 	private void templateBasePaint(){
 		int[][] temp = {{0,0,0,0,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,0,0,0,0,0}, //0
 						{0,0,0,0,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,0,0,0,0,0}, //1
-						{0,0,21,50,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,0,0,0,0,0}, //2
-						{0,0,21,51,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,0,0,0,0,0}, //3
-						{0,0,21,0,0,0,		21,21,47,47,21,21,21,21,0,0,26,26,26,26,49,49,26,26,	0,0,0,0,0,0}, //4
-						{0,0,21,0,0,0,		21,21,47,47,21,21,21,21,0,0,26,26,26,26,49,49,26,26,	0,0,0,0,0,0}, //5
+						{0,0,23,52,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,0,0,0,0,0}, //2
+						{0,0,23,53,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,0,0,0,0,0}, //3
+						{0,0,23,0,0,0,		23,23,48,48,23,23,23,23,0,0,28,28,28,28,44,44,28,28,	0,0,0,0,0,0}, //4
+						{0,0,23,0,0,0,		23,23,48,48,23,23,23,23,0,0,28,28,28,28,44,44,28,28,	0,0,0,0,0,0}, //5
 						
-						{0,0,0,0,16,16,		0,0,0,0,0,52,52,52,0,0,52,52,52,0,0,0,0,0,				31,31,0,0,0,0}, //6
-						{0,0,0,0,16,16,		0,0,0,0,0,53,52,53,0,0,53,52,53,0,0,0,0,0,				31,31,0,0,0,0}, //7
-						{0,0,0,0,16,16,		0,0,0,0,0,52,52,52,0,0,52,52,52,0,0,0,0,0,				31,31,0,0,0,0}, //8
-						{0,0,0,0,16,16,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					31,31,0,0,0,0}, //9
-						{0,0,0,0,45,45,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					45,45,0,0,0,0}, //10
-						{0,0,0,0,46,46,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					46,46,0,0,0,0}, //11
-						{0,0,0,0,16,16,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					31,31,0,0,0,0}, //12
-						{0,0,0,0,16,16,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					31,31,0,0,0,0}, //13
+						{0,0,0,0,18,18,		0,0,0,0,0,1,1,1,0,0,1,1,1,0,0,0,0,0,					33,33,0,0,0,0}, //6
+						{0,0,0,0,18,18,		0,0,0,0,0,2,1,2,0,0,2,1,2,0,0,0,0,0,					33,33,0,0,0,0}, //7
+						{0,0,0,0,18,18,		0,0,0,0,0,1,1,1,0,0,1,1,1,0,0,0,0,0,					33,33,0,0,0,0}, //8
+						{0,0,0,0,18,18,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					33,33,0,0,0,0}, //9
+						{0,0,0,0,46,46,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					46,46,0,0,0,0}, //10
+						{0,0,0,0,47,47,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					47,47,0,0,0,0}, //11
+						{0,0,0,0,18,18,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					33,33,0,0,0,0}, //12
+						{0,0,0,0,18,18,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					33,33,0,0,0,0}, //13
 						{0,0,0,0,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,0,0,0,0,0}, //14
 						{0,0,0,0,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,0,0,0,0,0}, //15
-						{0,0,0,0,11,11,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					47,47,0,0,0,0}, //16
-						{0,0,0,0,11,11,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					47,47,0,0,0,0}, //17
-						{0,0,0,0,11,11,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					36,36,0,0,0,0}, //18
-						{0,0,0,0,11,11,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					36,36,0,0,0,0}, //19
-						{0,0,0,0,48,48,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,0,0,0,0,0}, //20
-						{0,0,0,0,48,48,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,0,0,0,0,0}, //21
-						{0,0,0,0,11,11,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					36,36,0,0,0,0}, //22
-						{0,0,0,0,11,11,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					36,36,0,0,0,0}, //23
+						{0,0,0,0,13,13,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					48,48,0,0,0,0}, //16
+						{0,0,0,0,13,13,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					48,48,0,0,0,0}, //17
+						{0,0,0,0,13,13,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					38,38,0,0,0,0}, //18
+						{0,0,0,0,13,13,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					38,38,0,0,0,0}, //19
+						{0,0,0,0,43,43,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,0,0,0,0,0}, //20
+						{0,0,0,0,43,43,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,0,0,0,0,0}, //21
+						{0,0,0,0,13,13,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					38,38,0,0,0,0}, //22
+						{0,0,0,0,13,13,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					38,38,0,0,0,0}, //23
 							
-						{0,44,44,44,44,44,	6,6,6,6,47,47,6,6,0,0,0,0,1,1,45,45,1,1,				0,0,0,0,0,0}, //24
-						{0,44,0,0,0,44,		6,6,6,6,47,47,6,6,0,0,0,0,1,1,46,46,1,1,				0,0,0,0,0,0}, //25
-						{0,44,0,44,0,44,	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,0,0,0,0,0}, //26
-						{0,44,0,0,0,44,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,41,0,0,0,0}, //27
-						{0,44,44,44,44,44,	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					42,21,21,21,21,21}, //28
-						{0,0,0,0,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,43,0,0,0,0}};//29
+						{0,45,45,45,45,45,	8,8,8,8,48,48,8,8,0,0,0,0,3,3,46,46,3,3,				0,0,0,0,0,0}, //24
+						{0,45,0,0,0,45,		8,8,8,8,48,48,8,8,0,0,0,0,3,3,47,47,3,3,				0,0,0,0,0,0}, //25
+						{0,45,0,45,0,45,	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,0,0,0,0,0}, //26
+						{0,45,0,0,0,45,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,49,0,0,0,0}, //27
+						{0,45,45,45,45,45,	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					50,23,23,23,23,23}, //28
+						{0,0,0,0,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,					0,51,0,0,0,0}};//29
 		basePaint = temp;
 	}
 	
 	private void templateImageIndex(){
 		String[] icons = {	"baseboard.png",			//0
-							"purple.png",				//1
-							"purplehouse.png",			//2
-							"purplehotelleft.png",		//3
-							"purplehotelright.png",		//4
-							"purplehotelbottom.png",	//5
-							"lightblue.png",			//6
-							"lightbluehouse.png",		//7
-							"lightbluehotelleft.png",	//8
-							"lightbluehotelright.png",	//9
-							"lightbluehotelbottom.png", //10
-							"pink.png",					//11
-							"pinkhouse.png",			//12
-							"pinkhotelleft.png",		//13
-							"pinkhotelright.png",		//14
-							"pinkhotelbottom.png",		//15
-							"orange.png",				//16
-							"orangehouse.png",			//17
-							"orangehotelleft.png",		//18
-							"orangehotelright.png",		//19
-							"orangehotelbottom.png",	//20
-							"red.png",					//21
-							"redhouse.png",				//22
-							"redhotelleft.png",			//23
-							"redhotelright.png",		//24
-							"redhotelbottom.png",		//25
-							"yellow.png",				//26
-							"yellowhouse.png",			//27
-							"yellowhotelleft.png",		//28
-							"yellowhotelright.png",		//29
-							"yellowhotelbottom.png",	//30
-							"green.png",				//31
-							"greenhouse.png",			//32
-							"greenhotelleft.png",		//33
-							"greenhotelright.png",		//34
-							"greenhotelbottom.png",		//35
-							"blue.png",					//36
-							"bluehouse.png",			//37
-							"bluehotelleft.png",		//38
-							"bluehotelright.png",		//39
-							"bluehotelbottom.png",		//40
-							"gotop.png",				//41
-							"gomid.png",				//42
-							"gobot.png",				//43
-							"jail.png",					//44
-							"chesttop.png",				//45
-							"chestbottom.png",			//46
-							"chance.png",				//47
-							"eleccomp.png",				//48
-							"waterworks.png",			//49
-							"parktop.png",				//50
-							"parkbot.png",				//51
-						    "dotdie.png",				//52
-						    "blankdie.png"};			//53
+							"dotdie.png",				//1
+							"blankdie.png",				//2
+							
+							"purple.png",				//3
+							"purplehouse.png",			//4
+							"purplehotelleft.png",		//5
+							"purplehotelright.png",		//6
+							"purplehotelbottom.png",	//7
+							"lightblue.png",			//8
+							"lightbluehouse.png",		//9
+							"lightbluehotelleft.png",	//10
+							"lightbluehotelright.png",	//11
+							"lightbluehotelbottom.png", //12
+							"pink.png",					//13
+							"pinkhouse.png",			//14
+							"pinkhotelleft.png",		//15
+							"pinkhotelright.png",		//16
+							"pinkhotelbottom.png",		//17
+							"orange.png",				//18
+							"orangehouse.png",			//19
+							"orangehotelleft.png",		//20
+							"orangehotelright.png",		//21
+							"orangehotelbottom.png",	//22
+							"red.png",					//23
+							"redhouse.png",				//24
+							"redhotelleft.png",			//25
+							"redhotelright.png",		//26
+							"redhotelbottom.png",		//27
+							"yellow.png",				//28
+							"yellowhouse.png",			//29
+							"yellowhotelleft.png",		//30
+							"yellowhotelright.png",		//31
+							"yellowhotelbottom.png",	//32
+							"green.png",				//33
+							"greenhouse.png",			//34
+							"greenhotelleft.png",		//35
+							"greenhotelright.png",		//36
+							"greenhotelbottom.png",		//37
+							"blue.png",					//38
+							"bluehouse.png",			//39
+							"bluehotelleft.png",		//40
+							"bluehotelright.png",		//41
+							"bluehotelbottom.png",		//42
+							
+							"eleccomp.png",				//43
+							"waterworks.png",			//44
+							
+							"jail.png",					//45
+							"chesttop.png",				//46
+							"chestbottom.png",			//47
+							"chance.png",				//48
+							
+							"gotop.png",				//49
+							"gomid.png",				//50
+							"gobot.png",				//51
+							
+							"parktop.png",				//52
+							"parkbot.png"};				//53
 		iconPaths = icons;
 	}
 	

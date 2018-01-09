@@ -1,3 +1,4 @@
+//the code \u003c and \u003e are interpretted as characters < and > respectfully. DO NOT REMOVE THEM OR REPLACE THEM
 [
   {
     "text": "\u003chtml\u003eChance Card:\u003cbr\u003eAdvance to Go!\u003cbr\u003e(Collect $200)\u003c/html\u003e",

@@ -21,7 +21,7 @@ import main.java.action.Settings;
  * @author Miguel Salazar
  *
  */
-public class PreGameFrame extends JFrame {
+public class PreGameFrame extends JFrame implements ActionListener {
 	/**
 	 * 
 	 */
@@ -65,41 +65,35 @@ public class PreGameFrame extends JFrame {
 	
 	
 	private void addListeners(){
-		newGame.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e){
-				Runner newGame = new Runner();
-				if(newGame.startNewGame(sets)){
-					closeMe();
-				}
-			}
-		});
+		newGame.addActionListener(this);
 		
-		loadGame.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e){
-				Runner oldGame = new Runner();
-				if(oldGame.startSavedGame()){
-					closeMe();
-				}
-			}
-		});
+		loadGame.addActionListener(this);
 		
-		settings.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e){
-				sets.setup();
-			}
-		});
+		settings.addActionListener(this);
 		
-		about.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				Runner.aboutThis();
-			}
-		});
+		about.addActionListener(this);
 	}
 	
 	private void closeMe(){
 		this.dispose();
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource().equals(newGame)){
+			Runner newGame = new Runner();
+			if(newGame.startNewGame(sets)){
+				closeMe();
+			}
+		}else if(e.getSource().equals(loadGame)){
+			Runner oldGame = new Runner();
+			if(oldGame.startSavedGame()){
+				closeMe();
+			}
+		}else if(e.getSource().equals(settings)){
+			sets.setup();
+		}else if(e.getSource().equals(about)){
+			Runner.aboutThis();
+		}
+		
 	}
 }

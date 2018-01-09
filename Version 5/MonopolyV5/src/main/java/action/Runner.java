@@ -44,6 +44,8 @@ public class Runner {
 	private GameFrame game;
 	private GameReader gread;
 	private Settings sets;
+	private GlobalCounter houseCount = new GlobalCounter(0,32);
+	private GlobalCounter hotelCount = new GlobalCounter(0,12);
 	
 	public void saveThisGame(){
 		if(gread.isNewGame()){
@@ -203,6 +205,16 @@ public class Runner {
 			
 			coloredProps = gread.getSuites(properties);
 			suiteNames = coloredProps.keySet();
+			
+			for(String key : suiteNames){
+				for(Colored c : coloredProps.get(key).getProperties()){
+					if(c.getGrade() < 5){
+						houseCount.incCount(c.getGrade());
+					}else{
+						hotelCount.incCount();
+					}
+				}
+			}
 			
 			BoardPanel board = game.getGameBoard();
 			ArrayList<Player> pl = new ArrayList<Player>(players.values());
@@ -406,8 +418,8 @@ public class Runner {
 				board.changeIcon(num, coords.first+1, coords.second+1);
 				
 				switch(color.getGrade()){
-				case 5:	board.changeIcon(num+3, coords.first, coords.second);
-						board.changeIcon(num+2, coords.first, coords.second+1);
+				case 5:	board.changeIcon(num+2, coords.first, coords.second);
+						board.changeIcon(num+3, coords.first, coords.second+1);
 						board.changeIcon(num+4, coords.first+1, coords.second);
 						board.changeIcon(num+4, coords.first+1, coords.second+1);
 						break;
@@ -437,17 +449,17 @@ public class Runner {
 				break;
 		case 9:	coords = new Pair<Integer,Integer>(24,6);
 				break;
-		case 11:coords = new Pair<Integer,Integer>(6,22);
+		case 11:coords = new Pair<Integer,Integer>(22,4);
 				break;
-		case 13:coords = new Pair<Integer,Integer>(18,6);
+		case 13:coords = new Pair<Integer,Integer>(18,4);
 				break;
-		case 14:coords = new Pair<Integer,Integer>(16,6);
+		case 14:coords = new Pair<Integer,Integer>(16,4);
 				break;
-		case 16:coords = new Pair<Integer,Integer>(12,6);
+		case 16:coords = new Pair<Integer,Integer>(12,4);
 				break;
-		case 18:coords = new Pair<Integer,Integer>(8,6);
+		case 18:coords = new Pair<Integer,Integer>(8,4);
 				break;
-		case 19:coords = new Pair<Integer,Integer>(6,6);
+		case 19:coords = new Pair<Integer,Integer>(6,4);
 				break;
 		case 21:coords = new Pair<Integer,Integer>(4,6);
 				break;
@@ -519,6 +531,30 @@ public class Runner {
 
 	public String getCurrencySymbol() {
 		return sets.getSigil();
+	}
+
+
+
+	public GlobalCounter getHouseCount() {
+		return houseCount;
+	}
+
+
+
+	public void setHouseCount(GlobalCounter houseCount) {
+		this.houseCount = houseCount;
+	}
+
+
+
+	public GlobalCounter getHotelCount() {
+		return hotelCount;
+	}
+
+
+
+	public void setHotelCount(GlobalCounter hotelCount) {
+		this.hotelCount = hotelCount;
 	}
 	
 }

@@ -42,6 +42,8 @@ public interface Suite {
 	 */
 	public abstract int gradeDisparity();
 	
+	public abstract int getCumulativeGrade();
+	
 	public abstract void setPropertySuite();
 	
 	public abstract List<Colored> getProperties();

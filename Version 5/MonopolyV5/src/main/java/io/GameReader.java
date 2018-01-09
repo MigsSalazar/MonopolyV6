@@ -69,7 +69,7 @@ public class GameReader {
 		Gson gson = new Gson();
 		File boardFile = new File(locations.get(0));
 		if(!boardFile.exists()){
-			boardFile = new File("C:/Users/Unknown/git/Monopoly/Version 5/MonopolyV5/resources/image-sets/default-image-set/board_config.json");
+			boardFile = new File(System.getProperty("user.dir")+"/resources/image-sets/default-image-set/board_config.json");
 		}
 		Reader readme = new FileReader(boardFile);
 		BoardPanel retval = gson.fromJson(readme, BoardPanel.class);
@@ -86,7 +86,7 @@ public class GameReader {
 		Gson gson = new Gson();
 		File playersFile = new File(locations.get(1));
 		if(!playersFile.exists()){
-			playersFile = new File("C:/Users/Unknown/git/Monopoly/Version 5/MonopolyV5/resources/image-sets/default-image-set/players.json");
+			playersFile = new File(System.getProperty("user.dir")+"/resources/image-sets/default-image-set/players.json");
 		}
 		Reader readme = new FileReader(playersFile);
 		//Type type = new TypeToken<Map<String, Player>>(){}.getType();
@@ -104,7 +104,7 @@ public class GameReader {
 	public HashMap<String, Property> getProperties(Roll uroll){
 		File propFile = new File(locations.get(2));
 		if(!propFile.exists()){
-			propFile = new File("C:/Users/Unknown/git/Monopoly/Version 5/MonopolyV5/resources/image-sets/default-image-set/properties.json");
+			propFile = new File(System.getProperty("user.dir")+"/resources/image-sets/default-image-set/properties.json");
 		}
 		PropertyBean getter = PropertyBean.jsonToProperties(propFile);
 		return getter.getFullMap(uroll);
@@ -113,7 +113,7 @@ public class GameReader {
 	public HashMap<String,Suite> getSuites(Map<String,Property> props) throws IOException{
 		File suiteFile = new File(locations.get(3));
 		if(!suiteFile.exists()){
-			suiteFile = new File("C:/Users/Unknown/git/Monopoly/Version 5/MonopolyV5/resources/image-sets/default-image-set/suiteNames.txt");
+			suiteFile = new File(System.getProperty("user.dir")+"/resources/image-sets/default-image-set/suiteNames.txt");
 		}
 		
 		Scanner filein = new Scanner(suiteFile);
@@ -164,7 +164,7 @@ public class GameReader {
 		try {
 			File chanceFile = new File(locations.get(5));
 			if(!chanceFile.exists()){
-				chanceFile = new File("C:/Users/Unknown/git/Monopoly/Version 5/MonopolyV5/resources/image-sets/default-image-set/chance.json");
+				chanceFile = new File(System.getProperty("user.dir")+"/resources/image-sets/default-image-set/chance.json");
 			}
 			readme = new FileReader(chanceFile);
 			Type type = new TypeToken<ArrayList<GameCard>>(){}.getType();
@@ -187,7 +187,7 @@ public class GameReader {
 		try {
 			File commChestFile = new File(locations.get(4));
 			if(!commChestFile.exists()){
-				commChestFile = new File("C:/Users/Unknown/git/Monopoly/Version 5/MonopolyV5/resources/image-sets/default-image-set/community-chest.json");
+				commChestFile = new File(System.getProperty("user.dir")+"/resources/image-sets/default-image-set/community-chest.json");
 			}
 			readme = new FileReader(commChestFile);
 			Type type = new TypeToken<ArrayList<GameCard>>(){}.getType();

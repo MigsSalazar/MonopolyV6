@@ -4,10 +4,12 @@
 package main.java.gui;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
 import main.java.models.GamePath;
+import main.java.models.Pair;
 
 import com.google.gson.annotations.Expose;
 
@@ -19,6 +21,7 @@ public class Piece {
 	@Expose private int team;
 	@Expose private GamePath travelPath;
 	@Expose private String fileLocation;
+	@Expose private ArrayList<Pair<Integer,Integer>> specialCases;
 	private transient String dir = System.getProperty("user.dir");
 	private transient ImageIcon icon;
 	
@@ -27,6 +30,31 @@ public class Piece {
 		travelPath = tp;
 		fileLocation = fl;
 		icon = i;
+		specialCases = new ArrayList<Pair<Integer,Integer>>();
+	}
+	
+	public Piece(int t, GamePath tp, String fl, ImageIcon i, Pair<Integer,Integer> sc){
+		team = t;
+		travelPath = tp;
+		fileLocation = fl;
+		icon = i;
+		specialCases = new ArrayList<Pair<Integer,Integer>>();
+		specialCases.add(sc);
+	}
+	
+	public Piece(int t, GamePath tp, String fl, ImageIcon i, ArrayList<Pair<Integer,Integer>> sc){
+		team = t;
+		travelPath = tp;
+		fileLocation = fl;
+		icon = i;
+		specialCases = sc;
+	}
+	
+	public Pair<Integer,Integer> specialCase(int c){
+		if(c < specialCases.size() && c > -1){
+			return specialCases.get(c);
+		}
+		return null;
 	}
 	
 	public void updateIcon(String d){

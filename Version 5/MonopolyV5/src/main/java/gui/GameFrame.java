@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
  * @author Miguel Salazar
  *
  */
-public class GameFrame extends JFrame{
+public class GameFrame extends JFrame implements ActionListener{
 	
 	private JFrame me;
 	private BorderLayout border;
@@ -56,34 +56,9 @@ public class GameFrame extends JFrame{
 	public void setup(){
 		this.setLayout(border);
 		this.setJMenuBar(menuBar);
-		//this.setPreferredSize(new Dimension(640,790));
-		//this.setSize(640,590);
 		titleIcon = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/frameicon.png").getImage();
 		this.setIconImage(titleIcon);
-		/*
-		try{
-			//System.out.println("Started try");
-			gameBoard = requestBoardPanel();
-			//System.out.println("created board");
-			gameStats = requestStatsPanel();
-			//System.out.println("created stats");
-			gameEvents = requestEventPanel();
-			//System.out.println("created events");
-		}catch(IOException ioe){
-			JOptionPane.showConfirmDialog(null, "Your attempt to generate this game has failed\nAborting all functions");
-			ioe.printStackTrace();
-			System.exit(1);
-		}
-		*/
-		/*
-		c.setLayout(border);
-		c.add(gameBoard, BorderLayout.CENTER);
-		c.add(gameStats, BorderLayout.EAST);
-		c.add(gameEvents, BorderLayout.SOUTH);
-		*/
-		
 		this.pack();
-		//this.setLocationRelativeTo(null);
 		this.setResizable(true);
 		this.setTitle("Migs Monopoly!");
 		this.setVisible(true);
@@ -100,28 +75,6 @@ public class GameFrame extends JFrame{
 		});
 	}
 	
-	/*
-	 * JMenuBar Contains menus:
-	 * File - Actions - Settings - About
-	 * 
-	 * File Contains:
-	 * New - Save - Load - Exit
-	 * 
-	 * Actions Contains:
-	 * Roll - Trade - Mortgage - Monopolize
-	 * 
-	 * Settings Should be its own window or better yet, a JDialog:
-	 * Full Screen(Radio Button) - Resolution(Menu) - Texture Pack
-	 * 
-	 * Resolution Contains:
-	 * 3-7 resolution settings
-	 * the largest resolution that fits
-	 * entirely on the screen is the
-	 * recommended and default resolution.
-	 * This should have an * next to it
-	 * 
-	 * 
-	 */
 	
 	/**
 	 * Creates, defines, and links all menus, items and bars to
@@ -129,11 +82,11 @@ public class GameFrame extends JFrame{
 	 */
 	private void defineMenus(){
 		menuBar = new JMenuBar();
-		menus = new JMenu[1];
+		menus = new JMenu[2];
 		
 		menus[0] = new JMenu();
 		menus[0].setText("File");
-		
+		menus[1] = new JMenu("Help");
 		
 		menuItems = new JMenuItem[10];
 		
@@ -143,75 +96,43 @@ public class GameFrame extends JFrame{
 		
 		
 		//make a new game from scratch
-		menuItems[0].addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				Runner newGame = new Runner();
-				Settings sets = new Settings(me);
-				sets.setup();
-				if(newGame.startNewGame(sets)){
-					closeMe();
-				}
-			}
-		});
+		menuItems[0].addActionListener(this);
 		menuItems[0].setText("New");
 		menus[0].add(menuItems[0]);
 		
 		
-		
-		//open a prevously saved game
-		menuItems[1].addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				globalVars.saveThisGame();
-			}
-		});
+		//saves the current game
+		menuItems[1].addActionListener(this);
 		menuItems[1].setText("Save");
 		menus[0].add(menuItems[1]);
 		
 		
-		//make a game from a save file
-		menuItems[2].addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				Runner oldGame = new Runner();
-				oldGame.startSavedGame();
-				closeMe();
-			}
-		});
+		//open a game from a save file
+		menuItems[2].addActionListener(this);
 		menuItems[2].setText("Load");
 		menus[0].add(menuItems[2]);
 		
 		
-		
 		//Exits current game
-		menuItems[3].addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e){
-				
-				closeMe();
-			}
-		});
+		menuItems[3].addActionListener(this);
 		menuItems[3].setText("Exit");
 		menus[0].add(menuItems[3]);
 		
 		
-		
-		
-		menuItems[4].addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e){
-				Runner.aboutThis();
-			}
-		});
+		//Opens About pop-up
 		menuItems[4].setText("About");
-		menuItems[4].setPreferredSize(new Dimension(100, menuItems[4].getHeight()));
-		menuItems[4].setSize(100, menuItems[4].getHeight());
+		menuItems[4].addActionListener(this);
 		ImageIcon mark = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/aboutSmall.png");
 		menuItems[4].setIcon(mark);
+		
+		menus[1].add(menuItems[4]);
 		
 		for(int i=0; i<menus.length; i++){
 			menuBar.add(menus[i]);
 		}
-		menuBar.add(menuItems[4]);
 		
+		//menuBar.add(menuItems[4]);
+		//menuBar.setPreferredSize(new Dimension(,100));
 	}
 	
 	public void giveBoardPanel(BoardPanel bp){
@@ -281,6 +202,31 @@ public class GameFrame extends JFrame{
 	
 	public Image getTitleIcon(){
 		return titleIcon;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		Object menuSource = e.getSource();
+		
+		if(menuSource.equals(menuItems[0]) ){
+			Runner newGame = new Runner();
+			Settings sets = new Settings(me);
+			sets.setup();
+			if(newGame.startNewGame(sets)){
+				closeMe();
+			}
+		}else if(menuSource.equals(menuItems[1])){
+			globalVars.saveThisGame();
+		}else if(menuSource.equals(menuItems[2])){
+			Runner oldGame = new Runner();
+			oldGame.startSavedGame();
+			closeMe();
+		}else if(menuSource.equals(menuItems[3])){
+			closeMe();
+		}else if(menuSource.equals(menuItems[4])){
+			Runner.aboutThis();
+		}
 	}
 	
 }

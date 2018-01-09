@@ -74,5 +74,10 @@ public class BigSuite implements Suite {
 		props.add(THIRD);
 		return props;
 	}
+
+	@Override
+	public int getCumulativeGrade() {
+		return FIRST.getGrade()+SECOND.getGrade()+THIRD.getGrade();
+	}
 	
 }

@@ -8,8 +8,7 @@
   "gamePieces": [
     {
       "team": 0,
-      "travelPath": {
-      	"steps": [
+      "travelPath": {"steps": [
           {"first": 25,"second": 25},
           {"first": 26,"second": 22},
           {"first": 26,"second": 20},
@@ -49,16 +48,19 @@
           {"first": 16,"second": 26},
           {"first": 18,"second": 26},
           {"first": 20,"second": 26},
-          {"first": 22,"second": 26
-          }
-        ],"currentStep": 0,"locked": false
-      },
-      "fileLocation": "pupper.png"
+          {"first": 22,"second": 26}
+        ],"currentStep": 0,"locked": false},
+      "fileLocation": "pupper.png",
+      "specialCases": [
+        {
+          "first": 25,
+          "second": 2
+        }
+      ]
     },
     {
       "team": 1,
-      "travelPath": {
-      	"steps": [
+      "travelPath": {"steps": [
           {"first": 25,"second": 26},
           {"first": 26,"second": 23},
           {"first": 26,"second": 21},
@@ -98,16 +100,19 @@
           {"first": 16,"second": 27},
           {"first": 18,"second": 27},
           {"first": 20,"second": 27},
-          {"first": 22,"second": 27
-          }
-        ],"currentStep": 0,"locked": false
-  	  },
-      "fileLocation": "thimble.png"
+          {"first": 22,"second": 27}
+        ],"currentStep": 0,"locked": false},
+      "fileLocation": "thimble.png",
+      "specialCases": [
+        {
+          "first": 26,
+          "second": 2
+        }
+      ]
     },
     {
       "team": 2,
-      "travelPath": {
-      	"steps": [
+      "travelPath": {"steps": [
           {"first": 25,"second": 27},
           {"first": 27,"second": 22},
           {"first": 27,"second": 20},
@@ -147,16 +152,19 @@
           {"first": 16,"second": 28},
           {"first": 18,"second": 28},
           {"first": 20,"second": 28},
-          {"first": 22,"second": 28
-          }
-        ],"currentStep": 0,"locked": false
-      },
-      "fileLocation": "boot.png"
+          {"first": 22,"second": 28}
+        ],"currentStep": 0,"locked": false},
+      "fileLocation": "boot.png",
+      "specialCases": [
+        {
+          "first": 27,
+          "second": 2
+        }
+      ]
     },
     {
       "team": 3,
-      "travelPath": {
-      	"steps": [
+      "travelPath": {"steps": [
           {"first": 25,"second": 28},
           {"first": 27,"second": 23},
           {"first": 27,"second": 21},
@@ -196,16 +204,19 @@
           {"first": 16,"second": 29},
           {"first": 18,"second": 29},
           {"first": 20,"second": 29},
-          {"first": 22,"second": 29
-          }
-        ],"currentStep": 0,"locked": false
-      },
-      "fileLocation": "boat.png"
+          {"first": 22,"second": 29}
+        ],"currentStep": 0,"locked": false},
+      "fileLocation": "boat.png",
+      "specialCases": [
+        {
+          "first": 27,
+          "second": 3
+        }
+      ]
     },
     {
       "team": 4,
-      "travelPath": {
-      	"steps": [
+      "travelPath": {"steps": [
           {"first": 26,"second": 25},
           {"first": 28,"second": 22},
           {"first": 28,"second": 20},
@@ -245,16 +256,19 @@
           {"first": 17,"second": 26},
           {"first": 19,"second": 26},
           {"first": 21,"second": 26},
-          {"first": 23,"second": 26
-          }
-        ],"currentStep": 0,"locked": false
-      },
-      "fileLocation": "wheelbarrow.png"
+          {"first": 23,"second": 26}
+        ],"currentStep": 0,"locked": false},
+      "fileLocation": "wheelbarrow.png",
+      "specialCases": [
+        {
+          "first": 27,
+          "second": 4
+        }
+      ]
     },
     {
       "team": 5,
-      "travelPath": {
-      	"steps": [
+      "travelPath": {"steps": [
           {"first": 26,"second": 26},
           {"first": 28,"second": 23},
           {"first": 28,"second": 21},
@@ -294,16 +308,19 @@
           {"first": 17,"second": 27},
           {"first": 19,"second": 27},
           {"first": 21,"second": 27},
-          {"first": 23,"second": 27
-          }
-        ],"currentStep": 0,"locked": false
-      },
-      "fileLocation": "hat.png"
+          {"first": 23,"second": 27}
+        ],"currentStep": 0,"locked": false},
+      "fileLocation": "hat.png",
+      "specialCases": [
+        {
+          "first": 26,
+          "second": 4
+        }
+      ]
     },
     {
       "team": 6,
-      "travelPath": {
-      	"steps": [
+      "travelPath": {"steps": [
           {"first": 26,"second": 27},
           {"first": 29,"second": 22},
           {"first": 29,"second": 20},
@@ -343,16 +360,19 @@
           {"first": 17,"second": 28},
           {"first": 19,"second": 28},
           {"first": 21,"second": 28},
-          {"first": 23,"second": 28
-          }
-        ],"currentStep": 0,"locked": false
-      },
-      "fileLocation": "iron.png"
+          {"first": 23,"second": 28}
+        ],"currentStep": 0,"locked": false},
+      "fileLocation": "iron.png",
+      "specialCases": [
+        {
+          "first": 25,
+          "second": 4
+        }
+      ]
     },
     {
       "team": 7,
-      "travelPath": {
-      	"steps": [
+      "travelPath": {"steps": [
           {"first": 26,"second": 28},
           {"first": 29,"second": 23},
           {"first": 29,"second": 21},
@@ -393,9 +413,14 @@
           {"first": 19,"second": 29},
           {"first": 21,"second": 29},
           {"first": 23,"second": 29}
-        ],"currentStep": 0,"locked": false
-      },
-      "fileLocation": "car.png"
+        ],"currentStep": 0,"locked": false},
+      "fileLocation": "car.png",
+      "specialCases": [
+        {
+          "first": 25,
+          "second": 3
+        }
+      ]
     }
   ],
   "playerIconPaths": [
@@ -410,6 +435,8 @@
   ],
   "iconPaths": [
     "baseboard.png",
+    "dotdie.png",
+    "blankdie.png",
     "purple.png",
     "purplehouse.png",
     "purplehotelleft.png",
@@ -450,84 +477,83 @@
     "bluehotelleft.png",
     "bluehotelright.png",
     "bluehotelbottom.png",
-    "gotop.png",
-    "gomid.png",
-    "gobot.png",
+    "eleccomp.png",
+    "waterworks.png",
     "jail.png",
     "chesttop.png",
     "chestbottom.png",
     "chance.png",
-    "eleccomp.png",
-    "waterworks.png",
+    "gotop.png",
+    "gomid.png",
+    "gobot.png",
     "parktop.png",
-    "parkbot.png",
-    "dotdie.png",
-    "blankdie.png"
+    "parkbot.png"
   ],
   "basePaint": [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,21,50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,21,51,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,21,0,0,0,21,21,47,47,21,21,21,21,0,0,26,26,26,26,49,49,26,26,0,0,0,0,0,0],
-    [0,0,21,0,0,0,21,21,47,47,21,21,21,21,0,0,26,26,26,26,49,49,26,26,0,0,0,0,0,0],
-    [0,0,0,0,16,16,0,0,0,0,0,52,52,52,0,0,52,52,52,0,0,0,0,0,31,31,0,0,0,0],
-    [0,0,0,0,16,16,0,0,0,0,0,53,52,53,0,0,53,52,53,0,0,0,0,0,31,31,0,0,0,0],
-    [0,0,0,0,16,16,0,0,0,0,0,52,52,52,0,0,52,52,52,0,0,0,0,0,31,31,0,0,0,0],
-    [0,0,0,0,16,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,31,31,0,0,0,0],
-    [0,0,0,0,45,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,45,45,0,0,0,0],
+    [0,0,23,52,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,23,53,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,23,0,0,0,23,23,48,48,23,23,23,23,0,0,28,28,28,28,44,44,28,28,0,0,0,0,0,0],
+    [0,0,23,0,0,0,23,23,48,48,23,23,23,23,0,0,28,28,28,28,44,44,28,28,0,0,0,0,0,0],
+    [0,0,0,0,18,18,0,0,0,0,0,1,1,1,0,0,1,1,1,0,0,0,0,0,33,33,0,0,0,0],
+    [0,0,0,0,18,18,0,0,0,0,0,2,1,2,0,0,2,1,2,0,0,0,0,0,33,33,0,0,0,0],
+    [0,0,0,0,18,18,0,0,0,0,0,1,1,1,0,0,1,1,1,0,0,0,0,0,33,33,0,0,0,0],
+    [0,0,0,0,18,18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,33,33,0,0,0,0],
     [0,0,0,0,46,46,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,46,46,0,0,0,0],
-    [0,0,0,0,16,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,31,31,0,0,0,0],
-    [0,0,0,0,16,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,31,31,0,0,0,0],
+    [0,0,0,0,47,47,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,47,47,0,0,0,0],
+    [0,0,0,0,18,18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,33,33,0,0,0,0],
+    [0,0,0,0,18,18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,33,33,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,11,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,47,47,0,0,0,0],
-    [0,0,0,0,11,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,47,47,0,0,0,0],
-    [0,0,0,0,11,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,36,36,0,0,0,0],
-    [0,0,0,0,11,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,36,36,0,0,0,0],
-    [0,0,0,0,48,48,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,48,48,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,11,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,36,36,0,0,0,0],
-    [0,0,0,0,11,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,36,36,0,0,0,0],
-    [0,44,44,44,44,44,6,6,6,6,47,47,6,6,0,0,0,0,1,1,45,45,1,1,0,0,0,0,0,0],
-    [0,44,0,0,0,44,6,6,6,6,47,47,6,6,0,0,0,0,1,1,46,46,1,1,0,0,0,0,0,0],
-    [0,44,0,44,0,44,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,44,0,0,0,44,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,41,0,0,0,0],
-    [0,44,44,44,44,44,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,42,21,21,21,21,21],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,0,0,0,0]
+    [0,0,0,0,13,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,48,48,0,0,0,0],
+    [0,0,0,0,13,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,48,48,0,0,0,0],
+    [0,0,0,0,13,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,38,38,0,0,0,0],
+    [0,0,0,0,13,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,38,38,0,0,0,0],
+    [0,0,0,0,43,43,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,43,43,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,13,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,38,38,0,0,0,0],
+    [0,0,0,0,13,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,38,38,0,0,0,0],
+    [0,45,45,45,45,45,8,8,8,8,48,48,8,8,0,0,0,0,3,3,46,46,3,3,0,0,0,0,0,0],
+    [0,45,0,0,0,45,8,8,8,8,48,48,8,8,0,0,0,0,3,3,47,47,3,3,0,0,0,0,0,0],
+    [0,45,0,45,0,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,45,0,0,0,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,49,0,0,0,0],
+    [0,45,45,45,45,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,50,23,23,23,23,23],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,51,0,0,0,0]
   ],
   "stampCollection": [
-    [{"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6},
+    [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6},
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6},
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6},
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6},
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6},
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6},
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6},
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6},
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6},
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6},
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 7},
       {"engraving": "F","italics": false,"bold": true,"underline": false,"border": 1},
@@ -558,8 +584,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 1},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 1},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 1},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 3}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 3
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 7},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 1},
@@ -590,8 +616,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 1},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 1},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 1},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 3}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 3
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 7},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 1},
@@ -622,8 +648,8 @@
       {"engraving": "O","italics": false,"bold": true,"underline": false,"border": 1},
       {"engraving": "T","italics": false,"bold": true,"underline": false,"border": 1},
       {"engraving": "O","italics": false,"bold": true,"underline": false,"border": 1},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 3}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 3
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 7},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 1},
@@ -654,8 +680,8 @@
       {"engraving": "A","italics": false,"bold": true,"underline": false,"border": 1},
       {"engraving": "I","italics": false,"bold": true,"underline": false,"border": 1},
       {"engraving": "L","italics": false,"bold": true,"underline": false,"border": 1},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 3}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 3
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 35},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
@@ -686,8 +712,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 15}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 15
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
@@ -718,8 +744,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 35},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
@@ -750,8 +776,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 35},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 15}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 15
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
@@ -782,8 +808,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 35},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
@@ -814,8 +840,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 35},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 15}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 15
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
@@ -846,8 +872,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 35},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
@@ -878,8 +904,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 15}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 15
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
@@ -910,8 +936,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 35},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
@@ -942,8 +968,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 35},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 15}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 15
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
@@ -974,8 +1000,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 35},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
@@ -1006,8 +1032,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 15}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 15
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
@@ -1038,8 +1064,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 35},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
@@ -1070,8 +1096,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 15}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 15
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
@@ -1102,8 +1128,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 35},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
@@ -1134,8 +1160,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 35},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 15}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 15
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
@@ -1166,8 +1192,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 35},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
@@ -1198,8 +1224,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 15}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 15
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
@@ -1230,8 +1256,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 35},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
@@ -1262,8 +1288,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 35},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 15}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 15
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 14},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
@@ -1294,8 +1320,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 2},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 6
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 7},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 1},
@@ -1326,8 +1352,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 1},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 1},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 1},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 3}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 3
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 7},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 1},
@@ -1358,8 +1384,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 1},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 1},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 1},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 3}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 3
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 7},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 1},
@@ -1390,8 +1416,8 @@
       {"engraving": "G","italics": false,"bold": true,"underline": false,"border": 1},
       {"engraving": "O","italics": false,"bold": true,"underline": false,"border": 1},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 1},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 3}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 3
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 7},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 1},
@@ -1422,8 +1448,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 1},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 1},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 1},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 3}
-    ],
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 3
+      }],
     [
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 35},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
@@ -1454,7 +1480,8 @@
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
       {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 5},
-      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 15}
+      {"engraving": " ","italics": false,"bold": true,"underline": false,"border": 15
+      }
     ]
   ]
 }
