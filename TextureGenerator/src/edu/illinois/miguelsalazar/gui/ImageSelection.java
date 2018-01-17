@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -14,6 +15,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -41,6 +43,25 @@ public class ImageSelection extends JPanel implements ActionListener{
 		
 		this.setLayout(new BorderLayout());
 		
+		JPanel selectors = defineSelects();
+		
+		this.add(selectors, BorderLayout.CENTER);
+		
+		assetList = al;
+		
+		selection = new JPanel(new BorderLayout());
+		scrollme = defineScrollPane();
+		
+		defineUtility();
+		selection.add(scrollme, BorderLayout.CENTER);
+		selection.add(utility,BorderLayout.SOUTH);
+		
+		this.add(selection, BorderLayout.SOUTH);
+		
+		//System.out.println("selection height: "+selection.getHeight() );
+	}
+
+	private JPanel defineSelects() {
 		JPanel selectors = new JPanel(new GridLayout(3,3));
 		selects = new ArrayList<SelectorPanel>();
 		
@@ -70,21 +91,7 @@ public class ImageSelection extends JPanel implements ActionListener{
 		
 		selects.add(new SelectorPanel("Unit 1 - Purple/Brown", new ArrayList<File>(), 5));
 		selectors.add(selects.get(selects.size()-1));
-		
-		this.add(selectors, BorderLayout.CENTER);
-		
-		assetList = al;
-		
-		selection = new JPanel(new BorderLayout());
-		scrollme = defineScrollPane();
-		
-		defineUtility();
-		selection.add(scrollme, BorderLayout.CENTER);
-		selection.add(utility,BorderLayout.SOUTH);
-		
-		this.add(selection, BorderLayout.SOUTH);
-		
-		//System.out.println("selection height: "+selection.getHeight() );
+		return selectors;
 	}
 	
 	private void defineUtility(){
@@ -112,14 +119,18 @@ public class ImageSelection extends JPanel implements ActionListener{
 			model.addElement(f.getName());
 		}
 		picks = new JList<String>(model);
-		
 		picks.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		picks.setVisibleRowCount(5);
-		picks.setPreferredSize(new Dimension(100,100));
+		picks.setFixedCellWidth(120);
+		picks.setVisibleRowCount(-1);
+		//picks.setPreferredSize(new Dimension(100,100));
+		//picks.
 		
 		JScrollPane s = new JScrollPane(picks);
-		s.setWheelScrollingEnabled(true);
-		
+		s.setPreferredSize(new Dimension(100,100));
+		//s.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		//s.setWheelScrollingEnabled(true);
+		//s.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		s.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		return s;
 	}
 	
@@ -145,6 +156,9 @@ public class ImageSelection extends JPanel implements ActionListener{
 		}
 		
 		updateAssets(startIdx);	
+		//picks.setSelectionMode(JList.HORIZONTAL_WRAP);
+		//scrollme.setVerticalScrollBar(scrollme.getVerticalScrollBar());
+		
 	}
 
 	public void updateAssets(int startIdx){
@@ -164,7 +178,9 @@ public class ImageSelection extends JPanel implements ActionListener{
 			acquireFiles();
 		}else if(e.getSource().equals(remove)){
 			int removed = picks.getSelectedIndex();
-			
+			if(removed == -1){
+				return;
+			}
 			//picks.remove(removed);
 			model.remove(removed);
 			File name = assetList.remove(removed);

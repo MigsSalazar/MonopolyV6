@@ -121,15 +121,13 @@ public class SelectorPanel extends JPanel implements ActionListener, WindowFocus
 	
 	private void defineAtomicValues(int num){
 		icons = new ImageIcon[num];
-		
+		stringPaths = new String[num];
 		for(int i=0; i<num; i++){
 			icons[i] = new ImageIcon();
+			stringPaths[i] = "";
 		}
 		
-		stringPaths = new String[num];
-		for(int s=0; s<num; s++){
-			stringPaths[s] = ""+s;
-		}
+		
 		
 	}
 	
@@ -184,7 +182,7 @@ public class SelectorPanel extends JPanel implements ActionListener, WindowFocus
 	private JScrollPane defineScrollPane(){
 		
 		DefaultListModel<String> m = new DefaultListModel<String>();
-		
+		m.addElement("<NONE>");
 		for(File f : assetList){
 			m.addElement(f.getName());
 		}
@@ -236,22 +234,33 @@ public class SelectorPanel extends JPanel implements ActionListener, WindowFocus
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		// TODO Auto-generated method stub
 		int button = images.indexOf(lastButton);
 		int name = picks.getSelectedIndex();
-		stringPaths[button] = assetList.get(name).getAbsolutePath();
-		icons[button] = new ImageIcon(stringPaths[button]);
-		
+		if(name == 0){
+			stringPaths[button] = "";
+			paths.get(button).setText("file @ "+button);
+			paths.get(button).setToolTipText("No File");
+			icons[button] = null;
+		}else{
+			stringPaths[button] = assetList.get(name-1).getAbsolutePath();
+			//paths.get(button).repaint();
+			paths.get(button).setText(stringPaths[button]);
+			paths.get(button).setToolTipText(stringPaths[button]);
+			icons[button] = new ImageIcon(stringPaths[button]);
+		}
 		images.get(button).setIcon(icons[button]);
 		
 		//int name = assetList.indexOf()
 	}
 
 	public void validateSelection(File removal){
+		
 		for(int i=0; i<stringPaths.length; i++){
 			if(stringPaths[i].equals(removal.getAbsolutePath())){
 				images.get(i).setIcon(null);
 				stringPaths[i] = "";
+				paths.get(i).setText("file @ "+i);
+				paths.get(i).setToolTipText("No File");
 				icons[i] = null;
 			}
 		}

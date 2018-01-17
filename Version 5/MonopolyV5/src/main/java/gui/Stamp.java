@@ -6,6 +6,7 @@ package main.java.gui;
 import java.awt.Color;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
 
@@ -32,8 +33,10 @@ public class Stamp {
 	}
 	
 	public Stamp(int b){
-		border = b;
-		validateBorder();
+		border =1;
+		if(validateBorder(b)){
+			border = b;
+		}
 	}
 	
 	public Stamp(char e){
@@ -52,26 +55,24 @@ public class Stamp {
 		bold = b;
 		underline = u;
 		border = bint;
-		validateBorder();
+		if(!validateBorder(border)){
+			border = 1;
+		}
 	}
 	
-	public boolean validateBorder(){
-		if( (border%2==0 || border%3==0 || border%5==0 || border%7==0) && border<=210 ){
+	public static boolean validateBorder(int b){
+		if(b == 1){
+			return true;
+		}else if( (b%2==0 || b%3==0 || b%5==0 || b%7==0) && b<=210 ){
 			return true;
 		}else{
-			border = 1;
 			return false;
 		}
 	}
 	
 	public void engraveLabel(JLabel label){
-		String engraved = ""+engraving;
-		
-		
-		italicize(engraved);
-		bolden(engraved);
-		underlined(engraved);
-		engraved = "<html>"+engraved+"</html>";
+		String engraved = engraveComponent();
+		label.setText(""+engraved);
 		if( engraving != ' '){
 			//System.out.println("engraving = "+engraved);
 			label.setText(engraved);
@@ -79,15 +80,39 @@ public class Stamp {
 			//label.setHorizontalAlignment(JLabel.CENTER);
 			
 			//label.setVerticalAlignment(JLabel.CENTER);
-		}else{
-			label.setText(""+engraved);
-			//label.setHorizontalAlignment(JLabel.RIGHT);
-			//label.setVerticalAlignment(JLabel.CENTER);
 		}
 		label.setHorizontalTextPosition(JLabel.CENTER);
 		label.setVerticalTextPosition(JLabel.CENTER);
 		
 	}
+	
+	public void engraveButton(JButton button){
+		String engraved = engraveComponent();
+		button.setText(""+engraved);
+		if( engraving != ' '){
+			//System.out.println("engraving = "+engraved);
+			button.setText(engraved);
+			
+			//label.setHorizontalAlignment(JLabel.CENTER);
+			
+			//label.setVerticalAlignment(JLabel.CENTER);
+		}
+		button.setHorizontalTextPosition(JButton.CENTER);
+		button.setVerticalTextPosition(JButton.CENTER);
+	}
+
+	private String engraveComponent() {
+		String engraved = ""+engraving;
+		
+		italicize(engraved);
+		bolden(engraved);
+		underlined(engraved);
+		engraved = "<html>"+engraved+"</html>";
+		
+		return engraved;
+	}
+	
+	
 	
 	private String underlined(String e){
 		if(underline){
@@ -111,37 +136,47 @@ public class Stamp {
 	}
 	
 	public void giveBorder(JLabel label){
-		Border given = BorderFactory.createMatteBorder(hasTop(), hasLeft(), hasBottom(), hasRight(), Color.BLACK);
+		Border given = makeBorder();
 		label.setBorder(given);
 	}
 	
-	private int hasTop(){
-		 validateBorder();
-		if(border%2 == 0){
+	public Border makeBorder(){
+		return makeBorder(border);
+	}
+	
+	public static Border makeBorder(int b){
+		if(validateBorder(b)){
+			return BorderFactory.createMatteBorder(hasTop(b), hasLeft(b), hasBottom(b), hasRight(b), Color.BLACK);
+		}else{
+			return BorderFactory.createMatteBorder(0, 0, 0, 0, Color.BLACK);
+		}
+	}
+	
+	
+	
+	private static int hasTop(int b){
+		if(b%2 == 0){
 			return 1;
 		}
 		return 0;
 	}
 	
-	private int hasRight(){
-		 validateBorder();
-		if(border%3 == 0){
+	private static int hasRight(int b){
+		if(b%3 == 0){
 			return 1;
 		}
 		return 0;
 	}
 	
-	private int hasBottom(){
-		 validateBorder();
-		if(border%5 == 0){
+	private static int hasBottom(int b){
+		if(b%5 == 0){
 			return 1;
 		}
 		return 0;
 	}
 	
-	private int hasLeft(){
-		 validateBorder();
-		if(border%7 == 0){
+	private static int hasLeft(int b){
+		if(b%7 == 0){
 			return 1;
 		}
 		return 0;
@@ -183,9 +218,10 @@ public class Stamp {
 		return border;
 	}
 
-	public void setBorder(int border) {
-		this.border = border;
-		validateBorder();
+	public void setBorder(int b) {
+		if(validateBorder(b)){
+			border = b;
+		}
 	}
 	
 	

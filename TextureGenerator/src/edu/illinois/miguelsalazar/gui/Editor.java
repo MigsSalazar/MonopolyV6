@@ -1,5 +1,6 @@
 package edu.illinois.miguelsalazar.gui;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
@@ -48,13 +49,13 @@ public class Editor extends JFrame implements ActionListener, ComponentListener 
 	@Expose private ArrayList<String> iconPaths;
 	
 	public Editor(){
-		
+		iconPaths = new ArrayList<String>();
 		tabs = new JTabbedPane();
 		makeMenu();
 		this.setJMenuBar(menuBar);
 		defineTabs();
 		this.add(tabs);
-		iconPaths = new ArrayList<String>();
+		System.out.println("Editor complete");
 	}
 	
 	public void startEditor(){
@@ -128,14 +129,19 @@ public class Editor extends JFrame implements ActionListener, ComponentListener 
 		
 		imageTab = new ImageSelection(assetList);
 		imageTab.addComponentListener(this);
-		boardTab = new BoardPaint();
+		
+		boardTab = new BoardPaint(iconPaths, assetList);
+		boardTab.addComponentListener(this);
+		
 		playerTab = new PlayerConstructor();
 		propertyTab = new PropertyRetailer();
 		cardTab = new CardMaker();
 		tabs = new JTabbedPane();
 		
+		tabs.setPreferredSize(new Dimension(1200,680));
+		
 		tabs.addTab("Images", imageTab);
-		tabs.addTab("Board", boardTab);
+		tabs.addTab("Board Config", boardTab);
 		tabs.addTab("Players", playerTab);
 		tabs.addTab("Property", propertyTab);
 		tabs.addTab("Cards", cardTab);
@@ -146,38 +152,54 @@ public class Editor extends JFrame implements ActionListener, ComponentListener 
 	private void acquireIconPaths(){
 		//System.out.println("acquire paths started");
 		
-		iconPaths = new ArrayList<String>();
+		ArrayList<String> ip = new ArrayList<String>();
 		
 		ArrayList<SelectorPanel> panels = imageTab.getSelects();
 
 		SelectorPanel current = panels.get(4);
 		
-		passToIconPaths(current.getStringPaths());
+		passToIconPaths(current.getStringPaths(),ip);
 		current = panels.get(8);
-		passToIconPaths(current.getStringPaths());
+		passToIconPaths(current.getStringPaths(),ip);
 		current = panels.get(7);
-		passToIconPaths(current.getStringPaths());
+		passToIconPaths(current.getStringPaths(),ip);
 		current = panels.get(6);
-		passToIconPaths(current.getStringPaths());
+		passToIconPaths(current.getStringPaths(),ip);
 		current = panels.get(3);
-		passToIconPaths(current.getStringPaths());
+		passToIconPaths(current.getStringPaths(),ip);
 		current = panels.get(0);
-		passToIconPaths(current.getStringPaths());
+		passToIconPaths(current.getStringPaths(),ip);
 		current = panels.get(1);
-		passToIconPaths(current.getStringPaths());
+		passToIconPaths(current.getStringPaths(),ip);
 		current = panels.get(2);
-		passToIconPaths(current.getStringPaths());
+		passToIconPaths(current.getStringPaths(),ip);
 		current = panels.get(5);
-		passToIconPaths(current.getStringPaths());
+		passToIconPaths(current.getStringPaths(),ip);
+		
+		for(int i=0; i<ip.size(); i++){
+			if(i<iconPaths.size()){
+				iconPaths.set(i, ip.get(i));
+			}else{
+				iconPaths.add(ip.get(i));
+			}
+			
+		}
+		printIconPaths();
 	}
 	
-	private void passToIconPaths(String[] paths){
+	public void printIconPaths(){
+		for(int i=0; i<iconPaths.size(); i++){
+			System.out.println(iconPaths.get(i));
+		}
+	}
+	
+	private void passToIconPaths(String[] paths, ArrayList<String> ip){
 		if(paths.length == 0){
 			return;
 		}
 		//System.out.println("Paths length: "+paths.length);
 		for(String s : paths){
-			iconPaths.add(s);
+			ip.add(s);
 		}
 	}
 	
@@ -205,7 +227,11 @@ public class Editor extends JFrame implements ActionListener, ComponentListener 
 
 	@Override
 	public void componentShown(ComponentEvent e) {
-		System.out.println("Component Shown- "+e.getSource());
+		if(e.getSource().equals(boardTab)){
+			boardTab.setIconPaths(iconPaths);
+			boardTab.redecorate();
+			boardTab.updateAssets();
+		}
 	}
 	
 	
