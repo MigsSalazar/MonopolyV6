@@ -1,6 +1,7 @@
 package main.java.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -75,6 +76,8 @@ public class NewGameStartUp extends JDialog implements ActionListener, ChangeLis
 		developPlayerSpecs();
 		developConfirm();
 		
+		ImageIcon miniMe = new ImageIcon(System.getProperty("user.dir")+"/resources/game-assets/frameicon.png");
+		this.setIconImage(miniMe.getImage());
 		//ArrayList<Map<String,Integer>> fillme;
 		
 	}
@@ -92,9 +95,11 @@ public class NewGameStartUp extends JDialog implements ActionListener, ChangeLis
 	private void developPlayerNums(){
 		BorderLayout bl = new BorderLayout();
 		bl.setVgap(5);
+		bl.setHgap(10);
 		playerNums = new JPanel(bl);
 		
 		numPrompt = new JLabel("Number of players");
+		numPrompt.setHorizontalAlignment(JLabel.RIGHT);
 		SpinnerModel model = new SpinnerNumberModel(2,2,8,1);
 		numSpin = new JSpinner(model);
 		numSpin.addChangeListener(this);
@@ -105,15 +110,20 @@ public class NewGameStartUp extends JDialog implements ActionListener, ChangeLis
 		playerNums.add(numSpin, BorderLayout.EAST);
 		
 		playerNums.setPreferredSize(new Dimension(200,30));
+		Border buffer = BorderFactory.createEmptyBorder(5, 0, 2, 10);
+		playerNums.setBorder(buffer);
 	}
 	
 	private void developPlayerSpecs(){
 		playerSpecs = new JPanel(new GridLayout(9,1));
 		Border title = BorderFactory.createTitledBorder("Define your players");
-		playerSpecs.setBorder(title);
+		Border buffer = BorderFactory.createEmptyBorder(0, 8, 0, 8);
+		playerSpecs.setBorder(BorderFactory.createCompoundBorder(buffer, title));
 		
-		valid = new JLabel("Invalid names!");
-		valid.setVisible(false);
+		valid = new JLabel("     Valid Names");
+		valid.setBackground(Color.GREEN);
+		valid.setOpaque(true);
+		//valid.setHorizontalTextPosition(JLabel.CENTER);
 		
 		nameSpinnerPairs = new JPanel[8];
 		
@@ -204,11 +214,13 @@ public class NewGameStartUp extends JDialog implements ActionListener, ChangeLis
 	
 	private void enableAllNames(){
 		ok.setEnabled(true);
-		valid.setVisible(false);
+		valid.setText("     Valid Names");
+		valid.setBackground(Color.GREEN);
 	}
 	
-	private void disableInvalidNames(HashMap<String,JTextField> inputs, int enabled){
-		valid.setVisible(true);
+	private void disableInvalidNames(HashMap<String,JTextField> inputs, int enabled, String error){
+		valid.setText("     Invalid Names: "+error);
+		valid.setBackground(Color.RED);
 		for(int i=0; i<enabled; i++){
 			if(!names[i].equals(inputs.get(names[i].getText()))){
 				//namePrompts[i].setBackground(Color.RED);
@@ -235,7 +247,45 @@ public class NewGameStartUp extends JDialog implements ActionListener, ChangeLis
 			}
 		}
 	}
-
+	
+	private boolean invalidLetter(String c){
+		return c.contains("<") ||
+				c.contains(">") ||
+				c.contains("\\") ||
+				c.contains("/") ||
+				c.contains(";") ||
+				c.contains(":") ||
+				c.contains("\"");
+	}
+	
+	private void checkNameValidity() {
+		HashMap<String, JTextField> inputs = new HashMap<String, JTextField>();
+		//System.out.println("old size: "+inputs.size());
+		int numEnabled = 0;
+		boolean validString = true;
+		for(JTextField n : names){
+			if(n.isEnabled()){
+				if(n.getText().equals("")){
+					inputs.put("unnamed:"+numEnabled, n);
+				}else{
+					inputs.put(n.getText(), n);
+				}
+				numEnabled++;
+			}
+			if(invalidLetter(n.getText())){
+				validString = false;
+				//break;
+			}
+		}
+		//System.out.println("enabled: "+numEnabled+" size: "+inputs.size());
+		if(inputs.size() != numEnabled || !validString ){
+			String errorMessage = validString? "All names must be unique" : "You are using an invalid character in a name";
+			disableInvalidNames(inputs, numEnabled, errorMessage);
+		}else if(!ok.isEnabled()){
+			enableAllNames();
+		}
+	}
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		
@@ -247,27 +297,19 @@ public class NewGameStartUp extends JDialog implements ActionListener, ChangeLis
 		//System.out.println(e.getSource().toString());
 		if(e.getSource() instanceof JTextField){
 			
-			HashMap<String, JTextField> inputs = new HashMap<String, JTextField>();
-			//System.out.println("old size: "+inputs.size());
-			int numEnabled = 0;
-			for(JTextField n : names){
-				if(n.isEnabled()){
-					inputs.put(n.getText(), n);
-					numEnabled++;
-				}
-			}
-			//System.out.println("enabled: "+numEnabled+" size: "+inputs.size());
-			if(inputs.size() != numEnabled){
-				disableInvalidNames(inputs, numEnabled);
-			}else if(!ok.isEnabled()){
-				enableAllNames();
-			}
+			checkNameValidity();
 		}
 	}
 
+	
+
 	@Override
 	public void keyTyped(KeyEvent e) {
-		
+		//System.out.println("textarea change");
+		//System.out.println(e.getSource().toString());
+		if(e.getSource() instanceof JTextField){
+			checkNameValidity();
+		}
 	}
 	
 	

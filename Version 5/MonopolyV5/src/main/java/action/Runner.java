@@ -3,6 +3,7 @@
  */
 package main.java.action;
 
+import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,10 +11,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.border.Border;
 
 import main.java.gui.BoardPanel;
 import main.java.gui.EventPanel;
@@ -501,6 +504,10 @@ public class Runner {
 	private BoardPanel requestBoardPanel() throws IOException{
 		//System.out.println("requested board");
 		BoardPanel retval = gread.getBoard();
+		retval.setPreferredSize(new Dimension(retval.getBoardPixWidth()+30, retval.getBoardPixHeight()+20));
+												//top	left	bottom	right
+		Border bevel = BorderFactory.createEmptyBorder(2, 2, 0, 0);
+		retval.setBorder(bevel);
 		return retval;
 	}
 	

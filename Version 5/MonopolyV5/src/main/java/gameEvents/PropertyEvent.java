@@ -37,7 +37,7 @@ public class PropertyEvent extends AbstractEvent {
 		case -1:	rentOut = prop.getRent();
 					text += prop.getOwner()+".<br>You own them "+parent.getCurrencySymbol()+rentOut+" in rent.";
 					break;
-		case 0:		text += "no one.<br>Property is valued at "+parent.getCurrencySymbol()+prop.getPrice()+".<br>What would you like to do?";
+		case 0:		text += "no one.<br>Property is valued at "+parent.getCurrencySymbol()+prop.getPrice()+". What would you like to do?";
 					break;
 		case 1:		text += "themself.<br>A landlord must always check in on their asset";
 					break;

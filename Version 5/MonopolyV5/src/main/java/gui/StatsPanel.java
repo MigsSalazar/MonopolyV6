@@ -4,7 +4,9 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Map;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import main.java.action.Runner;
 import main.java.models.Player;
@@ -46,6 +48,8 @@ public class StatsPanel extends JPanel {
 			add(panels[i]);
 		}
 		
+		Border space = BorderFactory.createEmptyBorder(0, 0, 0, 7);
+		this.setBorder(space);
 		this.setVisible(true);
 	}
 

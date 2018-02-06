@@ -1,14 +1,18 @@
 package main.java.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Map;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.border.Border;
 
 import main.java.models.Player;
 import main.java.models.Property;
@@ -30,7 +34,8 @@ public class PlayerPanel extends JPanel {
 	private String currencySymbol;
 	
 	private JPanel labels = new JPanel(new GridLayout(8,1));
-	private JLabel name;
+	//private JLabel name;
+	private Border title;
 	private JLabel wealth;
 	private JLabel bank;
 	private JLabel posi;
@@ -48,6 +53,14 @@ public class PlayerPanel extends JPanel {
 	 * @param p	Player object for which to display the current standings
 	 */
 	public PlayerPanel(Player p, String cs){
+		
+		Border up = BorderFactory.createRaisedBevelBorder();
+		Border down = BorderFactory.createLoweredBevelBorder();
+		Border temp = BorderFactory.createCompoundBorder(down, up);
+		
+		title = BorderFactory.createTitledBorder(temp, p.getName());
+		
+		this.setBorder(title);
 		currencySymbol = cs;
 		myPlayer=p;
 		this.setLayout(new BorderLayout());
@@ -65,22 +78,33 @@ public class PlayerPanel extends JPanel {
 	 */
 	public void formLabels(){
 		
-		name = new JLabel(myPlayer.getName());
-		wealth = new JLabel("Cumulative wealth: "+currencySymbol+myPlayer.getWealth());
-		bank = new JLabel("Liquid cash: "+currencySymbol+myPlayer.getCash());
+		//name = new JLabel(myPlayer.getName());
 		posi = new JLabel("Current Position: "+myPlayer.getPosition());
+		wealth = new JLabel("Cumulative wealth: "+currencySymbol+myPlayer.getWealth());
+		wealth.setBackground(Color.YELLOW);
+		wealth.setOpaque(true);
+		bank = new JLabel("Liquid cash: "+currencySymbol+myPlayer.getCash());
+		bank.setBackground(Color.GREEN);
+		bank.setOpaque(true);
+		actv = new JLabel("Bankrupt: "+ !myPlayer.isActive());
+		actv.setBackground(Color.GREEN);
+		actv.setOpaque(true);
 		jail = new JLabel("Jail Status: "+myPlayer.isInJail());
+		jail.setBackground(Color.GREEN);
+		jail.setOpaque(true);
 		card = new JLabel("Get out of Jail Cards: "+myPlayer.getJailCards());
-		actv = new JLabel("Is active: "+myPlayer.isActive());
+		
 		prop = new JLabel("Properties owned: ");
 		
-		labels.add(name);
+		
+		//labels.add(name);
+		labels.add(posi);
 		labels.add(wealth);
 		labels.add(bank);
-		labels.add(posi);
+		labels.add(actv);
 		labels.add(jail);
 		labels.add(card);
-		labels.add(actv);
+		
 		labels.add(prop);
 		
 	}
@@ -107,7 +131,7 @@ public class PlayerPanel extends JPanel {
 	 */
 	public void updatePanel(){
 		
-		name.setText(myPlayer.getName());
+		//name.setText(myPlayer.getName());
 		wealth.setText("Cumulative Wealth: "+currencySymbol+myPlayer.getWealth());
 		bank.setText("Liquid Cash: "+currencySymbol+myPlayer.getCash());
 		posi.setText("Current Position "+myPlayer.getPosition());

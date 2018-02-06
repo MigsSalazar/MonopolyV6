@@ -48,6 +48,8 @@ public class GameFrame extends JFrame implements ActionListener{
 		//c.add(home);
 		globalVars = gv;
 		border = new BorderLayout();
+		border.setVgap(10);
+		border.setHgap(10);
 		this.setLayout(border);
 		content = this.getContentPane();
 		defineMenus();

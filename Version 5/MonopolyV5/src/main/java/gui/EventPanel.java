@@ -2,9 +2,11 @@ package main.java.gui;
 
 import java.awt.BorderLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import main.java.gameEvents.AbstractEvent;
 import main.java.gameEvents.*;
@@ -30,10 +32,7 @@ public class EventPanel extends JPanel {
 		gameVars = gv;
 		currencySymbol = gameVars.getCurrencySymbol();
 		text = new JLabel();
-		//rootMenu = new MainMenu(this);
-		//currentEvent = rootMenu;
-		//paintEvent(rootMenu);
-		//System.out.println("root menu was painted. now where am i?");
+		this.setBorder(defineBorder());
 		this.setVisible(true);
 		this.repaint();
 	}
@@ -41,11 +40,22 @@ public class EventPanel extends JPanel {
 	public EventPanel(Runner gv, AbstractEvent ae){
 		gameVars = gv;
 		text = new JLabel();
+		
+		this.setBorder(defineBorder());
 		//rootMenu = new MainMenu(this);
 		//currentEvent = ae;
 		//paintEvent(rootMenu);
 		//rootMenu.forceWait(ae);
 		this.setVisible(true);
+	}
+	
+	private Border defineBorder(){
+		Border bottomSpace = BorderFactory.createEmptyBorder(0, 10, 10, 10);
+		Border up = BorderFactory.createRaisedBevelBorder();
+		Border down = BorderFactory.createLoweredBevelBorder();
+		Border bevel = BorderFactory.createCompoundBorder(up, down);
+		Border temp = BorderFactory.createCompoundBorder(bottomSpace, bevel);
+		return temp;
 	}
 	
 	public AbstractEvent getEvent(){
