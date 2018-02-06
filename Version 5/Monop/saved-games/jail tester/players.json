@@ -1,0 +1,28 @@
+{
+  "0": {
+    "name": "0",
+    "userid": 0,
+    "position": 10,
+    "cash": 1500,
+    "wealth": 1500,
+    "jailCard": 0,
+    "jailCount": 1,
+    "inJail": true,
+    "active": true,
+    "turn": false,
+    "props": {}
+  },
+  "1": {
+    "name": "1",
+    "userid": 1,
+    "position": 0,
+    "cash": 1500,
+    "wealth": 1500,
+    "jailCard": 0,
+    "jailCount": 0,
+    "inJail": false,
+    "active": true,
+    "turn": false,
+    "props": {}
+  }
+}

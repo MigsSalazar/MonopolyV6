@@ -1,0 +1,98 @@
+{
+  "0": {
+    "name": "0",
+    "userid": 0,
+    "position": 0,
+    "cash": 1500,
+    "wealth": 2460,
+    "jailCard": 2,
+    "jailCount": 0,
+    "inJail": false,
+    "active": true,
+    "turn": false
+  },
+  "1": {
+    "name": "1",
+    "userid": 1,
+    "position": 0,
+    "cash": 1500,
+    "wealth": 2100,
+    "jailCard": 1,
+    "jailCount": 0,
+    "inJail": false,
+    "active": true,
+    "turn": false
+  },
+  "2": {
+    "name": "2",
+    "userid": 2,
+    "position": 0,
+    "cash": 1500,
+    "wealth": 1910,
+    "jailCard": 0,
+    "jailCount": 0,
+    "inJail": false,
+    "active": true,
+    "turn": false
+  },
+  "3": {
+    "name": "3",
+    "userid": 3,
+    "position": 0,
+    "cash": 1500,
+    "wealth": 2250,
+    "jailCard": 3,
+    "jailCount": 0,
+    "inJail": false,
+    "active": true,
+    "turn": false
+  },
+  "4": {
+    "name": "4",
+    "userid": 4,
+    "position": 0,
+    "cash": 1500,
+    "wealth": 2040,
+    "jailCard": 4,
+    "jailCount": 0,
+    "inJail": false,
+    "active": true,
+    "turn": false
+  },
+  "5": {
+    "name": "5",
+    "userid": 5,
+    "position": 0,
+    "cash": 1500,
+    "wealth": 2180,
+    "jailCard": 5,
+    "jailCount": 0,
+    "inJail": false,
+    "active": true,
+    "turn": false
+  },
+  "6": {
+    "name": "6",
+    "userid": 6,
+    "position": 0,
+    "cash": 1500,
+    "wealth": 2240,
+    "jailCard": 0,
+    "jailCount": 0,
+    "inJail": false,
+    "active": true,
+    "turn": false
+  },
+  "7": {
+    "name": "7",
+    "userid": 7,
+    "position": 0,
+    "cash": 1500,
+    "wealth": 2270,
+    "jailCard": 0,
+    "jailCount": 0,
+    "inJail": false,
+    "active": true,
+    "turn": false
+  }
+}

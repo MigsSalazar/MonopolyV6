@@ -1,0 +1,8 @@
+purple,Mediterranean Ave.,Baltic Ave.
+lightBlue,Oriental Ave.,Vermont Ave.,Connecticut Ave.
+pink,St. Charles Place,States Ave.,Virginia Ave.
+orange,St. James Place,Tennessee Ave.,New York Ave.
+red,Kentucky Ave.,Indiana Ave.,Illinois Ave.
+yellow,Atlantic Ave.,Ventnor Ave.,Marvin Gardens
+green,Pacific Ave.,North Carolina Ave.,Pennsylvania Ave.
+blue,Park Place,Board Walk
