@@ -1,0 +1,26 @@
+{
+  "My Opponent": {
+    "name": "My Opponent",
+    "userid": 1,
+    "position": 29,
+    "cash": 79,
+    "wealth": 1759,
+    "jailCard": 0,
+    "jailCount": 0,
+    "inJail": false,
+    "active": true,
+    "turn": false
+  },
+  "Miguel": {
+    "name": "Miguel",
+    "userid": 0,
+    "position": 5,
+    "cash": 2670,
+    "wealth": 9000,
+    "jailCard": 0,
+    "jailCount": 0,
+    "inJail": false,
+    "active": true,
+    "turn": true
+  }
+}

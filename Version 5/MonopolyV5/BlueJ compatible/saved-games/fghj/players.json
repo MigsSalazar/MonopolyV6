@@ -1,0 +1,26 @@
+{
+  "d": {
+    "name": "d",
+    "userid": 0,
+    "position": 7,
+    "cash": 1650,
+    "wealth": 1650,
+    "jailCard": 0,
+    "jailCount": 0,
+    "inJail": false,
+    "active": true,
+    "turn": false
+  },
+  "zdd": {
+    "name": "zdd",
+    "userid": 1,
+    "position": 0,
+    "cash": 1500,
+    "wealth": 1500,
+    "jailCard": 0,
+    "jailCount": 0,
+    "inJail": false,
+    "active": true,
+    "turn": true
+  }
+}

@@ -95,6 +95,7 @@ public class PropertyEvent extends AbstractEvent {
 			buttons = new JButton[2];
 			buttons[0] = new JButton("Purchase");
 			((JButton)buttons[0]).addActionListener(this);
+			buttons[0].setEnabled(play.getCash()-prop.getPrice() > 0);
 			buttons[1] = new JButton("Auction Off");
 			((JButton)buttons[1]).addActionListener(this);
 		}else{

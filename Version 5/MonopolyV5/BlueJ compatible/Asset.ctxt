@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=Asset
+comment0.text=\r\n\ Model\ class\ for\ basic\ assets\ when\ trading\r\n\ in\ Monopoly\r\n\ @author\ Miguel\ Salazar\r\n\r\n
+comment1.params=a\ t\ w
+comment1.target=Asset(java.lang.String,\ java.lang.String,\ int)
+comment1.text=\r\n\ Default\ constructor.\ Must\ contain\ the\ name,\ type,\r\n\ and\ cash\ value\ of\ the\ asset.\ Cash\ assets\ are\ written\r\n\ as\ "$$$",type,$$$\r\n\ @param\ a\tString\ name\ of\ the\ asset\r\n\ @param\ t\tString\ type\ of\ the\ asset.\ Three\ possible\ types\:\r\n\ \t\t\t1-cash\r\n\ \t\t\t2-gojf\r\n\ \t\t\t3-prop\r\n\ @param\ w\tint\ value\ denoting\ cash\ value\ of\ asset\r\n
+comment2.params=
+comment2.target=java.lang.String\ getAsset()
+comment2.text=\r\n\ Returns\ String\ name\ of\ the\ asset\r\n\ @return\tString\ asset's\ name\r\n
+comment3.params=
+comment3.target=java.lang.String\ getType()
+comment3.text=\r\n\ Returns\ the\ type\ of\ asset\ contained\r\n\ Three\ possible\ types\:\r\n\ 1-cash\r\n\ 2-gojf\ (Get\ out\ of\ Jail\ Free\ card)\r\n\ 3-prop\ (any\ and\ all\ properties)\r\n\ @return\tString\ denoting\ type\r\n
+comment4.params=
+comment4.target=int\ getWorth()
+comment4.text=\r\n\ Returns\ an\ int\ denoting\ the\ value\ of\ the\ stored\ asset\r\n\ @return\r\n
+comment5.params=
+comment5.target=java.lang.String\ toString()
+numComments=6

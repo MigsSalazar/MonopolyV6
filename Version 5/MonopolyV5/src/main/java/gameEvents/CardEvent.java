@@ -25,7 +25,7 @@ public class CardEvent extends DiceNeededEvent{
 		card = cardPicker(chance);
 		//< h t m l >
 		text = "<html>You landed on "+(chance?"Chance":"Community Chest!")+". Your card reads:"
-				+ "<br>"+card.getText().substring(6,card.getText().length());
+				+card.getText().substring(6,card.getText().length());
 		currentPlayer = pl;
 		defineComponents();
 	}

@@ -3,7 +3,6 @@ package main.java.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Map;
 
@@ -81,17 +80,13 @@ public class PlayerPanel extends JPanel {
 		//name = new JLabel(myPlayer.getName());
 		posi = new JLabel("Current Position: "+myPlayer.getPosition());
 		wealth = new JLabel("Cumulative wealth: "+currencySymbol+myPlayer.getWealth());
-		wealth.setBackground(Color.YELLOW);
-		wealth.setOpaque(true);
+		colorWealth();
 		bank = new JLabel("Liquid cash: "+currencySymbol+myPlayer.getCash());
-		bank.setBackground(Color.GREEN);
-		bank.setOpaque(true);
+		colorBank();
 		actv = new JLabel("Bankrupt: "+ !myPlayer.isActive());
-		actv.setBackground(Color.GREEN);
-		actv.setOpaque(true);
+		colorActive();
 		jail = new JLabel("Jail Status: "+myPlayer.isInJail());
-		jail.setBackground(Color.GREEN);
-		jail.setOpaque(true);
+		colorJail();
 		card = new JLabel("Get out of Jail Cards: "+myPlayer.getJailCards());
 		
 		prop = new JLabel("Properties owned: ");
@@ -108,6 +103,28 @@ public class PlayerPanel extends JPanel {
 		labels.add(prop);
 		
 	}
+
+	private void colorJail() {
+		if(myPlayer.isInJail()){
+			jail.setBackground(Color.RED);
+		}else{
+			jail.setBackground(Color.GREEN);
+		}
+		
+		jail.setOpaque(true);
+	}
+
+	private void colorActive() {
+		if(myPlayer.isActive()){
+			actv.setBackground(Color.GREEN);
+		}else{
+			actv.setBackground(Color.RED);
+		}
+		
+		actv.setOpaque(true);
+	}
+
+	
 	
 	/**
 	 * Generates a list of the properties owned by a player to be displayed on a JTextArea
@@ -143,6 +160,35 @@ public class PlayerPanel extends JPanel {
 		
 		pTextArea.setText(fullList);
 		
+	}
+	
+	
+	
+	private void colorBank() {
+		Color c;
+		
+		if(myPlayer.getCash() < 700){
+			c = Color.RED;
+		}else if(myPlayer.getCash() > 1300){
+			c = Color.GREEN;
+		}else{
+			c = Color.YELLOW;
+		}
+		bank.setBackground(c);
+		bank.setOpaque(true);
+	}
+	
+	public void colorWealth(){
+		Color c;
+		if(myPlayer.getWealth() < 1000){
+			c = Color.RED;
+		}else if(myPlayer.getWealth() > 2000){
+			c = Color.GREEN;
+		}else{
+			c = Color.YELLOW;
+		}
+		wealth.setBackground(c);
+		wealth.setOpaque(true);
 	}
 
 	private String getPropertyList() {

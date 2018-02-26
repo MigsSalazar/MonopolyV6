@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Railroad
+comment1.params=n\ o\ p\ pr\ mb\ gc
+comment1.target=Railroad(java.lang.String,\ java.lang.String,\ int,\ int,\ boolean,\ GlobalCounter)
+comment2.params=o
+comment2.target=void\ setOwner(java.lang.String)
+comment3.params=
+comment3.target=int\ getRent()
+comment4.params=
+comment4.target=GlobalCounter\ getGcount()
+comment5.params=gcount
+comment5.target=void\ setGcount(GlobalCounter)
+numComments=6
