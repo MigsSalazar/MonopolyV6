@@ -2,7 +2,6 @@ package main.java.models;
 
 import java.util.Map;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Set;
 
 import com.google.gson.annotations.Expose;
@@ -132,10 +131,8 @@ public class Player {
 	
 	private void calcWealth(){
 		propsExists();
-		Set<String> keys = new HashSet<String>();
-		if(props.size() > 0){
-			keys = props.keySet();
-		}
+		Set<String> keys = props.keySet();
+		
 		wealth = cash;
 		for(String k : keys){
 			wealth += props.get(k).getWorth();
