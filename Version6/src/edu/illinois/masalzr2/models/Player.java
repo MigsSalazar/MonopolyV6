@@ -139,6 +139,12 @@ public class Player {
 		}
 	}
 	
+	public void addChangeListener(ChangeListener cl){
+		if(!listeners.contains(cl)){
+			listeners.add(cl);
+		}
+	}
+	
 	private void fireChange(){
 		ChangeEvent ce = new ChangeEvent(this);
 		for(ChangeListener cl : listeners){

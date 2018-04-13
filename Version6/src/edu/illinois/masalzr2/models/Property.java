@@ -1,6 +1,10 @@
 package edu.illinois.masalzr2.models;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import com.google.gson.annotations.Expose;
 
@@ -11,6 +15,16 @@ public class Property{
 	@Expose protected int price;
 	@Expose protected String owner = "";
 	@Expose protected boolean mBool;
+	private ArrayList<ChangeListener> listeners;
+	
+	public Property(){
+		name = "";
+		position = -1;
+		price = 0;
+		owner = "";
+		mBool = false;
+		listeners = new ArrayList<ChangeListener>();
+	}
 	
 	/**
 	 * Returns the name of the Property
@@ -34,6 +48,11 @@ public class Property{
 	 */
 	public int getPrice(){
 		return price;
+	}
+	
+	public void setMBool(boolean mb){
+		mBool = mb;
+		fireChange();
 	}
 	
 	/**
@@ -61,6 +80,7 @@ public class Property{
 	
 	public void setOwner(String o){
 		owner = o;
+		fireChange();
 	}
 	
 	public String getOwner(){
@@ -87,6 +107,21 @@ public class Property{
 	public int compareByName(Property other){
 		SortByName sbn = new SortByName();
 		return sbn.compare(this, other);
+	}
+	
+	public void addListener(ChangeListener ce){
+		if(!listeners.contains(ce)){
+			listeners.add(ce);
+		}
+	}
+	
+	private void fireChange(){
+		ChangeEvent ce = new ChangeEvent(this);
+		
+		for(ChangeListener cl : listeners){
+			cl.stateChanged(ce);
+		}
+		
 	}
 	
 	public static Comparator<Property> getPositionComparator(){
