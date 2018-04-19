@@ -2,6 +2,7 @@ package edu.illinois.masalzr2.gui;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,6 +14,8 @@ public class Board {
 	private GridLayout grid;
 	private Dimension dim;
 	
+	private HashMap<String, Dimension> pieceCoords;
+	
 	private int gridWidth;
 	private int gridHeight;
 	private int pixWidth;
@@ -20,14 +23,14 @@ public class Board {
 	
 	private int[][] iconNumbers;
 	private ImageIcon[] icons;
-	private JButton[][] display;
+	private GraphicsButton[][] display;
 	
 	private Stamp[][] stampCollection;
 	
 	private boolean showDice;
 	
-	private JButton[][] dice1 = new JButton[3][3];
-	private JButton[][] dice2 = new JButton[3][3];
+	private GraphicsButton[][] dice1 = new GraphicsButton[3][3];
+	private GraphicsButton[][] dice2 = new GraphicsButton[3][3];
 	
 	private int d1=1;
 	private int d2=1;
@@ -36,6 +39,8 @@ public class Board {
 	private ImageIcon blankDie;
 	
 	public Board(){
+		
+		pieceCoords = new HashMap<String, Dimension>();
 		
 		gridWidth = 30;
 		gridHeight = 30;
@@ -60,12 +65,12 @@ public class Board {
 		icons = new ImageIcon[1];
 		icons[0] = new ImageIcon();
 		
-		display = new JButton[gridWidth][gridHeight];
+		display = new GraphicsButton[gridWidth][gridHeight];
 		stampCollection = new Stamp[gridWidth][gridHeight];
 		
 		for(int x=0; x<gridWidth; x++){
 			for(int y=0; y<gridHeight; y++){
-				display[x][y] = new JButton();
+				display[x][y] = new GraphicsButton();
 				display[x][y].setBorderPainted(false);
 				display[x][y].setPreferredSize(new Dimension(20,20));
 				stampCollection[x][y] = new Stamp();
@@ -90,7 +95,8 @@ public class Board {
 	public void paintDisplay() {
 		for(int b=0; b<display.length; b++){
 			for(int i=0; i<display[b].length; i++){
-				display[b][i].setIcon(icons[iconNumbers[b][i]]);;
+				
+				display[b][i].setIcon(icons[iconNumbers[b][i]]);
 				stampCollection[b][i].engraveButton(display[b][i]);
 			}
 		}
@@ -113,18 +119,45 @@ public class Board {
 	}
 	
 	
+	
 	public void addPiece(ImageIcon icon, int x, int y){
-		display[x][y].setIcon(icon);
+		display[x][y].addIcon(icon);
+		pieceCoords.put(icon.toString(), new Dimension(x,y));
 	}
 	
-	public void movePiece(ImageIcon icon, int oldx, int oldy, int newx, int newy){
-		display[oldx][oldy].setIcon(icons[  iconNumbers[oldx][oldy]  ] );
-		display[newx][newy].setIcon(icon);
+	public void addPiece(ImageIcon icon, String key, int x, int y){
+		display[x][y].addIcon(icon);
+		pieceCoords.put(key, new Dimension(x,y));
 	}
 	
-	public void removePiece(int x, int y){
-		display[x][y].setIcon(  icons[  iconNumbers[x][y]  ]  );
+	public void movePiece(ImageIcon icon, int x, int y){
+		movePiece(icon, icon.toString(), x, y);
 	}
+	
+	public void movePiece(ImageIcon icon, String key, int x, int y){
+		if(pieceCoords.containsKey(key)){
+			Dimension dim = pieceCoords.get(key);
+			
+			display[dim.width][dim.height].wipeIcons();
+			
+			dim.setSize(x, y);
+			
+			display[dim.width][dim.height].addIcon(icon);
+		}
+	}
+	
+	public void removePiece(ImageIcon icon){
+		removePiece(icon.toString());
+	}
+	
+	public void removePiece(String key){
+		if(pieceCoords.containsKey(key)){
+			Dimension dim = pieceCoords.get(key);
+			pieceCoords.remove(key);
+			display[dim.width][dim.height].wipeIcons();
+		}
+	}
+	
 	
 	public void activateDice(){
 		
@@ -183,8 +216,9 @@ public class Board {
 		blankDie = bDie;
 	}
 	
-	public void paintDice(int d1, int d2){
-		
+	public void paintDice(int dOne, int dTwo){
+		d1 = dOne;
+		d2 = dTwo;
 		if(!showDice){
 			return;
 		}
@@ -196,9 +230,6 @@ public class Board {
 		if(blankDie == null){
 			blankDie = new ImageIcon();
 		}
-		
-		this.d1 = d1;
-		this.d2 = d2;
 		
 		for(int i=0; i<3; i++){
 			for(int j=0; j<3; j++){

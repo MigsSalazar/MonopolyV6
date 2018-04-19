@@ -13,9 +13,9 @@ public class GameToken {
 	
 	private int team;
 	
-	private TokenPath path;
+	private PositionIndex path;
 	
-	public GameToken(int t, String dir, TokenPath p){
+	public GameToken(int t, String dir, PositionIndex p){
 		
 		team = t;
 		
@@ -51,6 +51,17 @@ public class GameToken {
 		return piece;
 	}
 	
+	public void movePiece(int m){
+		if(path.isLocked()){
+			return;
+		}
+		coords = path.move(m);
+	}
+	
+	public PositionIndex getPath(){
+		return path;
+	}
+	
 	public void refreshIcon(String parentDir){
 		File f = new File(parentDir + pieceDir);
 		
@@ -60,6 +71,15 @@ public class GameToken {
 			piece = new ImageIcon(pieceDir);
 		}
 		
+	}
+	
+	public int[] useSpecialtyCase(int s){
+		coords = path.getSpecialCase(s);
+		return coords;
+	}
+	
+	public void setLocked(boolean l){
+		path.setLocked(l);
 	}
 	
 }

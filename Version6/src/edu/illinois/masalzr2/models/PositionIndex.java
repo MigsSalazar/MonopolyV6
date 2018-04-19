@@ -1,6 +1,6 @@
 package edu.illinois.masalzr2.models;
 
-public class TokenPath {
+public class PositionIndex {
 	private int[] x;
 	private int[] y;
 	
@@ -13,7 +13,7 @@ public class TokenPath {
 	
 	
 	
-	public TokenPath(){
+	public PositionIndex(){
 		x = new int[1];
 		
 		y = new int[1];
@@ -29,7 +29,7 @@ public class TokenPath {
 		locked = true;
 	}
 	
-	public TokenPath(int[] x, int[] y){
+	public PositionIndex(int[] x, int[] y){
 		this.x = x;
 		this.y = y;
 		
@@ -43,7 +43,7 @@ public class TokenPath {
 		locked = false;
 	}
 	
-	public TokenPath(int[] x, int[] y, int[] spx, int[] spy){
+	public PositionIndex(int[] x, int[] y, int[] spx, int[] spy){
 		this.x = x;
 		this.y = y;
 		
