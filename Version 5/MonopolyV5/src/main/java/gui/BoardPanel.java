@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import com.google.gson.annotations.Expose;
 
+import main.java.io.ObjectWriteExperiment;
 import main.java.models.GamePath;
 import main.java.models.Pair;
 import main.java.models.Player;
@@ -39,7 +40,9 @@ public class BoardPanel extends JPanel {
 	private transient ImageIcon[][] displayedBoard;			//the currently displayed grid of icons
 	private transient ImageIcon[] imageIndex;				//stores all the icons used by the board
 	
-	
+	public ArrayList<Piece> getGamePieces(){
+		return gamePieces;
+	}
 	
 	public void pickPlayerPieces(int[] selection, String dir){
 		if(selection.length == getPlayerCount()){
@@ -67,6 +70,10 @@ public class BoardPanel extends JPanel {
 		Pair<Integer,Integer> coords = playerPiece.specialCase(0);
 		updateIcon(playerPiece, 10,coords.first,coords.second);
 		
+	}
+	
+	public void ioStamps(){
+		ObjectWriteExperiment.serializeAddressJDK7(stampCollection);
 	}
 	
 	public void firstPaintBoard(ArrayList<Player> players) throws NullPointerException{

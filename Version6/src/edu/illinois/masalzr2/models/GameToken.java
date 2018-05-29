@@ -1,5 +1,6 @@
 package edu.illinois.masalzr2.models;
 
+import java.awt.MediaTracker;
 import java.io.File;
 
 import javax.swing.ImageIcon;
@@ -43,6 +44,10 @@ public class GameToken {
 		return coords[1];
 	}
 	
+	public void setTeam(int t){
+		team = t;
+	}
+	
 	public int getTeam(){
 		return team;
 	}
@@ -60,6 +65,15 @@ public class GameToken {
 	
 	public PositionIndex getPath(){
 		return path;
+	}
+	
+	public boolean giveIconPath(String dir){
+		piece = new ImageIcon(dir);
+		return piece.getImageLoadStatus() == MediaTracker.COMPLETE;
+	}
+	
+	public void refreshIcon(){
+		refreshIcon(System.getProperty("user.dir"));
 	}
 	
 	public void refreshIcon(String parentDir){

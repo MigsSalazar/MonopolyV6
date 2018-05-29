@@ -109,6 +109,9 @@ public class Runner {
 		}
 		game.setup();
 		//System.out.println("Runner is done");
+		game.getGameBoard().ioStamps();
+		
+		
 		return true;
 		
 	}

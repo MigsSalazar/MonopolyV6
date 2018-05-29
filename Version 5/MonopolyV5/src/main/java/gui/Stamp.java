@@ -4,6 +4,7 @@
 package main.java.gui;
 
 import java.awt.Color;
+import java.io.Serializable;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -16,7 +17,9 @@ import com.google.gson.annotations.Expose;
  * @author Unknown
  *
  */
-public class Stamp {
+public class Stamp implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	@Expose private char engraving;
 	@Expose private boolean italics;
 	@Expose private boolean bold;
@@ -222,6 +225,23 @@ public class Stamp {
 		if(validateBorder(b)){
 			border = b;
 		}
+	}
+	
+	@Override
+	public String toString(){
+		
+		/*
+		 * @Expose private char engraving;
+	@Expose private boolean italics;
+	@Expose private boolean bold;
+	@Expose private boolean underline;
+	@Expose private int border;
+		 */
+		return new StringBuffer("Engraving: ").append(engraving)
+				.append("Italics: ").append(italics)
+				.append("Bold: ").append(bold)
+				.append("Underline: ").append(underline)
+				.append("Border: ").append(border).toString();
 	}
 	
 	

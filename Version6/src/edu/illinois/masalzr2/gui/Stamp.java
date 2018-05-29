@@ -4,6 +4,7 @@
 package edu.illinois.masalzr2.gui;
 
 import java.awt.Color;
+import java.io.Serializable;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -16,12 +17,14 @@ import com.google.gson.annotations.Expose;
  * @author Unknown
  *
  */
-public class Stamp {
-	private char engraving;
-	private boolean italics;
-	private boolean bold;
-	private boolean underline;
-	private int border;
+public class Stamp implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	@Expose private char engraving;
+	@Expose private boolean italics;
+	@Expose private boolean bold;
+	@Expose private boolean underline;
+	@Expose private int border;
 	
 	
 	public Stamp(){
@@ -74,15 +77,9 @@ public class Stamp {
 		String engraved = engraveComponent();
 		label.setText(""+engraved);
 		if( engraving != ' '){
-			//System.out.println("engraving = "+engraved);
 			label.setText(engraved);
-			
-			//label.setHorizontalAlignment(JLabel.CENTER);
-			
-			//label.setVerticalAlignment(JLabel.CENTER);
 		}
 		label.setHorizontalTextPosition(JLabel.CENTER);
-		label.setVerticalTextPosition(JLabel.CENTER);
 		
 	}
 	
@@ -90,15 +87,9 @@ public class Stamp {
 		String engraved = engraveComponent();
 		button.setText(""+engraved);
 		if( engraving != ' '){
-			//System.out.println("engraving = "+engraved);
 			button.setText(engraved);
-			
-			//label.setHorizontalAlignment(JLabel.CENTER);
-			
-			//label.setVerticalAlignment(JLabel.CENTER);
 		}
 		button.setHorizontalTextPosition(JButton.CENTER);
-		button.setVerticalTextPosition(JButton.CENTER);
 	}
 
 	private String engraveComponent() {
@@ -140,6 +131,11 @@ public class Stamp {
 		label.setBorder(given);
 	}
 	
+	public void giveBorder(JButton button){
+		Border given = makeBorder();
+		button.setBorder(given);
+	}
+	
 	public Border makeBorder(){
 		return makeBorder(border);
 	}
@@ -151,8 +147,6 @@ public class Stamp {
 			return BorderFactory.createMatteBorder(0, 0, 0, 0, Color.BLACK);
 		}
 	}
-	
-	
 	
 	private static int hasTop(int b){
 		if(b%2 == 0){
@@ -222,6 +216,23 @@ public class Stamp {
 		if(validateBorder(b)){
 			border = b;
 		}
+	}
+	
+	@Override
+	public String toString(){
+		
+		/*
+		 * @Expose private char engraving;
+	@Expose private boolean italics;
+	@Expose private boolean bold;
+	@Expose private boolean underline;
+	@Expose private int border;
+		 */
+		return new StringBuffer("Engraving: ").append(engraving)
+				.append("Italics: ").append(italics)
+				.append("Bold: ").append(bold)
+				.append("Underline: ").append(underline)
+				.append("Border: ").append(border).toString();
 	}
 	
 	

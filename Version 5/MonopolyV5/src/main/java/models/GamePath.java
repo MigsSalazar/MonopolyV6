@@ -25,6 +25,10 @@ public class GamePath {
 		currentStep = cs;
 	}
 	
+	public ArrayList<Pair<Integer,Integer>> getStepList(){
+		return steps;
+	}
+	
 	public Pair<Integer,Integer> forward(){
 		if( !locked ){
 			currentStep = (currentStep+1)%steps.size();

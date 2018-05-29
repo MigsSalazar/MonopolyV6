@@ -19,8 +19,37 @@ public class Player {
 	private HashMap<String, Property> props;
 	private ArrayList<ChangeListener> listeners;
 	
+	public Player(String n, int i, int c, int p, int j, boolean b, HashMap<String, Property> pr, ArrayList<ChangeListener> listen){
+		name = n;
+		id = i;
+		cash = c;
+		position = p;
+		jailCard = j;
+		bankrupt = b;
+		props = pr;
+		listeners = listen;
+	}
+	
+	public Player(int c){
+		name = "";
+		id = -1;
+		position = 0;
+		cash = c;
+		jailCard = 0;
+		props = new HashMap<String, Property>();
+		listeners = new ArrayList<ChangeListener>();
+	}
+	
 	public String getName(){
 		return name;
+	}
+	
+	public void setName(String n){
+		name = n;
+	}
+	
+	public void setId(int i){
+		id = i;
 	}
 	
 	public int getId(){

@@ -17,6 +17,15 @@ public class Property{
 	@Expose protected boolean mBool;
 	private ArrayList<ChangeListener> listeners;
 	
+	public Property(String n, int pos, int pr, String o, boolean m, ArrayList<ChangeListener> listen){
+		name = n;
+		position = pos;
+		price = pr;
+		owner = o;
+		mBool = m;
+		listeners = listen==null? new ArrayList<ChangeListener>() : listen;
+	}
+	
 	public Property(){
 		name = "";
 		position = -1;

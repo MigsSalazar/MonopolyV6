@@ -1,5 +1,6 @@
 package edu.illinois.masalzr2.masters;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -11,9 +12,11 @@ import edu.illinois.masalzr2.gui.*;
 import edu.illinois.masalzr2.models.*;
 
 public class GameVariables {
-	private Board board;
+	private transient Board board;
 	//private JPanel stats;
-	private Notices notices;
+	private transient Notices notices;
+	
+	private File saveFile;
 	
 	private HashMap<String, Player> players;
 	private HashMap<String, Property> properties;
@@ -29,6 +32,9 @@ public class GameVariables {
 	private HashMap<String, Boolean> jailTable;
 	private HashMap<String, Integer> jailTimes;
 	
+	private Counter railCount;
+	private Counter utilCount;
+	
 	private ArrayList<GameCard> chance;
 	private ArrayList<GameCard> commchest;
 	
@@ -36,12 +42,47 @@ public class GameVariables {
 	
 	private int[][] paintByNumbers;
 	private ImageIcon[] icons;
+	private Stamp[][] stampCollection;
 	private HashMap<String, GameToken> playerTokens;
 	
 	private String currency;
-	private String textureDir;
+	private String texture;
 	private Counter houseCount;
 	private Counter hotelCount;
+	
+	
+	
+	public String getCurrencySymbol(){
+		return currency;
+	}
+	
+	public Counter getHouseCount(){
+		return houseCount;
+	}
+	
+	public Counter getHotelCount(){
+		return hotelCount;
+	}
+	
+	public boolean isTextureInDir(){
+		File f = new File(texture);
+		if(!f.exists()){
+			f = new File(System.getProperty("user.dir")+"\\"+texture);
+		}
+		return f.exists();
+	}
+	
+	public String getTextureName(){
+		return texture.substring(texture.lastIndexOf("\\"), texture.length());
+	}
+	
+	public String getTextureDir(){
+		File f = new File(texture);
+		if(!f.exists()){
+			f = new File(System.getProperty("user.dir")+"\\"+texture);
+		}
+		return f.exists() ? f.getAbsolutePath() : "";
+	}
 	
 	public int roll(){
 		gameDice.roll();
@@ -67,10 +108,10 @@ public class GameVariables {
 		
 		GameToken jailMe = playerTokens.get(p.getName());
 		
-		int[] oldCoords = {jailMe.getX(), jailMe.getY()};
 		int[] newCoords = jailMe.useSpecialtyCase(0);
 		
-		board.movePiece(jailMe.getPiece(), oldCoords, newCoords);
+		board.movePiece(jailMe.getPiece(), newCoords[0], newCoords[1]);
+		
 		//TODO notify the stats panel of the player's incarceration
 		return true;
 	}
@@ -123,14 +164,92 @@ public class GameVariables {
 	public void movePlayer(String p, int move){
 		GameToken current = playerTokens.get(p);
 		
-		int oldX = current.getX();
-		int oldY = current.getY();
 		ImageIcon piece = current.getPiece();
 		
 		current.movePiece(move);
 		
-		board.movePiece(piece, oldX, oldY, current.getX(), current.getY());
+		board.movePiece(piece, current.getX(), current.getY());
 		
+	}
+
+	public Counter getRailCount() {
+		return railCount;
+	}
+
+	public void setRailCount(Counter railCount) {
+		this.railCount = railCount;
+	}
+
+	public Counter getUtilCount() {
+		return utilCount;
+	}
+
+	public void setUtilCount(Counter utilCount) {
+		this.utilCount = utilCount;
+	}
+
+	public int[][] getPaintByNumbers() {
+		return paintByNumbers;
+	}
+
+	public void setPaintByNumbers(int[][] paintByNumbers) {
+		this.paintByNumbers = paintByNumbers;
+	}
+
+	public ImageIcon[] getIcons() {
+		return icons;
+	}
+
+	public void setIcons(ImageIcon[] icons) {
+		this.icons = icons;
+	}
+
+	public Stamp[][] getStampCollection() {
+		return stampCollection;
+	}
+
+	public void setStampCollection(Stamp[][] stampCollection) {
+		this.stampCollection = stampCollection;
+	}
+	
+	public void setJailTimes(HashMap<String,Integer> jtimes){
+		jailTimes = jtimes;
+	}
+	
+	public int getPlayerJailTime(Player p){
+		return getPlayerJailTime(p.getName());
+	}
+	
+	public int getPlayerJailTime(String p){
+		return jailTimes.get(p);
+	}
+	
+	/*
+	 * private File saveFile;
+	
+	private HashMap<String, Player> players;
+	private HashMap<String, Property> properties;
+	private HashMap<String, Suite> suites;
+	 */
+	
+	public HashMap<String,Property> getProperties(){
+		return properties;
+	}
+	
+	public void setProperties(HashMap<String, Property> pr){
+		properties = pr;
+	}
+	
+	public HashMap<String,Player> getPlayers(){
+		return players;
+	}
+	
+	public void setPlayers(HashMap<String, Player> pl){
+		players = pl;
+	}
+	
+	public HashMap<String,Suite> getSuites(){
+		return suites;
 	}
 	
 	

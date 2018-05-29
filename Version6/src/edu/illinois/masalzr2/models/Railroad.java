@@ -1,10 +1,22 @@
 package edu.illinois.masalzr2.models;
 
+import java.util.ArrayList;
+
+import javax.swing.event.ChangeListener;
+
 public class Railroad extends Property {
 	private Counter railsOwned;
 	
+	public Railroad(String n, int pos, int pr, String o, boolean m, ArrayList<ChangeListener> listen){
+		super(n, pos, pr, o, m, listen);
+	}
+	
 	public Counter getRailsOwned(){
 		return railsOwned;
+	}
+	
+	public void setRailedOwned(Counter c){
+		railsOwned = c;
 	}
 	
 	@Override

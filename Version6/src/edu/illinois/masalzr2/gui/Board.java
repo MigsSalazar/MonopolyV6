@@ -2,6 +2,7 @@ package edu.illinois.masalzr2.gui;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.MediaTracker;
 import java.util.HashMap;
 
 import javax.swing.ImageIcon;
@@ -24,6 +25,9 @@ public class Board {
 	private int[][] iconNumbers;
 	private ImageIcon[] icons;
 	private GraphicsButton[][] display;
+	
+	private int[][] stickerBook;
+	private ImageIcon[] stickers;
 	
 	private Stamp[][] stampCollection;
 	
@@ -56,6 +60,8 @@ public class Board {
 		
 		iconNumbers = new int[gridWidth][gridHeight];
 		
+		stickerBook = new int[gridWidth][gridHeight];
+		
 		for(int[] i : iconNumbers){
 			for(int j=0; j<i.length; j++){
 				i[j] = 0;
@@ -65,19 +71,23 @@ public class Board {
 		icons = new ImageIcon[1];
 		icons[0] = new ImageIcon();
 		
+		stickers = new ImageIcon[1];
+		stickers[0] = new ImageIcon();
+		
 		display = new GraphicsButton[gridWidth][gridHeight];
 		stampCollection = new Stamp[gridWidth][gridHeight];
 		
 		for(int x=0; x<gridWidth; x++){
 			for(int y=0; y<gridHeight; y++){
 				display[x][y] = new GraphicsButton();
-				display[x][y].setBorderPainted(false);
+				
+				//display[x][y].setBorderPainted(false);
 				display[x][y].setPreferredSize(new Dimension(20,20));
 				stampCollection[x][y] = new Stamp();
 			}
 		}
 		
-		paintDisplay();
+		//paintDisplay();
 		
 		for(JButton[] jba : display){
 			for(JButton jb : jba){
@@ -96,8 +106,29 @@ public class Board {
 		for(int b=0; b<display.length; b++){
 			for(int i=0; i<display[b].length; i++){
 				
-				display[b][i].setIcon(icons[iconNumbers[b][i]]);
-				stampCollection[b][i].engraveButton(display[b][i]);
+				display[b][i].setIcon(icons[ iconNumbers[b][i] ]);
+				
+				if(stickerBook[b][i] > -1 ){
+					display[b][i].addIcon(stickers[ stickerBook[b][i] ]);
+				}else{
+					display[b][i].wipeIcons();
+				}
+				
+				if(stampCollection != null){
+					if(stampCollection[b] != null){
+						if(stampCollection[b][i] != null){
+							display[b][i].setIconTextGap(-30);
+							display[b][i].setOpaque(true);
+							display[b][i].setLayout(null);
+							
+							stampCollection[b][i].engraveButton(display[b][i]);
+							
+							stampCollection[b][i].giveBorder(display[b][i]);
+							
+						}
+					}
+				}
+				
 			}
 		}
 		
@@ -105,6 +136,10 @@ public class Board {
 			paintDice(d1,d2);
 		}
 		
+	}
+	
+	public void setStamps(Stamp[][] collection){
+		stampCollection = collection;
 	}
 	
 	public void setIconNumbers(int[][] nums){
@@ -118,6 +153,13 @@ public class Board {
 		
 	}
 	
+	public void setStickerBook(int[][] sb){
+		stickerBook = sb;
+	}
+	
+	public void setStickers(ImageIcon[] s){
+		stickers = s;
+	}
 	
 	
 	public void addPiece(ImageIcon icon, int x, int y){
