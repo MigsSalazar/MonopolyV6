@@ -1,11 +1,18 @@
 package edu.illinois.masalzr2.models;
 
 
+import java.io.Serializable;
+
 import com.google.gson.annotations.Expose;
 
 
-public class GameCard {
+public class GameCard implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Expose private String text;
 	
 	@Expose private int moneyEarned;

@@ -1,8 +1,14 @@
 package edu.illinois.masalzr2.models;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Dice {
+public class Dice implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	private int sides;
 	private int[] dice;
@@ -53,24 +59,44 @@ public class Dice {
 	}
 	
 	public class Coin extends Dice{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		public Coin(){
 			super(2,1);
 		}
 	}
 	
 	public class Cube extends Dice{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		public Cube(){
 			super(6,1);
 		}
 	}
 	
 	public class DoubleCube extends Dice{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		public DoubleCube(){
 			super(6,2);
 		}
 	}
 	
 	public class TwentySided extends Dice{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		public TwentySided(){
 			super(20,1);
 		}
@@ -84,6 +110,11 @@ public class Dice {
 	 *
 	 */
 	public class Percentile extends Dice{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		public Percentile(){
 			super(10, 2);
 		}

@@ -2,10 +2,16 @@ package edu.illinois.masalzr2.models;
 
 import java.awt.MediaTracker;
 import java.io.File;
+import java.io.Serializable;
 
 import javax.swing.ImageIcon;
 
-public class GameToken {
+public class GameToken implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	private String pieceDir;
 	

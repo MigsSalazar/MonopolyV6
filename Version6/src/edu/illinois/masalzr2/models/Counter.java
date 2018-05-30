@@ -1,6 +1,13 @@
 package edu.illinois.masalzr2.models;
 
-public class Counter{
+import java.io.Serializable;
+
+public class Counter implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	private int count;
 	private int max;

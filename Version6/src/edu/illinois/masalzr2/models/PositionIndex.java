@@ -1,6 +1,13 @@
 package edu.illinois.masalzr2.models;
 
-public class PositionIndex {
+import java.io.Serializable;
+
+public class PositionIndex implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private int[] x;
 	private int[] y;
 	

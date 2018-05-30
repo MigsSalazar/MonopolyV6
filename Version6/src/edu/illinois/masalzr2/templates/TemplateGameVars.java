@@ -1,89 +1,1082 @@
 package edu.illinois.masalzr2.templates;
 
-import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.swing.ImageIcon;
-
 import edu.illinois.masalzr2.gui.Stamp;
+import edu.illinois.masalzr2.masters.GameVariables;
 import edu.illinois.masalzr2.models.*;
 
-public class TemplateGameVars {
+public class TemplateGameVars{
 	
-	private File saveFile; //made
-	
-	private HashMap<String, Property> properties; //made
-	private HashMap<String, Suite> suites; //made
-	
-	private HashMap<Integer, Property> propertyPos; //made
-	
-	private PositionIndex propertyPositions; //made
-	
-	private Counter turn; //made
-	private HashMap<String, Boolean> jailTable; //made
-	private HashMap<String, Integer> jailTimes; //made
-	
-	private Counter railCount; //made
-	private Counter utilCount; //made
-	
-	private ArrayList<GameCard> chance; //made
-	private ArrayList<GameCard> commchest; //made
-	
-	private Dice gameDice; //made
-	
-	private int[][] paintByNumbers; //made
-	private String[] icons; //made
-	private Stamp[][] stampCollection; //TODO
-	private HashMap<String, GameToken> playerTokens; //made
-	
-	private String currency; //made
-	private String textureDir; //made
-	private Counter houseCount; //made
-	private Counter hotelCount; //made
-	
-	public TemplateGameVars(){
+	public static void main(String[] args) {
+		GameVariables gv = new GameVariables();
 		
-		saveFile = new File(System.getProperty("user.dir")+"/resources/newgame.mns");
+		gv.refreshSave();
 		
-		Player player = new Player(1500);
+		writeOut(gv);
 		
-		turn = new Counter(0,8,0);
-		
-		jailTable = new HashMap<String,Boolean>();
-		jailTimes = new HashMap<String, Integer>();
-		for(int i=0; i<8; i++){
-			jailTable.put("player"+i, false);
-			jailTimes.put("player"+i, 0);
-			
-		}
-		currency = "$";
-		textureDir = System.getProperty("user.dir")+"/textures/default/";
-		houseCount = new Counter(0, 32, 0);
-		hotelCount = new Counter(0, 12, 0);
-		
-		
-		railCount = new Counter(0,4,0);
-		utilCount = new Counter(0,2,0);
-		
-		gameDice = new Dice(6,2);
-		
-		playerTokens = new HashMap<String, GameToken>();
-		
-		// Rails(4) + utility(2) + 22(streets) = 28
-		
-		defineProps();
-		defineSuites();
-		definePropPositions();
-		definePlayerTokens();
-		defineIcons();
-		definePaintByNumbers();
-		defineCommChest();
-		defineChance();
+		System.out.println("I'm done");
 	}
 	
-	private void defineCommChest() {
-		commchest = new ArrayList<GameCard>();
+	
+	public static void writeOut(GameVariables me) {
+		FileOutputStream fout;
+		try {
+			fout = new FileOutputStream(me.getSaveFile());
+			ObjectOutputStream objWrite = new ObjectOutputStream(fout);
+			
+			objWrite.writeObject(me);
+			
+			objWrite.close();
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public static int[][] stickerBook(){
+		int[][] temp = {{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //-1
+						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //1
+						{-1,-1,-1,13,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //2
+						{-1,-1,-1,14,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //3
+						{-1,-1,-1,-1,-1,-1,	-1,-1,9,9,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,5,5,-1,-1,		-1,-1,-1,-1,-1,-1}, //4
+						{-1,-1,-1,-1,-1,-1,	-1,-1,9,9,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,5,5,-1,-1,		-1,-1,-1,-1,-1,-1}, //5
+						
+						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //6
+						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //7
+						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //8
+						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //9
+						{-1,-1,-1,-1,7,7,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	7,7,-1,-1,-1,-1}, //1-1
+						{-1,-1,-1,-1,8,8,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	8,8,-1,-1,-1,-1}, //11
+						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //12
+						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //13
+						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //14
+						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //15
+						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	9,9,-1,-1,-1,-1}, //16
+						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	9,9,-1,-1,-1,-1}, //17
+						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //18
+						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //19
+						{-1,-1,-1,-1,4,4,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //2-1
+						{-1,-1,-1,-1,4,4,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //21
+						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //22
+						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //23
+							
+						{-1,6,6,6,6,6,		-1,-1,-1,-1,9,9,-1,-1,-1,-1,-1,-1,-1,-1,7,7,-1,-1,		-1,-1,-1,-1,-1,-1}, //24
+						{-1,6,-1,-1,-1,6,	-1,-1,-1,-1,9,9,-1,-1,-1,-1,-1,-1,-1,-1,8,8,-1,-1,		-1,-1,-1,-1,-1,-1}, //25
+						{-1,6,-1,6,-1,6,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //26
+						{-1,6,-1,-1,-1,6,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,10,-1,-1,-1,-1}, //27
+						{-1,6,6,6,6,6,		-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	11,-1,-1,-1,-1,-1}, //28
+						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,12,-1,-1,-1,-1}};//29
+		return temp;
+	}
+
+	public static String[] getStickers(){
+		String[] stickers = {	"housing.png",				//0
+								"hotelLeft",				//1
+								"hotelRight",				//2
+								"hotelBottom",				//3
+								
+								"eleccomp.png",				//4
+								"waterworks.png",			//5
+								
+								"jail.png",					//6
+								"chesttop.png",				//7
+								"chestbottom.png",			//8
+								"chance.png",				//9
+								
+								"gotop.png",				//10
+								"gomid.png",				//11
+								"gobot.png",				//12
+								
+								"parktop.png",				//13
+								"parkbot.png"};				//14
+		
+		String dir = System.getProperty("user.dir");
+		for(int i=0; i<stickers.length; i++){
+			stickers[i] = dir+"/textures/default/"+stickers[i];
+			//System.out.println(retval[i].getDescription());
+		}
+		return stickers;
+	}
+	
+	public static Stamp[][] defineStamps(){
+		Stamp[][] sc = { {
+			
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,6)
+		},
+		{
+		new Stamp(' ',false,true,false,7),
+		new Stamp('F',false,true,false,1),
+		new Stamp('R',false,true,false,1),
+		new Stamp('E',false,true,false,1),
+		new Stamp('E',false,true,false,1),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3)
+		},
+		{
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3)
+		},
+		{
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,7),
+		new Stamp('G',false,true,false,1),
+		new Stamp('O',false,true,false,1),
+		new Stamp('T',false,true,false,1),
+		new Stamp('O',false,true,false,1),
+		new Stamp(' ',false,true,false,30)
+		},
+		{
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp('B',false,true,false,7),
+		new Stamp('O',false,true,false,3),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,7),
+		new Stamp('J',false,true,false,1),
+		new Stamp('A',false,true,false,1),
+		new Stamp('I',false,true,false,1),
+		new Stamp('L',false,true,false,1),
+		new Stamp(' ',false,true,false,3)
+		},
+		{
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp('R',false,true,false,35),
+		new Stamp('R',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,15)
+		},
+		{
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,6)
+		},
+		{
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,15)
+		},
+		{
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,6)
+		},
+		{
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,15)
+		},
+		{
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,6)
+		},
+		{
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,15)
+		},
+		{
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,6)
+		},
+		{
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,15)
+		},
+		{
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp('P',false,true,false,2),
+		new Stamp('N',false,true,false,6),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3),
+		new Stamp('S',false,true,false,14),
+		new Stamp('L',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,6)
+		},
+		{
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp('R',false,true,false,5),
+		new Stamp('R',false,true,false,15),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,15)
+		},
+		{
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,6)
+		},
+		{
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,15)
+		},
+		{
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,6)
+		},
+		{
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,15)
+		},
+		{
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3),
+		new Stamp('L',false,true,false,14),
+		new Stamp('X',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,6)
+		},
+		{
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3),
+		new Stamp('T',false,true,false,35),
+		new Stamp('X',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,15)
+		},
+		{
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,6)
+		},
+		{
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,15)
+		},
+		{
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp('R',false,true,false,14),
+		new Stamp('E',false,true,false,6),
+		new Stamp('I',false,true,false,14),
+		new Stamp('C',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,2),
+		new Stamp(' ',false,true,false,6)
+		},
+		{
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp('R',false,true,false,7),
+		new Stamp('R',false,true,false,3),
+		new Stamp('T',false,true,false,7),
+		new Stamp('X',false,true,false,3),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3)
+		},
+		{
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,14),
+		new Stamp(' ',false,true,false,6),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3)
+		},
+		{
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp('G',false,true,false,1),
+		new Stamp('O',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3)
+		},
+		{
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,3),
+		new Stamp(' ',false,true,false,7),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,1),
+		new Stamp(' ',false,true,false,3)
+		},
+		{
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,15),
+		new Stamp(' ',false,true,false,35),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,5),
+		new Stamp(' ',false,true,false,15)
+		}
+		};
+		
+		return sc;
+
+	}
+
+	public static ArrayList<GameCard> defineCommChest() {
+		ArrayList<GameCard> commchest = new ArrayList<GameCard>();
 		
 		commchest.add(new GameCard("<html>Advance to Go!"
 								+ "<br>(Collect $200)</html>",
@@ -144,10 +1137,11 @@ public class TemplateGameVars {
 				10, false,0,false,false,"","",false, 0, 0));
 		commchest.add(new GameCard("<html>You inherit $100</html>",
 				100, false,0,false,false,"","",false, 0, 0));
+		return commchest;
 	}
 	
-	private void defineChance() {
-		chance = new ArrayList<GameCard>();
+	public static ArrayList<GameCard> defineChance() {
+		ArrayList<GameCard> chance = new ArrayList<GameCard>();
 		chance.add(new GameCard("<html>Advance to Go!<br>(Collect $200)</html>",
 				200, false,0,false,false,"",
 				"go",
@@ -199,10 +1193,11 @@ public class TemplateGameVars {
 		chance.add(new GameCard("<html>You building and loan matures"
 									+ "<br>Collect $150</html>",
 				150, false,0,false,false,"","",false, 0, 0));
+		return chance;
 	}
 	
-	private void defineSuites() {
-		suites = new HashMap<String, Suite>();
+	public static HashMap<String, Suite> defineSuites(HashMap<String, Property> properties) {
+		HashMap<String, Suite>suites = new HashMap<String, Suite>();
 		
 		suites.put("purple", 	new Suite((Street)properties.get("Mediterranean Ave."), (Street)properties.get("Baltic Ave."), 			null, 											"purple"));
 		suites.put("lightBlue", new Suite((Street)properties.get("Oriental Ave."), 		(Street)properties.get("Vermont Ave."), 		(Street)properties.get("Connecticut Ave."), 	"lightBlue"));
@@ -212,10 +1207,11 @@ public class TemplateGameVars {
 		suites.put("yellow", 	new Suite((Street)properties.get("Atlantic Ave."), 		(Street)properties.get("Ventnor Ave."), 		(Street)properties.get("Marvin Gardins"), 		"yellow"));
 		suites.put("green", 	new Suite((Street)properties.get("Pacific Ave."), 		(Street)properties.get("North Carolina Ave."), 	(Street)properties.get("Pennsylvania Ave."), 	"purple"));
 		suites.put("blue", 		new Suite((Street)properties.get("Park Place"), 		(Street)properties.get("Board Walk"), 			null, 											"blue"));
+		return suites;
 	}
 	
-	private void definePaintByNumbers(){
-		paintByNumbers= new int[][]
+	public static int[][] definePaintByNumbers(){
+		int[][] pbn = new int[][]
 				{{0,0,0,0,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,		0,0,0,0,0,0}, //0
 				{0,0,0,0,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,		0,0,0,0,0,0}, //1
 				{0,0,7,24,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,		0,0,0,0,0,0}, //2
@@ -248,9 +1244,10 @@ public class TemplateGameVars {
 				{0,17,0,0,0,17,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,		0,21,0,0,0,0}, //27
 				{0,17,17,17,17,17,	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,		22,7,7,7,7,7}, //28
 				{0,0,0,0,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,		0,23,0,0,0,0}};//29
+				return pbn;
 	}
 	
-	private void defineIcons(){
+	public static String[] defineIcons(){
 		String[] icons = {	"baseboard.png",			//0
 				"dotdie.png",				//1
 				"blankdie.png",				//2
@@ -287,9 +1284,11 @@ public class TemplateGameVars {
 		for(int i=0; i<icons.length; i++){
 			icons[i] = parentDir+"/textures/default/"+icons[i];
 		}
+		return icons;
 	}
 	
-	private void definePlayerTokens(){
+	public static HashMap<String, GameToken> definePlayerTokens(){
+		HashMap<String, GameToken> playerTokens = new HashMap<String, GameToken>();
 		GameToken p1 = new GameToken(0, "", new PositionIndex(
 				new int[]{25,22,20,18,16,14,12,10,8,6,0,0,0,0,0,0,0,0,0,0,0,6,8,10,12,14,16,18,20,22,25,26,26,26,26,26,26,26,26,26,},
 				new int[]{25,26,26,26,26,26,26,26,26,26,25,22,20,18,16,14,12,10,8,6,2,0,0,0,0,0,0,0,0,0,1,6,8,10,12,14,16,18,20,22,},
@@ -348,17 +1347,19 @@ public class TemplateGameVars {
 		playerTokens.put("p6", p6);
 		playerTokens.put("p7", p7);
 		playerTokens.put("p8", p8);
+		return playerTokens;
 	}
 	
-	private void definePropPositions(){
+	public static PositionIndex definePropPositions(){
 				//  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 31 32 33 34 35 36 37 38 39
 		int[] x = {22,-1,18,-1,-1,12,-1, 8, 6,-1, 4,-1, 4, 4,-1, 4,-1, 4, 4,-1, 6,-1,10,12,-1,16,18,-1,22,24,24,-1,24,-1,-1,24,-1,24};
 		int[] y = {24,-1,24,-1,-1,24,-1,24,24,-1,22,-1,18,16,-1,12,-1, 8, 6,-1, 4,-1, 4, 4,-1, 4, 4,-1, 4, 6, 8,-1,12,-1,-1,18,-1,22};
 		
-		propertyPositions = new PositionIndex(x,y);
+		PositionIndex propertyPositions = new PositionIndex(x,y);
+		return propertyPositions;
 	}
 	
-	private void defineProps(){
+	public static Property[] defineProps(){
 		Property[] props = new Property[28];
 		props[0] = new Street("Mediterranean Ave.", 1, 60, "", false, null, 0, 30, new int[]{2, 10, 30, 90, 160, 250});
 		props[1] = new Street("Baltic Ave.", 		3, 60, "", false, null, 0, 30, new int[]{4, 20, 60, 180, 320, 450});
@@ -400,13 +1401,7 @@ public class TemplateGameVars {
 		props[26] = new Street("Park Place", 		37, 350, "", false, null, 0, 200, new int[]{35, 175, 500, 1100, 1300, 1500});
 		props[27] = new Street("Board Walk",		39, 400, "", false, null, 0, 200, new int[]{50, 200, 600, 1400, 1700, 2000});
 		
-		properties = new HashMap<String, Property>();
-		propertyPos = new HashMap<Integer, Property>();
-		
-		for(Property p : props){
-			properties.put(p.getName(), p);
-			propertyPos.put(p.getPosition(), p);
-		}
+		return props;
 	}
 	
 

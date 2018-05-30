@@ -1,10 +1,16 @@
 package edu.illinois.masalzr2.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.event.ChangeListener;
 
-public class Street extends Property {
+public class Street extends Property implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	private int grade;
 	private int upgradeCost;

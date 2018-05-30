@@ -1,12 +1,19 @@
 package edu.illinois.masalzr2.models;
 
+import java.io.Serializable;
+
 /**
  * Model class for basic assets when trading
  * in Monopoly
  * @author Miguel Salazar
  *
  */
-public class Asset {
+public class Asset implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private String asset;
 	private String type;
 	private int worth;

@@ -1,8 +1,14 @@
 package edu.illinois.masalzr2.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Suite {
+public class Suite implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	private ArrayList<Street> streets;
 	private String color;
