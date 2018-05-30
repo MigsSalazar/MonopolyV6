@@ -73,6 +73,7 @@ public class PositionIndex {
 	
 	public int[] moveOne(){
 		step++;
+		step %= (x.length<y.length?x.length:y.length);
 		return getCoords();
 	}
 	

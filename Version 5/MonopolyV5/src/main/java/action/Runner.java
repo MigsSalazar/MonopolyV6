@@ -67,7 +67,7 @@ public class Runner {
 	
 	
 	public boolean startNewGame(Settings s){
-		
+		System.out.println("New Game Started");
 		game = new GameFrame(true, this);
 		sets = s;
 		//sets.setup();

@@ -11,38 +11,41 @@ import edu.illinois.masalzr2.models.*;
 
 public class TemplateGameVars {
 	
-	private File saveFile;
+	private File saveFile; //made
 	
-	private HashMap<String, Property> properties;
-	private HashMap<String, Suite> suites;
+	private HashMap<String, Property> properties; //made
+	private HashMap<String, Suite> suites; //made
 	
-	private HashMap<Integer, Property> propertyPos;
+	private HashMap<Integer, Property> propertyPos; //made
 	
-	private PositionIndex propertyPositions;
+	private PositionIndex propertyPositions; //made
 	
-	private Counter turn;
-	private HashMap<String, Boolean> jailTable;
-	private HashMap<String, Integer> jailTimes;
+	private Counter turn; //made
+	private HashMap<String, Boolean> jailTable; //made
+	private HashMap<String, Integer> jailTimes; //made
 	
-	private Counter railCount;
-	private Counter utilCount;
+	private Counter railCount; //made
+	private Counter utilCount; //made
 	
-	private ArrayList<GameCard> chance;
-	private ArrayList<GameCard> commchest;
+	private ArrayList<GameCard> chance; //made
+	private ArrayList<GameCard> commchest; //made
 	
-	private Dice gameDice;
+	private Dice gameDice; //made
 	
-	private int[][] paintByNumbers;
-	private String[] icons;
-	private Stamp[][] stampCollection;
-	private HashMap<String, GameToken> playerTokens;
+	private int[][] paintByNumbers; //made
+	private String[] icons; //made
+	private Stamp[][] stampCollection; //TODO
+	private HashMap<String, GameToken> playerTokens; //made
 	
-	private String currency;
-	private String textureDir;
-	private Counter houseCount;
-	private Counter hotelCount;
+	private String currency; //made
+	private String textureDir; //made
+	private Counter houseCount; //made
+	private Counter hotelCount; //made
 	
 	public TemplateGameVars(){
+		
+		saveFile = new File(System.getProperty("user.dir")+"/resources/newgame.mns");
+		
 		Player player = new Player(1500);
 		
 		turn = new Counter(0,8,0);
@@ -54,7 +57,6 @@ public class TemplateGameVars {
 			jailTimes.put("player"+i, 0);
 			
 		}
-
 		currency = "$";
 		textureDir = System.getProperty("user.dir")+"/textures/default/";
 		houseCount = new Counter(0, 32, 0);
@@ -71,10 +73,145 @@ public class TemplateGameVars {
 		// Rails(4) + utility(2) + 22(streets) = 28
 		
 		defineProps();
+		defineSuites();
 		definePropPositions();
-		defineGameTokens();
+		definePlayerTokens();
 		defineIcons();
 		definePaintByNumbers();
+		defineCommChest();
+		defineChance();
+	}
+	
+	private void defineCommChest() {
+		commchest = new ArrayList<GameCard>();
+		
+		commchest.add(new GameCard("<html>Advance to Go!"
+								+ "<br>(Collect $200)</html>",
+									200, false,0,false,false,"","go",false, 0, 0));
+		commchest.add(new GameCard("<html>Bank error in your favor"
+								+ "<br>Collect $200</html>",
+				200, false,0,false,false,"","",false, 0, 0));
+		commchest.add(new GameCard("<html>Doctor's fees."
+								+ "<br>Pay $50</html>",
+				-50, false,0,false,false,"","",false, 0, 0));
+		commchest.add(new GameCard("<html>From sale of stock"
+								+ "<br>you get $50</html>",
+				50, false,0,false,false,"","",false, 0, 0));
+		commchest.add(new GameCard("<html>Get out of jail free!"
+								+ "<br>This card may be kept until needed,"
+								+ "<br>or traded/sold.</html>",
+				0, false,0,true,false,"","",false, 0, 0));
+		
+		commchest.add(new GameCard("<html>Go to directly to Jail"
+				+				 "<br>Do not pass Go - Do not collect $200.</html>",
+				0, false,0,false,true,"","",false, 0, 0));
+		
+		commchest.add(new GameCard("<html>Grand Opera Night!"
+								+ "<br>Collect $50 from every player"
+								+ "<br>foropening night seats.</html>",
+				50,true,0,false,false,"","",false, 0, 0));
+		commchest.add(new GameCard("<html>Holiday Fund matures!"
+								+ "<br>Receive $100</html>",
+				100, false,0,false,false,"","",false, 0, 0));
+		
+		commchest.add(new GameCard("<html>Income tax refund!"
+								+ "<br>Collect $20</html>",
+				20, false,0,false,false,"","",false, 0, 0));
+		
+		commchest.add(new GameCard("<html>It is your birthday"
+								+ "<br>Collect $10!</html>",
+				10, false,0,false,false,"","",false, 0, 0));
+		
+		commchest.add(new GameCard("<html>Life insurance matures!"
+								+ "<br>Collect $100</html>",
+				100, false,0,false,false,"","",false, 0, 0));
+		
+		commchest.add(new GameCard("<html>Pay hospital fees of $100</html>",
+				100, false,0,false,false,"","",false, 0, 0));
+		commchest.add(new GameCard("<html>Pay school fees of $150</html>",
+				150, false,0,false,false,"","",false, 0, 0));
+		
+		commchest.add(new GameCard("<html>Recieve $25 consultancy fee</html>",
+				25, false,0,false,false,"","",false, 0, 0));
+		commchest.add(new GameCard("<html>You are assessed for stree repairs-"
+								+ "<br>$40 per house"
+								+ "<br>$115 per hotel</html>",
+				0, false,0,false,false,"","",true, 40,115));
+		
+		commchest.add(new GameCard("<html>You have won second prize"
+								+ "<br>in a beauty contest!"
+								+ "<br>Collect $10</html>",
+				10, false,0,false,false,"","",false, 0, 0));
+		commchest.add(new GameCard("<html>You inherit $100</html>",
+				100, false,0,false,false,"","",false, 0, 0));
+	}
+	
+	private void defineChance() {
+		chance = new ArrayList<GameCard>();
+		chance.add(new GameCard("<html>Advance to Go!<br>(Collect $200)</html>",
+				200, false,0,false,false,"",
+				"go",
+				false, 0, 0));
+		chance.add(new GameCard("<html>Advance to Illinois Ave.!<br>(If you ass Go, collect $200)</html>",
+				0, false,0,false,false,"",
+				"Illinois Ave.",
+				false, 0, 0));
+		chance.add(new GameCard("<html>Advance token to the nearest Utility"
+									+ "<br>If unowned, you may buy it from the bank."
+									+ "<br>If owned, throw the dice and pay the owner"
+									+ "<br>ten times the amount thrown</html>",
+				0, false,0,false,false,
+				"utility",
+				"",false, 0, 0));
+		chance.add(new GameCard("<html>Bank pays you dividends of $50</html>",
+				50,
+				false,0,false,false,"","",false, 0, 0));
+		chance.add(new GameCard("<html>Get out of jail free!"
+									+ "<br>(This card may be kept until needed,"
+									+ "<br>or traded/sold)</html>",
+				0, false,0,true,false,"","",false, 0, 0));
+		chance.add(new GameCard("<html>Go back 3 spaces</html>",
+				0, false,-3,false,false,"","",false, 0, 0));
+		
+		chance.add(new GameCard("<html>Go directly to jail."
+									+ "<br>Do not pass go,"
+									+ "<br>do not collect $200</html>",
+				0, false,0,false,true,"","",false, 0, 0));
+		
+		chance.add(new GameCard("<html>Make general repairs on all your property"
+									+ "<br>For each house pay $25"
+									+ "<br>For each hotel pay $100</html>",
+				0, false,0,false,false,"","",true, 25, 100));
+		
+		chance.add(new GameCard("<html>Pay poor tax of $15</html>",
+				-15, false,0,false,false,"","",false, 0, 0));
+		
+		chance.add(new GameCard("<html>Take a trip to Reading Railraod</html>",
+				0, false,0,false,false,"","Reading Railroad",false, 0, 0));
+		
+		chance.add(new GameCard("<html>Advance token to Boardwalk</html>",
+				0, false,0,false,false,"","Board Walk",false, 0, 0));
+		
+		chance.add(new GameCard("<html>You have been elected Chairman"
+									+ "<br>of the Board, Pay each player $50</html>",
+				-50, true,0,false,false,"","",false, 0, 0));
+		
+		chance.add(new GameCard("<html>You building and loan matures"
+									+ "<br>Collect $150</html>",
+				150, false,0,false,false,"","",false, 0, 0));
+	}
+	
+	private void defineSuites() {
+		suites = new HashMap<String, Suite>();
+		
+		suites.put("purple", 	new Suite((Street)properties.get("Mediterranean Ave."), (Street)properties.get("Baltic Ave."), 			null, 											"purple"));
+		suites.put("lightBlue", new Suite((Street)properties.get("Oriental Ave."), 		(Street)properties.get("Vermont Ave."), 		(Street)properties.get("Connecticut Ave."), 	"lightBlue"));
+		suites.put("pink", 		new Suite((Street)properties.get("St. Charles Place"), 	(Street)properties.get("States Ave."), 			(Street)properties.get("Virginia Ave."), 		"pink"));
+		suites.put("orange", 	new Suite((Street)properties.get("St. James Place"), 	(Street)properties.get("Tennessee Ave."), 		(Street)properties.get("New York Ave."), 		"orange"));
+		suites.put("red", 		new Suite((Street)properties.get("Kentucky Ave."), 		(Street)properties.get("Indiana Ave."), 		(Street)properties.get("Illinois Ave."), 		"red"));
+		suites.put("yellow", 	new Suite((Street)properties.get("Atlantic Ave."), 		(Street)properties.get("Ventnor Ave."), 		(Street)properties.get("Marvin Gardins"), 		"yellow"));
+		suites.put("green", 	new Suite((Street)properties.get("Pacific Ave."), 		(Street)properties.get("North Carolina Ave."), 	(Street)properties.get("Pennsylvania Ave."), 	"purple"));
+		suites.put("blue", 		new Suite((Street)properties.get("Park Place"), 		(Street)properties.get("Board Walk"), 			null, 											"blue"));
 	}
 	
 	private void definePaintByNumbers(){
@@ -152,7 +289,7 @@ public class TemplateGameVars {
 		}
 	}
 	
-	private void defineGameTokens(){
+	private void definePlayerTokens(){
 		GameToken p1 = new GameToken(0, "", new PositionIndex(
 				new int[]{25,22,20,18,16,14,12,10,8,6,0,0,0,0,0,0,0,0,0,0,0,6,8,10,12,14,16,18,20,22,25,26,26,26,26,26,26,26,26,26,},
 				new int[]{25,26,26,26,26,26,26,26,26,26,25,22,20,18,16,14,12,10,8,6,2,0,0,0,0,0,0,0,0,0,1,6,8,10,12,14,16,18,20,22,},
@@ -218,7 +355,7 @@ public class TemplateGameVars {
 		int[] x = {22,-1,18,-1,-1,12,-1, 8, 6,-1, 4,-1, 4, 4,-1, 4,-1, 4, 4,-1, 6,-1,10,12,-1,16,18,-1,22,24,24,-1,24,-1,-1,24,-1,24};
 		int[] y = {24,-1,24,-1,-1,24,-1,24,24,-1,22,-1,18,16,-1,12,-1, 8, 6,-1, 4,-1, 4, 4,-1, 4, 4,-1, 4, 6, 8,-1,12,-1,-1,18,-1,22};
 		
-		propertyPositions = new PositionIndex();
+		propertyPositions = new PositionIndex(x,y);
 	}
 	
 	private void defineProps(){

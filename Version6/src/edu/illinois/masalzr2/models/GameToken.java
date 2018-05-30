@@ -37,11 +37,11 @@ public class GameToken {
 	}
 	
 	public int getX(){
-		return coords[0];
+		return coords[1];
 	}
 	
 	public int getY(){
-		return coords[1];
+		return coords[0];
 	}
 	
 	public void setTeam(int t){

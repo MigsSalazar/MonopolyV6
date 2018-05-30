@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.MediaTracker;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -164,7 +166,7 @@ public class Board {
 	
 	public void addPiece(ImageIcon icon, int x, int y){
 		display[x][y].addIcon(icon);
-		pieceCoords.put(icon.toString(), new Dimension(x,y));
+		pieceCoords.put(icon.toString()+pieceCoords.size(), new Dimension(x,y));
 	}
 	
 	public void addPiece(ImageIcon icon, String key, int x, int y){
@@ -194,11 +196,26 @@ public class Board {
 	
 	public void removePiece(String key){
 		if(pieceCoords.containsKey(key)){
-			Dimension dim = pieceCoords.get(key);
-			pieceCoords.remove(key);
-			display[dim.width][dim.height].wipeIcons();
+			trueDelete(key);
+		}else {
+			Set<String> keys = pieceCoords.keySet();
+			String[] strKeys = new String[keys.size()];
+			keys.toArray(strKeys);
+			
+			for(String s : strKeys) {
+				if(s.contains(key)) {
+					trueDelete(s);
+				}
+			}
 		}
 	}
+
+	private void trueDelete(String key) {
+		Dimension dim = pieceCoords.get(key);
+		pieceCoords.remove(key);
+		display[dim.width][dim.height].wipeIcons();
+	}
+	
 	
 	
 	public void activateDice(){

@@ -5,12 +5,18 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import com.google.gson.Gson;
+
+import edu.illinois.masalzr2.models.GameToken;
+import edu.illinois.masalzr2.models.PositionIndex;
 
 
 public class TesterFrame {
@@ -38,7 +44,8 @@ public class TesterFrame {
 		//frame.repaint();
 		
 		frame.setVisible(true);
-		
+		HashMap<String, GameToken> playerTokens = defineGameTokens();
+		boolean[] actives = {false,false,false,false,false,false,false,false};
 		
 		//board.paintDisplay();
 		
@@ -72,18 +79,128 @@ public class TesterFrame {
 				int d2 = kb.nextInt();
 				
 				board.paintDice(d1, d2);
+			}else if( input.contains("player") ) {
+				System.out.println("out 0");
+				String num = input.replaceAll("player", "").trim();
+				try {
+					System.out.println("out 1");
+					int player = Integer.parseInt(num) - 1;
+					GameToken theChosenOne = playerTokens.get("p"+num);
+					if(theChosenOne == null) {
+						System.out.println("out 2");
+						continue;
+					}
+					System.out.println("out 3");
+					PositionIndex theChosenPath = theChosenOne.getPath();
+					theChosenPath.setStep(0);
+					System.out.println("out 4");
+					if(!actives[player]) {
+						System.out.println("out 5");
+						for(int i=0; i<40; i++, theChosenOne.movePiece(1)) {
+							board.addPiece(theChosenOne.getPiece(), theChosenOne.getX(), theChosenOne.getY());
+							//board.paintDisplay();
+							//TimeUnit.SECONDS.sleep(1);
+							
+						}
+						
+						actives[player] = true;
+					}else {
+						System.out.println("out 6");
+						actives[player] = false;
+						board.removePiece(theChosenOne.getPiece());
+					}
+					System.out.println("out 7");
+				}catch(Exception e) {
+					System.out.println("Exception has occured:\n");
+					e.printStackTrace();
+				}
 			}
 		}
 		
 		kb.close();
-		System.exit(0);
+		frame.dispose();
 	}
+	
+
+	private static HashMap<String, GameToken> defineGameTokens(){
+		HashMap<String,GameToken> playerTokens = new HashMap<String,GameToken>();
+		String homeDir = System.getProperty("user.dir")+"/textures/default/";
+		
+		GameToken p1 = new GameToken(0, homeDir+"boat.png", new PositionIndex(
+				new int[]{25,22,20,18,16,14,12,10,8,6,0,0,0,0,0,0,0,0,0,0,0,6,8,10,12,14,16,18,20,22,25,26,26,26,26,26,26,26,26,26,},
+				new int[]{25,26,26,26,26,26,26,26,26,26,25,22,20,18,16,14,12,10,8,6,2,0,0,0,0,0,0,0,0,0,1,6,8,10,12,14,16,18,20,22,},
+				new int[]{2},
+				new int[]{25}));
+
+		GameToken p2 = new GameToken(1, homeDir+"boot.png", new PositionIndex(
+			new int[]{26,23,21,19,17,15,13,11,9,7,0,1,1,1,1,1,1,1,1,1,1,7,9,11,13,15,17,19,21,23,26,27,27,27,27,27,27,27,27,27,},
+			new int[]{25,26,26,26,26,26,26,26,26,26,26,22,20,18,16,14,12,10,8,6,2,0,0,0,0,0,0,0,0,0,1,6,8,10,12,14,16,18,20,22,},
+			new int[]{2},
+			new int[]{26}));
+
+		GameToken p3 = new GameToken(2, homeDir+"car.png", new PositionIndex(
+			new int[]{27,22,20,18,16,14,12,10,8,6,0,2,2,2,2,2,2,2,2,2,4,6,8,10,12,14,16,18,20,22,27,28,28,28,28,28,28,28,28,28,},
+			new int[]{25,27,27,27,27,27,27,27,27,27,27,22,20,18,16,14,12,10,8,6,2,1,1,1,1,1,1,1,1,1,1,6,8,10,12,14,16,18,20,22,},
+			new int[]{2},
+			new int[]{27}));
+	
+		GameToken p4 = new GameToken(3, homeDir+"hat.png", new PositionIndex(
+			new int[]{28,23,21,19,17,15,13,11,9,7,0,3,3,3,3,3,3,3,3,3,5,7,9,11,13,15,17,19,21,23,28,29,29,29,29,29,29,29,29,29,},
+			new int[]{25,27,27,27,27,27,27,27,27,27,28,22,20,18,16,14,12,10,8,6,2,1,1,1,1,1,1,1,1,1,1,6,8,10,12,14,16,18,20,22,}
+			,
+			new int[]{3},
+			new int[]{27}));
+	
+		GameToken p5 = new GameToken(4, homeDir+"iron.png", new PositionIndex(
+			new int[]{25,22,20,18,16,14,12,10,8,6,1,0,0,0,0,0,0,0,0,0,0,6,8,10,12,14,16,18,20,22,25,26,26,26,26,26,26,26,26,26,},
+			new int[]{26,28,28,28,28,28,28,28,28,28,29,23,21,19,17,15,13,11,9,7,3,2,2,2,2,2,2,2,2,2,2,7,9,11,13,15,17,19,21,23,},
+			new int[]{4},
+			new int[]{27}));
+		
+		GameToken p6 = new GameToken(5, homeDir+"pupper.png", new PositionIndex(
+			new int[]{26,23,21,19,17,15,13,11,9,7,2,1,1,1,1,1,1,1,1,1,1,7,9,11,13,15,17,19,21,23,26,27,27,27,27,27,27,27,27,27,},
+			new int[]{26,28,28,28,28,28,28,28,28,28,29,23,21,19,17,15,13,11,9,7,3,2,2,2,2,2,2,2,2,2,2,7,9,11,13,15,17,19,21,23,},
+			new int[]{4},
+			new int[]{26}));
+	
+		GameToken p7 = new GameToken(6, homeDir+"thimble.png", new PositionIndex(
+			new int[]{27,22,20,18,16,14,12,10,8,6,3,2,2,2,2,2,2,2,2,2,4,6,8,10,12,14,16,18,20,22,27,28,28,28,28,28,28,28,28,28,},
+			new int[]{26,29,29,29,29,29,29,29,29,29,29,23,21,19,17,15,13,11,9,7,3,3,3,3,3,3,3,3,3,3,2,7,9,11,13,15,17,19,21,23,},
+			new int[]{4},
+			new int[]{25}));
+	
+		GameToken p8 = new GameToken(7, homeDir+"wheelbarrow.png", new PositionIndex(
+			new int[]{28,23,21,19,17,15,13,11,9,7,4,3,3,3,3,3,3,3,3,3,5,7,9,11,13,15,17,19,21,23,28,29,29,29,29,29,29,29,29,29,},
+			new int[]{26,29,29,29,29,29,29,29,29,29,29,23,21,19,17,15,13,11,9,7,3,3,3,3,3,3,3,3,3,3,2,7,9,11,13,15,17,19,21,23,},
+			new int[]{3},
+			new int[]{25}));
+	
+	
+		playerTokens.put("p1", p1);
+		playerTokens.put("p2", p2);
+		playerTokens.put("p3", p3);
+		playerTokens.put("p4", p4);
+		playerTokens.put("p5", p5);
+		playerTokens.put("p6", p6);
+		playerTokens.put("p7", p7);
+		playerTokens.put("p8", p8);
+		
+		return playerTokens;
+	}
+	
 	
 	private static Stamp[][] getCollection(){
 		
 		Gson gson = new Gson();
 		
-		File f = new File("C:\\Users\\Unknown\\git\\Monopoly\\Version6\\textures\\default\\stamps.json");
+		///Users/msalazar/git/Monopoly/Version6/textures/default
+		
+		File f = new File(System.getProperty("user.dir")+"/textures/default/stamps.json");
+		
+		if(!f.exists()) {
+			System.out.println("I failed\n"+f.getAbsolutePath());
+			System.exit(1);
+		}
 		
 		Stamp[][] collection = null;
 		Reader readme = null;
@@ -127,7 +244,7 @@ public class TesterFrame {
 		String dir = System.getProperty("user.dir");
 		ImageIcon[] retval = new ImageIcon[stickers.length];
 		for(int i=0; i<stickers.length; i++){
-			retval[i] = new ImageIcon(dir+"\\textures\\default\\"+stickers[i]);
+			retval[i] = new ImageIcon(dir+"/textures/default/"+stickers[i]);
 			//System.out.println(retval[i].getDescription());
 		}
 		return retval;
@@ -151,7 +268,7 @@ public class TesterFrame {
 		String dir = System.getProperty("user.dir");
 		ImageIcon[] retval = new ImageIcon[icons.length];
 		for(int i=0; i<icons.length; i++){
-			retval[i] = new ImageIcon(dir+"\\textures\\default\\"+icons[i]);
+			retval[i] = new ImageIcon(dir+"/textures/default/"+icons[i]);
 		}
 		return retval;
 	}
