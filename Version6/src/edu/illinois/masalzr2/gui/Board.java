@@ -2,9 +2,7 @@ package edu.illinois.masalzr2.gui;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.MediaTracker;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.swing.ImageIcon;
@@ -111,8 +109,10 @@ public class Board {
 				display[b][i].setIcon(icons[ iconNumbers[b][i] ]);
 				
 				if(stickerBook[b][i] > -1 ){
+					//System.out.println("found a sticker! b="+b+"    i="+i);
 					display[b][i].addIcon(stickers[ stickerBook[b][i] ]);
 				}else{
+					//System.out.println(":( no sticker b="+b+"    i="+i);
 					display[b][i].wipeIcons();
 				}
 				

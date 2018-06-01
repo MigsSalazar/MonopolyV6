@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.templates.TemplateGameVars;
 
 public class GameIn {
 
@@ -16,8 +17,24 @@ public class GameIn {
 		if(myGame == null) {
 			System.out.println("Failure");
 		}else {
+			myGame.buildFrame();
 			System.out.println("Success");
 		}
+	}
+	
+	public static GameVariables newGame() {
+		File f = new File(System.getProperty("user.dir") + "/resources/newgame.mns");
+		System.out.println(System.getProperty("user.dir") + "/resources/newgame.mns");
+		if(!f.exists()) {
+			TemplateGameVars.produceTemplate();
+		}
+		GameVariables retval = produceSavedGame(f);
+		if(retval == null) {
+			TemplateGameVars.produceTemplate();
+			retval = produceSavedGame(f);
+		}
+		
+		return retval;
 	}
 	
 	public static GameVariables produceSavedGame(String dir) {

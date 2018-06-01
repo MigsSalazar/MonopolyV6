@@ -54,7 +54,7 @@ public class GameVariables implements Serializable{
 	private HashMap<String, GameToken> playerTokens;
 	private int[][] stickerBook;
 	private String[] stickers;
-	private ImageIcon[] coloredStickers;
+	private transient ImageIcon[] coloredStickers;
 	
 	private String currency;
 	private String texture;
@@ -62,24 +62,9 @@ public class GameVariables implements Serializable{
 	private Counter hotelCount;
 	
 	public void buildFrame() {
-		board = new Board();
 		JFrame frame = new JFrame();
 		
-		board.setIconNumbers(paintByNumbers);
-		paintedIcons = new ImageIcon[icons.length];
-		for(int i=0; i<icons.length; i++) {
-			paintedIcons[i] = new ImageIcon(icons[i]);
-		}
-		board.setIcons(paintedIcons);
-		
-		board.setStickerBook(stickerBook);
-		board.setStickers(coloredStickers);
-		
-		board.setStamps(stampCollection);
-		
-		board.setDiceIcons(paintedIcons[1], paintedIcons[2]);
-		board.paintDisplay();
-		
+		buildBoard();
 		
 		frame.add(board.getBoard());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -88,6 +73,33 @@ public class GameVariables implements Serializable{
 		//frame.repaint();
 		
 		frame.setVisible(true);
+	}
+
+	private void buildBoard() {
+		board = new Board();
+		
+		
+		board.setIconNumbers(paintByNumbers);
+		paintedIcons = new ImageIcon[icons.length];
+		for(int i=0; i<icons.length; i++) {
+			paintedIcons[i] = new ImageIcon(icons[i]);
+		}
+		board.setIcons(paintedIcons);
+		
+		
+		board.setStickerBook(stickerBook);
+		
+		coloredStickers = new ImageIcon[stickers.length];
+		for(int i=0; i<stickers.length; i++) {
+			coloredStickers[i] = new ImageIcon(stickers[i]);
+		}
+		
+		board.setStickers(coloredStickers);
+		
+		board.setStamps(stampCollection);
+		
+		board.setDiceIcons(paintedIcons[1], paintedIcons[2]);
+		board.paintDisplay();
 	}
 	
 	public String getCurrencySymbol(){
@@ -290,7 +302,7 @@ public class GameVariables implements Serializable{
 		return suites;
 	}
 	
-	public void refreshSave() {
+	public void buildCleanGame() {
 		setSaveFile(new File(System.getProperty("user.dir")+"/resources/newgame.mns"));
 		
 		players = new HashMap<String, Player>();
