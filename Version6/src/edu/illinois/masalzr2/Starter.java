@@ -2,12 +2,11 @@ package edu.illinois.masalzr2;
 
 import java.io.File;
 
-import edu.illinois.masalzr2.io.GameIn;
-import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.gui.PreGameFrame;
+import edu.illinois.masalzr2.io.GameIo;
 
 public class Starter {
 	public static void main( String[] args ){
-		GameVariables myGame = GameIn.newGame();
 		if(args.length > 0) {
 			int i=0;
 			while( i<args.length && !args[i].endsWith(".mns") ) {
@@ -16,10 +15,14 @@ public class Starter {
 			if(i < args.length) {
 				File f = new File(args[i]);
 				if(f.exists()) {
-					myGame = GameIn.produceSavedGame(f);
+					GameIo.produceSavedGame(f).buildFrame();;
 				}
 			}
 		}
-		myGame.buildFrame();
+		
+		PreGameFrame pgf = new PreGameFrame();
+		pgf.start();
+		
+		//myGame.buildFrame();
 	}
 }

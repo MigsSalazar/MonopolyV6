@@ -106,6 +106,10 @@ public class GameVariables implements Serializable{
 		return currency;
 	}
 	
+	public void setCurrentcySymbol(String c) {
+		currency = c;
+	}
+	
 	public Counter getHouseCount(){
 		return houseCount;
 	}
@@ -300,6 +304,25 @@ public class GameVariables implements Serializable{
 	
 	public HashMap<String,Suite> getSuites(){
 		return suites;
+	}
+	
+	public void setSuites(HashMap<String, Suite> s){
+		suites = s;
+	}
+	
+	public void parseSuites(String[] colorList) {
+		if(propertyPos.size() == 22 && colorList.length == 22) {
+			suites = new HashMap<String,Suite>();
+			
+			suites.put(colorList[0], new Suite((Street)propertyPos.get(1), 	(Street)propertyPos.get(3), 	(Street)null, 				colorList[0]));
+			suites.put(colorList[1], new Suite((Street)propertyPos.get(6), 	(Street)propertyPos.get(8), 	(Street)propertyPos.get(3), colorList[1]));
+			suites.put(colorList[2], new Suite((Street)propertyPos.get(11), (Street)propertyPos.get(13),	(Street)propertyPos.get(3), colorList[2]));
+			suites.put(colorList[3], new Suite((Street)propertyPos.get(16), (Street)propertyPos.get(18),	(Street)propertyPos.get(3), colorList[3]));
+			suites.put(colorList[4], new Suite((Street)propertyPos.get(21), (Street)propertyPos.get(23), 	(Street)propertyPos.get(3), colorList[4]));
+			suites.put(colorList[5], new Suite((Street)propertyPos.get(26), (Street)propertyPos.get(27), 	(Street)propertyPos.get(3), colorList[5]));
+			suites.put(colorList[6], new Suite((Street)propertyPos.get(31), (Street)propertyPos.get(32), 	(Street)propertyPos.get(3), colorList[6]));
+			suites.put(colorList[7], new Suite((Street)propertyPos.get(37), (Street)propertyPos.get(37), 	(Street)null, 				colorList[7]));
+		}
 	}
 	
 	public void buildCleanGame() {

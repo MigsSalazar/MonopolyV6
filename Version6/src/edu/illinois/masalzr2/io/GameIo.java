@@ -6,10 +6,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import edu.illinois.masalzr2.masters.GameVariables;
 import edu.illinois.masalzr2.templates.TemplateGameVars;
 
-public class GameIn {
+public class GameIo {
 
 	public static void main(String[] args) {
 		System.out.println("Testing if default game is corrupted or correct");
@@ -40,8 +44,9 @@ public class GameIn {
 	public static GameVariables produceSavedGame(String dir) {
 		
 		File f = new File(dir);
-		
+		System.out.println(dir);
 		if(!f.exists()) {
+			System.out.println("file doesn't exist");
 			return null;
 		}
 		
@@ -76,6 +81,18 @@ public class GameIn {
 		
 		return theGame;
 		
+	}
+	
+	public static String findGame(JFrame parent){
+		JFileChooser chooser = new JFileChooser();
+	    FileNameExtensionFilter filter = new FileNameExtensionFilter("Monopoly Saves","mns");
+	    chooser.setFileFilter(filter);
+	    int returnVal = chooser.showOpenDialog(parent);
+	    if(returnVal == JFileChooser.APPROVE_OPTION) {
+	       return chooser.getSelectedFile().getPath();
+	    }else{
+	    	return null;
+	    }
 	}
 	
 }
