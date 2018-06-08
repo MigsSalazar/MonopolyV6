@@ -1,10 +1,12 @@
 package edu.illinois.masalzr2.masters;
 
+import java.awt.BorderLayout;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.Scanner;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -19,9 +21,10 @@ public class GameVariables implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private transient JFrame frame;
 	private transient Board board;
 	//private JPanel stats;
-	//private transient Notices notices;
+	private transient Notices notices;
 	
 	private File saveFile;
 	
@@ -62,18 +65,22 @@ public class GameVariables implements Serializable{
 	private Counter hotelCount;
 	
 	public void buildFrame() {
-		JFrame frame = new JFrame();
-		
+		frame = new JFrame();
+		frame.setLayout(new BorderLayout());
 		buildBoard();
+		notices = new Notices(this);
 		
-		frame.add(board.getBoard());
+		frame.add(board.getBoard(), BorderLayout.CENTER);
+		frame.add(notices.getNoticePanel(), BorderLayout.SOUTH);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		//frame.repaint();
 		
 		frame.setVisible(true);
+		System.out.println(""+frame.getWidth()+" "+frame.getHeight());
 	}
+	
 
 	private void buildBoard() {
 		board = new Board();
@@ -329,8 +336,35 @@ public class GameVariables implements Serializable{
 		setSaveFile(new File(System.getProperty("user.dir")+"/resources/newgame.mns"));
 		
 		players = new HashMap<String, Player>();
+		Scanner kb = new Scanner(System.in);
 		
-		turn = new Counter(0,8,0);
+		System.out.println("How many players?");
+		int pnum = kb.nextInt();
+		
+		//players = new HashMap<String, Player>();
+		playerID = new HashMap<Integer, Player>();
+		turnTable = new ArrayList<Player>();
+		jailTable = new HashMap<String, Boolean>();
+		jailTimes = new HashMap<String, Integer>();
+		
+		for(int i=0; i<pnum; i++){
+			System.out.println("Enter name for Player "+(i+1)+":");
+			String name = kb.nextLine();
+			if(name.equals("") || players.containsKey(name)){
+				name += i+"";
+			}
+			Player noob =  new Player(name, i, 1500, 0, 0, false, new HashMap<String,Property>(), null);
+			players.put(noob.getName(), noob);
+			playerID.put(noob.getId(), noob);
+			turnTable.add(noob);
+			jailTable.put(noob.getName(), false);
+			jailTimes.put(noob.getName(), 0);
+			
+			
+		}
+		kb.close();
+		
+		turn = new Counter(0,pnum,0);
 		
 		jailTable = new HashMap<String,Boolean>();
 		jailTimes = new HashMap<String, Integer>();
@@ -386,6 +420,10 @@ public class GameVariables implements Serializable{
 
 	public void setSaveFile(File saveFile) {
 		this.saveFile = saveFile;
+	}
+	
+	public void repaintFrame(){
+		frame.repaint();
 	}
 	
 }

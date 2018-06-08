@@ -85,6 +85,12 @@ public class Player implements Serializable{
 		fireChange();
 	}
 	
+	public int addPosition(int p){
+		position += p;
+		fireChange();
+		return position;
+	}
+	
 	public int getJailCard(){
 		return jailCard;
 	}

@@ -15,7 +15,7 @@ public class Starter {
 			if(i < args.length) {
 				File f = new File(args[i]);
 				if(f.exists()) {
-					GameIo.produceSavedGame(f).buildFrame();;
+					GameIo.produceSavedGame(f).buildFrame();
 				}
 			}
 		}

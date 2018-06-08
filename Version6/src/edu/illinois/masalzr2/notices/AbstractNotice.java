@@ -1,22 +1,24 @@
 package edu.illinois.masalzr2.notices;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.JComponent;
 
-import edu.illinois.masalzr2.masters.GameVariables;
-
-public abstract class AbstractNotice {
+public abstract class AbstractNotice implements ActionListener {
 	protected String text;
 	protected JComponent[] actions;
-	protected GameVariables gameVars;
+	protected ListListener listener;
 	
-	public AbstractNotice(GameVariables gv){
-		gameVars = gv;
+	public AbstractNotice(ListListener ppl){
 		text = "This is the default notice";
+		listener = ppl;
+		defineActions();
 	}
 	
-	public AbstractNotice(GameVariables gv, String t){
-		gameVars = gv;
+	public AbstractNotice(String t, ListListener ppl){
 		text = t;
+		listener = ppl;
+		defineActions();
 	}
 	
 	protected abstract void defineActions();
@@ -27,6 +29,14 @@ public abstract class AbstractNotice {
 	
 	public void setText(String t){
 		text = t;
+	}
+	
+	public JComponent[] getActions(){
+		return actions;
+	}
+	
+	public void setListListener(ListListener ppl){
+		listener = ppl;
 	}
 	
 	

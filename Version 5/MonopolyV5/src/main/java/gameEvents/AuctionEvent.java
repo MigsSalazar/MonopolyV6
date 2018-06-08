@@ -37,7 +37,7 @@ public class AuctionEvent extends AbstractEvent implements KeyListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(buttons[0])){
 			JTextField useme = (JTextField)buttons[0];
-			System.out.println("JtextField in auction has changed");
+			//System.out.println("JtextField in auction has changed");
 			bidInput(useme);
 		}else if(e.getSource().equals(buttons[1]) || e.getSource().equals(buttons[2])){
 			buttonPush(e);
