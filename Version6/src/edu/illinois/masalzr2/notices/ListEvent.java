@@ -5,7 +5,7 @@ public class ListEvent {
 	private Object source;
 	
 	public ListEvent(Object s){
-		if (source == null)
+		if (s == null)
 			throw new IllegalArgumentException("null source");
 		source = s;
 	}

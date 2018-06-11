@@ -12,7 +12,7 @@ public abstract class AbstractNotice implements ActionListener {
 	public AbstractNotice(ListListener ppl){
 		text = "This is the default notice";
 		listener = ppl;
-		defineActions();
+		//defineActions();
 	}
 	
 	public AbstractNotice(String t, ListListener ppl){

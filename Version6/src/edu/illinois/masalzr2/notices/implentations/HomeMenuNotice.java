@@ -14,7 +14,8 @@ public class HomeMenuNotice extends HighLevelNotice {
 
 	public HomeMenuNotice(ListListener ppl, GameVariables gv) {
 		super(ppl, gv);
-		
+		text = gv.getCurrentPlayer().getName()+"'s turn. ";
+		defineActions();
 	}
 
 	@Override
@@ -72,6 +73,7 @@ public class HomeMenuNotice extends HighLevelNotice {
 		//parent.paintNotice(this);
 		currentPlayer = gameVars.getCurrentPlayer();
 		//updateText();
+		//listener.popMe(new ListEvent(this));
 	}
 
 	@Override

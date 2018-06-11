@@ -24,6 +24,16 @@ public class PropertyNotice extends AbstractNotice {
 		player = pl;
 		prop = pr;
 		gameVars = gv;
+		
+		if(prop.getOwner() == null || prop.getOwner().equals("")) {
+			text = prop.getName() + "is unowned. Asking price: " + gv.getCurrencySymbol() + prop.getPrice() +"\nWhat would you like to do?";
+		}else if( !prop.getOwner().equals(pl.getName()) ){
+			text = pl.getName() + " has landed on " +prop.getOwner() + "'s property of " + prop.getName() + "\nRent: " + gv.getCurrencySymbol() + prop.getRent();
+		}else {
+			text = "You own this property.\nNothing to be done";
+		}
+		
+		defineActions();
 	}
 
 	@Override
@@ -40,7 +50,7 @@ public class PropertyNotice extends AbstractNotice {
 				listener.pushMe(new ListEvent(an));
 				listener.popMe(new ListEvent(this));
 			}
-		}else if(prop.getOwner().equals(player.getName())){
+		}else if(!prop.getOwner().equals(player.getName())){
 			//BankPropertyActions.rentOwnedProperty(play, prop);
 			
 			Player p2 = gameVars.getPlayers().get(prop.getOwner());
@@ -67,7 +77,7 @@ public class PropertyNotice extends AbstractNotice {
 			((JButton)actions[1]).addActionListener(this);
 		}else{
 			actions = new JButton[1];
-			if(prop.getOwner().equals(player.getName())){
+			if(!prop.getOwner().equals(player.getName())){
 				actions[0] = new JButton("Pay Rent");
 				((JButton)actions[0]).addActionListener(this);
 			}else{

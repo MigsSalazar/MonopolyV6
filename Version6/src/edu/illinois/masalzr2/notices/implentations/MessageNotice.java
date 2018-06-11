@@ -16,6 +16,7 @@ public class MessageNotice extends AbstractNotice{
 	
 	public MessageNotice(String t, ListListener ppl){
 		super(t, ppl);
+		defineActions();
 	} 
 	
 	@Override

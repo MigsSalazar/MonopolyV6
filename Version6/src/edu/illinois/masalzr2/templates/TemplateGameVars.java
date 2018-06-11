@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import edu.illinois.masalzr2.gui.Stamp;
 import edu.illinois.masalzr2.masters.GameVariables;
@@ -105,9 +106,9 @@ public class TemplateGameVars{
 								"parktop.png",				//13
 								"parkbot.png"};				//14
 		
-		String dir = System.getProperty("user.dir");
+		//String dir = System.getProperty("user.dir");
 		for(int i=0; i<stickers.length; i++){
-			stickers[i] = dir+"/textures/default/"+stickers[i];
+			stickers[i] = "/textures/default/"+stickers[i];
 			//System.out.println(retval[i].getDescription());
 		}
 		return stickers;
@@ -1266,14 +1267,13 @@ public class TemplateGameVars{
 				"yellow.png",				//8
 				"green.png",				//9
 				"blue.png"};				//10
-		String parentDir = System.getProperty("user.dir");
 		for(int i=0; i<icons.length; i++){
-			icons[i] = parentDir+"/textures/default/"+icons[i];
+			icons[i] = "/textures/default/"+icons[i];
 		}
 		return icons;
 	}
 	
-	public static HashMap<String, GameToken> definePlayerTokens(){
+	public static HashMap<String, GameToken> definePlayerTokens(Map<Integer, Player> playerIds){
 		HashMap<String, GameToken> playerTokens = new HashMap<String, GameToken>();
 		GameToken p1 = new GameToken(0, "", new PositionIndex(
 				new int[]{25,22,20,18,16,14,12,10,8,6,0,0,0,0,0,0,0,0,0,0,0,6,8,10,12,14,16,18,20,22,25,26,26,26,26,26,26,26,26,26,},
@@ -1325,14 +1325,14 @@ public class TemplateGameVars{
 			new int[]{25}));
 	
 	
-		playerTokens.put("p1", p1);
-		playerTokens.put("p2", p2);
-		playerTokens.put("p3", p3);
-		playerTokens.put("p4", p4);
-		playerTokens.put("p5", p5);
-		playerTokens.put("p6", p6);
-		playerTokens.put("p7", p7);
-		playerTokens.put("p8", p8);
+		playerTokens.put( playerIds.get(0).getName() , p1);
+		playerTokens.put( playerIds.get(1).getName() , p2);
+		playerTokens.put( playerIds.get(2).getName() , p3);
+		playerTokens.put( playerIds.get(3).getName() , p4);
+		playerTokens.put( playerIds.get(4).getName() , p5);
+		playerTokens.put( playerIds.get(5).getName() , p6);
+		playerTokens.put( playerIds.get(6).getName() , p7);
+		playerTokens.put( playerIds.get(7).getName() , p8);
 		return playerTokens;
 	}
 	

@@ -1,20 +1,24 @@
 package edu.illinois.masalzr2.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import com.google.gson.annotations.Expose;
 
-public class Property{
+public class Property implements Serializable{
 
-	@Expose protected String name;
-	@Expose protected int position;
-	@Expose protected int price;
-	@Expose protected String owner = "";
-	@Expose protected boolean mBool;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	protected String name;
+	protected int position;
+	protected int price;
+	protected String owner = "";
+	protected boolean mBool;
 	private ArrayList<ChangeListener> listeners;
 	
 	public Property(String n, int pos, int pr, String o, boolean m, ArrayList<ChangeListener> listen){
@@ -25,7 +29,7 @@ public class Property{
 		mBool = m;
 		listeners = listen==null? new ArrayList<ChangeListener>() : listen;
 	}
-	
+
 	public Property(){
 		name = "";
 		position = -1;

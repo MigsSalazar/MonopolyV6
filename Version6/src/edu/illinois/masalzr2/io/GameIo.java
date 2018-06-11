@@ -34,6 +34,7 @@ public class GameIo {
 		}
 		GameVariables retval = produceSavedGame(f);
 		if(retval == null) {
+			System.out.println("GameIo.newGame(): retval found null");
 			TemplateGameVars.produceTemplate();
 			retval = produceSavedGame(f);
 		}

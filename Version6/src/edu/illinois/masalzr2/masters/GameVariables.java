@@ -69,7 +69,7 @@ public class GameVariables implements Serializable{
 		frame.setLayout(new BorderLayout());
 		buildBoard();
 		notices = new Notices(this);
-		
+		//board.getBoard().setPreferredSize(new D);
 		frame.add(board.getBoard(), BorderLayout.CENTER);
 		frame.add(notices.getNoticePanel(), BorderLayout.SOUTH);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,7 +89,7 @@ public class GameVariables implements Serializable{
 		board.setIconNumbers(paintByNumbers);
 		paintedIcons = new ImageIcon[icons.length];
 		for(int i=0; i<icons.length; i++) {
-			paintedIcons[i] = new ImageIcon(icons[i]);
+			paintedIcons[i] = new ImageIcon(System.getProperty("user.dir") + "/" + icons[i]);
 		}
 		board.setIcons(paintedIcons);
 		
@@ -98,7 +98,7 @@ public class GameVariables implements Serializable{
 		
 		coloredStickers = new ImageIcon[stickers.length];
 		for(int i=0; i<stickers.length; i++) {
-			coloredStickers[i] = new ImageIcon(stickers[i]);
+			coloredStickers[i] = new ImageIcon(System.getProperty("user.dir") + "/" + stickers[i]);
 		}
 		
 		board.setStickers(coloredStickers);
@@ -128,19 +128,19 @@ public class GameVariables implements Serializable{
 	public boolean isTextureInDir(){
 		File f = new File(texture);
 		if(!f.exists()){
-			f = new File(System.getProperty("user.dir")+"\\"+texture);
+			f = new File(System.getProperty("user.dir")+"/"+texture);
 		}
 		return f.exists();
 	}
 	
 	public String getTextureName(){
-		return texture.substring(texture.lastIndexOf("\\"), texture.length());
+		return texture.substring(texture.lastIndexOf("/"), texture.length());
 	}
 	
 	public String getTextureDir(){
 		File f = new File(texture);
 		if(!f.exists()){
-			f = new File(System.getProperty("user.dir")+"\\"+texture);
+			f = new File(System.getProperty("user.dir")+"/"+texture);
 		}
 		return f.exists() ? f.getAbsolutePath() : "";
 	}
@@ -338,21 +338,19 @@ public class GameVariables implements Serializable{
 		players = new HashMap<String, Player>();
 		Scanner kb = new Scanner(System.in);
 		
-		System.out.println("How many players?");
-		int pnum = kb.nextInt();
+		//System.out.println("How many players?");
+		//int pnum = kb.nextInt();
 		
 		//players = new HashMap<String, Player>();
 		playerID = new HashMap<Integer, Player>();
 		turnTable = new ArrayList<Player>();
 		jailTable = new HashMap<String, Boolean>();
 		jailTimes = new HashMap<String, Integer>();
-		
-		for(int i=0; i<pnum; i++){
-			System.out.println("Enter name for Player "+(i+1)+":");
-			String name = kb.nextLine();
-			if(name.equals("") || players.containsKey(name)){
-				name += i+"";
-			}
+		String name = "";
+		for(int i=0; i<8; i++){
+			//System.out.println("Enter name for Player "+(i+1)+":");
+			//String name = kb.nextLine();
+			name = i+"";
 			Player noob =  new Player(name, i, 1500, 0, 0, false, new HashMap<String,Property>(), null);
 			players.put(noob.getName(), noob);
 			playerID.put(noob.getId(), noob);
@@ -364,17 +362,17 @@ public class GameVariables implements Serializable{
 		}
 		kb.close();
 		
-		turn = new Counter(0,pnum,0);
+		turn = new Counter(0,8,0);
 		
 		jailTable = new HashMap<String,Boolean>();
 		jailTimes = new HashMap<String, Integer>();
-		for(int i=0; i<8; i++){
-			jailTable.put("player"+i, false);
-			jailTimes.put("player"+i, 0);
+		for(String s : players.keySet()){
+			jailTable.put(s, false);
+			jailTimes.put(s, 0);
 			
 		}
 		currency = "$";
-		texture = System.getProperty("user.dir")+"/textures/default/";
+		texture = "/textures/default/";
 		houseCount = new Counter(0, 32, 0);
 		hotelCount = new Counter(0, 12, 0);
 		
@@ -393,13 +391,13 @@ public class GameVariables implements Serializable{
 		propertyPos = new HashMap<Integer, Property>();
 		
 		for(Property p : props){
-			properties.put(p.getName(), p);
+			properties.put(new String(p.getName()), p);
 			propertyPos.put(p.getPosition(), p);
 		}
 		
 		suites = TemplateGameVars.defineSuites(properties);
 		propertyPositions = TemplateGameVars.definePropPositions();
-		playerTokens = TemplateGameVars.definePlayerTokens();
+		playerTokens = TemplateGameVars.definePlayerTokens(playerID);
 		icons = TemplateGameVars.defineIcons();
 		paintByNumbers = TemplateGameVars.definePaintByNumbers();
 		commchest = TemplateGameVars.defineCommChest();

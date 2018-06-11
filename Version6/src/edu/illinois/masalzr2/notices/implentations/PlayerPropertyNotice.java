@@ -10,12 +10,14 @@ public class PlayerPropertyNotice extends MessageNotice {
 		super(t, ppl);
 		play.addProp(prop);
 		play.subCash(prop.getPrice());
+		prop.setOwner(play.getName());
 	}
 	
 	public PlayerPropertyNotice(String t, ListListener ppl, Player play, Property prop, int cost) {
 		super(t, ppl);
 		play.addProp(prop);
 		play.subCash(cost);
+		prop.setOwner(play.getName());
 	}
 
 }

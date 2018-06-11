@@ -95,7 +95,7 @@ public class Board {
 			}
 		}
 		
-		
+		board.setPreferredSize(new Dimension(600,600));
 	}
 	
 	public JPanel getBoard(){

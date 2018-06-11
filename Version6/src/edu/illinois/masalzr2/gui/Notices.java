@@ -109,6 +109,7 @@ public class Notices implements ListListener {
 		}else{
 			currNotice = noticeList.getFirst();
 		}
+		paintNotice(currNotice);
 		
 	}
 	

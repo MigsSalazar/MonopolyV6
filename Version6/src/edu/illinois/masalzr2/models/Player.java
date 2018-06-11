@@ -187,6 +187,9 @@ public class Player implements Serializable{
 	}
 	
 	private void fireChange(){
+		if(listeners == null) {
+			return;
+		}
 		ChangeEvent ce = new ChangeEvent(this);
 		for(ChangeListener cl : listeners){
 			cl.stateChanged(new ChangeEvent(ce));

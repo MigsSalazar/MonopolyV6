@@ -30,6 +30,8 @@ public class AuctionNotice extends AbstractNotice implements KeyListener  {
 	public AuctionNotice(ListListener ppl, GameVariables gv, Property pr){
 		super(ppl);
 		subConstructor(gv, pr);
+		
+		defineActions();
 	}
 	
 	public AuctionNotice(ListListener ppl, GameVariables gv, Property pr, int t, int b, int hb) {
@@ -44,7 +46,11 @@ public class AuctionNotice extends AbstractNotice implements KeyListener  {
 		gameVars = gv;
 		prop = pr;
 		players = gameVars.getPlayers();
-		playerNames = (String[]) players.keySet().toArray();
+		playerNames = new String[players.size()];
+		players.keySet().toArray(playerNames);
+		text = "<html>Current bid on "+prop.getName()+" is "+gameVars.getCurrencySymbol()+bid + " by " + playerNames[0]
+				+"<br>"+playerNames[turn]+", will you raise or pass? Entering 0 means you pass."
+				+"<br>Your offer:</html>";
 	}
 
 	private void buttonPush(ActionEvent e) {

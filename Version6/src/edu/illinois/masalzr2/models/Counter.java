@@ -47,15 +47,13 @@ public class Counter implements Serializable{
 	
 	public int add(int a){
 		count += a;
-		if(min < max && count > max){
-			count = max;
-		}
+		count = count % max;
 		return count;
 	}
 	
 	public int sub(int s){
 		count -= s;
-		if(min < max && count < min){
+		if(count < min) {
 			count = min;
 		}
 		return count;
