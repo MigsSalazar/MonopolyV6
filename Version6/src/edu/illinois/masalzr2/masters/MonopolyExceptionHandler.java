@@ -25,6 +25,8 @@ public class MonopolyExceptionHandler implements Thread.UncaughtExceptionHandler
 			writeout = new PrintWriter(finLog);
 			e.printStackTrace(writeout);
 			writeout.close();
+			JOptionPane.showMessageDialog(null, "Game has arrived at an exception\nApplication now closing\nLog can be found at\n"+finLog.getAbsolutePath());
+			System.exit(1);
 		} catch (FileNotFoundException e1) {
 			JOptionPane.showMessageDialog(null, "You fucked up so badly that this exception is literally impossible to acheive"
 											+ "\nI am both tremendously dissapointed and remarkably impressed at you."
