@@ -44,10 +44,10 @@ public abstract class HighLevelNotice extends AbstractNotice {
 											-75);
 			break;
 		case 6:	//event = new CardNotice(listener, p, false);
-				event = new MessageNotice("This is for community chest cards", listener);
+				event = new GameCardNotice(listener, gameVars, p, false);
 			break;
 		case 7: //event = new CardNotice(listener, p, true);
-				event = new MessageNotice("This is for chance cards", listener);
+				event = new GameCardNotice(listener, gameVars, p, true);
 			break;
 		case 8: //System.out.println("p position = "+ p.getPosition());
 				Property passMe = gameVars.getPropertyAt(p.getPosition());

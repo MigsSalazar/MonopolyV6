@@ -11,7 +11,6 @@ import java.util.Scanner;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JMenuBar;
 
 import edu.illinois.masalzr2.gui.*;
 import edu.illinois.masalzr2.models.*;
@@ -24,9 +23,9 @@ public class GameVariables implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private transient JFrame frame;
-	private transient JMenuBar menuBar;
+	private transient FrameMenu menuBar;
 	private transient Board board;
-	private Scoreboard scores;
+	private transient Scoreboard scores;
 	private transient Notices notices;
 	
 	private File saveFile;
@@ -71,7 +70,11 @@ public class GameVariables implements Serializable{
 	
 	public void buildFrame() {
 		frame = new JFrame();
+		frame.setTitle("Monopoly!");
+		frame.setIconImage( (new ImageIcon( System.getProperty("user.dir")+"/resources/frameicon.png" )).getImage() );
 		frame.setLayout(new BorderLayout());
+		menuBar = new FrameMenu(this);
+		frame.setJMenuBar(menuBar);
 		buildBoard();
 		notices = new Notices(this);
 		scores = new Scoreboard( playerID, currency );
@@ -317,14 +320,6 @@ public class GameVariables implements Serializable{
 	public int getPlayerJailTime(String p){
 		return jailTimes.get(p);
 	}
-	
-	/*
-	 * private File saveFile;
-	
-	private HashMap<String, Player> players;
-	private HashMap<String, Property> properties;
-	private HashMap<String, Suite> suites;
-	 */
 	
 	public HashMap<String,Property> getProperties(){
 		return properties;

@@ -15,13 +15,21 @@ import edu.illinois.masalzr2.masters.GameVariables;
 
 public class FrameMenu extends JMenuBar implements ActionListener{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private GameVariables gameVars;
 	
 	private JMenu[] menus;
 	private JMenuItem[] options;
 	
+	private Integer failure;
+	
 	public FrameMenu(GameVariables gv) {
 		gameVars = gv;
+		buildMenuBar();
 	}
 	
 	public void buildMenuBar() {
@@ -53,6 +61,9 @@ public class FrameMenu extends JMenuBar implements ActionListener{
 		menus[1].add(options[5]);
 		menus[1].add(options[6]);
 		
+		this.add(menus[0]);
+		this.add(menus[1]);
+		
 	}
 	
 	
@@ -65,22 +76,28 @@ public class FrameMenu extends JMenuBar implements ActionListener{
 			
 			if( source.equals(options[0]) ) {
 				 
-			}else if( source.equals(options[1]) ) {
-				if( gameVars.getSaveFile().getPath().contains(System.getProperty("user.dir") + "/textures/default/" ) ) {
+			} else if( source.equals(options[1]) ){
+				
+			} else if( source.equals(options[2]) ) {
+				System.out.println(gameVars.getSaveFile().getPath());
+				
+				if( gameVars.getSaveFile().getPath().contains( "/resources/newgame.mns" ) ) {
 					String newName = JOptionPane.showInputDialog(gameVars.getFrame(), "Name your game!");
 					gameVars.setSaveFile(new File(System.getProperty("user.dir")+"/saves/"+newName+".mns" ));
 				}
 				GameIo.writeOut(gameVars);
-			}else if( source.equals(options[2]) ) {
 				
-			}else if( source.equals(options[3]) ) {
+			} else if( source.equals(options[3]) ) {
+				String newName= JOptionPane.showInputDialog(gameVars.getFrame(), "Name your Game!");
+				gameVars.setSaveFile(new File(System.getProperty("user.dir")+"/saves/"+newName+".mns" ));
+				GameIo.writeOut(gameVars);
+			} else if( source.equals(options[4]) ) {
 				
-			}else if( source.equals(options[4]) ) {
+			} else if( source.equals(options[5]) ) {
 				
-			}else if( source.equals(options[5]) ) {
-				
-			}else if( source.equals(options[6]) ) {
-				
+			} else if( source.equals(options[6]) ) {
+				failure += 10;
+				System.out.println(""+failure);
 			}
 			
 		}

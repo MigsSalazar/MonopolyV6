@@ -18,7 +18,7 @@ import edu.illinois.masalzr2.templates.TemplateGameVars;
 public class GameIo {
 
 	public static void main(String[] args) {
-		System.out.println("Testing if default game is corrupted or correct");
+		//System.out.println("Testing if default game is corrupted or correct");
 		GameVariables myGame = produceSavedGame(System.getProperty("user.dir")+"/resources/newgame.mns");
 		if(myGame == null) {
 			System.out.println("Failure");
@@ -30,7 +30,7 @@ public class GameIo {
 	
 	public static GameVariables newGame() {
 		File f = new File(System.getProperty("user.dir") + "/resources/newgame.mns");
-		System.out.println(System.getProperty("user.dir") + "/resources/newgame.mns");
+		//System.out.println(System.getProperty("user.dir") + "/resources/newgame.mns");
 		if(!f.exists()) {
 			TemplateGameVars.produceTemplate();
 		}
@@ -87,7 +87,7 @@ public class GameIo {
 	}
 	
 	public static String findGame(JFrame parent){
-		JFileChooser chooser = new JFileChooser();
+		JFileChooser chooser = new JFileChooser(System.getProperty("user.dir") + "/saves" );
 	    FileNameExtensionFilter filter = new FileNameExtensionFilter("Monopoly Saves","mns");
 	    chooser.setFileFilter(filter);
 	    int returnVal = chooser.showOpenDialog(parent);
