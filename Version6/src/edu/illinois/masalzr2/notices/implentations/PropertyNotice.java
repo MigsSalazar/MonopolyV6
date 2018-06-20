@@ -17,7 +17,6 @@ public class PropertyNotice extends AbstractNotice {
 	private Player player;
 	private Property prop;
 	private GameVariables gameVars;
-	private int rentOut = 0;
 	
 	public PropertyNotice(ListListener ppl, GameVariables gv, Player pl, Property pr) {
 		super(ppl);
@@ -54,9 +53,9 @@ public class PropertyNotice extends AbstractNotice {
 			//BankPropertyActions.rentOwnedProperty(play, prop);
 			
 			Player p2 = gameVars.getPlayers().get(prop.getOwner());
-			String outText = "You payed "+prop.getOwner()+" "+gameVars.getCurrencySymbol()+rentOut+" for landing on "+prop.getName()+"!";
+			String outText = "You payed "+prop.getOwner()+" "+gameVars.getCurrencySymbol()+prop.getRent()+" for landing on "+prop.getName()+"!";
 			
-			AbstractNotice an = new PlayerPlayerNotice(outText, listener, player, p2, (-1)*rentOut);
+			AbstractNotice an = new PlayerPlayerNotice(outText, listener, player, p2, (-1)*prop.getRent());
 			//AbstractNotice a = new MessageEvent(parent, "You payed "+play.getName()+" for landing on "+prop.getName()+"!");
 			listener.pushMe(new ListEvent(an));
 			listener.popMe(new ListEvent(this));

@@ -17,6 +17,20 @@ public class Railroad extends Property implements Serializable{
 		super(n, pos, pr, o, m, listen);
 	}
 	
+	public Railroad(String n, int pos, int pr, String o, boolean m, ArrayList<ChangeListener> listen, Counter r){
+		super(n, pos, pr, o, m, listen);
+		railsOwned = r;
+	}
+	
+	@Override
+	public void setOwner(String p) {
+
+		if(owner.equals("") || owner == null) {
+			railsOwned.add(1);
+		}
+		super.setOwner(p);
+	}
+	
 	public Counter getRailsOwned(){
 		return railsOwned;
 	}

@@ -1,6 +1,7 @@
 package edu.illinois.masalzr2.masters;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.Scanner;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
 
 import edu.illinois.masalzr2.gui.*;
 import edu.illinois.masalzr2.models.*;
@@ -22,8 +24,9 @@ public class GameVariables implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private transient JFrame frame;
+	private transient JMenuBar menuBar;
 	private transient Board board;
-	//private JPanel stats;
+	private Scoreboard scores;
 	private transient Notices notices;
 	
 	private File saveFile;
@@ -64,24 +67,30 @@ public class GameVariables implements Serializable{
 	private Counter houseCount;
 	private Counter hotelCount;
 	
+	
+	
 	public void buildFrame() {
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout());
 		buildBoard();
 		notices = new Notices(this);
-		//board.getBoard().setPreferredSize(new D);
+		scores = new Scoreboard( playerID, currency );
 		frame.add(board.getBoard(), BorderLayout.CENTER);
 		frame.add(notices.getNoticePanel(), BorderLayout.SOUTH);
+		frame.add(scores.getScoreboard(), BorderLayout.EAST);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setPreferredSize(new Dimension(1280,700));
+		//best height for the frame is 650
 		frame.pack();
 		frame.setLocationRelativeTo(null);
+		
 		//frame.repaint();
 		
 		frame.setVisible(true);
-		System.out.println(""+frame.getWidth()+" "+frame.getHeight());
+		//System.out.println(""+frame.getWidth()+" "+frame.getHeight());
 	}
 	
-
+	
 	private void buildBoard() {
 		board = new Board();
 		
@@ -89,7 +98,9 @@ public class GameVariables implements Serializable{
 		board.setIconNumbers(paintByNumbers);
 		paintedIcons = new ImageIcon[icons.length];
 		for(int i=0; i<icons.length; i++) {
+			//System.out.println(System.getProperty("user.dir")+icons[i]);
 			paintedIcons[i] = new ImageIcon(System.getProperty("user.dir") + "/" + icons[i]);
+			//System.out.println(paintedIcons[i] != null);
 		}
 		board.setIcons(paintedIcons);
 		
@@ -98,7 +109,9 @@ public class GameVariables implements Serializable{
 		
 		coloredStickers = new ImageIcon[stickers.length];
 		for(int i=0; i<stickers.length; i++) {
+			//System.out.println(System.getProperty("user.dir")+"/"+stickers[i]);
 			coloredStickers[i] = new ImageIcon(System.getProperty("user.dir") + "/" + stickers[i]);
+			//System.out.println(coloredStickers[i]);
 		}
 		
 		board.setStickers(coloredStickers);
@@ -106,7 +119,13 @@ public class GameVariables implements Serializable{
 		board.setStamps(stampCollection);
 		
 		board.setDiceIcons(paintedIcons[1], paintedIcons[2]);
+		
+		board.activateDice();
+		
+		board.setDiceLocations(7, 11, 7, 16);
+		
 		board.paintDisplay();
+		placeTokens();
 	}
 	
 	public String getCurrencySymbol(){
@@ -123,6 +142,10 @@ public class GameVariables implements Serializable{
 	
 	public Counter getHotelCount(){
 		return hotelCount;
+	}
+	
+	public JFrame getFrame() {
+		return frame;
 	}
 	
 	public boolean isTextureInDir(){
@@ -216,6 +239,16 @@ public class GameVariables implements Serializable{
 	
 	public boolean isInJail(String p){
 		return jailTable.get(p);
+	}
+	
+	public void placeTokens() {
+		for(GameToken gt : playerTokens.values()) {
+			
+			gt.refreshIcon();
+			//System.out.println(gt.getPiece().getDescription());
+			board.addPiece(gt.getPiece(), gt.getX(), gt.getY());
+			
+		}
 	}
 	
 	public void movePlayer(Player p, int move){
@@ -385,7 +418,11 @@ public class GameVariables implements Serializable{
 		playerTokens = new HashMap<String, GameToken>();
 		
 		// Rails(4) + utility(2) + 22(streets) = 28
-		Property[] props = TemplateGameVars.defineProps();
+		
+		railCount = new Counter(0,4,0);
+		utilCount = new Counter(0,2,0);
+		
+		Property[] props = TemplateGameVars.defineProps(railCount, utilCount, gameDice);
 		
 		properties = new HashMap<String, Property>();
 		propertyPos = new HashMap<Integer, Property>();

@@ -56,7 +56,7 @@ public class Board {
 		grid = new GridLayout(gridWidth, gridHeight);
 		
 		board = new JPanel(grid);
-		board.setPreferredSize(dim);
+		board.setSize(dim);
 		
 		iconNumbers = new int[gridWidth][gridHeight];
 		
@@ -166,7 +166,7 @@ public class Board {
 	
 	public void addPiece(ImageIcon icon, int x, int y){
 		display[x][y].addIcon(icon);
-		pieceCoords.put(icon.toString()+pieceCoords.size(), new Dimension(x,y));
+		pieceCoords.put(icon.toString(), new Dimension(x,y));
 	}
 	
 	public void addPiece(ImageIcon icon, String key, int x, int y){

@@ -39,7 +39,7 @@ public class HomeMenuNotice extends HighLevelNotice {
 					
 				}else{
 					
-					int roll = gameDice.roll();
+					int roll = gameVars.roll();
 					int dice1 = gameDice.getLastDice()[0];
 					int dice2 = gameDice.getLastDice()[1];
 					

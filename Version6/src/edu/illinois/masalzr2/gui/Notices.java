@@ -29,7 +29,7 @@ public class Notices implements ListListener {
 		noticePanel = new JPanel();
 		noticePanel.setBorder(defineBorder());
 		noticePanel.setVisible(true);
-		noticePanel.setPreferredSize(new Dimension(200, 75));
+		noticePanel.setPreferredSize(new Dimension(1280, 150));
 		//TODO MAKE A MAIN MENU ABSTRACTNOTICE TO POPULATE THE NOTICELIST
 		currNotice = new HomeMenuNotice(this, gameVars);
 		noticeList.add(currNotice);

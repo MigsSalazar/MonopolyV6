@@ -1,14 +1,11 @@
 package edu.illinois.masalzr2.templates;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import edu.illinois.masalzr2.gui.Stamp;
+import edu.illinois.masalzr2.io.GameIo;
 import edu.illinois.masalzr2.masters.GameVariables;
 import edu.illinois.masalzr2.models.*;
 
@@ -16,6 +13,7 @@ public class TemplateGameVars{
 	
 	public static void main(String[] args) {
 		produceTemplate();
+		System.out.println("Template generation complete");
 	}
 	
 	public static void produceTemplate() {
@@ -23,31 +21,13 @@ public class TemplateGameVars{
 		
 		gv.buildCleanGame();
 		
-		writeOut(gv);
+		GameIo.writeOut(gv);
 		
 		//gv.buildFrame();
 		
 		//System.out.println("I'm done");
 	}
 	
-	
-	public static void writeOut(GameVariables me) {
-		FileOutputStream fout;
-		try {
-			fout = new FileOutputStream(me.getSaveFile());
-			ObjectOutputStream objWrite = new ObjectOutputStream(fout);
-			
-			objWrite.writeObject(me);
-			
-			objWrite.close();
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
 	
 	public static int[][] stickerBook(){
 		int[][] temp = {{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //-1
@@ -1275,50 +1255,50 @@ public class TemplateGameVars{
 	
 	public static HashMap<String, GameToken> definePlayerTokens(Map<Integer, Player> playerIds){
 		HashMap<String, GameToken> playerTokens = new HashMap<String, GameToken>();
-		GameToken p1 = new GameToken(0, "", new PositionIndex(
+		GameToken p1 = new GameToken(0, "/textures/default/boat.png", new PositionIndex(
 				new int[]{25,22,20,18,16,14,12,10,8,6,0,0,0,0,0,0,0,0,0,0,0,6,8,10,12,14,16,18,20,22,25,26,26,26,26,26,26,26,26,26,},
 				new int[]{25,26,26,26,26,26,26,26,26,26,25,22,20,18,16,14,12,10,8,6,2,0,0,0,0,0,0,0,0,0,1,6,8,10,12,14,16,18,20,22,},
 				new int[]{2},
 				new int[]{25}));
 
-		GameToken p2 = new GameToken(1, "", new PositionIndex(
+		GameToken p2 = new GameToken(1, "/textures/default/boot.png", new PositionIndex(
 			new int[]{26,23,21,19,17,15,13,11,9,7,0,1,1,1,1,1,1,1,1,1,1,7,9,11,13,15,17,19,21,23,26,27,27,27,27,27,27,27,27,27,},
 			new int[]{25,26,26,26,26,26,26,26,26,26,26,22,20,18,16,14,12,10,8,6,2,0,0,0,0,0,0,0,0,0,1,6,8,10,12,14,16,18,20,22,},
 			new int[]{2},
 			new int[]{26}));
 
-		GameToken p3 = new GameToken(2, "", new PositionIndex(
+		GameToken p3 = new GameToken(2, "/textures/default/car.png", new PositionIndex(
 			new int[]{27,22,20,18,16,14,12,10,8,6,0,2,2,2,2,2,2,2,2,2,4,6,8,10,12,14,16,18,20,22,27,28,28,28,28,28,28,28,28,28,},
 			new int[]{25,27,27,27,27,27,27,27,27,27,27,22,20,18,16,14,12,10,8,6,2,1,1,1,1,1,1,1,1,1,1,6,8,10,12,14,16,18,20,22,},
 			new int[]{2},
 			new int[]{27}));
 	
-		GameToken p4 = new GameToken(3, "", new PositionIndex(
+		GameToken p4 = new GameToken(3, "/textures/default/hat.png", new PositionIndex(
 			new int[]{28,23,21,19,17,15,13,11,9,7,0,3,3,3,3,3,3,3,3,3,5,7,9,11,13,15,17,19,21,23,28,29,29,29,29,29,29,29,29,29,},
 			new int[]{25,27,27,27,27,27,27,27,27,27,28,22,20,18,16,14,12,10,8,6,2,1,1,1,1,1,1,1,1,1,1,6,8,10,12,14,16,18,20,22,}
 			,
 			new int[]{3},
 			new int[]{27}));
 	
-		GameToken p5 = new GameToken(4, "", new PositionIndex(
+		GameToken p5 = new GameToken(4, "/textures/default/iron.png", new PositionIndex(
 			new int[]{25,22,20,18,16,14,12,10,8,6,1,0,0,0,0,0,0,0,0,0,0,6,8,10,12,14,16,18,20,22,25,26,26,26,26,26,26,26,26,26,},
 			new int[]{26,28,28,28,28,28,28,28,28,28,29,23,21,19,17,15,13,11,9,7,3,2,2,2,2,2,2,2,2,2,2,7,9,11,13,15,17,19,21,23,},
 			new int[]{4},
 			new int[]{27}));
 		
-		GameToken p6 = new GameToken(5, "", new PositionIndex(
+		GameToken p6 = new GameToken(5, "/textures/default/pupper.png", new PositionIndex(
 			new int[]{26,23,21,19,17,15,13,11,9,7,2,1,1,1,1,1,1,1,1,1,1,7,9,11,13,15,17,19,21,23,26,27,27,27,27,27,27,27,27,27,},
 			new int[]{26,28,28,28,28,28,28,28,28,28,29,23,21,19,17,15,13,11,9,7,3,2,2,2,2,2,2,2,2,2,2,7,9,11,13,15,17,19,21,23,},
 			new int[]{4},
 			new int[]{26}));
 	
-		GameToken p7 = new GameToken(6, "", new PositionIndex(
+		GameToken p7 = new GameToken(6, "/textures/default/thimble.png", new PositionIndex(
 			new int[]{27,22,20,18,16,14,12,10,8,6,3,2,2,2,2,2,2,2,2,2,4,6,8,10,12,14,16,18,20,22,27,28,28,28,28,28,28,28,28,28,},
 			new int[]{26,29,29,29,29,29,29,29,29,29,29,23,21,19,17,15,13,11,9,7,3,3,3,3,3,3,3,3,3,3,2,7,9,11,13,15,17,19,21,23,},
 			new int[]{4},
 			new int[]{25}));
 	
-		GameToken p8 = new GameToken(7, "", new PositionIndex(
+		GameToken p8 = new GameToken(7, "/textures/default/wheelbarrow.png", new PositionIndex(
 			new int[]{28,23,21,19,17,15,13,11,9,7,4,3,3,3,3,3,3,3,3,3,5,7,9,11,13,15,17,19,21,23,28,29,29,29,29,29,29,29,29,29,},
 			new int[]{26,29,29,29,29,29,29,29,29,29,29,23,21,19,17,15,13,11,9,7,3,3,3,3,3,3,3,3,3,3,2,7,9,11,13,15,17,19,21,23,},
 			new int[]{3},
@@ -1345,23 +1325,24 @@ public class TemplateGameVars{
 		return propertyPositions;
 	}
 	
-	public static Property[] defineProps(){
+	public static Property[] defineProps(Counter rails, Counter utils, Dice gameDice){
 		Property[] props = new Property[28];
 		props[0] = new Street("Mediterranean Ave.", 1, 60, "", false, null, 0, 30, new int[]{2, 10, 30, 90, 160, 250});
 		props[1] = new Street("Baltic Ave.", 		3, 60, "", false, null, 0, 30, new int[]{4, 20, 60, 180, 320, 450});
 
-		props[2] = new Railroad("Reading Railroad", 5, 200, "", false, null);
+		props[2] = new Railroad("Reading Railroad", 5, 200, "", false, null, rails);
 
 		props[3] = new Street("Oriental Ave.", 		6, 100, "", false, null, 0, 50, new int[]{6, 30, 90, 270, 400, 550});
 		props[4] = new Street("Vermont Ave.", 		8, 100, "", false, null, 0, 50, new int[]{6, 30, 90, 270, 400, 550});
 		props[5] = new Street("Connecticut Ave.", 	9, 120, "", false, null, 0, 50, new int[]{8, 40, 100, 300, 450, 600});
 
 		props[6] = new Street("St. Charles Place", 	11, 140, "", false, null, 0, 100, new int[]{10, 50, 150, 450, 625, 750});
-		props[7] = new Utility("Electric Company", 	12, 150, "", false, null);
+		props[7] = new Utility("Electric Company", 	12, 150, "", false, null, utils);
+		((Utility)props[7]).setDice(gameDice);
 		props[8] = new Street("States Ave.", 		13, 140, "", false, null, 0, 100, new int[]{10, 50, 150, 450, 625, 750});
 		props[9] = new Street("Virginia Ave.", 		14, 160, "", false, null, 0, 100, new int[]{12, 60, 180, 500, 700, 900});
 		
-		props[10] = new Railroad("Pennsylvania Railroad", 15, 200, "", false, null);
+		props[10] = new Railroad("Pennsylvania Railroad", 15, 200, "", false, null, rails);
 
 		props[11] = new Street("St. James Place", 	16, 180, "", false, null, 0, 100, new int[]{14, 70, 200, 550, 750, 950});
 		props[12] = new Street("Tennessee Ave.",	18, 180, "", false, null, 0, 100, new int[]{14, 70, 200, 550, 750, 950});
@@ -1371,18 +1352,19 @@ public class TemplateGameVars{
 		props[15] = new Street("Indiana Ave.", 		23, 220, "", false, null, 0, 150, new int[]{18, 90, 250, 700, 875, 1050});
 		props[16] = new Street("Illinois Ave.", 	24, 240, "", false, null, 0, 150, new int[]{20, 100, 300, 750, 925, 1100});
 
-		props[17] = new Railroad("B&O Railroad",	25, 200, "", false, null);
+		props[17] = new Railroad("B&O Railroad",	25, 200, "", false, null, rails);
 
 		props[18] = new Street("Atlantic Ave.", 	26, 260, "", false, null, 0, 150, new int[]{22, 110, 330, 800, 975, 1150});
 		props[19] = new Street("Ventnor Ave.", 		27, 260, "", false, null, 0, 150, new int[]{22, 110, 330, 800, 975, 1150});
-		props[20] = new Utility("Water Works", 		28, 150, "", false, null);
+		props[20] = new Utility("Water Works", 		28, 150, "", false, null, utils);
+		((Utility)props[20]).setDice(gameDice);
 		props[21] = new Street("Marvin Gardens", 	29, 280, "", false, null, 0, 150, new int[]{24, 120, 360, 850, 1025, 1200});
 
 		props[22] = new Street("Pacific Ave.", 		31, 300, "", false, null, 0, 200, new int[]{26, 130, 390, 900, 1100, 1275});
 		props[23]= new Street("North Carolina Ave.",32, 300, "", false, null, 0, 200, new int[]{26, 130, 390, 900, 1100, 1275});
 		props[24] = new Street("Pennsylvania Ave.", 34, 320, "", false, null, 0, 200, new int[]{28, 150, 450, 1000, 1200, 1400});
 
-		props[25] = new Railroad("Short Line", 		35, 200, "", false, null);
+		props[25] = new Railroad("Short Line", 		35, 200, "", false, null,rails);
 		
 		props[26] = new Street("Park Place", 		37, 350, "", false, null, 0, 200, new int[]{35, 175, 500, 1100, 1300, 1500});
 		props[27] = new Street("Board Walk",		39, 400, "", false, null, 0, 200, new int[]{50, 200, 600, 1400, 1700, 2000});

@@ -3,8 +3,10 @@ package edu.illinois.masalzr2.io;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -94,6 +96,24 @@ public class GameIo {
 	    }else{
 	    	return null;
 	    }
+	}
+
+	public static void writeOut(GameVariables me) {
+		FileOutputStream fout;
+		try {
+			fout = new FileOutputStream(me.getSaveFile());
+			ObjectOutputStream objWrite = new ObjectOutputStream(fout);
+			
+			objWrite.writeObject(me);
+			
+			objWrite.close();
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 }

@@ -59,7 +59,7 @@ public class PreGameFrame extends JFrame implements ActionListener {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(420,480);
 		this.setTitle("Migs Monopoly!");
-		System.out.println(System.getProperty("user.dir")+"/resources/frameicon.png");
+		//System.out.println(System.getProperty("user.dir")+"/resources/frameicon.png");
 		Image icon = new ImageIcon(System.getProperty("user.dir")+"/resources/frameicon.png").getImage();
 		this.setIconImage(icon);
 		this.setVisible(true);

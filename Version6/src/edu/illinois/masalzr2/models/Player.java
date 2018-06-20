@@ -181,6 +181,9 @@ public class Player implements Serializable{
 	}
 	
 	public void addChangeListener(ChangeListener cl){
+		if(listeners == null) {
+			listeners = new ArrayList<ChangeListener>();
+		}
 		if(!listeners.contains(cl)){
 			listeners.add(cl);
 		}
