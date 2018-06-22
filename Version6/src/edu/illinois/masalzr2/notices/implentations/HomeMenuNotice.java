@@ -52,6 +52,12 @@ public class HomeMenuNotice extends HighLevelNotice {
 					if(dice1 != dice2){
 						updateTurn();
 					}
+					
+					//gameVars.jailPlayer(currentPlayer);
+					//AbstractNotice an = actionDone(currentPlayer, 3);
+					//updateTurn();
+					//listener.pushMe(new ListEvent(an));
+					
 					listener.popMe(new ListEvent(this));
 					//System.out.println("and im out bois");
 					

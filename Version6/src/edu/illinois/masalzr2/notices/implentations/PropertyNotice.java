@@ -29,11 +29,11 @@ public class PropertyNotice extends AbstractNotice {
 		currency = (String)gameVars.getVariable("currency");
 		
 		if(prop.getOwner() == null || prop.getOwner().equals("")) {
-			text = prop.getName() + "is unowned. Asking price: " + currency + prop.getPrice() +"\nWhat would you like to do?";
+			text = "<html>"+prop.getName() + " is unowned. Asking price: " + currency + prop.getPrice() +"<br/>What would you like to do?</html>";
 		}else if( !prop.getOwner().equals(pl.getName()) ){
-			text = pl.getName() + " has landed on " +prop.getOwner() + "'s property of " + prop.getName() + "\nRent: " + currency + prop.getRent();
+			text = "<html>"+pl.getName() + " has landed on " +prop.getOwner() + "'s property of " + prop.getName() + "<br/>Rent: " + currency + prop.getRent()+"</html>";
 		}else {
-			text = "You own this property.\nNothing to be done";
+			text = "<html>You own this property.<br/>Nothing to be done</html>";
 		}
 		
 		defineActions();

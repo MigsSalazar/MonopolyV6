@@ -228,7 +228,6 @@ public class GameVariables implements Serializable{
 		
 		board.movePiece(jailMe.getPiece(), newCoords[0], newCoords[1]);
 		
-		//TODO notify the stats panel of the player's incarceration
 		return true;
 	}
 	
@@ -238,12 +237,14 @@ public class GameVariables implements Serializable{
 	
 	public GameCard getRandomCommChest(){
 		Random rando = new Random();
-		return commchest.get(rando.nextInt(commchest.size()));
+		//return commchest.get(rando.nextInt(commchest.size()));
+		return commchest.get(0);
 	}
 	
 	public GameCard getRandomChance(){
 		Random rando = new Random();
-		return chance.get(rando.nextInt(chance.size()));
+		return chance.get(0);
+		//return chance.get(rando.nextInt(chance.size()));
 	}
 	
 	public Player getPlayerByID(int id){
@@ -281,6 +282,8 @@ public class GameVariables implements Serializable{
 	
 	public void fancyPlayerMove(Player p, int move) {
 		
+		
+		
 		Timer time = new Timer(200, null);
 		time.addActionListener(new ActionListener() {
 			
@@ -289,7 +292,7 @@ public class GameVariables implements Serializable{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//System.out.println("Time clicked");
-				movePlayer(p, 1);
+				visualMove(playerTokens.get(p.getName()), 1);
 				count--;
 				if( count <= 0 ) {
 					time.stop();
@@ -298,6 +301,16 @@ public class GameVariables implements Serializable{
 		});
 		time.start();
 		
+		//movePlayer(p, move);
+		
+	}
+	
+	private void visualMove(GameToken current, int move) {
+		ImageIcon piece = current.getPiece();
+		
+		int[] coords = current.getPath().getCoordsAtStep(move + current.getPath().getStep());
+		
+		board.movePiece(piece, coords[1], coords[0]);
 	}
 	
 	public void movePlayer(Player p, int move){
@@ -307,11 +320,9 @@ public class GameVariables implements Serializable{
 	public void movePlayer(String p, int move){
 		GameToken current = playerTokens.get(p);
 		
-		ImageIcon piece = current.getPiece();
-		
 		current.movePiece(move);
 		
-		board.movePiece(piece, current.getX(), current.getY());
+		visualMove(current, move);
 		
 	}
 

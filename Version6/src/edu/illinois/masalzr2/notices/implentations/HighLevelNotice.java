@@ -23,7 +23,7 @@ public abstract class HighLevelNotice extends AbstractNotice {
 	}
 	
 	
-	private AbstractNotice actionDone(Player p, int result) {
+	protected AbstractNotice actionDone(Player p, int result) {
 		AbstractNotice event;
 		switch(result){
 		case 0: event = new GoNotice(listener, currentPlayer);
@@ -52,7 +52,7 @@ public abstract class HighLevelNotice extends AbstractNotice {
 		case 7: //event = new CardNotice(listener, p, true);
 				event = new GameCardNotice(listener, gameVars, p, true);
 			break;
-		case 8: //System.out.println("p position = "+ p.getPosition());
+		case 8: System.out.println("p position = "+ p.getPosition());
 				Property passMe = gameVars.getPropertyAt(p.getPosition());
 				event = new PropertyNotice(listener, gameVars, p, passMe);
 			break;
@@ -92,18 +92,18 @@ public abstract class HighLevelNotice extends AbstractNotice {
 	}
 	
 	protected AbstractNotice moveAndDo(Player player, int roll) {
-		//System.out.println("player move and do roll: "+roll);
+		System.out.println("player move and do roll: "+roll);
 		
 		gameVars.fancyPlayerMove(player, roll);
 		player.addPosition(roll);
 		int result = findAction(player.getPosition());
-		//System.out.println("current Player Name: "+currentPlayer.getName());
+		System.out.println("current Player Name: "+currentPlayer.getName() + " result: "+result);
 		return actionDone(player, result);
 	}
 	
 	public static int findAction(int position){
 		
-		if(position == 0){
+		if(position <= 0){
 			return 0;
 		}else if(position == 10){
 			return 1;
