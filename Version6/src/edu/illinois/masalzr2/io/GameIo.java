@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.masters.MonopolyExceptionHandler;
 import edu.illinois.masalzr2.templates.TemplateGameVars;
 
 public class GameIo {
@@ -38,7 +39,7 @@ public class GameIo {
 		}
 		GameVariables retval = produceSavedGame(f);
 		if(retval == null) {
-			System.out.println("GameIo.newGame(): retval found null");
+			//System.out.println("GameIo.newGame(): retval found null");
 			TemplateGameVars.produceTemplate();
 			retval = produceSavedGame(f);
 		}
@@ -49,9 +50,9 @@ public class GameIo {
 	public static GameVariables produceSavedGame(String dir) {
 		
 		File f = new File(dir);
-		System.out.println(dir);
+		//System.out.println(dir);
 		if(!f.exists()) {
-			System.out.println("file doesn't exist");
+			//System.out.println("file doesn't exist");
 			return null;
 		}
 		
@@ -74,14 +75,11 @@ public class GameIo {
 			objRead.close();
 			
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MonopolyExceptionHandler.uncaughtException(e, Thread.currentThread());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MonopolyExceptionHandler.uncaughtException(e, Thread.currentThread());;
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MonopolyExceptionHandler.uncaughtException(e, Thread.currentThread());
 		}
 		
 		return theGame;
@@ -89,7 +87,7 @@ public class GameIo {
 	}
 	
 	public static String findGame(JFrame parent){
-		System.out.println(System.getProperty("user.dir") + sep + "saves");
+		//System.out.println(System.getProperty("user.dir") + sep + "saves");
 		JFileChooser chooser = new JFileChooser(System.getProperty("user.dir") + sep + "saves" );
 	    FileNameExtensionFilter filter = new FileNameExtensionFilter("Monopoly Saves","mns");
 	    chooser.setFileFilter(filter);
@@ -112,9 +110,9 @@ public class GameIo {
 			objWrite.close();
 			
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			MonopolyExceptionHandler.uncaughtException(e, Thread.currentThread());
 		} catch (IOException e) {
-			e.printStackTrace();
+			MonopolyExceptionHandler.uncaughtException(e, Thread.currentThread());
 		}
 		
 	}

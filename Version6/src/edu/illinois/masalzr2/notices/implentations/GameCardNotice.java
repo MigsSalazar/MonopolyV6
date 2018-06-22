@@ -82,7 +82,7 @@ public class GameCardNotice extends HighLevelNotice {
 											listener, player, new ArrayList<Player>(gameVars.getPlayers().values()), gc.getMoneyEarned());
 		}else{
 			event = new PlayerBankNotice("<html>Bank transaction complete.</html>",
-										listener, currentPlayer, gc.getMoneyEarned());
+										listener, player, gc.getMoneyEarned());
 		}
 		//NoticePanel p, String message, Player p1, ArrayList<Player> plays, int cost
 		listener.pushMe(new ListEvent(event));
@@ -92,9 +92,9 @@ public class GameCardNotice extends HighLevelNotice {
 	
 	private void movePlayer(GameCard gc){
 		if(gc.getBaseMovement() != 0){
-			//gameVars.movePlayer(currentPlayer, gc.getBaseMovement());
-			//currentPlayer.movePlayer(gc.getBaseMovement());
-			AbstractNotice event = moveAndDo(currentPlayer, gc.getBaseMovement());
+			//gameVars.movePlayer(player, gc.getBaseMovement());
+			//player.movePlayer(gc.getBaseMovement());
+			AbstractNotice event = moveAndDo(player, gc.getBaseMovement());
 			listener.pushMe(new ListEvent(event));
 			listener.popMe(new ListEvent(this));
 		}
@@ -102,8 +102,8 @@ public class GameCardNotice extends HighLevelNotice {
 	
 	private void giveJailCard(GameCard gc){
 		if(gc.isGetOutOfJail()){
-			currentPlayer.addOneJailCard();
-			MessageNotice event = new MessageNotice("Total Jail Cards: "+currentPlayer.getJailCard(), listener);
+			player.addOneJailCard();
+			MessageNotice event = new MessageNotice("Total Jail Cards: "+player.getJailCard(), listener);
 			listener.pushMe(new ListEvent(event));
 			listener.popMe(new ListEvent(this));
 		}
@@ -111,7 +111,7 @@ public class GameCardNotice extends HighLevelNotice {
 	
 	private void sendToJail(GameCard gc){
 		if(gc.isGoToJail()){
-			gameVars.jailPlayer(currentPlayer);
+			gameVars.jailPlayer(player);
 			MessageNotice event = new MessageNotice("You have been sent to Jail!", listener);
 			listener.pushMe(new ListEvent(event));
 			listener.popMe(new ListEvent(this));
@@ -121,9 +121,9 @@ public class GameCardNotice extends HighLevelNotice {
 	private void findNearestOnBoard(GameCard gc){
 		AbstractNotice event = null;
 		switch(gc.getFindNearest()){
-		case "railroad":event = findRailroad(currentPlayer);
+		case "railroad":event = findRailroad(player);
 			break;
-		case "utility": event = findUtility(currentPlayer);
+		case "utility": event = findUtility(player);
 			break;
 		case "": return;
 		default: return;
@@ -178,17 +178,17 @@ public class GameCardNotice extends HighLevelNotice {
 		int moveBy = 0;
 		switch(gc.getFindThis()){
 		case "": return;
-		case "go":	moveBy = 40 - currentPlayer.getPosition();
-					event = moveAndDo(currentPlayer, moveBy);
+		case "go":	moveBy = 40 - player.getPosition();
+					event = moveAndDo(player, moveBy);
 					break;
 		default:if(gameVars.getProperties().containsKey(gc.getFindThis())){
 					Property prop = gameVars.getProperties().get(gc.getFindThis());
-					if(currentPlayer.getPosition() > prop.getPosition()){
-						moveBy = (40+prop.getPosition()) - currentPlayer.getPosition();
+					if(player.getPosition() > prop.getPosition()){
+						moveBy = (40+prop.getPosition()) - player.getPosition();
 					}else{
-						moveBy = prop.getPosition() - currentPlayer.getPosition();
+						moveBy = prop.getPosition() - player.getPosition();
 					}
-					event = moveAndDo(currentPlayer,moveBy);
+					event = moveAndDo(player,moveBy);
 				}
 		}
 		if(event == null){
@@ -200,7 +200,7 @@ public class GameCardNotice extends HighLevelNotice {
 	
 	private void renovateProperties(GameCard gc){
 		if(gc.isPropRenovation()){
-			HashMap<String, Property> props = currentPlayer.getProps();
+			HashMap<String, Property> props = player.getProps();
 			int total = 0;
 			int houses = 0;
 			int housenum = 0;
@@ -224,8 +224,8 @@ public class GameCardNotice extends HighLevelNotice {
 							+ "<br>Hotels: "+hotelnum+"    Cost: "+currency+hotels
 							+ "<br>Houses: "+housenum+"    Cost: "+currency+houses
 							+ "<br>Complete Total:          "+currency+total+"</html>";
-			PlayerBankNotice event = new PlayerBankNotice( textOut, listener, currentPlayer, (total * -1) );
-			//currentPlayer.subCash(total);
+			PlayerBankNotice event = new PlayerBankNotice( textOut, listener, player, (total * -1) );
+			//player.subCash(total);
 			listener.pushMe(new ListEvent(event));
 			listener.popMe(new ListEvent(this));
 		}

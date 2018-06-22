@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JProgressBar;
+
 import edu.illinois.masalzr2.gui.Stamp;
 import edu.illinois.masalzr2.io.GameIo;
 import edu.illinois.masalzr2.masters.GameVariables;
@@ -12,6 +16,7 @@ import edu.illinois.masalzr2.models.*;
 public class TemplateGameVars{
 	
 	public static String sep = java.io.File.separator;
+	private static JProgressBar progress = new JProgressBar(0,120);
 	
 	public static void main(String[] args) {
 		produceTemplate();
@@ -19,15 +24,29 @@ public class TemplateGameVars{
 	}
 	
 	public static void produceTemplate() {
+		JDialog progPanel = new JDialog((JFrame)null, "Template Generation", false);
+		//progress = new JProgressBar(0,120);
+		progPanel.add(progress);
+		progress.setValue(0);
+		progPanel.pack();
+		progPanel.setVisible(true);
 		GameVariables gv = new GameVariables();
 		
 		gv.buildCleanGame();
 		
 		GameIo.writeOut(gv);
-		
+		updateProgress(120);
 		//gv.buildFrame();
 		
 		//System.out.println("I'm done");
+		progPanel.dispose();
+		
+	}
+	
+	private static void updateProgress(int value){
+		if (progress != null){
+			progress.setValue(value);
+		}
 	}
 	
 	
@@ -64,6 +83,9 @@ public class TemplateGameVars{
 						{-1,6,-1,-1,-1,6,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,10,-1,-1,-1,-1}, //27
 						{-1,6,6,6,6,6,		-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	11,-1,-1,-1,-1,-1}, //28
 						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,12,-1,-1,-1,-1}};//29
+		
+		updateProgress(100);
+		
 		return temp;
 	}
 
@@ -93,6 +115,9 @@ public class TemplateGameVars{
 			stickers[i] = sep+"textures"+sep+"default"+sep+stickers[i];
 			//System.out.println(retval[i].getDescription());
 		}
+		
+		updateProgress(110);
+		
 		return stickers;
 	}
 	
@@ -1060,6 +1085,8 @@ public class TemplateGameVars{
 		}
 		};
 		
+		updateProgress(90);
+		
 		return sc;
 
 	}
@@ -1126,6 +1153,9 @@ public class TemplateGameVars{
 				10, false,0,false,false,"","",false, 0, 0));
 		commchest.add(new GameCard("<html>You inherit $100</html>",
 				100, false,0,false,false,"","",false, 0, 0));
+		
+		updateProgress(70);
+		
 		return commchest;
 	}
 	
@@ -1182,6 +1212,9 @@ public class TemplateGameVars{
 		chance.add(new GameCard("<html>You building and loan matures"
 									+ "<br>Collect $150</html>",
 				150, false,0,false,false,"","",false, 0, 0));
+		
+		updateProgress(80);
+		
 		return chance;
 	}
 	
@@ -1196,6 +1229,7 @@ public class TemplateGameVars{
 		suites.put("yellow", 	new Suite((Street)properties.get("Atlantic Ave."), 		(Street)properties.get("Ventnor Ave."), 		(Street)properties.get("Marvin Gardins"), 		"yellow"));
 		suites.put("green", 	new Suite((Street)properties.get("Pacific Ave."), 		(Street)properties.get("North Carolina Ave."), 	(Street)properties.get("Pennsylvania Ave."), 	"purple"));
 		suites.put("blue", 		new Suite((Street)properties.get("Park Place"), 		(Street)properties.get("Board Walk"), 			null, 											"blue"));
+		updateProgress(20);
 		return suites;
 	}
 	
@@ -1233,7 +1267,10 @@ public class TemplateGameVars{
 				{0,0,0,0,0,0,	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,	0,0,0,0,0,0}, //27
 				{0,0,0,0,0,0,	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,	0,7,7,7,7,7}, //28
 				{0,0,0,0,0,0,	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,	0,0,0,0,0,0}};//29
-				return pbn;
+		
+		updateProgress(60);
+		
+		return pbn;
 	}
 	
 	public static String[] defineIcons(){
@@ -1252,6 +1289,9 @@ public class TemplateGameVars{
 		for(int i=0; i<icons.length; i++){
 			icons[i] = sep+"textures"+sep+"default"+sep+icons[i];
 		}
+		
+		updateProgress(50);
+		
 		return icons;
 	}
 	
@@ -1315,6 +1355,9 @@ public class TemplateGameVars{
 		playerTokens.put( playerIds.get(5).getName() , p6);
 		playerTokens.put( playerIds.get(6).getName() , p7);
 		playerTokens.put( playerIds.get(7).getName() , p8);
+		
+		updateProgress(40);
+		
 		return playerTokens;
 	}
 	
@@ -1324,6 +1367,7 @@ public class TemplateGameVars{
 		int[] y = {24,-1,24,-1,-1,24,-1,24,24,-1,22,-1,18,16,-1,12,-1, 8, 6,-1, 4,-1, 4, 4,-1, 4, 4,-1, 4, 6, 8,-1,12,-1,-1,18,-1,22};
 		
 		PositionIndex propertyPositions = new PositionIndex(x,y);
+		updateProgress(30);
 		return propertyPositions;
 	}
 	
@@ -1370,6 +1414,8 @@ public class TemplateGameVars{
 		
 		props[26] = new Street("Park Place", 		37, 350, "", false, null, 0, 200, new int[]{35, 175, 500, 1100, 1300, 1500});
 		props[27] = new Street("Board Walk",		39, 400, "", false, null, 0, 200, new int[]{50, 200, 600, 1400, 1700, 2000});
+		
+		updateProgress(10);
 		
 		return props;
 	}

@@ -12,6 +12,11 @@ public class MonopolyExceptionHandler implements Thread.UncaughtExceptionHandler
 	
 	private String sep = File.separator;
 	
+	public static void uncaughtException(Throwable e, Thread t){
+		MonopolyExceptionHandler meh = new MonopolyExceptionHandler();
+		meh.uncaughtException(t, e);
+	}
+	
 	public void uncaughtException(Thread t, Throwable e) {
 		
 		File errorLog = new File(System.getProperty("user.dir") + sep + "errorlogs" + sep);

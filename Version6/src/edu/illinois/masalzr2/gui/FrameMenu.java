@@ -25,7 +25,6 @@ public class FrameMenu extends JMenuBar implements ActionListener{
 	private JMenu[] menus;
 	private JMenuItem[] options;
 	
-	private Integer failure;
 	
 	public FrameMenu(GameVariables gv) {
 		gameVars = gv;
@@ -75,13 +74,21 @@ public class FrameMenu extends JMenuBar implements ActionListener{
 			JMenuItem source = (JMenuItem) arg0.getSource();
 			
 			if( source.equals(options[0]) ) {
-				 GameVariables newGame = GameIo.newGame();
-				 newGame.buildFrame();
-				 gameVars.getFrame().dispose();
+				GameVariables newGame = GameIo.newGame();
+				newGame.buildFrame();
+				gameVars.getFrame().dispose();
 			} else if( source.equals(options[1]) ){
-				
+				String dir = GameIo.findGame(gameVars.getFrame());
+				if(dir==null) {
+					return;
+				}
+				GameVariables loadedGame = GameIo.produceSavedGame(dir);
+				if(loadedGame !=null) {
+					loadedGame.buildFrame();
+					gameVars.getFrame().dispose();
+				}
 			} else if( source.equals(options[2]) ) {
-				System.out.println(gameVars.getSaveFile().getPath());
+				//System.out.println(gameVars.getSaveFile().getPath());
 				
 				if( gameVars.getSaveFile().getPath().contains( "resources"+sep+"newgame.mns" ) ) {
 					String newName = JOptionPane.showInputDialog(gameVars.getFrame(), "Name your game!");
@@ -98,8 +105,8 @@ public class FrameMenu extends JMenuBar implements ActionListener{
 			} else if( source.equals(options[5]) ) {
 				
 			} else if( source.equals(options[6]) ) {
-				failure += 10;
-				System.out.println(""+failure);
+				//failure += 10;
+				//System.out.println(""+failure);
 			}
 			
 		}

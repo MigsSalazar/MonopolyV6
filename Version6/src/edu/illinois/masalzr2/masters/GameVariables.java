@@ -106,9 +106,9 @@ public class GameVariables implements Serializable{
 		board.setIconNumbers(paintByNumbers);
 		paintedIcons = new ImageIcon[icons.length];
 		for(int i=0; i<icons.length; i++) {
-			System.out.println(System.getProperty("user.dir")+icons[i]);
+			//System.out.println(System.getProperty("user.dir")+icons[i]);
 			paintedIcons[i] = new ImageIcon(System.getProperty("user.dir") + icons[i]);
-			System.out.println(paintedIcons[i] != null);
+			//System.out.println(paintedIcons[i] != null);
 		}
 		board.setIcons(paintedIcons);
 		
@@ -117,9 +117,9 @@ public class GameVariables implements Serializable{
 		
 		coloredStickers = new ImageIcon[stickers.length];
 		for(int i=0; i<stickers.length; i++) {
-			System.out.println(System.getProperty("user.dir")+stickers[i]);
+			//System.out.println(System.getProperty("user.dir")+stickers[i]);
 			coloredStickers[i] = new ImageIcon(System.getProperty("user.dir") + stickers[i]);
-			System.out.println(coloredStickers[i]);
+			//System.out.println(coloredStickers[i]);
 		}
 		
 		board.setStickers(coloredStickers);

@@ -3,7 +3,10 @@
  */
 package edu.illinois.masalzr2.gui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,8 +20,10 @@ import javax.swing.JPanel;
 
 import edu.illinois.masalzr2.io.GameIo;
 import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.templates.TemplateGameVars;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 
 
 /**
@@ -108,6 +113,40 @@ public class PreGameFrame extends JFrame implements ActionListener {
 			}else {
 				badFile();
 			}
+		}else if(e.getSource().equals(settings)){
+			BorderLayout manager = new BorderLayout(2,1);
+			manager.setVgap(10);
+			manager.setHgap(10);
+			JPanel container = new JPanel();
+			JDialog setThemUp = new JDialog(this, "Settings", true);
+			setThemUp.add(container);
+			setThemUp.setPreferredSize(new Dimension(300, 150));
+			container.setLayout(manager);
+			JLabel refresh = new JLabel("Refresh/Clean the game's system files");
+			refresh.setPreferredSize(new Dimension(150,30));
+			refresh.setVerticalAlignment(JLabel.CENTER);
+			refresh.setHorizontalAlignment(JButton.CENTER);
+			refresh.setVerticalTextPosition(JLabel.CENTER);
+			refresh.setHorizontalTextPosition(JButton.CENTER);
+			JButton clean = new JButton("Clean");
+			clean.setSize(new Dimension(20,20));
+			clean.setHorizontalAlignment(JButton.CENTER);
+			clean.setHorizontalTextPosition(JButton.CENTER);
+			clean.setVerticalAlignment(JButton.CENTER);
+			clean.setVerticalTextPosition(JButton.CENTER);
+			clean.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e){
+					clean.setForeground(Color.BLACK);
+					TemplateGameVars.produceTemplate();
+					clean.setForeground(Color.RED);
+					refresh.setText("<html>Refresh/Clean the<br/>game's system files<br/>Files refreshed</html>");
+				}
+			});
+			container.add(refresh, BorderLayout.CENTER);
+			container.add(clean, BorderLayout.SOUTH);
+			setThemUp.pack();
+			setThemUp.setVisible(true);
 		}
 		
 	}
