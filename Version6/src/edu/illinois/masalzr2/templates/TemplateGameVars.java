@@ -11,6 +11,8 @@ import edu.illinois.masalzr2.models.*;
 
 public class TemplateGameVars{
 	
+	public static String sep = java.io.File.separator;
+	
 	public static void main(String[] args) {
 		produceTemplate();
 		System.out.println("Template generation complete");
@@ -88,7 +90,7 @@ public class TemplateGameVars{
 		
 		//String dir = System.getProperty("user.dir");
 		for(int i=0; i<stickers.length; i++){
-			stickers[i] = "/textures/default/"+stickers[i];
+			stickers[i] = sep+"textures"+sep+"default"+sep+stickers[i];
 			//System.out.println(retval[i].getDescription());
 		}
 		return stickers;
@@ -1248,7 +1250,7 @@ public class TemplateGameVars{
 				"green.png",				//9
 				"blue.png"};				//10
 		for(int i=0; i<icons.length; i++){
-			icons[i] = "/textures/default/"+icons[i];
+			icons[i] = sep+"textures"+sep+"default"+sep+icons[i];
 		}
 		return icons;
 	}

@@ -7,6 +7,7 @@ import java.awt.Container;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -29,6 +30,7 @@ public class PreGameFrame extends JFrame implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = -7859011893692247775L;
+	private static String sep = File.separator;
 	private JPanel innerPanel = new JPanel();
 	private ImageIcon picture;
 	private JButton newGame;
@@ -38,7 +40,7 @@ public class PreGameFrame extends JFrame implements ActionListener {
 
 	public PreGameFrame(){
 		//c.setLayout(box);
-		picture = new ImageIcon(System.getProperty("user.dir")+"/resources/topintroimage.png" );
+		picture = new ImageIcon(System.getProperty("user.dir")+sep+"resources"+sep+"topintroimage.png" );
 		newGame = new JButton("New Game");
 		loadGame = new JButton("Load Game");
 		settings = new JButton("Settings");
@@ -60,7 +62,7 @@ public class PreGameFrame extends JFrame implements ActionListener {
 		this.setSize(420,480);
 		this.setTitle("Migs Monopoly!");
 		//System.out.println(System.getProperty("user.dir")+"/resources/frameicon.png");
-		Image icon = new ImageIcon(System.getProperty("user.dir")+"/resources/frameicon.png").getImage();
+		Image icon = new ImageIcon(System.getProperty("user.dir")+sep+"resources"+sep+"frameicon.png").getImage();
 		this.setIconImage(icon);
 		this.setVisible(true);
 	}

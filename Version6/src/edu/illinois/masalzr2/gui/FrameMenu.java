@@ -19,7 +19,7 @@ public class FrameMenu extends JMenuBar implements ActionListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	private static String sep = File.separator;
 	private GameVariables gameVars;
 	
 	private JMenu[] menus;
@@ -75,21 +75,23 @@ public class FrameMenu extends JMenuBar implements ActionListener{
 			JMenuItem source = (JMenuItem) arg0.getSource();
 			
 			if( source.equals(options[0]) ) {
-				 
+				 GameVariables newGame = GameIo.newGame();
+				 newGame.buildFrame();
+				 gameVars.getFrame().dispose();
 			} else if( source.equals(options[1]) ){
 				
 			} else if( source.equals(options[2]) ) {
 				System.out.println(gameVars.getSaveFile().getPath());
 				
-				if( gameVars.getSaveFile().getPath().contains( "/resources/newgame.mns" ) ) {
+				if( gameVars.getSaveFile().getPath().contains( "resources"+sep+"newgame.mns" ) ) {
 					String newName = JOptionPane.showInputDialog(gameVars.getFrame(), "Name your game!");
-					gameVars.setSaveFile(new File(System.getProperty("user.dir")+"/saves/"+newName+".mns" ));
+					gameVars.setSaveFile(new File(System.getProperty("user.dir")+sep+"saves"+sep+newName+".mns" ));
 				}
 				GameIo.writeOut(gameVars);
 				
 			} else if( source.equals(options[3]) ) {
 				String newName= JOptionPane.showInputDialog(gameVars.getFrame(), "Name your Game!");
-				gameVars.setSaveFile(new File(System.getProperty("user.dir")+"/saves/"+newName+".mns" ));
+				gameVars.setSaveFile(new File(System.getProperty("user.dir")+sep+"saves"+sep+newName+".mns" ));
 				GameIo.writeOut(gameVars);
 			} else if( source.equals(options[4]) ) {
 				

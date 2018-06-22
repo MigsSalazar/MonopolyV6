@@ -22,6 +22,8 @@ public class GameVariables implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private transient String sep = File.separator;
+	
 	private transient JFrame frame;
 	private transient FrameMenu menuBar;
 	private transient Board board;
@@ -69,9 +71,10 @@ public class GameVariables implements Serializable{
 	
 	
 	public void buildFrame() {
+		sep = File.separator;
 		frame = new JFrame();
 		frame.setTitle("Monopoly!");
-		frame.setIconImage( (new ImageIcon( System.getProperty("user.dir")+"/resources/frameicon.png" )).getImage() );
+		frame.setIconImage( (new ImageIcon( System.getProperty("user.dir")+sep+"resources"+sep+"frameicon.png" )).getImage() );
 		frame.setLayout(new BorderLayout());
 		menuBar = new FrameMenu(this);
 		frame.setJMenuBar(menuBar);
@@ -81,7 +84,8 @@ public class GameVariables implements Serializable{
 		frame.add(board.getBoard(), BorderLayout.CENTER);
 		frame.add(notices.getNoticePanel(), BorderLayout.SOUTH);
 		frame.add(scores.getScoreboard(), BorderLayout.EAST);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setPreferredSize(new Dimension(1280,700));
 		//best height for the frame is 650
 		frame.pack();
@@ -90,6 +94,7 @@ public class GameVariables implements Serializable{
 		//frame.repaint();
 		
 		frame.setVisible(true);
+		
 		//System.out.println(""+frame.getWidth()+" "+frame.getHeight());
 	}
 	
@@ -101,9 +106,9 @@ public class GameVariables implements Serializable{
 		board.setIconNumbers(paintByNumbers);
 		paintedIcons = new ImageIcon[icons.length];
 		for(int i=0; i<icons.length; i++) {
-			//System.out.println(System.getProperty("user.dir")+icons[i]);
-			paintedIcons[i] = new ImageIcon(System.getProperty("user.dir") + "/" + icons[i]);
-			//System.out.println(paintedIcons[i] != null);
+			System.out.println(System.getProperty("user.dir")+icons[i]);
+			paintedIcons[i] = new ImageIcon(System.getProperty("user.dir") + icons[i]);
+			System.out.println(paintedIcons[i] != null);
 		}
 		board.setIcons(paintedIcons);
 		
@@ -112,9 +117,9 @@ public class GameVariables implements Serializable{
 		
 		coloredStickers = new ImageIcon[stickers.length];
 		for(int i=0; i<stickers.length; i++) {
-			//System.out.println(System.getProperty("user.dir")+"/"+stickers[i]);
-			coloredStickers[i] = new ImageIcon(System.getProperty("user.dir") + "/" + stickers[i]);
-			//System.out.println(coloredStickers[i]);
+			System.out.println(System.getProperty("user.dir")+stickers[i]);
+			coloredStickers[i] = new ImageIcon(System.getProperty("user.dir") + stickers[i]);
+			System.out.println(coloredStickers[i]);
 		}
 		
 		board.setStickers(coloredStickers);
@@ -154,19 +159,19 @@ public class GameVariables implements Serializable{
 	public boolean isTextureInDir(){
 		File f = new File(texture);
 		if(!f.exists()){
-			f = new File(System.getProperty("user.dir")+"/"+texture);
+			f = new File(System.getProperty("user.dir")+sep+texture);
 		}
 		return f.exists();
 	}
 	
 	public String getTextureName(){
-		return texture.substring(texture.lastIndexOf("/"), texture.length());
+		return texture.substring(texture.lastIndexOf(sep), texture.length());
 	}
 	
 	public String getTextureDir(){
 		File f = new File(texture);
 		if(!f.exists()){
-			f = new File(System.getProperty("user.dir")+"/"+texture);
+			f = new File(System.getProperty("user.dir")+sep+texture);
 		}
 		return f.exists() ? f.getAbsolutePath() : "";
 	}
@@ -361,7 +366,7 @@ public class GameVariables implements Serializable{
 	}
 	
 	public void buildCleanGame() {
-		setSaveFile(new File(System.getProperty("user.dir")+"/resources/newgame.mns"));
+		setSaveFile(new File(System.getProperty("user.dir")+sep+"resources"+sep+"newgame.mns"));
 		
 		players = new HashMap<String, Player>();
 		Scanner kb = new Scanner(System.in);

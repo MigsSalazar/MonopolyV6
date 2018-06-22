@@ -9,16 +9,19 @@ import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
 public class MonopolyExceptionHandler implements Thread.UncaughtExceptionHandler {
+	
+	private String sep = File.separator;
+	
 	public void uncaughtException(Thread t, Throwable e) {
 		
-		File errorLog = new File(System.getProperty("user.dir") + "/errorlogs/");
+		File errorLog = new File(System.getProperty("user.dir") + sep + "errorlogs" + sep);
 		if( !errorLog.exists() ) {
 			errorLog.mkdirs();
 		}
 		
 		SimpleDateFormat today = new SimpleDateFormat("MM-dd-yyyy_hh.mm.ss");
 		
-		File finLog = new File(errorLog.getPath()+"/log "+today.format(new Date())+".log");
+		File finLog = new File(errorLog.getPath()+sep+"log "+today.format(new Date())+".log");
 		
 		PrintWriter writeout;
 		try {
