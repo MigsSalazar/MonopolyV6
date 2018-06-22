@@ -2,15 +2,19 @@ package edu.illinois.masalzr2.masters;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.Scanner;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.Timer;
+
+import com.google.gson.annotations.Expose;
 
 import edu.illinois.masalzr2.gui.*;
 import edu.illinois.masalzr2.models.*;
@@ -32,14 +36,14 @@ public class GameVariables implements Serializable{
 	
 	private File saveFile;
 	
-	private HashMap<String, Player> players;
-	private HashMap<String, Property> properties;
-	private HashMap<String, Suite> suites;
+	@Expose private HashMap<String, Player> players;
+	@Expose private HashMap<String, Property> properties;
+	@Expose private HashMap<String, Suite> suites;
 	
 	private HashMap<Integer, Player> playerID;
 	private HashMap<Integer, Property> propertyPos;
 	
-	private PositionIndex propertyPositions;
+	@Expose private PositionIndex propertyPositions;
 	
 	private Counter turn;
 	private ArrayList<Player> turnTable;
@@ -49,26 +53,30 @@ public class GameVariables implements Serializable{
 	private Counter railCount;
 	private Counter utilCount;
 	
-	private ArrayList<GameCard> chance;
-	private ArrayList<GameCard> commchest;
+	@Expose private ArrayList<GameCard> chance;
+	@Expose private ArrayList<GameCard> commchest;
 	
 	private Dice gameDice;
 	
-	private int[][] paintByNumbers;
-	private String[] icons;
+	@Expose private int[][] paintByNumbers;
+	@Expose private String[] icons;
 	private transient ImageIcon[] paintedIcons;
-	private Stamp[][] stampCollection;
-	private HashMap<String, GameToken> playerTokens;
-	private int[][] stickerBook;
-	private String[] stickers;
+	@Expose private Stamp[][] stampCollection;
+	@Expose private HashMap<String, GameToken> playerTokens;
+	@Expose private int[][] stickerBook;
+	@Expose private String[] stickers;
 	private transient ImageIcon[] coloredStickers;
 	
-	private String currency;
-	private String texture;
+	@Expose private String currency;
+	@Expose private String texture;
 	private Counter houseCount;
 	private Counter hotelCount;
 	
+	private HashMap<String, Object> variables;
 	
+	public GameVariables() {
+		populateVariables();
+	}
 	
 	public void buildFrame() {
 		sep = File.separator;
@@ -136,24 +144,44 @@ public class GameVariables implements Serializable{
 		placeTokens();
 	}
 	
-	public String getCurrencySymbol(){
-		return currency;
+	/*
+	 */
+	
+	private void populateVariables() {
+		variables = new HashMap<String, Object>();
+		
+		variables.put("currency", currency);
+		variables.put("housecount", houseCount);
+		variables.put("hotelcount", hotelCount);
+		variables.put("frame", frame);
+		variables.put("proppos", propertyPositions);
+		variables.put("texture", texture);
+		variables.put("chance", chance);
+		variables.put("comchest", commchest);
+		variables.put("dice", gameDice);
+		variables.put("railcount", railCount);
+		variables.put("utilcount", utilCount);
+		variables.put("paintbynumbers", paintByNumbers);
+		variables.put("playertokens", playerTokens);
+		variables.put("icons", icons);
+		variables.put("stampcollection", stampCollection);
+		variables.put("stickerbook", stickerBook);
+		variables.put("stickers", stickers);
+		variables.put("properties", properties);
+		variables.put("players", players);
+		variables.put("suites", suites);
+		variables.put("savefile", saveFile);
+		
 	}
 	
-	public void setCurrentcySymbol(String c) {
-		currency = c;
+	public Object getVariable(String var) {
+		return variables.get(var);
 	}
 	
-	public Counter getHouseCount(){
-		return houseCount;
-	}
-	
-	public Counter getHotelCount(){
-		return hotelCount;
-	}
-	
-	public JFrame getFrame() {
-		return frame;
+	public void setVariable(String key, Object value) {
+		if( variables.containsKey(key) ) {
+			variables.put(key, value);
+		}
 	}
 	
 	public boolean isTextureInDir(){
@@ -162,10 +190,6 @@ public class GameVariables implements Serializable{
 			f = new File(System.getProperty("user.dir")+sep+texture);
 		}
 		return f.exists();
-	}
-	
-	public String getTextureName(){
-		return texture.substring(texture.lastIndexOf(sep), texture.length());
 	}
 	
 	public String getTextureDir(){
@@ -189,7 +213,7 @@ public class GameVariables implements Serializable{
 	public int[] getPropCoords(int p){
 		return propertyPositions.getCoordsAtStep(p);
 	}
-	
+
 	public boolean jailPlayer(Player p){
 		
 		if(jailTable.get(p.getName()) == null ){
@@ -220,10 +244,6 @@ public class GameVariables implements Serializable{
 	public GameCard getRandomChance(){
 		Random rando = new Random();
 		return chance.get(rando.nextInt(chance.size()));
-	}
-	
-	public Dice getDice(){
-		return gameDice;
 	}
 	
 	public Player getPlayerByID(int id){
@@ -259,6 +279,27 @@ public class GameVariables implements Serializable{
 		}
 	}
 	
+	public void fancyPlayerMove(Player p, int move) {
+		
+		Timer time = new Timer(200, null);
+		time.addActionListener(new ActionListener() {
+			
+			int count = move;
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//System.out.println("Time clicked");
+				movePlayer(p, 1);
+				count--;
+				if( count <= 0 ) {
+					time.stop();
+				}
+			}
+		});
+		time.start();
+		
+	}
+	
 	public void movePlayer(Player p, int move){
 		movePlayer(p.getName(), move);
 	}
@@ -274,46 +315,6 @@ public class GameVariables implements Serializable{
 		
 	}
 
-	public Counter getRailCount() {
-		return railCount;
-	}
-
-	public void setRailCount(Counter railCount) {
-		this.railCount = railCount;
-	}
-
-	public Counter getUtilCount() {
-		return utilCount;
-	}
-
-	public void setUtilCount(Counter utilCount) {
-		this.utilCount = utilCount;
-	}
-
-	public int[][] getPaintByNumbers() {
-		return paintByNumbers;
-	}
-
-	public void setPaintByNumbers(int[][] paintByNumbers) {
-		this.paintByNumbers = paintByNumbers;
-	}
-
-	public String[] getIcons() {
-		return icons;
-	}
-
-	public void setIcons(String[] icons) {
-		this.icons = icons;
-	}
-
-	public Stamp[][] getStampCollection() {
-		return stampCollection;
-	}
-
-	public void setStampCollection(Stamp[][] stampCollection) {
-		this.stampCollection = stampCollection;
-	}
-	
 	public void setJailTimes(HashMap<String,Integer> jtimes){
 		jailTimes = jtimes;
 	}
@@ -326,29 +327,7 @@ public class GameVariables implements Serializable{
 		return jailTimes.get(p);
 	}
 	
-	public HashMap<String,Property> getProperties(){
-		return properties;
-	}
 	
-	public void setProperties(HashMap<String, Property> pr){
-		properties = pr;
-	}
-	
-	public HashMap<String,Player> getPlayers(){
-		return players;
-	}
-	
-	public void setPlayers(HashMap<String, Player> pl){
-		players = pl;
-	}
-	
-	public HashMap<String,Suite> getSuites(){
-		return suites;
-	}
-	
-	public void setSuites(HashMap<String, Suite> s){
-		suites = s;
-	}
 	
 	public void parseSuites(String[] colorList) {
 		if(propertyPos.size() == 22 && colorList.length == 22) {
@@ -366,34 +345,15 @@ public class GameVariables implements Serializable{
 	}
 	
 	public void buildCleanGame() {
-		setSaveFile(new File(System.getProperty("user.dir")+sep+"resources"+sep+"newgame.mns"));
+		saveFile = new File(System.getProperty("user.dir")+sep+"resources"+sep+"newgame.mns");
 		
-		players = new HashMap<String, Player>();
-		Scanner kb = new Scanner(System.in);
-		
-		//System.out.println("How many players?");
-		//int pnum = kb.nextInt();
-		
-		//players = new HashMap<String, Player>();
 		playerID = new HashMap<Integer, Player>();
 		turnTable = new ArrayList<Player>();
 		jailTable = new HashMap<String, Boolean>();
 		jailTimes = new HashMap<String, Integer>();
-		String name = "";
-		for(int i=0; i<8; i++){
-			//System.out.println("Enter name for Player "+(i+1)+":");
-			//String name = kb.nextLine();
-			name = i+"";
-			Player noob =  new Player(name, i, 1500, 0, 0, false, new HashMap<String,Property>(), null);
-			players.put(noob.getName(), noob);
-			playerID.put(noob.getId(), noob);
-			turnTable.add(noob);
-			jailTable.put(noob.getName(), false);
-			jailTimes.put(noob.getName(), 0);
-			
-			
-		}
-		kb.close();
+		
+		players = TemplateGameVars.definePlayers();
+		populatePlayerMaps();
 		
 		turn = new Counter(0,8,0);
 		
@@ -405,7 +365,7 @@ public class GameVariables implements Serializable{
 			
 		}
 		currency = "$";
-		texture = "/textures/default/";
+		texture = "default";
 		houseCount = new Counter(0, 32, 0);
 		hotelCount = new Counter(0, 12, 0);
 		
@@ -446,15 +406,17 @@ public class GameVariables implements Serializable{
 		for(int i=0; i<stickers.length; i++) {
 			coloredStickers[i] = new ImageIcon(stickers[i]);
 		}
-		
+		populateVariables();
 	}
-
-	public File getSaveFile() {
-		return saveFile;
-	}
-
-	public void setSaveFile(File saveFile) {
-		this.saveFile = saveFile;
+	
+	private void populatePlayerMaps() {
+		for(Player noob : players.values()) {
+			playerID.put(noob.getId(), noob);
+			turnTable.add(noob);
+			jailTable.put(noob.getName(), false);
+			jailTimes.put(noob.getName(), 0);
+		}
+			
 	}
 	
 	public void repaintFrame(){

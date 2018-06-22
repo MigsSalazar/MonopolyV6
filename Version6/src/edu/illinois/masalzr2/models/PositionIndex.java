@@ -2,21 +2,23 @@ package edu.illinois.masalzr2.models;
 
 import java.io.Serializable;
 
+import com.google.gson.annotations.Expose;
+
 public class PositionIndex implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private int[] x;
-	private int[] y;
+	@Expose private int[] x;
+	@Expose private int[] y;
 	
-	private int[] specialX;
-	private int[] specialY;
+	@Expose private int[] specialX;
+	@Expose private int[] specialY;
 	
-	private int step;
+	@Expose private int step;
 	
-	private boolean locked;
+	@Expose private boolean locked;
 	
 	
 	

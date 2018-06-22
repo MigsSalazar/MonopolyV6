@@ -21,8 +21,15 @@ public class GameCardNotice extends HighLevelNotice {
 	private GameCard card;
 	private Player player;
 	
+	private ArrayList<Player> players;
+	private HashMap<String, Property> properties;
+	
+	@SuppressWarnings("unchecked")
 	public GameCardNotice(ListListener ppl, GameVariables gv, Player pl, boolean chance) {
 		super(ppl, gv);
+		
+		players = new ArrayList<Player>( ((HashMap<String,Player>)gameVars.getVariable("players")).values() );
+		properties = (HashMap<String,Property>)gameVars.getVariable("properties");
 		
 		card = cardPicker(chance);
 		text = "<html>You landed on "+(chance?"Chance":"Community Chest!")+". Your card reads:"
@@ -79,7 +86,7 @@ public class GameCardNotice extends HighLevelNotice {
 		AbstractNotice event = null;
 		if(gc.isGlobalFunds()){
 			event = new PlayerPlayerNotice("<html>Player transaction complete<br>Over seen by the bank.<html>",
-											listener, player, new ArrayList<Player>(gameVars.getPlayers().values()), gc.getMoneyEarned());
+											listener, player, players, gc.getMoneyEarned());
 		}else{
 			event = new PlayerBankNotice("<html>Bank transaction complete.</html>",
 										listener, player, gc.getMoneyEarned());
@@ -181,8 +188,8 @@ public class GameCardNotice extends HighLevelNotice {
 		case "go":	moveBy = 40 - player.getPosition();
 					event = moveAndDo(player, moveBy);
 					break;
-		default:if(gameVars.getProperties().containsKey(gc.getFindThis())){
-					Property prop = gameVars.getProperties().get(gc.getFindThis());
+		default:if(properties.containsKey(gc.getFindThis())){
+					Property prop = properties.get(gc.getFindThis());
 					if(player.getPosition() > prop.getPosition()){
 						moveBy = (40+prop.getPosition()) - player.getPosition();
 					}else{
@@ -219,7 +226,7 @@ public class GameCardNotice extends HighLevelNotice {
 					}
 				}
 			}
-			String currency = gameVars.getCurrencySymbol();
+			String currency = (String)gameVars.getVariable("currency");
 			String textOut = "<html>Renovation Costs:"
 							+ "<br>Hotels: "+hotelnum+"    Cost: "+currency+hotels
 							+ "<br>Houses: "+housenum+"    Cost: "+currency+houses

@@ -1,0 +1,138 @@
+java.lang.NullPointerException
+	at edu.illinois.masalzr2.notices.implentations.PropertyNotice.<init>(PropertyNotice.java:31)
+	at edu.illinois.masalzr2.notices.implentations.HighLevelNotice.actionDone(HighLevelNotice.java:56)
+	at edu.illinois.masalzr2.notices.implentations.HighLevelNotice.moveAndDo(HighLevelNotice.java:90)
+	at edu.illinois.masalzr2.notices.implentations.HomeMenuNotice.actionPerformed(HomeMenuNotice.java:48)
+	at java.desktop/javax.swing.AbstractButton.fireActionPerformed(Unknown Source)
+	at java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(Unknown Source)
+	at java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(Unknown Source)
+	at java.desktop/javax.swing.DefaultButtonModel.setPressed(Unknown Source)
+	at java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(Unknown Source)
+	at java.desktop/java.awt.Component.processMouseEvent(Unknown Source)
+	at java.desktop/javax.swing.JComponent.processMouseEvent(Unknown Source)
+	at java.desktop/java.awt.Component.processEvent(Unknown Source)
+	at java.desktop/java.awt.Container.processEvent(Unknown Source)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Unknown Source)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Unknown Source)
+	at java.desktop/java.awt.Component.dispatchEvent(Unknown Source)
+	at java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Unknown Source)
+	at java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Unknown Source)
+	at java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Unknown Source)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Unknown Source)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Unknown Source)
+	at java.desktop/java.awt.Component.dispatchEvent(Unknown Source)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(Unknown Source)
+	at java.desktop/java.awt.EventQueue.access$600(Unknown Source)
+	at java.desktop/java.awt.EventQueue$4.run(Unknown Source)
+	at java.desktop/java.awt.EventQueue$4.run(Unknown Source)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.desktop/java.awt.EventQueue$5.run(Unknown Source)
+	at java.desktop/java.awt.EventQueue$5.run(Unknown Source)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(Unknown Source)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(Unknown Source)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.desktop/java.awt.EventDispatchThread.run(Unknown Source)
+java.lang.ref.Reference
+			waitForReferencePendingList
+			-2java.lang.ref.Reference
+			processPendingReferences
+			-1java.lang.ref.Reference
+			access$000
+			-1java.lang.ref.Reference$ReferenceHandler
+			run
+			-1java.lang.Object
+			wait
+			-2java.lang.Object
+			wait
+			-1sun.awt.AWTAutoShutdown
+			run
+			-1java.lang.Thread
+			run
+			-1java.lang.Object
+			wait
+			-2java.lang.ref.ReferenceQueue
+			remove
+			-1java.lang.ref.ReferenceQueue
+			remove
+			-1java.lang.ref.Finalizer$FinalizerThread
+			run
+			-1java.lang.Object
+			wait
+			-2java.lang.ref.ReferenceQueue
+			remove
+			-1java.lang.ref.ReferenceQueue
+			remove
+			-1sun.java2d.Disposer
+			run
+			-1java.lang.Thread
+			run
+			-1java.lang.Thread
+			dumpThreads
+			-2java.lang.Thread
+			getAllStackTraces
+			-1edu.illinois.masalzr2.masters.MonopolyExceptionHandler
+			uncaughtException
+			37java.lang.ThreadGroup
+			uncaughtException
+			-1java.lang.ThreadGroup
+			uncaughtException
+			-1java.awt.EventDispatchThread
+			processException
+			-1java.awt.EventDispatchThread
+			pumpOneEventForFilters
+			-1java.awt.EventDispatchThread
+			pumpEventsForFilter
+			-1java.awt.EventDispatchThread
+			pumpEventsForHierarchy
+			-1java.awt.EventDispatchThread
+			pumpEvents
+			-1java.awt.EventDispatchThread
+			pumpEvents
+			-1java.awt.EventDispatchThread
+			run
+			-1sun.lwawt.macosx.CPlatformWindow
+			nativeGetTopmostPlatformWindowUnderMouse
+			-2sun.lwawt.macosx.LWCToolkit
+			getPlatformWindowUnderMouse
+			-1sun.lwawt.LWWindowPeer
+			notifyMouseEvent
+			-1sun.lwawt.macosx.CPlatformResponder
+			handleMouseEvent
+			-1sun.lwawt.macosx.CPlatformView
+			deliverMouseEvent
+			-1java.lang.Object
+			wait
+			-2java.lang.ref.ReferenceQueue
+			remove
+			-1jdk.internal.ref.CleanerImpl
+			run
+			-1java.lang.Thread
+			run
+			-1jdk.internal.misc.InnocuousThread
+			run
+			-1jdk.internal.misc.Unsafe
+			park
+			-2java.util.concurrent.locks.LockSupport
+			park
+			-1java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject
+			await
+			-1java.util.concurrent.DelayQueue
+			take
+			-1javax.swing.TimerQueue
+			run
+			-1java.lang.Thread
+			run
+			-1java.lang.Object
+			wait
+			-2sun.java2d.opengl.OGLRenderQueue$QueueFlusher
+			run
+			-1java.lang.Thread
+			run
+			-1

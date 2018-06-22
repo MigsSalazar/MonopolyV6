@@ -3,6 +3,8 @@ package edu.illinois.masalzr2.models;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import com.google.gson.annotations.Expose;
+
 public class Suite implements Serializable{
 	
 	/**
@@ -11,7 +13,8 @@ public class Suite implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private ArrayList<Street> streets;
-	private String color;
+	@Expose private ArrayList<String> names;
+	@Expose private String color;
 	
 	
 	/**
@@ -26,13 +29,20 @@ public class Suite implements Serializable{
 	 */
 	public Suite(Street s0, Street s1, Street s2, String c){
 		streets = new ArrayList<Street>();
+		names = new ArrayList<String>();
 		
 		streets.add(s0);
 		streets.add(s1);
 		
+		names.add(s0.getName());
+		names.add(s1.getName());
+		
 		if(s2!=null){
 			streets.add(s2);
+			names.add(s2.getName());
 		}
+		
+		names.sort(String.CASE_INSENSITIVE_ORDER);
 		
 		streets = sortedByPosition();
 		color = c;

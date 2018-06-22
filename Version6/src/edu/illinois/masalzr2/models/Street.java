@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import javax.swing.event.ChangeListener;
 
+import com.google.gson.annotations.Expose;
+
 public class Street extends Property implements Serializable {
 	
 	/**
@@ -12,9 +14,9 @@ public class Street extends Property implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private int grade;
-	private int upgradeCost;
-	private int[] rent;
+	@Expose private int grade;
+	@Expose private int upgradeCost;
+	@Expose private int[] rent;
 	
 	public Street(String n, int pos, int pr, String o, boolean m, ArrayList<ChangeListener> listen, int g, int uc, int[] r){
 		super(n, pos, pr, o, m, listen);

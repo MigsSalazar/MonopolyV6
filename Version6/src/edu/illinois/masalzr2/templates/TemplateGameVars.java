@@ -49,6 +49,18 @@ public class TemplateGameVars{
 		}
 	}
 	
+	public static HashMap<String, Player> definePlayers(){
+		HashMap<String, Player> retval = new HashMap<String, Player>();
+		
+		Player noob;
+		for(int i=0; i<8; i++) {
+			noob = new Player(""+i, i, 1500, 0, 0, false, new HashMap<String,Property>(), null);
+			retval.put(noob.getName(), noob);
+		}
+		
+		return retval;
+	}
+	
 	
 	public static int[][] stickerBook(){
 		int[][] temp = {{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //-1

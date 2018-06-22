@@ -7,6 +7,8 @@ import java.util.Comparator;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import com.google.gson.annotations.Expose;
+
 
 public class Property implements Serializable{
 
@@ -14,11 +16,11 @@ public class Property implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected String name;
-	protected int position;
-	protected int price;
-	protected String owner = "";
-	protected boolean mBool;
+	@Expose protected String name;
+	@Expose protected int position;
+	@Expose protected int price;
+	@Expose protected String owner = "";
+	@Expose protected boolean mBool;
 	private ArrayList<ChangeListener> listeners;
 	
 	public Property(String n, int pos, int pr, String o, boolean m, ArrayList<ChangeListener> listen){

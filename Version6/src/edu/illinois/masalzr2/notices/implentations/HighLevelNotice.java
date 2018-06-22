@@ -12,11 +12,14 @@ public abstract class HighLevelNotice extends AbstractNotice {
 	protected Player currentPlayer;
 	protected GameVariables gameVars;
 	protected Dice gameDice;
+	private String currency;
 
 	public HighLevelNotice(ListListener ppl, GameVariables gv) {
 		super(ppl);
 		gameVars = gv;
-		gameDice = gameVars.getDice();
+		currentPlayer = gameVars.getCurrentPlayer();
+		gameDice = (Dice)gameVars.getVariable("dice");
+		currency = (String)gameVars.getVariable("currency");
 	}
 	
 	
@@ -32,13 +35,13 @@ public abstract class HighLevelNotice extends AbstractNotice {
 		case 3:	gameVars.jailPlayer(p);
 				//p.setPosition(10);
 				event = new MessageNotice("<html>"+p.getName()+", you must go to jail!"
-											+ "<br>Do not pass Go, do not collect "+gameVars.getCurrencySymbol()+"200!</html>",
+											+ "<br>Do not pass Go, do not collect "+currency+"200!</html>",
 											listener);
 			break;
-		case 4:	event = new IncomeTaxNotice(listener, gameVars, p);
+		case 4:	event = new IncomeTaxNotice(listener, currency, p);
 			break;
 		case 5: event = new PlayerBankNotice("<html>"+p.getName()+", you must pay the "
-											+gameVars.getCurrencySymbol()+"75 luxury tax!</html>", 
+											+currency+"75 luxury tax!</html>", 
 											listener, 
 											p, 
 											-75);
@@ -81,7 +84,7 @@ public abstract class HighLevelNotice extends AbstractNotice {
 	}
 	
 	protected AbstractNotice moveAndDo(int roll) {
-		gameVars.movePlayer(currentPlayer, roll);
+		gameVars.fancyPlayerMove(currentPlayer, roll);
 		currentPlayer.addPosition(roll);
 		int result = findAction(currentPlayer.getPosition());
 		//System.out.println("current Player Name: "+currentPlayer.getName());
@@ -91,7 +94,7 @@ public abstract class HighLevelNotice extends AbstractNotice {
 	protected AbstractNotice moveAndDo(Player player, int roll) {
 		//System.out.println("player move and do roll: "+roll);
 		
-		gameVars.movePlayer(player, roll);
+		gameVars.fancyPlayerMove(player, roll);
 		player.addPosition(roll);
 		int result = findAction(player.getPosition());
 		//System.out.println("current Player Name: "+currentPlayer.getName());

@@ -8,6 +8,8 @@ import java.util.HashMap;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import com.google.gson.annotations.Expose;
+
 
 public class Player implements Serializable{
 	
@@ -16,12 +18,12 @@ public class Player implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private String name;
-	private int id;
-	private int cash;
-	private int position;
-	private int jailCard;
-	private boolean bankrupt;
+	@Expose private String name;
+	@Expose private int id;
+	@Expose private int cash;
+	@Expose private int position;
+	@Expose private int jailCard;
+	@Expose private boolean bankrupt;
 	private HashMap<String, Property> props;
 	private ArrayList<ChangeListener> listeners;
 	

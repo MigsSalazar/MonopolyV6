@@ -9,7 +9,6 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
-import edu.illinois.masalzr2.masters.GameVariables;
 import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.models.Property;
 import edu.illinois.masalzr2.notices.AbstractNotice;
@@ -17,8 +16,6 @@ import edu.illinois.masalzr2.notices.ListEvent;
 import edu.illinois.masalzr2.notices.ListListener;
 
 public class AuctionNotice extends AbstractNotice implements KeyListener  {
-
-	private GameVariables gameVars;
 	
 	private Property prop;
 	private int turn = 0;
@@ -26,29 +23,30 @@ public class AuctionNotice extends AbstractNotice implements KeyListener  {
 	private int highestBidder = -1;
 	private String[] playerNames;
 	private HashMap<String, Player> players;
+	private String currency;
 	
-	public AuctionNotice(ListListener ppl, GameVariables gv, Property pr){
+	public AuctionNotice(ListListener ppl, HashMap<String,Player> pl, Property pr, String c){
 		super(ppl);
-		subConstructor(gv, pr);
+		subConstructor(pl, pr, c);
 		
 		defineActions();
 	}
 	
-	public AuctionNotice(ListListener ppl, GameVariables gv, Property pr, int t, int b, int hb) {
+	public AuctionNotice(ListListener ppl, HashMap<String,Player> pl, Property pr, int t, int b, int hb, String c) {
 		super(ppl);
-		subConstructor(gv, pr);
+		subConstructor(pl, pr, c);
 		turn = t;
 		bid = b;
 		highestBidder = hb;
 	}
 
-	private void subConstructor(GameVariables gv, Property pr) {
-		gameVars = gv;
+	private void subConstructor(HashMap<String, Player> pl, Property pr, String c) {
 		prop = pr;
-		players = gameVars.getPlayers();
+		players = pl;
 		playerNames = new String[players.size()];
 		players.keySet().toArray(playerNames);
-		text = "<html>Current bid on "+prop.getName()+" is "+gameVars.getCurrencySymbol()+bid + " by " + playerNames[0]
+		currency = c;
+		text = "<html>Current bid on "+prop.getName()+" is "+currency+bid + " by " + playerNames[0]
 				+"<br>"+playerNames[turn]+", will you raise or pass? Entering 0 means you pass."
 				+"<br>Your offer:</html>";
 	}
@@ -94,7 +92,7 @@ public class AuctionNotice extends AbstractNotice implements KeyListener  {
 		}else{
 			person = "";
 		}
-		text = "<html>Current bid on "+prop.getName()+" is "+gameVars.getCurrencySymbol()+bid + person
+		text = "<html>Current bid on "+prop.getName()+" is "+currency+bid + person
 				+"<br>"+playerNames[turn]+", will you raise or pass? Entering 0 means you pass."
 				+"<br>Your offer:</html>";
 	}
@@ -116,7 +114,7 @@ public class AuctionNotice extends AbstractNotice implements KeyListener  {
 	}
 	
 	private String whoWon(){
-		return "<html>"+playerNames[highestBidder]+" has won the auction and bought<br>"+prop.getName()+" for "+gameVars.getCurrencySymbol()+bid+"</html>";
+		return "<html>"+playerNames[highestBidder]+" has won the auction and bought<br>"+prop.getName()+" for "+currency+bid+"</html>";
 	}
 	
 	private boolean fullCircle(){
