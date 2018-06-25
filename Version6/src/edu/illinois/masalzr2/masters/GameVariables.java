@@ -302,11 +302,13 @@ public class GameVariables implements Serializable{
 		time.addActionListener(new ActionListener() {
 			
 			int count = move;
+			GameToken current = playerTokens.get(p.getName());
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//System.out.println("Time clicked");
-				visualMove(playerTokens.get(p.getName()), 1);
+				visualMove(current, 1);
+				current.movePiece(1);
 				count--;
 				if( count <= 0 ) {
 					time.stop();
