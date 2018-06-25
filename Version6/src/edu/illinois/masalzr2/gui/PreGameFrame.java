@@ -20,6 +20,8 @@ import javax.swing.JPanel;
 
 import edu.illinois.masalzr2.io.GameIo;
 import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.masters.LogMate;
+import edu.illinois.masalzr2.masters.LogMate.Logger;
 import edu.illinois.masalzr2.templates.TemplateGameVars;
 
 import javax.swing.JButton;
@@ -35,6 +37,9 @@ public class PreGameFrame extends JFrame implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = -7859011893692247775L;
+	
+	private static Logger LOG = LogMate.LOG;
+	
 	private static String sep = File.separator;
 	private JPanel innerPanel = new JPanel();
 	private ImageIcon picture;
@@ -45,6 +50,9 @@ public class PreGameFrame extends JFrame implements ActionListener {
 
 	public PreGameFrame(){
 		//c.setLayout(box);
+		
+		LOG.newEntry("PreGameFrame: beginning");
+		
 		picture = new ImageIcon(System.getProperty("user.dir")+sep+"resources"+sep+"topintroimage.png" );
 		newGame = new JButton("New Game");
 		loadGame = new JButton("Load Game");
@@ -61,6 +69,9 @@ public class PreGameFrame extends JFrame implements ActionListener {
 		innerPanel.add("about button", about);
 	}
 	public void start(){
+		
+		LOG.newEntry("PreGameFrame: Start: beginning start method");
+		
 		Container c = this.getContentPane();
 		c.add(innerPanel);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,6 +85,9 @@ public class PreGameFrame extends JFrame implements ActionListener {
 	
 	
 	private void addListeners(){
+		
+		LOG.newEntry("Adding pregameframe listeners");
+		
 		newGame.addActionListener(this);
 		
 		loadGame.addActionListener(this);
@@ -84,6 +98,7 @@ public class PreGameFrame extends JFrame implements ActionListener {
 	}
 	
 	private void closeMe(){
+		LOG.newEntry("PreGameFrame: closing");
 		this.dispose();
 	}
 	

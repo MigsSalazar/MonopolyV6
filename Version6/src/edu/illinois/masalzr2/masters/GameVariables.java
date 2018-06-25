@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ import javax.swing.Timer;
 import com.google.gson.annotations.Expose;
 
 import edu.illinois.masalzr2.gui.*;
+import edu.illinois.masalzr2.masters.LogMate.Logger;
 import edu.illinois.masalzr2.models.*;
 import edu.illinois.masalzr2.templates.TemplateGameVars;
 
@@ -26,6 +29,7 @@ public class GameVariables implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private static transient Logger LOG = LogMate.LOG;
 	private transient String sep = File.separator;
 	
 	private transient JFrame frame;
@@ -75,6 +79,7 @@ public class GameVariables implements Serializable{
 	private HashMap<String, Object> variables;
 	
 	public GameVariables() {
+		LOG.newEntry("GameVariables called");
 		populateVariables();
 	}
 	
@@ -103,14 +108,35 @@ public class GameVariables implements Serializable{
 		
 		frame.setVisible(true);
 		
+		frame.addWindowListener(new WindowListener() {
+			@Override
+			public void windowActivated(WindowEvent arg0) {}
+			@Override
+			public void windowClosed(WindowEvent arg0) {}
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				LOG.newEntry("GameVariables: Game frame is closing");
+				LOG.finish();
+			}
+			@Override
+			public void windowDeactivated(WindowEvent arg0) {}
+			@Override
+			public void windowDeiconified(WindowEvent arg0) {}
+			@Override
+			public void windowIconified(WindowEvent arg0) {}
+			@Override
+			public void windowOpened(WindowEvent arg0) {}
+		});
+		
 		//System.out.println(""+frame.getWidth()+" "+frame.getHeight());
 	}
 	
 	
 	private void buildBoard() {
+		LOG.newEntry("GameVariables: buildBoard: Building game board");
 		board = new Board();
 		
-		
+		LOG.newEntry("GameVariables: buildBoard: Passing icons and numbers");
 		board.setIconNumbers(paintByNumbers);
 		paintedIcons = new ImageIcon[icons.length];
 		for(int i=0; i<icons.length; i++) {
@@ -120,7 +146,7 @@ public class GameVariables implements Serializable{
 		}
 		board.setIcons(paintedIcons);
 		
-		
+		LOG.newEntry("GameVariables: buildBoard: Passing Stickers");
 		board.setStickerBook(stickerBook);
 		
 		coloredStickers = new ImageIcon[stickers.length];
@@ -132,6 +158,7 @@ public class GameVariables implements Serializable{
 		
 		board.setStickers(coloredStickers);
 		
+		LOG.newEntry("GameVariables: buildBoard: Passing stamps, dice, and dice assets");
 		board.setStamps(stampCollection);
 		
 		board.setDiceIcons(paintedIcons[1], paintedIcons[2]);
@@ -140,6 +167,7 @@ public class GameVariables implements Serializable{
 		
 		board.setDiceLocations(7, 11, 7, 16);
 		
+		LOG.newEntry("GameVariables: buildBoard: painting display and placing tokens");
 		board.paintDisplay();
 		placeTokens();
 	}
@@ -148,6 +176,7 @@ public class GameVariables implements Serializable{
 	 */
 	
 	private void populateVariables() {
+		LOG.newEntry("GameVariables: populating variables");
 		variables = new HashMap<String, Object>();
 		
 		variables.put("currency", currency);
@@ -175,32 +204,19 @@ public class GameVariables implements Serializable{
 	}
 	
 	public Object getVariable(String var) {
+		LOG.newEntry("GameVariables: Variable requested: " + var);
 		return variables.get(var);
 	}
 	
 	public void setVariable(String key, Object value) {
+		LOG.newEntry("GameVariables: request to set " + key + " to value " + value.toString());
 		if( variables.containsKey(key) ) {
 			variables.put(key, value);
 		}
 	}
 	
-	public boolean isTextureInDir(){
-		File f = new File(texture);
-		if(!f.exists()){
-			f = new File(System.getProperty("user.dir")+sep+texture);
-		}
-		return f.exists();
-	}
-	
-	public String getTextureDir(){
-		File f = new File(texture);
-		if(!f.exists()){
-			f = new File(System.getProperty("user.dir")+sep+texture);
-		}
-		return f.exists() ? f.getAbsolutePath() : "";
-	}
-	
 	public int roll(){
+		LOG.newEntry("GameVariables: roll: rolling dice");
 		gameDice.roll();
 		board.paintDice(gameDice.getLastDice()[0], gameDice.getLastDice()[1]);
 		return gameDice.getLastRoll();
@@ -215,7 +231,7 @@ public class GameVariables implements Serializable{
 	}
 
 	public boolean jailPlayer(Player p){
-		
+		LOG.newEntry("GameVariables: jailPlayer: player " + p.getName() + " has been jailed");
 		if(jailTable.get(p.getName()) == null ){
 			return false;
 		}
@@ -226,6 +242,7 @@ public class GameVariables implements Serializable{
 		
 		int[] newCoords = jailMe.useSpecialtyCase(0);
 		
+		LOG.newEntry("GameVariables: jailPlayer: moving piece to jail cell");
 		board.movePiece(jailMe.getPiece(), newCoords[0], newCoords[1]);
 		
 		return true;
@@ -237,14 +254,14 @@ public class GameVariables implements Serializable{
 	
 	public GameCard getRandomCommChest(){
 		Random rando = new Random();
-		//return commchest.get(rando.nextInt(commchest.size()));
-		return commchest.get(0);
+		return commchest.get(rando.nextInt(commchest.size()));
+		//return commchest.get(0);
 	}
 	
 	public GameCard getRandomChance(){
 		Random rando = new Random();
-		return chance.get(0);
-		//return chance.get(rando.nextInt(chance.size()));
+		//return chance.get(0);
+		return chance.get(rando.nextInt(chance.size()));
 	}
 	
 	public Player getPlayerByID(int id){
@@ -281,9 +298,6 @@ public class GameVariables implements Serializable{
 	}
 	
 	public void fancyPlayerMove(Player p, int move) {
-		
-		
-		
 		Timer time = new Timer(200, null);
 		time.addActionListener(new ActionListener() {
 			
@@ -341,6 +355,9 @@ public class GameVariables implements Serializable{
 	
 	
 	public void parseSuites(String[] colorList) {
+		
+		LOG.newEntry("GameVariables: parseSuites: populating suites map");
+		
 		if(propertyPos.size() == 22 && colorList.length == 22) {
 			suites = new HashMap<String,Suite>();
 			

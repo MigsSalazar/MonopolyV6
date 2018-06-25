@@ -8,7 +8,6 @@ public class GoNotice extends PlayerBankNotice {
 	public GoNotice(ListListener ppl, Player p) {
 		super("You passed/landed on Go!"
 				+ "<br>Collect $200!" , ppl, p, 200);
-		// TODO Auto-generated constructor stub
 	}
 
 }

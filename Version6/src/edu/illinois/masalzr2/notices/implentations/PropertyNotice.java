@@ -46,13 +46,11 @@ public class PropertyNotice extends AbstractNotice {
 				//BankPropertyActions.sellUnownedProperty(play, prop);
 				String texter = "You bought "+prop.getName()+"!";
 				AbstractNotice an = new PlayerPropertyNotice(texter, listener, player, prop);
-				listener.pushMe(new ListEvent(an));
-				listener.popMe(new ListEvent(this));
+				noticePushPop(an);
 			}else{
 				@SuppressWarnings("unchecked")
 				AbstractNotice an = new AuctionNotice(listener, (HashMap<String,Player>)gameVars.getVariable("players"), prop, currency);
-				listener.pushMe(new ListEvent(an));
-				listener.popMe(new ListEvent(this));
+				noticePushPop(an);
 			}
 		}else if(!prop.getOwner().equals(player.getName())){
 			//BankPropertyActions.rentOwnedProperty(play, prop);
@@ -63,10 +61,10 @@ public class PropertyNotice extends AbstractNotice {
 			
 			AbstractNotice an = new PlayerPlayerNotice(outText, listener, player, p2, (-1)*prop.getRent());
 			//AbstractNotice a = new MessageEvent(parent, "You payed "+play.getName()+" for landing on "+prop.getName()+"!");
-			listener.pushMe(new ListEvent(an));
-			listener.popMe(new ListEvent(this));
+			noticePushPop(an);
 			//parent.jumpStartClean();
 		}else{
+			LOG.newEntry("PropertyNotice: actionPerformed: popping self");
 			listener.popMe(new ListEvent(this));
 		}
 	}

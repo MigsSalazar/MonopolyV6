@@ -26,6 +26,7 @@ public class MessageNotice extends AbstractNotice{
 	
 	@Override
 	public void actionPerformed(ActionEvent e){
+		LOG.newEntry(this.getClass().getName() + ": actionPerformed: popping self from list");
 		listener.popMe(new ListEvent(this));
 	}
 	
