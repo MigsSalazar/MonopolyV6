@@ -1,0 +1,15 @@
+Starter: static: beginning log
+Starter: main: creating PreGameFrame
+PreGameFrame: beginning
+Adding pregameframe listeners
+Starter: main: Starting PreGameFrame
+PreGameFrame: Start: beginning start method
+GameVariables: buildBoard: Building game board
+GameVariables: buildBoard: Passing icons and numbers
+GameVariables: buildBoard: Passing Stickers
+GameVariables: buildBoard: Passing stamps, dice, and dice assets
+GameVariables: buildBoard: painting display and placing tokens
+GameVariables: Variable requested: dice
+GameVariables: Variable requested: currency
+PreGameFrame: closing
+GameVariables: Game frame is closing

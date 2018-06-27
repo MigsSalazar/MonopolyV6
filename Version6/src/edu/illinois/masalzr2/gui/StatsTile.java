@@ -11,7 +11,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -43,7 +42,7 @@ private Player myPlayer;
 	private int propSize = 0;
 	
 	private JScrollPane pListScroller;
-	private JTextArea pTextArea;
+	private JPanel pTextArea;
 	
 	/**
 	 * Default constructor. Purpose of this panel is to display all the necessary
@@ -117,12 +116,16 @@ private Player myPlayer;
 	 * within a JScrollPane
 	 */
 	public void formJList(){
-		pTextArea = new JTextArea();
-		pTextArea.setEditable(false);
+		pTextArea = new JPanel(new GridLayout(10, 1));
+		pTextArea.setOpaque(false);
 		
-		String fullList = getPropertyList();
+		JLabel[] fullList = getPropertyList();
 		
-		pTextArea.setText(fullList);
+		pTextArea.removeAll();
+		
+		for(JLabel jl : fullList) {
+			pTextArea.add(jl);
+		}
 		
 		pListScroller = new JScrollPane(pTextArea);
 		
@@ -155,26 +158,25 @@ private Player myPlayer;
 		wealth.setOpaque(true);
 	}
 
-	private String getPropertyList() {
-		String fullList = "";
+	private JLabel[] getPropertyList() {
 		
-		List<Property> props = new ArrayList<Property>(myPlayer.getProps().values());
+		List<Property> props = new ArrayList<Property>( myPlayer.getProps().values() );
+		JLabel[] labels = new JLabel[props.size()];
 		
 		props.sort(Property.getPositionComparator());
 		
-		for(Property p : props) {
-			fullList += p.getName();
+		for(int i=0; i<props.size(); i++) {
+			Property p = props.get(i);
 			
-			if( p.isMortgaged() ) {
-				fullList += "-Mortgaged";
+			labels[i] = new JLabel(p.getName() + (p.isMortgaged() ? " - Mortgaged" : ""));
+			labels[i].setOpaque(true);
+			if(p.getColor() != 1) {
+				labels[i].setBackground( new Color(p.getColor()) );
 			}
-			fullList += "\n";
 			
 		}
 		
-		propSize = props.size();
-		
-		return fullList;
+		return labels;
 	}
 	
 	@Override
@@ -186,9 +188,18 @@ private Player myPlayer;
 		actv.setText("Bankrupt: "+myPlayer.isBankrupt());
 		
 		if( myPlayer.getProps().size() != propSize ) {
-			String fullList = getPropertyList();
+			JLabel[] fullList = getPropertyList();
 			
-			pTextArea.setText(fullList);
+			pTextArea.removeAll();
+			
+			if(fullList.length > ((GridLayout)pTextArea.getLayout()).getRows() ) {
+				((GridLayout)pTextArea.getLayout()).setRows(fullList.length + 1);
+			}
+			
+			for(JLabel jl : fullList) {
+				pTextArea.add(jl);
+			}
+			
 		}
 		
 		

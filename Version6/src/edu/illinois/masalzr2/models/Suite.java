@@ -15,7 +15,7 @@ public class Suite implements Serializable{
 	private ArrayList<Street> streets;
 	@Expose private ArrayList<String> names;
 	@Expose private String colorName;
-	@Expose private String colorValue;
+	@Expose private int colorValue;
 	
 	
 	/**
@@ -28,7 +28,11 @@ public class Suite implements Serializable{
 	 * @param s2 		Third Street object
 	 * @param c 		String object of the Streets color
 	 */
-	public Suite(Street s0, Street s1, Street s2, String c){
+	public Suite(Street s0, Street s1, Street s2, String cn, int cv){
+		
+		colorName = cn;
+		colorValue = cv;
+		
 		streets = new ArrayList<Street>();
 		names = new ArrayList<String>();
 		streets.add(s0);
@@ -37,15 +41,19 @@ public class Suite implements Serializable{
 		names.add(s0.getName());
 		names.add(s1.getName());
 		
+		s0.setColor(colorValue);
+		s1.setColor(colorValue);
+		
 		if(s2!=null){
 			streets.add(s2);
 			names.add(s2.getName());
+			s2.setColor(colorValue);
 		}
 		
 		names.sort(String.CASE_INSENSITIVE_ORDER);
 		
 		streets = sortedByPosition();
-		colorName = c;
+		
 	}
 	
 	/**
