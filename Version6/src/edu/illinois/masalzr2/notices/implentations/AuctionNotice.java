@@ -135,8 +135,7 @@ public class AuctionNotice extends AbstractNotice implements KeyListener  {
 			if(fullCircle()){
 				//BankPropertyActions.sellUnownedProperty(players.get(playerNames[highestBidder].toString()), prop, bid);
 				MessageNotice an = new PlayerPropertyNotice(whoWon(), listener, players.get(playerNames[highestBidder]), prop, bid);
-				listener.pushMe(new ListEvent(an));
-				listener.popMe(new ListEvent(this));
+				noticePushPop(an);
 			}
 		}
 		

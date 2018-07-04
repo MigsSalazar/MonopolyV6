@@ -32,16 +32,15 @@ public class IncomeTaxNotice extends AbstractNotice {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		PlayerBankNotice pbe = null;
+		PlayerBankNotice an = null;
 		if(e.getSource().equals(actions[0])){
-			pbe = new PlayerBankNotice("<html>You have decided to pay 10%"
+			an = new PlayerBankNotice("<html>You have decided to pay 10%"
 											+ "<br>This has been taken from your account</html>", listener,play,(-1)*tax);
 		}else if(e.getSource().equals(actions[1])){
-			pbe = new PlayerBankNotice("<html>You have decided to pay "+currency+"200"
+			an = new PlayerBankNotice("<html>You have decided to pay "+currency+"200"
 											+ "<br>This has been taken from yuor account</html>", listener, play, (-200));
 		}
-		listener.pushMe(new ListEvent(pbe));
-		listener.popMe(new ListEvent(this));
+		noticePushPop(an);
 	}
 
 	@Override

@@ -52,7 +52,7 @@ public abstract class HighLevelNotice extends AbstractNotice {
 		case 7: //event = new CardNotice(listener, p, true);
 				event = new GameCardNotice(listener, gameVars, p, true);
 			break;
-		case 8: System.out.println("p position = "+ p.getPosition());
+		case 8: //System.out.println("p position = "+ p.getPosition());
 				Property passMe = gameVars.getPropertyAt(p.getPosition());
 				event = new PropertyNotice(listener, gameVars, p, passMe);
 			break;
@@ -73,6 +73,7 @@ public abstract class HighLevelNotice extends AbstractNotice {
 	protected void crossGo(Player p, int roll) {
 		if( (p.getPosition() + roll) >= 40 || (p.getPosition() + roll)==0){
 			GoNotice pbe = new GoNotice(listener, currentPlayer);
+			LOG.newEntry(this.getClass().getName() + ": crossGo: pushing self");
 			listener.pushMe(new ListEvent(pbe));
 		}
 	}

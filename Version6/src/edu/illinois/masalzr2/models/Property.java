@@ -21,6 +21,7 @@ public class Property implements Serializable{
 	@Expose protected int price;
 	@Expose protected String owner = "";
 	@Expose protected boolean mBool;
+	@Expose protected int color;
 	private ArrayList<ChangeListener> listeners;
 	
 	public Property(String n, int pos, int pr, String o, boolean m, ArrayList<ChangeListener> listen){
@@ -38,6 +39,7 @@ public class Property implements Serializable{
 		price = 0;
 		owner = "";
 		mBool = false;
+		color = 1;
 		listeners = new ArrayList<ChangeListener>();
 	}
 	
@@ -112,6 +114,14 @@ public class Property implements Serializable{
 	
 	public int getRent(){
 		return 0;
+	}
+	
+	public int getColor() {
+		return color;
+	}
+	
+	public void setColor(int c) {
+		color = c;
 	}
 	
 	public int compareByPosition(Property other){

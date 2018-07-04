@@ -1,6 +1,7 @@
 package edu.illinois.masalzr2.masters;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +20,7 @@ import javax.swing.Timer;
 import com.google.gson.annotations.Expose;
 
 import edu.illinois.masalzr2.gui.*;
+import edu.illinois.masalzr2.masters.LogMate.Logger;
 import edu.illinois.masalzr2.models.*;
 import edu.illinois.masalzr2.templates.TemplateGameVars;
 
@@ -27,9 +29,8 @@ public class GameVariables implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	//private Log LOG = LogMate.LOG;
-	
+
+	private static transient Logger LOG = LogMate.LOG;
 	private transient String sep = File.separator;
 	
 	private transient JFrame frame;
@@ -79,12 +80,11 @@ public class GameVariables implements Serializable{
 	private HashMap<String, Object> variables;
 	
 	public GameVariables() {
+		LOG.newEntry("GameVariables called");
 		populateVariables();
 	}
 	
 	public void buildFrame() {
-		//LOG.append("opening the game;");
-		
 		sep = File.separator;
 		frame = new JFrame();
 		frame.setTitle("Monopoly!");
@@ -107,14 +107,19 @@ public class GameVariables implements Serializable{
 		
 		//frame.repaint();
 		
-		frame.addWindowListener(new WindowListener(){
+		frame.setVisible(true);
+		//LOG.append("game begun;");
+		//LOG.append(""+frame.getWidth()+" "+frame.getHeight());
+		
+		frame.addWindowListener(new WindowListener() {
 			@Override
 			public void windowActivated(WindowEvent arg0) {}
 			@Override
 			public void windowClosed(WindowEvent arg0) {}
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				//LOG.finish();
+				LOG.newEntry("GameVariables: Game frame is closing");
+				LOG.finish();
 			}
 			@Override
 			public void windowDeactivated(WindowEvent arg0) {}
@@ -124,41 +129,40 @@ public class GameVariables implements Serializable{
 			public void windowIconified(WindowEvent arg0) {}
 			@Override
 			public void windowOpened(WindowEvent arg0) {}
-			
 		});
 		
-		frame.setVisible(true);
-		//LOG.append("game begun;");
-		//LOG.append(""+frame.getWidth()+" "+frame.getHeight());
+		//System.out.println(""+frame.getWidth()+" "+frame.getHeight());
 	}
 	
 	
 	private void buildBoard() {
 		//LOG.append("building board;");
+		LOG.newEntry("GameVariables: buildBoard: Building game board");
 		board = new Board();
 		
-		
+		LOG.newEntry("GameVariables: buildBoard: Passing icons and numbers");
 		board.setIconNumbers(paintByNumbers);
 		paintedIcons = new ImageIcon[icons.length];
 		for(int i=0; i<icons.length; i++) {
-			//LOG.append(System.getProperty("user.dir")+icons[i]);
+			//System.out.println(System.getProperty("user.dir")+icons[i]);
 			paintedIcons[i] = new ImageIcon(System.getProperty("user.dir") + icons[i]);
-			//LOG.append((paintedIcons[i] != null)+";");
+			//System.out.println(paintedIcons[i] != null);
 		}
 		board.setIcons(paintedIcons);
 		
-		
+		LOG.newEntry("GameVariables: buildBoard: Passing Stickers");
 		board.setStickerBook(stickerBook);
 		
 		coloredStickers = new ImageIcon[stickers.length];
 		for(int i=0; i<stickers.length; i++) {
-			//LOG.append(System.getProperty("user.dir")+stickers[i]);
+			//System.out.println(System.getProperty("user.dir")+stickers[i]);
 			coloredStickers[i] = new ImageIcon(System.getProperty("user.dir") + stickers[i]);
-			//LOG.append(coloredStickers[i]+";");
+			//System.out.println(coloredStickers[i]);
 		}
 		
 		board.setStickers(coloredStickers);
 		
+		LOG.newEntry("GameVariables: buildBoard: Passing stamps, dice, and dice assets");
 		board.setStamps(stampCollection);
 		
 		board.setDiceIcons(paintedIcons[1], paintedIcons[2]);
@@ -167,6 +171,7 @@ public class GameVariables implements Serializable{
 		
 		board.setDiceLocations(7, 11, 7, 16);
 		
+		LOG.newEntry("GameVariables: buildBoard: painting display and placing tokens");
 		board.paintDisplay();
 		placeTokens();
 	}
@@ -176,6 +181,7 @@ public class GameVariables implements Serializable{
 	
 	private void populateVariables() {
 		//LOG.append("populating map with variables;");
+		LOG.newEntry("GameVariables: populating variables");
 		variables = new HashMap<String, Object>();
 		
 		variables.put("currency", currency);
@@ -204,11 +210,14 @@ public class GameVariables implements Serializable{
 	
 	public Object getVariable(String var) {
 		//LOG.append("requesting variable from map: "+var+";");
+		LOG.newEntry("GameVariables: Variable requested: " + var);
 		return variables.get(var);
 	}
 	
 	public void setVariable(String key, Object value) {
 		//LOG.append("setting variable " + key + " with value " + value + ";");
+		LOG.newEntry("GameVariables: request to set " + key + " to value " + value.toString());
+		LOG.newEntry("GameVariables: request to set " + key + " to value " + value.toString());
 		if( variables.containsKey(key) ) {
 			variables.put(key, value);
 		}
@@ -234,6 +243,7 @@ public class GameVariables implements Serializable{
 		
 		//LOG.append("rolling the dice;");
 		
+		LOG.newEntry("GameVariables: roll: rolling dice");
 		gameDice.roll();
 		board.paintDice(gameDice.getLastDice()[0], gameDice.getLastDice()[1]);
 		return gameDice.getLastRoll();
@@ -248,7 +258,7 @@ public class GameVariables implements Serializable{
 	}
 
 	public boolean jailPlayer(Player p){
-		
+		LOG.newEntry("GameVariables: jailPlayer: player " + p.getName() + " has been jailed");
 		if(jailTable.get(p.getName()) == null ){
 			return false;
 		}
@@ -259,6 +269,7 @@ public class GameVariables implements Serializable{
 		
 		int[] newCoords = jailMe.useSpecialtyCase(0);
 		
+		LOG.newEntry("GameVariables: jailPlayer: moving piece to jail cell");
 		board.movePiece(jailMe.getPiece(), newCoords[0], newCoords[1]);
 		
 		return true;
@@ -307,7 +318,7 @@ public class GameVariables implements Serializable{
 		for(GameToken gt : playerTokens.values()) {
 			
 			gt.refreshIcon();
-			//LOG.append(gt.getPiece().getDescription()+";");
+			//System.out.println(gt.getPiece().getDescription());
 			board.addPiece(gt.getPiece(), gt.getX(), gt.getY());
 			
 		}
@@ -319,11 +330,13 @@ public class GameVariables implements Serializable{
 		time.addActionListener(new ActionListener() {
 			
 			int count = move;
+			GameToken current = playerTokens.get(p.getName());
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//LOG.append("Time clicked");
-				visualMove(playerTokens.get(p.getName()), 1);
+				//System.out.println("Time clicked");
+				visualMove(current, 1);
+				current.movePiece(1);
 				count--;
 				if( count <= 0 ) {
 					time.stop();
@@ -372,17 +385,20 @@ public class GameVariables implements Serializable{
 	
 	
 	public void parseSuites(String[] colorList) {
+		
+		LOG.newEntry("GameVariables: parseSuites: populating suites map");
+		
 		if(propertyPos.size() == 22 && colorList.length == 22) {
 			suites = new HashMap<String,Suite>();
 			
-			suites.put(colorList[0], new Suite((Street)propertyPos.get(1), 	(Street)propertyPos.get(3), 	(Street)null, 				colorList[0]));
-			suites.put(colorList[1], new Suite((Street)propertyPos.get(6), 	(Street)propertyPos.get(8), 	(Street)propertyPos.get(3), colorList[1]));
-			suites.put(colorList[2], new Suite((Street)propertyPos.get(11), (Street)propertyPos.get(13),	(Street)propertyPos.get(3), colorList[2]));
-			suites.put(colorList[3], new Suite((Street)propertyPos.get(16), (Street)propertyPos.get(18),	(Street)propertyPos.get(3), colorList[3]));
-			suites.put(colorList[4], new Suite((Street)propertyPos.get(21), (Street)propertyPos.get(23), 	(Street)propertyPos.get(3), colorList[4]));
-			suites.put(colorList[5], new Suite((Street)propertyPos.get(26), (Street)propertyPos.get(27), 	(Street)propertyPos.get(3), colorList[5]));
-			suites.put(colorList[6], new Suite((Street)propertyPos.get(31), (Street)propertyPos.get(32), 	(Street)propertyPos.get(3), colorList[6]));
-			suites.put(colorList[7], new Suite((Street)propertyPos.get(37), (Street)propertyPos.get(37), 	(Street)null, 				colorList[7]));
+			suites.put(colorList[0], new Suite((Street)propertyPos.get(1), 	(Street)propertyPos.get(3), 	(Street)null, 				colorList[0],	Color.MAGENTA.getRGB()));
+			suites.put(colorList[1], new Suite((Street)propertyPos.get(6), 	(Street)propertyPos.get(8), 	(Street)propertyPos.get(3), colorList[1],	Color.CYAN.getRGB()));
+			suites.put(colorList[2], new Suite((Street)propertyPos.get(11), (Street)propertyPos.get(13),	(Street)propertyPos.get(3), colorList[2],	Color.ORANGE.getRGB()));
+			suites.put(colorList[3], new Suite((Street)propertyPos.get(16), (Street)propertyPos.get(18),	(Street)propertyPos.get(3), colorList[3],	Color.PINK.getRGB()));
+			suites.put(colorList[4], new Suite((Street)propertyPos.get(21), (Street)propertyPos.get(23), 	(Street)propertyPos.get(3), colorList[4],	Color.RED.getRGB()));
+			suites.put(colorList[5], new Suite((Street)propertyPos.get(26), (Street)propertyPos.get(27), 	(Street)propertyPos.get(3), colorList[5],	Color.YELLOW.getRGB()));
+			suites.put(colorList[6], new Suite((Street)propertyPos.get(31), (Street)propertyPos.get(32), 	(Street)propertyPos.get(3), colorList[6],	Color.GREEN.getRGB()));
+			suites.put(colorList[7], new Suite((Street)propertyPos.get(37), (Street)propertyPos.get(37), 	(Street)null, 				colorList[7],	Color.BLUE.getRGB()));
 		}
 	}
 	

@@ -3,6 +3,7 @@ package edu.illinois.masalzr2.templates;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.awt.Color;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -1233,14 +1234,14 @@ public class TemplateGameVars{
 	public static HashMap<String, Suite> defineSuites(HashMap<String, Property> properties) {
 		HashMap<String, Suite>suites = new HashMap<String, Suite>();
 		
-		suites.put("purple", 	new Suite((Street)properties.get("Mediterranean Ave."), (Street)properties.get("Baltic Ave."), 			null, 											"purple"));
-		suites.put("lightBlue", new Suite((Street)properties.get("Oriental Ave."), 		(Street)properties.get("Vermont Ave."), 		(Street)properties.get("Connecticut Ave."), 	"lightBlue"));
-		suites.put("pink", 		new Suite((Street)properties.get("St. Charles Place"), 	(Street)properties.get("States Ave."), 			(Street)properties.get("Virginia Ave."), 		"pink"));
-		suites.put("orange", 	new Suite((Street)properties.get("St. James Place"), 	(Street)properties.get("Tennessee Ave."), 		(Street)properties.get("New York Ave."), 		"orange"));
-		suites.put("red", 		new Suite((Street)properties.get("Kentucky Ave."), 		(Street)properties.get("Indiana Ave."), 		(Street)properties.get("Illinois Ave."), 		"red"));
-		suites.put("yellow", 	new Suite((Street)properties.get("Atlantic Ave."), 		(Street)properties.get("Ventnor Ave."), 		(Street)properties.get("Marvin Gardins"), 		"yellow"));
-		suites.put("green", 	new Suite((Street)properties.get("Pacific Ave."), 		(Street)properties.get("North Carolina Ave."), 	(Street)properties.get("Pennsylvania Ave."), 	"purple"));
-		suites.put("blue", 		new Suite((Street)properties.get("Park Place"), 		(Street)properties.get("Board Walk"), 			null, 											"blue"));
+		suites.put("purple", 	new Suite((Street)properties.get("Mediterranean Ave."), (Street)properties.get("Baltic Ave."), 			null, 											"purple", 	Color.MAGENTA.getRGB()));
+		suites.put("lightBlue", new Suite((Street)properties.get("Oriental Ave."), 		(Street)properties.get("Vermont Ave."), 		(Street)properties.get("Connecticut Ave."), 	"lightBlue",Color.CYAN.getRGB()));
+		suites.put("pink", 		new Suite((Street)properties.get("St. Charles Place"), 	(Street)properties.get("States Ave."), 			(Street)properties.get("Virginia Ave."), 		"pink", 	Color.PINK.getRGB()));
+		suites.put("orange", 	new Suite((Street)properties.get("St. James Place"), 	(Street)properties.get("Tennessee Ave."), 		(Street)properties.get("New York Ave."), 		"orange", 	Color.ORANGE.getRGB()));
+		suites.put("red", 		new Suite((Street)properties.get("Kentucky Ave."), 		(Street)properties.get("Indiana Ave."), 		(Street)properties.get("Illinois Ave."), 		"red", 		Color.RED.getRGB()));
+		suites.put("yellow", 	new Suite((Street)properties.get("Atlantic Ave."), 		(Street)properties.get("Ventnor Ave."), 		(Street)properties.get("Marvin Gardins"), 		"yellow", 	Color.YELLOW.getRGB()));
+		suites.put("green", 	new Suite((Street)properties.get("Pacific Ave."), 		(Street)properties.get("North Carolina Ave."), 	(Street)properties.get("Pennsylvania Ave."), 	"green", 	Color.GREEN.getRGB()));
+		suites.put("blue", 		new Suite((Street)properties.get("Park Place"), 		(Street)properties.get("Board Walk"), 			null, 											"blue", 	Color.BLUE.getRGB()));
 		updateProgress(20);
 		return suites;
 	}
