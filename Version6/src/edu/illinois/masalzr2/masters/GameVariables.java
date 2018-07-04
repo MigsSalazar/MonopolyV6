@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,7 +27,9 @@ public class GameVariables implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
+	//private Log LOG = LogMate.LOG;
+	
 	private transient String sep = File.separator;
 	
 	private transient JFrame frame;
@@ -79,6 +83,8 @@ public class GameVariables implements Serializable{
 	}
 	
 	public void buildFrame() {
+		//LOG.append("opening the game;");
+		
 		sep = File.separator;
 		frame = new JFrame();
 		frame.setTitle("Monopoly!");
@@ -101,22 +107,43 @@ public class GameVariables implements Serializable{
 		
 		//frame.repaint();
 		
-		frame.setVisible(true);
+		frame.addWindowListener(new WindowListener(){
+			@Override
+			public void windowActivated(WindowEvent arg0) {}
+			@Override
+			public void windowClosed(WindowEvent arg0) {}
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				//LOG.finish();
+			}
+			@Override
+			public void windowDeactivated(WindowEvent arg0) {}
+			@Override
+			public void windowDeiconified(WindowEvent arg0) {}
+			@Override
+			public void windowIconified(WindowEvent arg0) {}
+			@Override
+			public void windowOpened(WindowEvent arg0) {}
+			
+		});
 		
-		//System.out.println(""+frame.getWidth()+" "+frame.getHeight());
+		frame.setVisible(true);
+		//LOG.append("game begun;");
+		//LOG.append(""+frame.getWidth()+" "+frame.getHeight());
 	}
 	
 	
 	private void buildBoard() {
+		//LOG.append("building board;");
 		board = new Board();
 		
 		
 		board.setIconNumbers(paintByNumbers);
 		paintedIcons = new ImageIcon[icons.length];
 		for(int i=0; i<icons.length; i++) {
-			//System.out.println(System.getProperty("user.dir")+icons[i]);
+			//LOG.append(System.getProperty("user.dir")+icons[i]);
 			paintedIcons[i] = new ImageIcon(System.getProperty("user.dir") + icons[i]);
-			//System.out.println(paintedIcons[i] != null);
+			//LOG.append((paintedIcons[i] != null)+";");
 		}
 		board.setIcons(paintedIcons);
 		
@@ -125,9 +152,9 @@ public class GameVariables implements Serializable{
 		
 		coloredStickers = new ImageIcon[stickers.length];
 		for(int i=0; i<stickers.length; i++) {
-			//System.out.println(System.getProperty("user.dir")+stickers[i]);
+			//LOG.append(System.getProperty("user.dir")+stickers[i]);
 			coloredStickers[i] = new ImageIcon(System.getProperty("user.dir") + stickers[i]);
-			//System.out.println(coloredStickers[i]);
+			//LOG.append(coloredStickers[i]+";");
 		}
 		
 		board.setStickers(coloredStickers);
@@ -148,6 +175,7 @@ public class GameVariables implements Serializable{
 	 */
 	
 	private void populateVariables() {
+		//LOG.append("populating map with variables;");
 		variables = new HashMap<String, Object>();
 		
 		variables.put("currency", currency);
@@ -175,10 +203,12 @@ public class GameVariables implements Serializable{
 	}
 	
 	public Object getVariable(String var) {
+		//LOG.append("requesting variable from map: "+var+";");
 		return variables.get(var);
 	}
 	
 	public void setVariable(String key, Object value) {
+		//LOG.append("setting variable " + key + " with value " + value + ";");
 		if( variables.containsKey(key) ) {
 			variables.put(key, value);
 		}
@@ -201,6 +231,9 @@ public class GameVariables implements Serializable{
 	}
 	
 	public int roll(){
+		
+		//LOG.append("rolling the dice;");
+		
 		gameDice.roll();
 		board.paintDice(gameDice.getLastDice()[0], gameDice.getLastDice()[1]);
 		return gameDice.getLastRoll();
@@ -237,14 +270,14 @@ public class GameVariables implements Serializable{
 	
 	public GameCard getRandomCommChest(){
 		Random rando = new Random();
-		//return commchest.get(rando.nextInt(commchest.size()));
-		return commchest.get(0);
+		return commchest.get(rando.nextInt(commchest.size()));
+		//return commchest.get(0);
 	}
 	
 	public GameCard getRandomChance(){
 		Random rando = new Random();
-		return chance.get(0);
-		//return chance.get(rando.nextInt(chance.size()));
+		//return chance.get(0);
+		return chance.get(rando.nextInt(chance.size()));
 	}
 	
 	public Player getPlayerByID(int id){
@@ -274,15 +307,13 @@ public class GameVariables implements Serializable{
 		for(GameToken gt : playerTokens.values()) {
 			
 			gt.refreshIcon();
-			//System.out.println(gt.getPiece().getDescription());
+			//LOG.append(gt.getPiece().getDescription()+";");
 			board.addPiece(gt.getPiece(), gt.getX(), gt.getY());
 			
 		}
 	}
 	
 	public void fancyPlayerMove(Player p, int move) {
-		
-		
 		
 		Timer time = new Timer(200, null);
 		time.addActionListener(new ActionListener() {
@@ -291,7 +322,7 @@ public class GameVariables implements Serializable{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//System.out.println("Time clicked");
+				//LOG.append("Time clicked");
 				visualMove(playerTokens.get(p.getName()), 1);
 				count--;
 				if( count <= 0 ) {

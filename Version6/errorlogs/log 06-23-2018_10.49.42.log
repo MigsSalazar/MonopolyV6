@@ -1,8 +1,6 @@
 java.lang.NullPointerException
-	at edu.illinois.masalzr2.notices.implentations.PlayerBankNotice.<init>(PlayerBankNotice.java:11)
-	at edu.illinois.masalzr2.notices.implentations.GameCardNotice.moneyChange(GameCardNotice.java:84)
-	at edu.illinois.masalzr2.notices.implentations.GameCardNotice.runCard(GameCardNotice.java:69)
-	at edu.illinois.masalzr2.notices.implentations.GameCardNotice.actionPerformed(GameCardNotice.java:56)
+	at edu.illinois.masalzr2.masters.GameVariables.buildFrame(GameVariables.java:87)
+	at edu.illinois.masalzr2.gui.PreGameFrame.actionPerformed(PreGameFrame.java:99)
 	at javax.swing.AbstractButton.fireActionPerformed(Unknown Source)
 	at javax.swing.AbstractButton$Handler.actionPerformed(Unknown Source)
 	at javax.swing.DefaultButtonModel.fireActionPerformed(Unknown Source)

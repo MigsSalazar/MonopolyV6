@@ -16,8 +16,6 @@ public class Starter {
 	}
 	
 	public static void main( String[] args ){
-		
-		
 		if(args.length > 0) {
 			int i=0;
 			while( i<args.length && !args[i].endsWith(".mns") ) {
@@ -34,7 +32,6 @@ public class Starter {
 		
 		PreGameFrame pgf = new PreGameFrame();
 		pgf.start();
-		
 		//myGame.buildFrame();
 	}
 }
