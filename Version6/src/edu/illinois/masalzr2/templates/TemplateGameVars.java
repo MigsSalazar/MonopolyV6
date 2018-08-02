@@ -1,23 +1,37 @@
 package edu.illinois.masalzr2.templates;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.awt.Color;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
+import javax.swing.JTextArea;
 
 import edu.illinois.masalzr2.gui.Stamp;
 import edu.illinois.masalzr2.io.GameIo;
 import edu.illinois.masalzr2.masters.GameVariables;
-import edu.illinois.masalzr2.models.*;
+import edu.illinois.masalzr2.models.Counter;
+import edu.illinois.masalzr2.models.Dice;
+import edu.illinois.masalzr2.models.GameCard;
+import edu.illinois.masalzr2.models.GameToken;
+import edu.illinois.masalzr2.models.Player;
+import edu.illinois.masalzr2.models.PositionIndex;
+import edu.illinois.masalzr2.models.Property;
+import edu.illinois.masalzr2.models.Railroad;
+import edu.illinois.masalzr2.models.Street;
+import edu.illinois.masalzr2.models.Suite;
+import edu.illinois.masalzr2.models.Utility;
 
 public class TemplateGameVars{
 	
 	public static String sep = java.io.File.separator;
 	private static JProgressBar progress = new JProgressBar(0,120);
+	private static JTextArea updates = new JTextArea();
 	
 	public static void main(String[] args) {
 		produceTemplate();
@@ -26,9 +40,12 @@ public class TemplateGameVars{
 	
 	public static void produceTemplate() {
 		JDialog progPanel = new JDialog((JFrame)null, "Template Generation", false);
+		progPanel.setLayout(new BorderLayout());
 		//progress = new JProgressBar(0,120);
-		progPanel.add(progress);
+		updates.setPreferredSize(new Dimension(300,300));
 		progress.setValue(0);
+		progPanel.add(progress, BorderLayout.NORTH);
+		progPanel.add(updates, BorderLayout.CENTER);
 		progPanel.pack();
 		progPanel.setVisible(true);
 		GameVariables gv = new GameVariables();
@@ -36,7 +53,7 @@ public class TemplateGameVars{
 		gv.buildCleanGame();
 		
 		GameIo.writeOut(gv);
-		updateProgress(120);
+		updateProgress(120, "Template generation complete!");
 		//gv.buildFrame();
 		
 		//System.out.println("I'm done");
@@ -44,9 +61,12 @@ public class TemplateGameVars{
 		
 	}
 	
-	private static void updateProgress(int value){
+	private static void updateProgress(int value, String output){
 		if (progress != null){
 			progress.setValue(value);
+		}
+		if(updates != null) {
+			updates.append(output+"\n");
 		}
 	}
 	
@@ -97,16 +117,16 @@ public class TemplateGameVars{
 						{-1,6,6,6,6,6,		-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	11,-1,-1,-1,-1,-1}, //28
 						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,12,-1,-1,-1,-1}};//29
 		
-		updateProgress(100);
+		updateProgress(100, "Sticker book has been generated");
 		
 		return temp;
 	}
 
 	public static String[] getStickers(){
 		String[] stickers = {	"housing.png",				//0
-								"hotelLeft",				//1
-								"hotelRight",				//2
-								"hotelBottom",				//3
+								"hotelLeft.png",				//1
+								"hotelRight.png",				//2
+								"hotelBottom.png",				//3
 								
 								"eleccomp.png",				//4
 								"waterworks.png",			//5
@@ -129,7 +149,7 @@ public class TemplateGameVars{
 			//System.out.println(retval[i].getDescription());
 		}
 		
-		updateProgress(110);
+		updateProgress(110, "Stickers have been generated");
 		
 		return stickers;
 	}
@@ -1098,7 +1118,7 @@ public class TemplateGameVars{
 		}
 		};
 		
-		updateProgress(90);
+		updateProgress(90, "Stickers have been generated");
 		
 		return sc;
 
@@ -1167,7 +1187,7 @@ public class TemplateGameVars{
 		commchest.add(new GameCard("<html>You inherit $100</html>",
 				100, false,0,false,false,"","",false, 0, 0));
 		
-		updateProgress(70);
+		updateProgress(70, "Community Chest cards have been generated");
 		
 		return commchest;
 	}
@@ -1226,12 +1246,12 @@ public class TemplateGameVars{
 									+ "<br>Collect $150</html>",
 				150, false,0,false,false,"","",false, 0, 0));
 		
-		updateProgress(80);
+		updateProgress(80, "Chance cards have been generated");
 		
 		return chance;
 	}
 	
-	public static HashMap<String, Suite> defineSuites(HashMap<String, Property> properties) {
+	public static HashMap<String, Suite> defineSuites(Map<String, Property> properties) {
 		HashMap<String, Suite>suites = new HashMap<String, Suite>();
 		
 		suites.put("purple", 	new Suite((Street)properties.get("Mediterranean Ave."), (Street)properties.get("Baltic Ave."), 			null, 											"purple", 	Color.MAGENTA.getRGB()));
@@ -1242,7 +1262,7 @@ public class TemplateGameVars{
 		suites.put("yellow", 	new Suite((Street)properties.get("Atlantic Ave."), 		(Street)properties.get("Ventnor Ave."), 		(Street)properties.get("Marvin Gardins"), 		"yellow", 	Color.YELLOW.getRGB()));
 		suites.put("green", 	new Suite((Street)properties.get("Pacific Ave."), 		(Street)properties.get("North Carolina Ave."), 	(Street)properties.get("Pennsylvania Ave."), 	"green", 	Color.GREEN.getRGB()));
 		suites.put("blue", 		new Suite((Street)properties.get("Park Place"), 		(Street)properties.get("Board Walk"), 			null, 											"blue", 	Color.BLUE.getRGB()));
-		updateProgress(20);
+		updateProgress(20, "Suites have been generated");
 		return suites;
 	}
 	
@@ -1281,7 +1301,7 @@ public class TemplateGameVars{
 				{0,0,0,0,0,0,	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,	0,7,7,7,7,7}, //28
 				{0,0,0,0,0,0,	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,	0,0,0,0,0,0}};//29
 		
-		updateProgress(60);
+		updateProgress(60, "Board Paint numbers have been generated");
 		
 		return pbn;
 	}
@@ -1303,7 +1323,7 @@ public class TemplateGameVars{
 			icons[i] = sep+"textures"+sep+"default"+sep+icons[i];
 		}
 		
-		updateProgress(50);
+		updateProgress(50, "Icons have been defined");
 		
 		return icons;
 	}
@@ -1368,7 +1388,7 @@ public class TemplateGameVars{
 		playerTokens.put( playerIds.get(6).getName() , p7);
 		playerTokens.put( playerIds.get(7).getName() , p8);
 		
-		updateProgress(40);
+		updateProgress(40, "Game Tokens have been defined");
 		
 		return playerTokens;
 	}
@@ -1379,7 +1399,7 @@ public class TemplateGameVars{
 		int[] y = {24,-1,24,-1,-1,24,-1,24,24,-1,22,-1,18,16,-1,12,-1, 8, 6,-1, 4,-1, 4, 4,-1, 4, 4,-1, 4, 6, 8,-1,12,-1,-1,18,-1,22};
 		
 		PositionIndex propertyPositions = new PositionIndex(x,y);
-		updateProgress(30);
+		updateProgress(30, "Property positions have been defined");
 		return propertyPositions;
 	}
 	
@@ -1427,7 +1447,7 @@ public class TemplateGameVars{
 		props[26] = new Street("Park Place", 		37, 350, "", false, null, 0, 200, new int[]{35, 175, 500, 1100, 1300, 1500});
 		props[27] = new Street("Board Walk",		39, 400, "", false, null, 0, 200, new int[]{50, 200, 600, 1400, 1700, 2000});
 		
-		updateProgress(10);
+		updateProgress(10, "Properties have been generated");
 		
 		return props;
 	}

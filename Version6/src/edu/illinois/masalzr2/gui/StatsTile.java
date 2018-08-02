@@ -128,7 +128,7 @@ private Player myPlayer;
 		}
 		
 		pListScroller = new JScrollPane(pTextArea);
-		
+		pListScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 	}
 	
 	private void colorBank() {
@@ -170,7 +170,7 @@ private Player myPlayer;
 			
 			labels[i] = new JLabel(p.getName() + (p.isMortgaged() ? " - Mortgaged" : ""));
 			labels[i].setOpaque(true);
-			if(p.getColor() != 1) {
+			if(p.getColor() != 0) {
 				labels[i].setBackground( new Color(p.getColor()) );
 			}
 			

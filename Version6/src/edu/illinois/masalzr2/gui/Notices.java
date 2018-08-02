@@ -1,7 +1,6 @@
 package edu.illinois.masalzr2.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.util.LinkedList;
 
 import javax.swing.BorderFactory;
@@ -11,7 +10,9 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import edu.illinois.masalzr2.masters.GameVariables;
-import edu.illinois.masalzr2.notices.*;
+import edu.illinois.masalzr2.notices.AbstractNotice;
+import edu.illinois.masalzr2.notices.ListEvent;
+import edu.illinois.masalzr2.notices.ListListener;
 import edu.illinois.masalzr2.notices.implentations.HomeMenuNotice;
 
 public class Notices implements ListListener {
@@ -29,7 +30,7 @@ public class Notices implements ListListener {
 		noticePanel = new JPanel();
 		noticePanel.setBorder(defineBorder());
 		noticePanel.setVisible(true);
-		noticePanel.setPreferredSize(new Dimension(1280, 150));
+		//noticePanel.setPreferredSize(new Dimension(1280, 150));
 		//TODO MAKE A MAIN MENU ABSTRACTNOTICE TO POPULATE THE NOTICELIST
 		currNotice = new HomeMenuNotice(this, gameVars);
 		noticeList.add(currNotice);

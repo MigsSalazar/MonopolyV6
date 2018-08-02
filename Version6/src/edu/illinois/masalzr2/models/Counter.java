@@ -2,6 +2,9 @@ package edu.illinois.masalzr2.models;
 
 import java.io.Serializable;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class Counter implements Serializable{
 	
 	/**
@@ -9,40 +12,36 @@ public class Counter implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	@Getter
 	private int count;
+	@Getter @Setter
 	private int max;
+	@Getter @Setter
 	private int min;
 	
 	public Counter(){
-		setCount(0);
 		max = 0;
 		min = 0;
+		setCount(0);
 	}
 	
 	public Counter(int c){
-		setCount(c);
 		max = 0;
 		min = 0;
+		setCount(c);
 	}
 	
 	public Counter(int c, int max, int min){
-		count = c;
 		this.max = max;
 		this.min = min;
+		setCount(c);
 	}
-
-	/**
-	 * @return the count
-	 */
-	public int getCount() {
-		return count;
-	}
-
-	/**
-	 * @param count the count to set
-	 */
-	public void setCount(int count) {
-		this.count = count;
+	
+	public void setCount(int c) {
+		count = c;
+		if( max > min) {
+			count %= max;
+		}
 	}
 	
 	public int add(int a){

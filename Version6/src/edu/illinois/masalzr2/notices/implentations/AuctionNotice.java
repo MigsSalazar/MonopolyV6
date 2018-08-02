@@ -3,12 +3,13 @@ package edu.illinois.masalzr2.notices.implentations;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
+import edu.illinois.masalzr2.masters.LogMate;
 import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.models.Property;
 import edu.illinois.masalzr2.notices.AbstractNotice;
@@ -22,25 +23,29 @@ public class AuctionNotice extends AbstractNotice implements KeyListener  {
 	private int bid = 0;
 	private int highestBidder = -1;
 	private String[] playerNames;
-	private HashMap<String, Player> players;
+	private Map<String, Player> players;
 	private String currency;
 	
-	public AuctionNotice(ListListener ppl, HashMap<String,Player> pl, Property pr, String c){
+	public AuctionNotice(ListListener ppl, Map<String,Player> pl, Property pr, String c){
 		super(ppl);
+		LogMate.LOG.newEntry("AuctionNotice: Beginning short: Calling Sub Constructor");
 		subConstructor(pl, pr, c);
-		
+		LogMate.LOG.newEntry("AuctionNotice: Beginning short: Defining Actions");
 		defineActions();
 	}
 	
-	public AuctionNotice(ListListener ppl, HashMap<String,Player> pl, Property pr, int t, int b, int hb, String c) {
+	public AuctionNotice(ListListener ppl, Map<String,Player> pl, Property pr, int t, int b, int hb, String c) {
 		super(ppl);
+		LogMate.LOG.newEntry("AuctionNotice: Beginning long: Calling Sub Constructor");
 		subConstructor(pl, pr, c);
+		LogMate.LOG.newEntry("AuctionNotice: Beginning long: setting basics");
 		turn = t;
 		bid = b;
 		highestBidder = hb;
 	}
 
-	private void subConstructor(HashMap<String, Player> pl, Property pr, String c) {
+	private void subConstructor(Map<String, Player> pl, Property pr, String c) {
+		LogMate.LOG.newEntry("AuctionNotice: Sub Constructor: Setting basics");
 		prop = pr;
 		players = pl;
 		playerNames = new String[players.size()];
@@ -52,15 +57,18 @@ public class AuctionNotice extends AbstractNotice implements KeyListener  {
 	}
 
 	private void buttonPush(ActionEvent e) {
+		LogMate.LOG.newEntry("AuctionNotice: Button Push: Called");
 		//bidInput((JTextField)actions[0]);
 		JTextField bidField = (JTextField)actions[0];
 		if(e.getSource().equals(actions[1])){
-			
+			LogMate.LOG.newEntry("AuctionNotice: Button Push: Raised");
 			if( bidField.getText().equals("")
 				|| Integer.parseInt(  bidField.getText()  ) == 0 
 				|| Integer.parseInt( bidField.getText() ) == bid){
+				LogMate.LOG.newEntry("AuctionNotice: Button Push: Bid not raised. Calling Pass insteead");
 				((JButton)actions[2]).doClick();
 			}else{
+				LogMate.LOG.newEntry("AuctionNotice: Button Push: Taking new bid");
 				bid = Integer.parseInt(bidField.getText());
 				highestBidder = turn;
 				turn = (turn+1)%playerNames.length;
@@ -71,6 +79,7 @@ public class AuctionNotice extends AbstractNotice implements KeyListener  {
 				
 			}
 		}else if(e.getSource().equals(actions[2])){
+			LogMate.LOG.newEntry("AuctionNotice: Button Push: Passed. Moving on");
 			turn = (turn+1)%playerNames.length;
 			bidField.setText(""+(bid+1));
 			setText();

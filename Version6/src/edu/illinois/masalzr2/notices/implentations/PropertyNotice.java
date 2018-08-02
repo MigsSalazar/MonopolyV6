@@ -1,7 +1,6 @@
 package edu.illinois.masalzr2.notices.implentations;
 
 import java.awt.event.ActionEvent;
-import java.util.HashMap;
 
 import javax.swing.JButton;
 
@@ -11,7 +10,6 @@ import edu.illinois.masalzr2.models.Property;
 import edu.illinois.masalzr2.notices.AbstractNotice;
 import edu.illinois.masalzr2.notices.ListEvent;
 import edu.illinois.masalzr2.notices.ListListener;
-import edu.illinois.masalzr2.notices.implentations.AuctionNotice;
 
 public class PropertyNotice extends AbstractNotice {
 
@@ -26,7 +24,7 @@ public class PropertyNotice extends AbstractNotice {
 		prop = pr;
 		gameVars = gv;
 		
-		currency = (String)gameVars.getVariable("currency");
+		currency = gameVars.getCurrency();
 		
 		if(prop.getOwner() == null || prop.getOwner().equals("")) {
 			text = "<html>"+prop.getName() + " is unowned. Asking price: " + currency + prop.getPrice() +"<br/>What would you like to do?</html>";
@@ -48,15 +46,13 @@ public class PropertyNotice extends AbstractNotice {
 				AbstractNotice an = new PlayerPropertyNotice(texter, listener, player, prop);
 				noticePushPop(an);
 			}else{
-				@SuppressWarnings("unchecked")
-				AbstractNotice an = new AuctionNotice(listener, (HashMap<String,Player>)gameVars.getVariable("players"), prop, currency);
+				AbstractNotice an = new AuctionNotice(listener, gameVars.getPlayers(), prop, currency);
 				noticePushPop(an);
 			}
 		}else if(!prop.getOwner().equals(player.getName())){
 			//BankPropertyActions.rentOwnedProperty(play, prop);
 			
-			@SuppressWarnings("unchecked")
-			Player p2 = ((java.util.HashMap<String, Player>)gameVars.getVariable("players")).get(prop.getOwner());
+			Player p2 = gameVars.getPlayers().get(prop.getOwner() );
 			String outText = "You payed "+prop.getOwner()+" "+ currency + prop.getRent()+" for landing on "+prop.getName()+"!";
 			
 			AbstractNotice an = new PlayerPlayerNotice(outText, listener, player, p2, (-1)*prop.getRent());

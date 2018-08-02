@@ -3,8 +3,8 @@ package edu.illinois.masalzr2.gui;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
 public class GraphicsButton extends JButton {
 	

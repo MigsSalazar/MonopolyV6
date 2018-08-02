@@ -7,7 +7,6 @@ import javax.swing.JComponent;
 
 import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.notices.AbstractNotice;
-import edu.illinois.masalzr2.notices.ListEvent;
 import edu.illinois.masalzr2.notices.ListListener;
 
 public class IncomeTaxNotice extends AbstractNotice {

@@ -1,12 +1,12 @@
 package edu.illinois.masalzr2.notices.implentations;
 
 import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.models.Dice;
 import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.models.Property;
 import edu.illinois.masalzr2.notices.AbstractNotice;
 import edu.illinois.masalzr2.notices.ListEvent;
 import edu.illinois.masalzr2.notices.ListListener;
-import edu.illinois.masalzr2.models.Dice;
 
 public abstract class HighLevelNotice extends AbstractNotice {
 	protected Player currentPlayer;
@@ -18,8 +18,8 @@ public abstract class HighLevelNotice extends AbstractNotice {
 		super(ppl);
 		gameVars = gv;
 		currentPlayer = gameVars.getCurrentPlayer();
-		gameDice = (Dice)gameVars.getVariable("dice");
-		currency = (String)gameVars.getVariable("currency");
+		gameDice = gameVars.getGameDice();
+		currency = gameVars.getCurrency();
 	}
 	
 	
@@ -93,7 +93,7 @@ public abstract class HighLevelNotice extends AbstractNotice {
 	}
 	
 	protected AbstractNotice moveAndDo(Player player, int roll) {
-		System.out.println("player move and do roll: "+roll);
+		System.out.println("player move and do roll: "+roll + " at position " + player.getPosition());
 		
 		gameVars.fancyPlayerMove(player, roll);
 		player.addPosition(roll);

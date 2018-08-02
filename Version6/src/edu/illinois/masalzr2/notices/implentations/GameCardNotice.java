@@ -2,7 +2,8 @@ package edu.illinois.masalzr2.notices.implentations;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -21,15 +22,14 @@ public class GameCardNotice extends HighLevelNotice {
 	private GameCard card;
 	private Player player;
 	
-	private ArrayList<Player> players;
-	private HashMap<String, Property> properties;
+	private List<Player> players;
+	private Map<String, Property> properties;
 	
-	@SuppressWarnings("unchecked")
 	public GameCardNotice(ListListener ppl, GameVariables gv, Player pl, boolean chance) {
 		super(ppl, gv);
 		
-		players = new ArrayList<Player>( ((HashMap<String,Player>)gameVars.getVariable("players")).values() );
-		properties = (HashMap<String,Property>)gameVars.getVariable("properties");
+		players = new ArrayList<Player>( gameVars.getPlayers().values() );
+		properties = gameVars.getProperties();
 		
 		card = cardPicker(chance);
 		text = "<html>You landed on "+(chance?"Chance":"Community Chest!")+". Your card reads:"
@@ -201,7 +201,7 @@ public class GameCardNotice extends HighLevelNotice {
 	
 	private void renovateProperties(GameCard gc){
 		if(gc.isPropRenovation()){
-			HashMap<String, Property> props = player.getProps();
+			Map<String, Property> props = player.getProps();
 			int total = 0;
 			int houses = 0;
 			int housenum = 0;
@@ -220,7 +220,7 @@ public class GameCardNotice extends HighLevelNotice {
 					}
 				}
 			}
-			String currency = (String)gameVars.getVariable("currency");
+			String currency = gameVars.getCurrency();
 			String textOut = "<html>Renovation Costs:"
 							+ "<br>Hotels: "+hotelnum+"    Cost: "+currency+hotels
 							+ "<br>Houses: "+housenum+"    Cost: "+currency+houses

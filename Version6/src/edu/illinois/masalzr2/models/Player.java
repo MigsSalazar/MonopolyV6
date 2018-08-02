@@ -21,7 +21,7 @@ public class Player implements Serializable{
 	@Expose private String name;
 	@Expose private int id;
 	@Expose private int cash;
-	@Expose private int position;
+	@Expose private Counter position;
 	@Expose private int jailCard;
 	@Expose private boolean bankrupt;
 	private HashMap<String, Property> props;
@@ -31,7 +31,7 @@ public class Player implements Serializable{
 		name = n;
 		id = i;
 		cash = c;
-		position = p;
+		position = new Counter(0,40,0);
 		jailCard = j;
 		bankrupt = b;
 		props = pr;
@@ -41,7 +41,7 @@ public class Player implements Serializable{
 	public Player(int c){
 		name = "";
 		id = -1;
-		position = 0;
+		position = new Counter(0,40,0);
 		cash = c;
 		jailCard = 0;
 		props = new HashMap<String, Property>();
@@ -79,18 +79,18 @@ public class Player implements Serializable{
 	}
 	
 	public int getPosition(){
-		return position;
+		return position.getCount();
 	}
 	
 	public void setPosition(int p){
-		position = p;
+		position.setCount(p);
 		fireChange();
 	}
 	
 	public int addPosition(int p){
-		position += p;
+		position.add(p);
 		fireChange();
-		return position;
+		return position.getCount();
 	}
 	
 	public int getJailCard(){

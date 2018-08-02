@@ -3,8 +3,8 @@ package edu.illinois.masalzr2.masters;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JOptionPane;
 
@@ -18,13 +18,14 @@ public class MonopolyExceptionHandler implements Thread.UncaughtExceptionHandler
 	}
 	
 	public void uncaughtException(Thread t, Throwable e) {
-		
+		LogMate.LOG.flush();
+		LogMate.LOG.finish();
 		File errorLog = new File(System.getProperty("user.dir") + sep + "errorlogs" + sep);
 		if( !errorLog.exists() ) {
 			errorLog.mkdirs();
 		}
 		
-		SimpleDateFormat today = new SimpleDateFormat("MM-dd-yyyy_hh.mm.ss");
+		SimpleDateFormat today = new SimpleDateFormat("hh.mm.ss MM-dd-yyyy ");
 		
 		File finLog = new File(errorLog.getPath()+sep+"log "+today.format(new Date())+".log");
 		

@@ -1,13 +1,11 @@
 package edu.illinois.masalzr2.gui;
 
-import javax.swing.JMenuBar;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-import javax.swing.JFrame;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
@@ -77,29 +75,29 @@ public class FrameMenu extends JMenuBar implements ActionListener{
 			if( source.equals(options[0]) ) {
 				GameVariables newGame = GameIo.newGame();
 				newGame.buildFrame();
-				((JFrame)gameVars.getVariable("frame")).dispose();
+				gameVars.getFrame().dispose();
 			} else if( source.equals(options[1]) ){
-				String dir = GameIo.findGame((JFrame)gameVars.getVariable("frame"));
+				String dir = GameIo.findGame(gameVars.getFrame());
 				if(dir==null) {
 					return;
 				}
 				GameVariables loadedGame = GameIo.produceSavedGame(dir);
 				if(loadedGame !=null) {
 					loadedGame.buildFrame();
-					((JFrame)gameVars.getVariable("frame")).dispose();
+					gameVars.getFrame().dispose();
 				}
 			} else if( source.equals(options[2]) ) {
 				//System.out.println(gameVars.getSaveFile().getPath());
 				
-				if( ((File)gameVars.getVariable("savefile")).getPath().contains( "resources"+sep+"newgame.mns" ) ) {
-					String newName = JOptionPane.showInputDialog((JFrame)gameVars.getVariable("frame"), "Name your game!");
-					gameVars.setVariable("savefile",new File(System.getProperty("user.dir")+sep+"saves"+sep+newName+".mns" ));
+				if( gameVars.getSaveFile().getPath().contains( "resources"+sep+"newgame.mns" ) ) {
+					String newName = JOptionPane.showInputDialog(gameVars.getFrame(), "Name your game!");
+					gameVars.setSaveFile(new File(System.getProperty("user.dir")+sep+"saves"+sep+newName+".mns" ));
 				}
 				GameIo.writeOut(gameVars);
 				
 			} else if( source.equals(options[3]) ) {
-				String newName= JOptionPane.showInputDialog(((JFrame)gameVars.getVariable("frame")), "Name your Game!");
-				gameVars.setVariable("savefile",new File(System.getProperty("user.dir")+sep+"saves"+sep+newName+".mns" ));
+				String newName= JOptionPane.showInputDialog(gameVars.getFrame(), "Name your Game!");
+				gameVars.setSaveFile(new File(System.getProperty("user.dir")+sep+"saves"+sep+newName+".mns" ));
 				GameIo.writeOut(gameVars);
 			} else if( source.equals(options[4]) ) {
 				

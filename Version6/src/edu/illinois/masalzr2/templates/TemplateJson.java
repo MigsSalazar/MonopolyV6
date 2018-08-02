@@ -1,8 +1,8 @@
 package edu.illinois.masalzr2.templates;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 
@@ -19,17 +19,17 @@ import edu.illinois.masalzr2.models.Suite;
 
 public class TemplateJson {
 	
-	@Expose private HashMap<String, Player> players;
-	@Expose private HashMap<String, Property> properties;
-	@Expose private HashMap<String, Suite> suites;
+	@Expose private Map<String, Player> players;
+	@Expose private Map<String, Property> properties;
+	@Expose private Map<String, Suite> suites;
 	@Expose private PositionIndex propertyPositions;
-	@Expose private ArrayList<GameCard> chance;
-	@Expose private ArrayList<GameCard> commchest;
+	@Expose private List<GameCard> chance;
+	@Expose private List<GameCard> commchest;
 	
 	@Expose private int[][] paintByNumbers;
 	@Expose private String[] icons;
 	@Expose private Stamp[][] stampCollection;
-	@Expose private HashMap<String, GameToken> playerTokens;
+	@Expose private Map<String, GameToken> playerTokens;
 	@Expose private int[][] stickerBook;
 	@Expose private String[] stickers;
 	
@@ -61,25 +61,23 @@ public class TemplateJson {
 		variables.put("savefile", saveFile);
 	 */
 	
-	
-	@SuppressWarnings("unchecked")
 	public TemplateJson(GameVariables gv) {
 		
 		String sep = File.separator;
 		
-		players 			= (HashMap<String,Player>)		gv.getVariable("players");
-		properties 			= (HashMap<String,Property>)	gv.getVariable("properties");
-		suites 				= (HashMap<String,Suite>)		gv.getVariable("suites");
-		propertyPositions 	= (PositionIndex)				gv.getVariable("proppos");
-		chance 				= (ArrayList<GameCard>)			gv.getVariable("chance");
-		commchest 			= (ArrayList<GameCard>)			gv.getVariable("commchest");
-		paintByNumbers 		= (int[][])						gv.getVariable("paintbynumbers");
-		icons 				= (String[]) 					gv.getVariable("icons");
-		stampCollection 	= (Stamp[][]) 					gv.getVariable("stampcollection");
-		playerTokens 		= (HashMap<String,GameToken>)	gv.getVariable("playertokens");
-		stickerBook 		= (int[][]) 					gv.getVariable("stickerbook");
-		stickers 			= (String[]) 					gv.getVariable("stickers");
-		currency 			= (String) 						gv.getVariable("currency");
+		players 			= gv.getPlayers();
+		properties 			= gv.getProperties();
+		suites 				= gv.getSuites();
+		propertyPositions 	= gv.getPropertyPositions();
+		chance 				= gv.getChance();
+		commchest 			= gv.getCommchest();
+		paintByNumbers 		= gv.getPaintByNumbers();
+		icons 				= gv.getIcons();
+		stampCollection 	= gv.getStampCollection();
+		playerTokens 		= gv.getPlayerTokens();
+		stickerBook 		= gv.getStickerBook();
+		stickers 			= gv.getStickers();
+		currency 			= gv.getCurrency();
 		name = "default";
 		
 		icon = new ImageIcon(System.getProperty("user.dir")+sep+"textures"+sep+"default"+sep);

@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -19,11 +20,27 @@ import javax.swing.Timer;
 
 import com.google.gson.annotations.Expose;
 
-import edu.illinois.masalzr2.gui.*;
+import edu.illinois.masalzr2.gui.Board;
+import edu.illinois.masalzr2.gui.FrameMenu;
+import edu.illinois.masalzr2.gui.Notices;
+import edu.illinois.masalzr2.gui.Scoreboard;
+import edu.illinois.masalzr2.gui.Stamp;
 import edu.illinois.masalzr2.masters.LogMate.Logger;
-import edu.illinois.masalzr2.models.*;
+import edu.illinois.masalzr2.models.Counter;
+import edu.illinois.masalzr2.models.Dice;
+import edu.illinois.masalzr2.models.GameCard;
+import edu.illinois.masalzr2.models.GameToken;
+import edu.illinois.masalzr2.models.Player;
+import edu.illinois.masalzr2.models.PositionIndex;
+import edu.illinois.masalzr2.models.Property;
+import edu.illinois.masalzr2.models.Street;
+import edu.illinois.masalzr2.models.Suite;
+import edu.illinois.masalzr2.notices.ListEvent;
+import edu.illinois.masalzr2.notices.implentations.MessageNotice;
 import edu.illinois.masalzr2.templates.TemplateGameVars;
+import lombok.Data;
 
+@Data
 public class GameVariables implements Serializable{
 	/**
 	 * 
@@ -41,19 +58,19 @@ public class GameVariables implements Serializable{
 	
 	private File saveFile;
 	
-	@Expose private HashMap<String, Player> players;
-	@Expose private HashMap<String, Property> properties;
-	@Expose private HashMap<String, Suite> suites;
+	@Expose private Map<String, Player> players;
+	@Expose private Map<String, Property> properties;
+	@Expose private Map<String, Suite> suites;
 	
-	private HashMap<Integer, Player> playerID;
-	private HashMap<Integer, Property> propertyPos;
+	private Map<Integer, Player> playerID;
+	private Map<Integer, Property> propertyPos;
 	
 	@Expose private PositionIndex propertyPositions;
 	
 	private Counter turn;
 	private ArrayList<Player> turnTable;
-	private HashMap<String, Boolean> jailTable;
-	private HashMap<String, Integer> jailTimes;
+	private Map<String, Boolean> jailTable;
+	private Map<String, Integer> jailTimes;
 	
 	private Counter railCount;
 	private Counter utilCount;
@@ -67,7 +84,7 @@ public class GameVariables implements Serializable{
 	@Expose private String[] icons;
 	private transient ImageIcon[] paintedIcons;
 	@Expose private Stamp[][] stampCollection;
-	@Expose private HashMap<String, GameToken> playerTokens;
+	@Expose private Map<String, GameToken> playerTokens;
 	@Expose private int[][] stickerBook;
 	@Expose private String[] stickers;
 	private transient ImageIcon[] coloredStickers;
@@ -77,11 +94,8 @@ public class GameVariables implements Serializable{
 	private Counter houseCount;
 	private Counter hotelCount;
 	
-	private HashMap<String, Object> variables;
-	
 	public GameVariables() {
 		LOG.newEntry("GameVariables called");
-		populateVariables();
 	}
 	
 	public void buildFrame() {
@@ -100,7 +114,7 @@ public class GameVariables implements Serializable{
 		frame.add(scores.getScoreboard(), BorderLayout.EAST);
 		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setPreferredSize(new Dimension(1280,700));
+		//frame.setPreferredSize(new Dimension(1280,700));
 		//best height for the frame is 650
 		frame.pack();
 		frame.setLocationRelativeTo(null);
@@ -176,50 +190,16 @@ public class GameVariables implements Serializable{
 		placeTokens();
 	}
 	
-	/*
-	 */
-	
-	private void populateVariables() {
-		//LOG.append("populating map with variables;");
-		LOG.newEntry("GameVariables: populating variables");
-		variables = new HashMap<String, Object>();
-		
-		variables.put("currency", currency);
-		variables.put("housecount", houseCount);
-		variables.put("hotelcount", hotelCount);
-		variables.put("frame", frame);
-		variables.put("proppos", propertyPositions);
-		variables.put("texture", texture);
-		variables.put("chance", chance);
-		variables.put("comchest", commchest);
-		variables.put("dice", gameDice);
-		variables.put("railcount", railCount);
-		variables.put("utilcount", utilCount);
-		variables.put("paintbynumbers", paintByNumbers);
-		variables.put("playertokens", playerTokens);
-		variables.put("icons", icons);
-		variables.put("stampcollection", stampCollection);
-		variables.put("stickerbook", stickerBook);
-		variables.put("stickers", stickers);
-		variables.put("properties", properties);
-		variables.put("players", players);
-		variables.put("suites", suites);
-		variables.put("savefile", saveFile);
-		
-	}
-	
-	public Object getVariable(String var) {
-		//LOG.append("requesting variable from map: "+var+";");
-		LOG.newEntry("GameVariables: Variable requested: " + var);
-		return variables.get(var);
-	}
-	
-	public void setVariable(String key, Object value) {
-		//LOG.append("setting variable " + key + " with value " + value + ";");
-		LOG.newEntry("GameVariables: request to set " + key + " to value " + value.toString());
-		LOG.newEntry("GameVariables: request to set " + key + " to value " + value.toString());
-		if( variables.containsKey(key) ) {
-			variables.put(key, value);
+	public void setPlayerNumber(int num) {
+		if( num < 2 || num > 8) {
+			return;
+		}
+		System.out.println("num is "+num);
+		while(players.size() > num) {
+			System.out.println("players size = "+players.size());
+			Player p = playerID.get(players.size()-1);
+			players.remove(p.getName());
+			playerID.remove(playerID.size()-1);
 		}
 	}
 	
@@ -325,7 +305,7 @@ public class GameVariables implements Serializable{
 	}
 	
 	public void fancyPlayerMove(Player p, int move) {
-		
+		notices.pushMe(new ListEvent(new MessageNotice("You rolled a "+move, notices)));
 		Timer time = new Timer(200, null);
 		time.addActionListener(new ActionListener() {
 			
@@ -411,17 +391,10 @@ public class GameVariables implements Serializable{
 		jailTimes = new HashMap<String, Integer>();
 		
 		players = TemplateGameVars.definePlayers();
-		populatePlayerMaps();
+		refreshPlayerMaps();
 		
 		turn = new Counter(0,8,0);
 		
-		jailTable = new HashMap<String,Boolean>();
-		jailTimes = new HashMap<String, Integer>();
-		for(String s : players.keySet()){
-			jailTable.put(s, false);
-			jailTimes.put(s, 0);
-			
-		}
 		currency = "$";
 		texture = "default";
 		houseCount = new Counter(0, 32, 0);
@@ -454,20 +427,35 @@ public class GameVariables implements Serializable{
 		propertyPositions = TemplateGameVars.definePropPositions();
 		playerTokens = TemplateGameVars.definePlayerTokens(playerID);
 		icons = TemplateGameVars.defineIcons();
+		
+		paintedIcons = new ImageIcon[icons.length];
+		
+		for(int i=0; i< icons.length; i++) {
+			paintedIcons[i] = new ImageIcon(System.getProperty("user.dir") + sep + icons[i]);
+			System.out.println(System.getProperty("user.dir") + sep + icons[i]);
+		}
+		
 		paintByNumbers = TemplateGameVars.definePaintByNumbers();
 		commchest = TemplateGameVars.defineCommChest();
 		chance = TemplateGameVars.defineChance();
 		stampCollection = TemplateGameVars.defineStamps();
 		stickerBook = TemplateGameVars.stickerBook();
 		stickers = TemplateGameVars.getStickers();
+		
 		coloredStickers = new ImageIcon[stickers.length];
 		for(int i=0; i<stickers.length; i++) {
-			coloredStickers[i] = new ImageIcon(stickers[i]);
+			coloredStickers[i] = new ImageIcon(System.getProperty("user.dir") + File.separator + stickers[i]);
+			System.out.println(System.getProperty("user.dir") + sep + stickers[i]);
 		}
-		populateVariables();
 	}
 	
-	private void populatePlayerMaps() {
+	public void refreshPlayerMaps() {
+		
+		turnTable.clear();
+		jailTable.clear();
+		jailTimes.clear();
+		playerID.clear();
+		
 		for(Player noob : players.values()) {
 			playerID.put(noob.getId(), noob);
 			turnTable.add(noob);

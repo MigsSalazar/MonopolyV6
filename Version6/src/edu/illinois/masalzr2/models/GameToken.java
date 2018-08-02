@@ -3,8 +3,10 @@ package edu.illinois.masalzr2.models;
 import java.awt.MediaTracker;
 import java.io.File;
 import java.io.Serializable;
+import java.util.Comparator;
 
 import javax.swing.ImageIcon;
+
 
 public class GameToken implements Serializable{
 	
@@ -15,7 +17,7 @@ public class GameToken implements Serializable{
 	
 	private String pieceDir;
 	
-	private ImageIcon piece;
+	private transient ImageIcon piece;
 	private int[] coords;
 	
 	private int team;
@@ -28,19 +30,14 @@ public class GameToken implements Serializable{
 		
 		piece = new ImageIcon();
 		
-		pieceDir = dir;
-		
-		File f = new File(dir);
-		
-		if(f.exists()){
-			piece = new ImageIcon(f.getAbsolutePath());
-		}
+		giveIconPath(dir);
 		
 		path = p;
 		
 		coords = path.getCoords();
 		
 	}
+	
 	
 	public int getX(){
 		return coords[1];
@@ -62,6 +59,10 @@ public class GameToken implements Serializable{
 		return piece;
 	}
 	
+	public String getPieceDir() {
+		return pieceDir;
+	}
+	
 	public void movePiece(int m){
 		if(path.isLocked()){
 			return;
@@ -75,6 +76,7 @@ public class GameToken implements Serializable{
 	
 	public boolean giveIconPath(String dir){
 		piece = new ImageIcon(dir);
+		pieceDir = dir;
 		return piece.getImageLoadStatus() == MediaTracker.COMPLETE;
 	}
 	
@@ -100,6 +102,26 @@ public class GameToken implements Serializable{
 	
 	public void setLocked(boolean l){
 		path.setLocked(l);
+	}
+	
+	public static Comparator<GameToken> getTeamComparator(){
+		return new SortByTeam();
+	}
+	
+	public static Comparator<GameToken> getIconComparator(){
+		return new SortByIcon();
+	}
+	
+	private static class SortByTeam implements Comparator<GameToken>{
+		public int compare(GameToken g0, GameToken g1) {
+			return g0.getTeam() - g1.getTeam();
+		}
+	}
+	
+	private static class SortByIcon implements Comparator<GameToken>{
+		public int compare(GameToken o0, GameToken o1) {
+			return o0.pieceDir.compareTo(o1.pieceDir);
+		}
 	}
 	
 }
