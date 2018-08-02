@@ -2,7 +2,6 @@ package edu.illinois.masalzr2.masters;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -96,6 +95,11 @@ public class GameVariables implements Serializable{
 	
 	public GameVariables() {
 		LOG.newEntry("GameVariables called");
+	}
+	
+	@Override
+	public String toString() {
+		return this.getClass().getName()+this.hashCode();
 	}
 	
 	public void buildFrame() {
@@ -267,8 +271,8 @@ public class GameVariables implements Serializable{
 	
 	public GameCard getRandomChance(){
 		Random rando = new Random();
-		//return chance.get(0);
-		return chance.get(rando.nextInt(chance.size()));
+		return chance.get(5);
+		//return chance.get(rando.nextInt(chance.size()));
 	}
 	
 	public Player getPlayerByID(int id){
@@ -309,14 +313,15 @@ public class GameVariables implements Serializable{
 		Timer time = new Timer(200, null);
 		time.addActionListener(new ActionListener() {
 			
-			int count = move;
+			int mod = (move > 0) ? 1 : -1;
+			int count = move * mod;
 			GameToken current = playerTokens.get(p.getName());
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//System.out.println("Time clicked");
-				visualMove(current, 1);
-				current.movePiece(1);
+				visualMove(current, mod);
+				current.movePiece(mod);
 				count--;
 				if( count <= 0 ) {
 					time.stop();
@@ -332,7 +337,7 @@ public class GameVariables implements Serializable{
 	private void visualMove(GameToken current, int move) {
 		ImageIcon piece = current.getPiece();
 		
-		int[] coords = current.getPath().getCoordsAtStep(move + current.getPath().getStep());
+		int[] coords = current.getPath().getCoordsAtStep( (move + current.getPath().getStep())%current.getPath().stepCount() );
 		
 		board.movePiece(piece, coords[1], coords[0]);
 	}

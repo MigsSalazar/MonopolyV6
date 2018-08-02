@@ -53,12 +53,12 @@ public class Street extends Property implements Serializable {
 	
 	@Override
 	public int getWorth(){
-		return 0;
+		return super.getPrice() + (grade*upgradeCost);
 	}
 	
 	@Override
 	public int getLiquidationWorth(){
-		return 0;
+		return super.getLiquidationWorth() + (grade*upgradeCost);
 	}
 	
 }

@@ -44,6 +44,7 @@ public abstract class AbstractNotice implements ActionListener {
 	}
 	
 	protected void noticePushPop(AbstractNotice an) {
+		LOG.newEntry(this.getClass().getName() + ": "+text);
 		LOG.newEntry(this.getClass().getName() + ": noticePushPop: Pushing new " + an.getClass().getName() + " onto listener's queue and poping self");
 		listener.pushMe(new ListEvent(an));
 		listener.popMe(new ListEvent(this));

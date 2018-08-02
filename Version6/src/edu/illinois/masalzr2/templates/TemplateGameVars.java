@@ -1129,7 +1129,7 @@ public class TemplateGameVars{
 		
 		commchest.add(new GameCard("<html>Advance to Go!"
 								+ "<br>(Collect $200)</html>",
-									200, false,0,false,false,"","go",false, 0, 0));
+									0, false,0,false,false,"","go",false, 0, 0));
 		commchest.add(new GameCard("<html>Bank error in your favor"
 								+ "<br>Collect $200</html>",
 				200, false,0,false,false,"","",false, 0, 0));
@@ -1195,7 +1195,7 @@ public class TemplateGameVars{
 	public static ArrayList<GameCard> defineChance() {
 		ArrayList<GameCard> chance = new ArrayList<GameCard>();
 		chance.add(new GameCard("<html>Advance to Go!<br>(Collect $200)</html>",
-				200, false,0,false,false,"",
+				0, false,0,false,false,"",
 				"go",
 				false, 0, 0));
 		chance.add(new GameCard("<html>Advance to Illinois Ave.!<br>(If you ass Go, collect $200)</html>",

@@ -1,13 +1,15 @@
 package edu.illinois.masalzr2.notices.implentations;
 
+import edu.illinois.masalzr2.masters.LogMate;
 import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.notices.ListListener;
 
 public class GoNotice extends PlayerBankNotice {
 
 	public GoNotice(ListListener ppl, Player p) {
-		super("You passed/landed on Go!"
-				+ "<br>Collect $200!" , ppl, p, 200);
+		super("<html>You passed or landed on Go!"
+				+ "<br>Collect $200!</html>" , ppl, p, 200);
+		LogMate.LOG.newEntry("GoNotice: Beginning: Player "+p.getName()+" has landed/passed on Go");
 	}
 
 }

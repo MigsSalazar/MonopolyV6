@@ -134,6 +134,7 @@ public class PreGameFrame extends JFrame implements ActionListener {
 				ngsup.beginDialog();
 				LOG.newEntry("PreGameFrame: ActionPerformed: Dialog has ended, starting game");
 				Map<Integer, Player> pl = newerGame.getPlayerID();
+				Map<String, Player> pls = newerGame.getPlayers();
 				List<String> names = ngsup.getNames();
 				newerGame.setPlayerNumber(names.size());
 				to.clear();
@@ -142,6 +143,8 @@ public class PreGameFrame extends JFrame implements ActionListener {
 					LOG.newEntry("PreGameFrame: ActionPerformed: at name "+i + " is "+names.get(0));
 					to.put(names.get(i), tokens.get(i));
 					pl.get(i).setName(names.get(i));
+					pls.remove(""+i);
+					pls.put(names.get(i), pl.get(i));
 				}
 				LOG.newEntry("PreGameFrame: ActionPerformed: Loading assets. sending");
 				newerGame.refreshPlayerMaps();

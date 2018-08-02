@@ -97,7 +97,9 @@ public class PositionIndex implements Serializable{
 		retval[1] = y[step];
 		return retval;
 	}
-	
+	public int stepCount() {
+		return (x.length < y.length) ? x.length : y.length;
+	}
 	public int[] getCoordsAtStep(int s){
 		int[] retval = {-1,-1};
 		if(s < x.length && s < y.length){

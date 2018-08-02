@@ -58,7 +58,7 @@ public class HomeMenuNotice extends HighLevelNotice {
 					//updateTurn();
 					//listener.pushMe(new ListEvent(an));
 					
-					LOG.newEntry("MoneMenuNotice: actionPerformed: popping self and flushing log");
+					LOG.newEntry("HomeMenuNotice: actionPerformed: popping self and flushing log");
 					listener.popMe(new ListEvent(this));
 					LOG.flush();
 					//System.out.println("and im out bois");

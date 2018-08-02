@@ -194,15 +194,15 @@ public class Board {
 	}
 	
 	public void movePiece(ImageIcon icon, String key, int x, int y){
-		LogMate.LOG.newEntry("Board: Move Piece: Moving piece of key: "+key);
+		LogMate.LOG.newEntry("Board: Move Piece: Moving piece of key: "+key+" to coords x="+x+" y="+y);
 		if(pieceCoords.containsKey(key)){
 			LogMate.LOG.newEntry("Board: Move Piece: Key was found, retrieving");
 			Dimension dim = pieceCoords.get(key);
-			LogMate.LOG.newEntry("Board: Move Piece: Wiping old icons");
+			//LogMate.LOG.newEntry("Board: Move Piece: Wiping old icons");
 			display[dim.width][dim.height].wipeIcons();
-			LogMate.LOG.newEntry("Board: Move Piece: Setting coordinates");
+			//LogMate.LOG.newEntry("Board: Move Piece: Setting coordinates");
 			dim.setSize(x, y);
-			LogMate.LOG.newEntry("Board: Move Piece: Adding Icon");
+			//LogMate.LOG.newEntry("Board: Move Piece: Adding Icon");
 			display[dim.width][dim.height].addIcon(icon);
 		}
 	}
@@ -222,7 +222,7 @@ public class Board {
 			Set<String> keys = pieceCoords.keySet();
 			String[] strKeys = new String[keys.size()];
 			keys.toArray(strKeys);
-			LogMate.LOG.newEntry("Board: Remove Piece: True Deleting pieces");
+			//LogMate.LOG.newEntry("Board: Remove Piece: True Deleting pieces");
 			for(String s : strKeys) {
 				if(s.contains(key)) {
 					trueDelete(s);
