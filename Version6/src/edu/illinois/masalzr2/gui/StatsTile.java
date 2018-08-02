@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -25,13 +26,14 @@ public class StatsTile extends JPanel implements ChangeListener{
 	 */
 	private static final long serialVersionUID = 1L;
 
-private Player myPlayer;
-	
+	private ImageIcon myIcon;
+	private Player myPlayer;
 	private String currencySymbol;
 	
 	private JPanel labels = new JPanel(new GridLayout(7,1));
 	//private JLabel name;
 	private Border title;
+	private JLabel icon;
 	private JLabel wealth;
 	private JLabel bank;
 	private JLabel posi;
@@ -49,7 +51,7 @@ private Player myPlayer;
 	 * information pertaining to the passed player object needed for game play
 	 * @param p	Player object for which to display the current standings
 	 */
-	public StatsTile(Player p, String cs){
+	public StatsTile(ImageIcon i, Player p, String cs){
 		
 		Border up = BorderFactory.createRaisedBevelBorder();
 		Border down = BorderFactory.createLoweredBevelBorder();
@@ -60,6 +62,7 @@ private Player myPlayer;
 		this.setBorder(title);
 		currencySymbol = cs;
 		myPlayer=p;
+		myIcon = i;
 		this.setLayout(new BorderLayout());
 		
 		formLabels();
@@ -77,6 +80,7 @@ private Player myPlayer;
 	public void formLabels(){
 		
 		//name = new JLabel(myPlayer.getName());
+		icon = new JLabel(myIcon);
 		posi = new JLabel("Current Position: "+myPlayer.getPosition());
 		wealth = new JLabel("Assets: "+currencySymbol+myPlayer.getWealth());
 		colorWealth();
@@ -89,7 +93,7 @@ private Player myPlayer;
 		prop = new JLabel("Properties owned: ");
 		
 		
-		//labels.add(name);
+		labels.add(icon);
 		labels.add(posi);
 		labels.add(wealth);
 		labels.add(bank);

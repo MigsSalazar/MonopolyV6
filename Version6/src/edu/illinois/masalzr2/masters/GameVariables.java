@@ -107,12 +107,19 @@ public class GameVariables implements Serializable{
 		frame = new JFrame();
 		frame.setTitle("Monopoly!");
 		frame.setIconImage( (new ImageIcon( System.getProperty("user.dir")+sep+"resources"+sep+"frameicon.png" )).getImage() );
-		frame.setLayout(new BorderLayout());
+		BorderLayout bl = new BorderLayout();
+		bl.setHgap(8);
+		bl.setVgap(8);
+		frame.setLayout(bl);
 		menuBar = new FrameMenu(this);
 		frame.setJMenuBar(menuBar);
 		buildBoard();
 		notices = new Notices(this);
-		scores = new Scoreboard( playerID, currency );
+		ImageIcon[] playerIcons = new ImageIcon[playerTokens.size()];
+		for(int i=0; i<playerID.size(); i++) {
+			playerIcons[i] = playerTokens.get(playerID.get(i).getName()).getPiece();
+		}
+		scores = new Scoreboard(playerIcons, playerID, currency );
 		frame.add(board.getBoard(), BorderLayout.CENTER);
 		frame.add(notices.getNoticePanel(), BorderLayout.SOUTH);
 		frame.add(scores.getScoreboard(), BorderLayout.EAST);
@@ -198,9 +205,9 @@ public class GameVariables implements Serializable{
 		if( num < 2 || num > 8) {
 			return;
 		}
-		System.out.println("num is "+num);
+		//System.out.println("num is "+num);
 		while(players.size() > num) {
-			System.out.println("players size = "+players.size());
+			//System.out.println("players size = "+players.size());
 			Player p = playerID.get(players.size()-1);
 			players.remove(p.getName());
 			playerID.remove(playerID.size()-1);
@@ -271,8 +278,8 @@ public class GameVariables implements Serializable{
 	
 	public GameCard getRandomChance(){
 		Random rando = new Random();
-		return chance.get(5);
-		//return chance.get(rando.nextInt(chance.size()));
+		//return chance.get(5);
+		return chance.get(rando.nextInt(chance.size()));
 	}
 	
 	public Player getPlayerByID(int id){

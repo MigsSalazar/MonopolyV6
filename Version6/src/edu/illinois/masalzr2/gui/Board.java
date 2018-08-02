@@ -302,7 +302,7 @@ public class Board {
 	}
 	
 	public void paintDice(int dOne, int dTwo){
-		LogMate.LOG.newEntry("Board: Paint Dice: Updating dice");
+		LogMate.LOG.newEntry("Board: Paint Dice: Updating dice: d1="+dOne+" d2="+dTwo);
 		d1 = dOne;
 		d2 = dTwo;
 		if(!showDice){
@@ -319,14 +319,14 @@ public class Board {
 			LogMate.LOG.newEntry("Board: Paint Dice: BlankDie is null. Setting placeholder");
 			blankDie = new ImageIcon();
 		}
-		LogMate.LOG.newEntry("Board: Paint Dice: Setting all empty");
+		//LogMate.LOG.newEntry("Board: Paint Dice: Setting all empty");
 		for(int i=0; i<3; i++){
 			for(int j=0; j<3; j++){
 				dice1[i][j].setIcon(blankDie);
 				dice2[i][j].setIcon(blankDie);
 			}
 		}
-		LogMate.LOG.newEntry("Board: Paint Dice: Painting first die");
+		//LogMate.LOG.newEntry("Board: Paint Dice: Painting first die");
 		switch(d1){
 		case 5:	dice1[0][0].setIcon(dotDie);
 				dice1[2][2].setIcon(dotDie);
@@ -342,7 +342,7 @@ public class Board {
 				dice1[2][0].setIcon(dotDie);
 			break;
 		}
-		LogMate.LOG.newEntry("Board: Paint Dice: Painting second die");
+		//LogMate.LOG.newEntry("Board: Paint Dice: Painting second die");
 		switch(d2){
 		case 5:	dice2[0][0].setIcon(dotDie);
 				dice2[2][2].setIcon(dotDie);
