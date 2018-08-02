@@ -4,11 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+import edu.illinois.masalzr2.Starter;
 import edu.illinois.masalzr2.io.GameIo;
 import edu.illinois.masalzr2.masters.GameVariables;
 
@@ -74,7 +76,8 @@ public class FrameMenu extends JMenuBar implements ActionListener{
 			
 			if( source.equals(options[0]) ) {
 				GameVariables newGame = GameIo.newGame();
-				newGame.buildFrame();
+				JFrame parent = (JFrame)this.getParent();
+				Starter.gameSetup(parent, newGame);
 				gameVars.getFrame().dispose();
 			} else if( source.equals(options[1]) ){
 				String dir = GameIo.findGame(gameVars.getFrame());

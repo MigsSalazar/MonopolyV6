@@ -11,9 +11,6 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,12 +20,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import edu.illinois.masalzr2.Starter;
 import edu.illinois.masalzr2.io.GameIo;
 import edu.illinois.masalzr2.masters.GameVariables;
 import edu.illinois.masalzr2.masters.LogMate;
 import edu.illinois.masalzr2.masters.LogMate.Logger;
-import edu.illinois.masalzr2.models.GameToken;
-import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.templates.TemplateGameVars;
 
 
@@ -122,34 +118,7 @@ public class PreGameFrame extends JFrame implements ActionListener {
 			
 			if(newerGame !=null) {
 				
-				LOG.newEntry("PreGameFrame: ActionPerformed: NewGame was not null");
-				LOG.newEntry("PreGameFrame: ActionPerformed: Finding GameTokens");
-				Map<String, GameToken> to = newerGame.getPlayerTokens();
-				List<GameToken> tokens = new ArrayList<GameToken>(to.values());
-				tokens.sort(GameToken.getTeamComparator());
-				
-				LOG.newEntry("PreGameFrame: ActionPerformed: developing NewGameStartUp");
-				NewGameStartUp ngsup = new NewGameStartUp(this, tokens );
-				LOG.newEntry("PreGameFrame: ActionPerformed: Starting NewGameStartUp Dialog");
-				ngsup.beginDialog();
-				LOG.newEntry("PreGameFrame: ActionPerformed: Dialog has ended, starting game");
-				Map<Integer, Player> pl = newerGame.getPlayerID();
-				Map<String, Player> pls = newerGame.getPlayers();
-				List<String> names = ngsup.getNames();
-				newerGame.setPlayerNumber(names.size());
-				to.clear();
-				LOG.newEntry("PreGameFrame: ActionPerformed: Assets gotten");
-				for(int i=0; i<names.size(); i++) {
-					LOG.newEntry("PreGameFrame: ActionPerformed: at name "+i + " is "+names.get(0));
-					to.put(names.get(i), tokens.get(i));
-					pl.get(i).setName(names.get(i));
-					pls.remove(""+i);
-					pls.put(names.get(i), pl.get(i));
-				}
-				LOG.newEntry("PreGameFrame: ActionPerformed: Loading assets. sending");
-				newerGame.refreshPlayerMaps();
-				newerGame.getTurn().setMax(names.size());
-				newerGame.buildFrame();
+				Starter.gameSetup( (JFrame)this, newerGame);
 				closeMe();
 				
 			}else {
@@ -215,4 +184,5 @@ public class PreGameFrame extends JFrame implements ActionListener {
 		}
 		
 	}
+	
 }

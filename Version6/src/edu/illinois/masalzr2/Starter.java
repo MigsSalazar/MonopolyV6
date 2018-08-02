@@ -1,11 +1,20 @@
 package edu.illinois.masalzr2;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
+import javax.swing.JFrame;
+
+import edu.illinois.masalzr2.gui.NewGameStartUp;
 import edu.illinois.masalzr2.gui.PreGameFrame;
 import edu.illinois.masalzr2.io.GameIo;
+import edu.illinois.masalzr2.masters.GameVariables;
 import edu.illinois.masalzr2.masters.LogMate;
 import edu.illinois.masalzr2.masters.MonopolyExceptionHandler;
+import edu.illinois.masalzr2.models.GameToken;
+import edu.illinois.masalzr2.models.Player;
 
 
 
@@ -40,4 +49,36 @@ public class Starter {
 		pgf.start();
 		//myGame.buildFrame();
 	}
+	
+	public static void gameSetup(JFrame parent, GameVariables newerGame) {
+		LogMate.LOG.newEntry("PreGameFrame: ActionPerformed: NewGame was not null");
+		LogMate.LOG.newEntry("PreGameFrame: ActionPerformed: Finding GameTokens");
+		Map<String, GameToken> to = newerGame.getPlayerTokens();
+		List<GameToken> tokens = new ArrayList<GameToken>(to.values());
+		tokens.sort(GameToken.getTeamComparator());
+		
+		LogMate.LOG.newEntry("PreGameFrame: ActionPerformed: developing NewGameStartUp");
+		NewGameStartUp ngsup = new NewGameStartUp(parent, tokens );
+		LogMate.LOG.newEntry("PreGameFrame: ActionPerformed: Starting NewGameStartUp Dialog");
+		ngsup.beginDialog();
+		LogMate.LOG.newEntry("PreGameFrame: ActionPerformed: Dialog has ended, starting game");
+		Map<Integer, Player> pl = newerGame.getPlayerID();
+		Map<String, Player> pls = newerGame.getPlayers();
+		List<String> names = ngsup.getNames();
+		newerGame.setPlayerNumber(names.size());
+		to.clear();
+		LogMate.LOG.newEntry("PreGameFrame: ActionPerformed: Assets gotten");
+		for(int i=0; i<names.size(); i++) {
+			LogMate.LOG.newEntry("PreGameFrame: ActionPerformed: at name "+i + " is "+names.get(0));
+			to.put(names.get(i), tokens.get(i));
+			pl.get(i).setName(names.get(i));
+			pls.remove(""+i);
+			pls.put(names.get(i), pl.get(i));
+		}
+		LogMate.LOG.newEntry("PreGameFrame: ActionPerformed: Loading assets. sending");
+		newerGame.refreshPlayerMaps();
+		newerGame.getTurn().setMax(names.size());
+		newerGame.buildFrame();
+	}
+	
 }
