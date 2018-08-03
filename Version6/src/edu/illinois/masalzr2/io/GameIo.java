@@ -61,8 +61,6 @@ public class GameIo {
 				/*ImageIcon*/null, 
 				options, 
 				options[0]);
-		
-		
 	}
 	
 	public static GameVariables newGame() {

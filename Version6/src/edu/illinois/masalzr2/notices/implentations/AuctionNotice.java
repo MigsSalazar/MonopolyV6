@@ -3,6 +3,8 @@ package edu.illinois.masalzr2.notices.implentations;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JButton;
@@ -53,8 +55,14 @@ public class AuctionNotice extends AbstractNotice implements KeyListener  {
 		LogMate.LOG.newEntry("AuctionNotice: Sub Constructor: Setting basics");
 		prop = pr;
 		players = pl;
-		playerNames = new String[players.size()];
-		players.keySet().toArray(playerNames);
+		List<String> tempNames = new ArrayList<String>(pl.keySet());
+		for(String n : pl.keySet()) {
+			if(pl.get(n).isBankrupt()) {
+				tempNames.remove(n);
+			}
+		}
+		playerNames = new String[tempNames.size()];
+		tempNames.toArray(playerNames);
 		currency = c;
 		text = "<html>Current bid on "+prop.getName()+" is "+currency+bid + " by " + playerNames[0]
 				+"<br>"+playerNames[turn]+", will you raise or pass? Entering 0 means you pass."

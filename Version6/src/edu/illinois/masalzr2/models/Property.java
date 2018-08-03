@@ -145,6 +145,10 @@ public class Property implements Serializable{
 		}
 	}
 	
+	public void removeListener(ChangeListener ce) {
+		listeners.remove(ce);
+	}
+	
 	protected void fireChange(){
 		ChangeEvent ce = new ChangeEvent(this);
 		System.out.println("Change has been fired in property");

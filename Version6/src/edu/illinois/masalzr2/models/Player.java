@@ -10,6 +10,8 @@ import javax.swing.event.ChangeListener;
 
 import com.google.gson.annotations.Expose;
 
+import lombok.*;
+
 
 public class Player implements ChangeListener, Serializable{
 	
@@ -18,14 +20,14 @@ public class Player implements ChangeListener, Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Expose private String name;
-	@Expose private int id;
-	@Expose private int cash;
+	@Getter @Setter @Expose private String name;
+	@Getter @Setter @Expose private int id;
+	@Getter @Setter @Expose private int cash;
 	@Expose private Counter position;
-	@Expose private int jailCard;
-	@Expose private boolean bankrupt;
-	private HashMap<String, Property> props;
-	private ArrayList<ChangeListener> listeners;
+	@Getter @Setter @Expose private int jailCard;
+	@Getter @Setter @Expose private boolean bankrupt;
+	@Getter @Setter private HashMap<String, Property> props;
+	@Getter @Setter private ArrayList<ChangeListener> listeners;
 	
 	public Player(String n, int i, int c, int p, int j, boolean b, HashMap<String, Property> pr, ArrayList<ChangeListener> listen){
 		name = n;
@@ -46,26 +48,6 @@ public class Player implements ChangeListener, Serializable{
 		jailCard = 0;
 		props = new HashMap<String, Property>();
 		listeners = new ArrayList<ChangeListener>();
-	}
-	
-	public String getName(){
-		return name;
-	}
-	
-	public void setName(String n){
-		name = n;
-	}
-	
-	public void setId(int i){
-		id = i;
-	}
-	
-	public int getId(){
-		return id;
-	}
-	
-	public int getCash(){
-		return cash;
 	}
 	
 	public void addCash(int a){
@@ -93,10 +75,6 @@ public class Player implements ChangeListener, Serializable{
 		return position.getCount();
 	}
 	
-	public int getJailCard(){
-		return jailCard;
-	}
-	
 	public void addJailCard(int a){
 		jailCard += a;
 		fireChange();
@@ -114,16 +92,8 @@ public class Player implements ChangeListener, Serializable{
 		addJailCard(-1);
 	}
 	
-	public boolean isBankrupt(){
-		return bankrupt;
-	}
-	
 	public boolean ownsProp(Property p){
 		return props.containsValue(p);
-	}
-	
-	public HashMap<String,Property> getProps(){
-		return props;
 	}
 	
 	public void addProp(Property p){
@@ -145,9 +115,10 @@ public class Player implements ChangeListener, Serializable{
 	
 	public void removeProp(Property p){
 		removeProp(p.getName());
+		p.removeListener(this);
 	}
 	
-	public void removeProp(String p){
+	private void removeProp(String p){
 		propsExist();
 		props.remove(p);
 		fireChange();
@@ -191,6 +162,10 @@ public class Player implements ChangeListener, Serializable{
 		if(!listeners.contains(cl)){
 			listeners.add(cl);
 		}
+	}
+	
+	public void removeListener(ChangeListener ce) {
+		listeners.remove(ce);
 	}
 	
 	private void fireChange(){

@@ -15,15 +15,20 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import com.google.gson.annotations.Expose;
 
 import edu.illinois.masalzr2.gui.Board;
 import edu.illinois.masalzr2.gui.FrameMenu;
+import edu.illinois.masalzr2.gui.MortgageManager;
 import edu.illinois.masalzr2.gui.Notices;
 import edu.illinois.masalzr2.gui.Scoreboard;
 import edu.illinois.masalzr2.gui.Stamp;
+import edu.illinois.masalzr2.gui.UpgradeManager;
 import edu.illinois.masalzr2.masters.LogMate.Logger;
 import edu.illinois.masalzr2.models.Counter;
 import edu.illinois.masalzr2.models.Dice;
@@ -37,12 +42,13 @@ import edu.illinois.masalzr2.models.Street;
 import edu.illinois.masalzr2.models.Suite;
 import edu.illinois.masalzr2.models.Utility;
 import edu.illinois.masalzr2.notices.ListEvent;
+import edu.illinois.masalzr2.notices.implentations.GameOverNotice;
 import edu.illinois.masalzr2.notices.implentations.MessageNotice;
 import edu.illinois.masalzr2.templates.TemplateGameVars;
 import lombok.Data;
 
 @Data
-public class GameVariables implements Serializable{
+public class GameVariables implements Serializable, ChangeListener{
 	/**
 	 * 
 	 */
@@ -536,6 +542,7 @@ public class GameVariables implements Serializable{
 			turnTable.add(noob);
 			jailTable.put(noob.getName(), false);
 			jailTimes.put(noob.getName(), 0);
+			noob.addChangeListener(this);
 		}
 			
 	}
@@ -543,5 +550,87 @@ public class GameVariables implements Serializable{
 	public void repaintFrame(){
 		frame.repaint();
 	}
+	
+	private void bankruptPlayer(Player p) {
+		p.setBankrupt(true);
+		int count = 0;
+		int id = -1;
+		
+		for(int i=0; i<playerID.size(); i++) 
+			if(!playerID.get(i).isBankrupt()) {
+				count++;
+				id = i;
+			}
+		if( count > 1 ) {
+			JOptionPane.showMessageDialog(frame, p.getName()+" has gone bankrupt! They have neither enough cash on hand or"
+												+ "\nliquidizable wealth to pay their debts. Anything left in the chain of events"
+												+ "\nwill be completed but any and all properties owned by "+p.getName()
+												+ "\nwill be put to auction and all must be sold.");
+			p.setCash(0);
+			Map<String, Property> props = p.getProps();
+			for(Property pr : props.values()) {
+				notices.pushMe(new ListEvent(pr));
+				p.removeProp(pr);
+			}
+		}else {
+			gameOver(id);
+		}
+	}
+
+	private void gameOver(int id) {
+		Player winner = playerID.get(id);
+		notices.flushNotices();
+		notices.pushMe(new ListEvent(new MessageNotice("Congradulations "+winner.getName()+"! You have won!\nAll other players have gone bankrupt", notices)));
+		notices.pushMe(new ListEvent(new GameOverNotice(notices)));
+	}
+
+	private void playerIsSalvageable(Player p) {
+		while(p.getCash() <= 0) {
+			String[] options = {"Downgrade", "Mortgage"};
+			int picked = JOptionPane.showOptionDialog(frame, 
+					p.getName()+" does not have enough cash on hand."
+							+ "\nSell your assets until you can pay off your debt"
+							+ "\nof "+currency+p.getCash(), 
+					"Liquidate", 
+					JOptionPane.DEFAULT_OPTION, 
+					JOptionPane.WARNING_MESSAGE, 
+					null, 
+					options, 
+					null);
+			if(picked != JOptionPane.CANCEL_OPTION) {
+				switch(options[picked]) {
+				case "Downgrade": UpgradeManager um = new UpgradeManager(this, p);
+					um.beginManager();
+					break;
+				case "Mortgage": MortgageManager mm = new MortgageManager(this, p);
+					mm.beginManager();
+					break;
+				}
+			}
+			if(p.getCash() <= 0) {
+				JOptionPane.showMessageDialog(null, "You have not sold enough assets!\nRemaining balance: "+currency+p.getCash());
+			}
+		}
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		
+		if(e.getSource() instanceof Player) {
+			Player p = (Player)e.getSource();
+			int cash = p.getCash();
+			if(cash <= 0 ) {
+				if( p.getLiquidationWorth() + cash > 0 ) {
+					playerIsSalvageable(p);
+				}else {
+					bankruptPlayer(p);
+				}
+			}
+			
+		}
+		
+	}
+
+	
 	
 }
