@@ -36,6 +36,7 @@ public class Street extends Property implements Serializable {
 	
 	public void setGrade(int g ){
 		grade = g;
+		fireChange();
 	}
 	
 	public int getGrade(){
@@ -53,7 +54,8 @@ public class Street extends Property implements Serializable {
 	
 	@Override
 	public int getWorth(){
-		return super.getPrice() + (grade*upgradeCost);
+		System.out.println("I am "+name+" and my grade is "+grade+" with an upgrade cost of "+upgradeCost);
+		return getPrice() + (grade*upgradeCost);
 	}
 	
 	@Override

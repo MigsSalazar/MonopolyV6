@@ -10,6 +10,11 @@ import edu.illinois.masalzr2.notices.AbstractNotice;
 import edu.illinois.masalzr2.notices.ListListener;
 
 public class IncomeTaxNotice extends AbstractNotice {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Player play;
 	private int tax;
 	private String currency;

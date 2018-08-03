@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 
+import edu.illinois.masalzr2.gui.MortgageManager;
+import edu.illinois.masalzr2.gui.UpgradeManager;
 import edu.illinois.masalzr2.masters.GameVariables;
 import edu.illinois.masalzr2.notices.AbstractNotice;
 import edu.illinois.masalzr2.notices.ListEvent;
@@ -12,6 +14,11 @@ import edu.illinois.masalzr2.notices.ListListener;
 
 public class HomeMenuNotice extends HighLevelNotice {
 
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public HomeMenuNotice(ListListener ppl, GameVariables gv) {
 		super(ppl, gv);
 		text = gv.getCurrentPlayer().getName()+"'s turn. ";
@@ -28,53 +35,42 @@ public class HomeMenuNotice extends HighLevelNotice {
 			JButton me = (JButton)e.getSource();
 			
 			if(me.equals(actions[0])){
-				//System.out.println("Roll button pressed");
-				if(gameVars.isInJail(currentPlayer)){
-					//System.out.println("This dude is locked up");
-					//AbstractNotice jailTime = new InJailNotice(parent, gameVars, currentPlayer);
-					//parent.paintNotice(jailTime);
-					//sync(jailTime);
-					//updateTurn();
-					currentPlayer = gameVars.getCurrentPlayer();
-					
-				}else{
-					
-					int roll = gameVars.roll();
-					int dice1 = gameDice.getLastDice()[0];
-					int dice2 = gameDice.getLastDice()[1];
-					
-					crossGo(currentPlayer, roll);
-					
-					AbstractNotice event = moveAndDo(roll);
-					//System.out.println("now painting the event to the frame");
-					listener.pushMe(new ListEvent(event));
-					//System.out.println("syncing the event");
-					if(dice1 != dice2){
-						updateTurn();
+				currentPlayer = gameVars.getCurrentPlayer();
+				
+				int roll = gameVars.roll();
+				int dice1 = gameDice.getLastDice()[0];
+				int dice2 = gameDice.getLastDice()[1];
+				
+				crossGo(currentPlayer, roll);
+				
+				AbstractNotice event = moveAndDo(roll);
+				//System.out.println("now painting the event to the frame");
+				listener.pushMe(new ListEvent(event));
+				//System.out.println("syncing the event");
+				if(dice1 != dice2){
+					gameVars.resetJail(currentPlayer);
+					updateTurn();
+				}else {
+					int num = gameVars.nightInJail(currentPlayer);
+					if(num == 3) {
+						gameVars.resetJail(currentPlayer);
+						listener.pushMe(new ListEvent(moveAndDo(currentPlayer, 3)));
 					}
-					
-					//gameVars.jailPlayer(currentPlayer);
-					//AbstractNotice an = actionDone(currentPlayer, 3);
-					//updateTurn();
-					//listener.pushMe(new ListEvent(an));
-					
-					LOG.newEntry("HomeMenuNotice: actionPerformed: popping self and flushing log");
-					listener.popMe(new ListEvent(this));
-					LOG.flush();
-					//System.out.println("and im out bois");
-					
-					
-					
 				}
+				
+				LOG.newEntry("HomeMenuNotice: actionPerformed: popping self and flushing log");
+				listener.popMe(new ListEvent(this));
+				LOG.flush();
+				
 			}else if(me.equals(actions[1])){
-				//UpgradeManager um = new UpgradeManager(gameVars, currentPlayer);
-				//um.beginManager();
+				UpgradeManager um = new UpgradeManager(gameVars, currentPlayer);
+				um.beginManager();
 			}else if(me.equals(actions[2])){
 				//TradeManager tm = new TradeManager(gameVars, currentPlayer, gameVars.getPlayers());
 				//tm.runManager();
 			}else if(me.equals(actions[3])){
-				//MortgageManager mm = new MortgageManager(gameVars, currentPlayer);
-				//mm.beginManager();
+				MortgageManager mm = new MortgageManager(gameVars, currentPlayer);
+				mm.beginManager();
 				//gameVars.getFrame().getGameStats().updatePlayers();
 			}
 		}

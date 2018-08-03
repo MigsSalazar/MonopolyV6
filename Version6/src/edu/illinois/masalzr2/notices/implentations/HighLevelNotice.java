@@ -9,6 +9,11 @@ import edu.illinois.masalzr2.notices.ListEvent;
 import edu.illinois.masalzr2.notices.ListListener;
 
 public abstract class HighLevelNotice extends AbstractNotice {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected Player currentPlayer;
 	protected GameVariables gameVars;
 	protected Dice gameDice;
@@ -82,6 +87,10 @@ public abstract class HighLevelNotice extends AbstractNotice {
 		gameVars.nextTurn();
 		currentPlayer = gameVars.getCurrentPlayer();
 		text = currentPlayer.getName()+"'s turn.\nWhat would you like to do?";
+		if(gameVars.isInJail(currentPlayer)) {
+			gameVars.jailPlayer(currentPlayer);
+			currentPlayer.setPosition(10);
+		}
 	}
 	
 	protected AbstractNotice moveAndDo(int roll) {

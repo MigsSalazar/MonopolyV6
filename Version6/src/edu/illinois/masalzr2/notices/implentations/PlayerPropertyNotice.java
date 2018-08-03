@@ -6,6 +6,11 @@ import edu.illinois.masalzr2.notices.ListListener;
 
 public class PlayerPropertyNotice extends MessageNotice {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public PlayerPropertyNotice(String t, ListListener ppl, Player play, Property prop) {
 		super(t, ppl);
 		play.addProp(prop);

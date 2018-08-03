@@ -11,6 +11,11 @@ import edu.illinois.masalzr2.notices.ListListener;
 
 public class MessageNotice extends AbstractNotice{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public MessageNotice(String t, ListListener ppl){
 		super(t, ppl);
 		defineActions();

@@ -7,6 +7,11 @@ import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.notices.ListListener;
 
 public class PlayerBankNotice extends MessageNotice{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public PlayerBankNotice(String t, ListListener ppl, Player p, int c){
 		super(t, ppl);
 		LogMate.LOG.newEntry("PlayerBankNotice: Beginning: Cash value awarded="+c);

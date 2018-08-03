@@ -93,7 +93,6 @@ public class NewGameStartUp implements ActionListener, ChangeListener, KeyListen
 		//dialog.revalidate();
 		dialog.setVisible(true);
 		
-		
 	}
 	/*
 	public List<Integer> getIconIds(){

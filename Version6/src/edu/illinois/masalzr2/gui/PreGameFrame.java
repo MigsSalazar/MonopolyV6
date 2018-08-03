@@ -117,10 +117,8 @@ public class PreGameFrame extends JFrame implements ActionListener {
 			GameVariables newerGame = GameIo.newGame();
 			
 			if(newerGame !=null) {
-				
-				Starter.gameSetup( (JFrame)this, newerGame);
-				closeMe();
-				
+				if (Starter.gameSetup( (JFrame)this, newerGame))
+					closeMe();
 			}else {
 				LOG.newEntry("PreGameFrame: ActionPerformed: Bad file found.");
 				badFile();

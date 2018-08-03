@@ -32,8 +32,10 @@ import edu.illinois.masalzr2.models.GameToken;
 import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.models.PositionIndex;
 import edu.illinois.masalzr2.models.Property;
+import edu.illinois.masalzr2.models.Railroad;
 import edu.illinois.masalzr2.models.Street;
 import edu.illinois.masalzr2.models.Suite;
+import edu.illinois.masalzr2.models.Utility;
 import edu.illinois.masalzr2.notices.ListEvent;
 import edu.illinois.masalzr2.notices.implentations.MessageNotice;
 import edu.illinois.masalzr2.templates.TemplateGameVars;
@@ -53,7 +55,7 @@ public class GameVariables implements Serializable{
 	private transient FrameMenu menuBar;
 	private transient Board board;
 	private transient Scoreboard scores;
-	private transient Notices notices;
+	private Notices notices;
 	
 	private File saveFile;
 	
@@ -114,7 +116,9 @@ public class GameVariables implements Serializable{
 		menuBar = new FrameMenu(this);
 		frame.setJMenuBar(menuBar);
 		buildBoard();
-		notices = new Notices(this);
+		if(notices == null) {
+			notices = new Notices(this);
+		}
 		ImageIcon[] playerIcons = new ImageIcon[playerTokens.size()];
 		for(int i=0; i<playerID.size(); i++) {
 			playerIcons[i] = playerTokens.get(playerID.get(i).getName()).getPiece();
@@ -201,6 +205,30 @@ public class GameVariables implements Serializable{
 		placeTokens();
 	}
 	
+	public void paintHousing() {
+		for(Suite s : suites.values()) {
+			for(Street st : s.sortedByPosition()) {
+				
+				int[] coords = propertyPositions.getCoordsAtStep(st.getPosition());
+				LogMate.LOG.newEntry("GameVariables: Paint Housing: Street "+st.getName()+" at position "+st.getPosition()+" with coord-x="+coords[0]+" and coord-y="+coords[1]);
+				board.removePiece("house"+st.getName());
+				board.removePiece("hotel"+st.getName());
+				switch(st.getGrade()) {
+				case 5: board.addPiece(coloredStickers[1], "hotel"+st.getName()+"left", coords[1], coords[0]);
+						board.addPiece(coloredStickers[2], "hotel"+st.getName()+"right", coords[1], coords[0]+1);
+						board.addPiece(coloredStickers[3], "hotel"+st.getName()+"bot1", coords[1]+1, coords[0]);
+						board.addPiece(coloredStickers[3], "hotel"+st.getName()+"bot2", coords[1]+1, coords[0]+1);
+						break;
+				case 4: board.addPiece(coloredStickers[0], "house"+st.getName()+"4", coords[1]+1, coords[0]+1);
+				case 3: board.addPiece(coloredStickers[0], "house"+st.getName()+"3", coords[1]+1, coords[0]);
+				case 2: board.addPiece(coloredStickers[0], "house"+st.getName()+"2", coords[1], coords[0]+1);
+				case 1: board.addPiece(coloredStickers[0], "house"+st.getName()+"1", coords[1], coords[0]);
+					break;
+				}
+			}
+		}
+	}
+	
 	public void setPlayerNumber(int num) {
 		if( num < 2 || num > 8) {
 			return;
@@ -231,7 +259,6 @@ public class GameVariables implements Serializable{
 	}
 	
 	public int roll(){
-		
 		//LOG.append("rolling the dice;");
 		
 		LOG.newEntry("GameVariables: roll: rolling dice");
@@ -374,7 +401,40 @@ public class GameVariables implements Serializable{
 		return jailTimes.get(p);
 	}
 	
+	public int nightInJail(Player p) {
+		return nightInJail(p.getName());
+	}
 	
+	public int nightInJail(String p) {
+		jailTimes.put(p, jailTimes.get(p)+1);
+		return jailTimes.get(p);
+	}
+	
+	public void resetJail(Player p) {
+		resetJail(p.getName());
+	}
+	
+	public void resetJail(String p) {
+		jailTimes.put(p, 0);
+	}
+	
+	public void releaseJailedPlayer(Player p) {
+		releaseJailedPlayer(p.getName());
+	}
+	
+	public void releaseJailedPlayer(String p) {
+		jailTable.put(p, false);
+		
+		LOG.newEntry("GameVariables: Release Jailed Player: player " + p+ " has been released from jail");
+		
+		GameToken jailMe = playerTokens.get(p);
+		
+		jailMe.getPath().setStep(10);
+		jailMe.movePiece(0);
+		
+		LOG.newEntry("GameVariables: Release Jailed Player: moving piece to visiting jail");
+		board.movePiece(jailMe.getPiece(), jailMe.getX(), jailMe.getY());
+	}
 	
 	public void parseSuites(String[] colorList) {
 		
@@ -412,10 +472,6 @@ public class GameVariables implements Serializable{
 		houseCount = new Counter(0, 32, 0);
 		hotelCount = new Counter(0, 12, 0);
 		
-		
-		railCount = new Counter(0,4,0);
-		utilCount = new Counter(0,2,0);
-		
 		gameDice = new Dice(6,2);
 		
 		playerTokens = new HashMap<String, GameToken>();
@@ -433,6 +489,13 @@ public class GameVariables implements Serializable{
 		for(Property p : props){
 			properties.put(new String(p.getName()), p);
 			propertyPos.put(p.getPosition(), p);
+			if(p instanceof Railroad) {
+				((Railroad)p).setRailedOwned(railCount);
+			}
+			if(p instanceof Utility) {
+				((Utility)p).setCounter(utilCount);
+				((Utility)p).setDice(gameDice);
+			}
 		}
 		
 		suites = TemplateGameVars.defineSuites(properties);

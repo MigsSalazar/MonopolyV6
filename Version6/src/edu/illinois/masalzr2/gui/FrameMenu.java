@@ -1,5 +1,6 @@
 package edu.illinois.masalzr2.gui;
 
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -76,9 +77,13 @@ public class FrameMenu extends JMenuBar implements ActionListener{
 			
 			if( source.equals(options[0]) ) {
 				GameVariables newGame = GameIo.newGame();
-				JFrame parent = (JFrame)this.getParent();
-				Starter.gameSetup(parent, newGame);
-				gameVars.getFrame().dispose();
+				Container comp = this;
+				while( ! (comp instanceof JFrame) ) {
+					comp = comp.getParent();
+				}
+				JFrame parent = (JFrame)comp;
+				if ( Starter.gameSetup(parent, newGame) )
+					gameVars.getFrame().dispose();
 			} else if( source.equals(options[1]) ){
 				String dir = GameIo.findGame(gameVars.getFrame());
 				if(dir==null) {

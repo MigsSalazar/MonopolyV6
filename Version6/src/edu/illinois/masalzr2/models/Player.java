@@ -11,7 +11,7 @@ import javax.swing.event.ChangeListener;
 import com.google.gson.annotations.Expose;
 
 
-public class Player implements Serializable{
+public class Player implements ChangeListener, Serializable{
 	
 	/**
 	 * 
@@ -129,6 +129,7 @@ public class Player implements Serializable{
 	public void addProp(Property p){
 		propsExist();
 		props.put(p.getName(), p);
+		p.addListener(this);
 		fireChange();
 	}
 	
@@ -136,6 +137,7 @@ public class Player implements Serializable{
 		propsExist();
 		for(Property pr : inProps){
 			props.put(pr.getName(), pr);
+			pr.addListener(this);
 		}
 		fireChange();
 	}
@@ -192,6 +194,7 @@ public class Player implements Serializable{
 	}
 	
 	private void fireChange(){
+		System.out.println("Change has been fired in Player");
 		if(listeners == null) {
 			return;
 		}
@@ -199,6 +202,12 @@ public class Player implements Serializable{
 		for(ChangeListener cl : listeners){
 			cl.stateChanged(new ChangeEvent(ce));
 		}
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		System.out.println("Player has detected a change from is properties");
+		fireChange();
 	}
 	
 }

@@ -18,6 +18,11 @@ import edu.illinois.masalzr2.notices.ListListener;
 
 public class AuctionNotice extends AbstractNotice implements KeyListener  {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private Property prop;
 	private int turn = 0;
 	private int bid = 0;

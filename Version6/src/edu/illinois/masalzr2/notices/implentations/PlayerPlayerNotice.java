@@ -7,6 +7,11 @@ import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.notices.ListListener;
 
 public class PlayerPlayerNotice extends MessageNotice{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public PlayerPlayerNotice(String t, ListListener ppl, Player p1, Player p2, int c){
 		super(t, ppl);
 		LogMate.LOG.newEntry("PlayerPlayerNotice: Beginning single: add to "+p1.getName()+" sub from "+p2.getName() + " the value of "+c);

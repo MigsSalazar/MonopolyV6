@@ -50,35 +50,39 @@ public class Starter {
 		//myGame.buildFrame();
 	}
 	
-	public static void gameSetup(JFrame parent, GameVariables newerGame) {
-		LogMate.LOG.newEntry("PreGameFrame: ActionPerformed: NewGame was not null");
-		LogMate.LOG.newEntry("PreGameFrame: ActionPerformed: Finding GameTokens");
+	public static boolean gameSetup(JFrame parent, GameVariables newerGame) {
+		LogMate.LOG.newEntry("Starter: Game Setup: NewGame was not null");
+		LogMate.LOG.newEntry("Starter: Game Setup: Finding GameTokens");
 		Map<String, GameToken> to = newerGame.getPlayerTokens();
 		List<GameToken> tokens = new ArrayList<GameToken>(to.values());
 		tokens.sort(GameToken.getTeamComparator());
 		
-		LogMate.LOG.newEntry("PreGameFrame: ActionPerformed: developing NewGameStartUp");
+		LogMate.LOG.newEntry("Starter: Game Setup: developing NewGameStartUp");
 		NewGameStartUp ngsup = new NewGameStartUp(parent, tokens );
-		LogMate.LOG.newEntry("PreGameFrame: ActionPerformed: Starting NewGameStartUp Dialog");
+		LogMate.LOG.newEntry("Starter: Game Setup: Starting NewGameStartUp Dialog");
 		ngsup.beginDialog();
-		LogMate.LOG.newEntry("PreGameFrame: ActionPerformed: Dialog has ended, starting game");
+		List<String> names = ngsup.getNames();
+		if(names.size() == 1) {
+			return false;
+		}
+		LogMate.LOG.newEntry("Starter: Game Setup: Dialog has ended, starting game");
 		Map<Integer, Player> pl = newerGame.getPlayerID();
 		Map<String, Player> pls = newerGame.getPlayers();
-		List<String> names = ngsup.getNames();
 		newerGame.setPlayerNumber(names.size());
 		to.clear();
-		LogMate.LOG.newEntry("PreGameFrame: ActionPerformed: Assets gotten");
+		LogMate.LOG.newEntry("Starter: Game Setup: Assets gotten");
 		for(int i=0; i<names.size(); i++) {
-			LogMate.LOG.newEntry("PreGameFrame: ActionPerformed: at name "+i + " is "+names.get(0));
+			LogMate.LOG.newEntry("Starter: Game Setup: at name "+i + " is "+names.get(0));
 			to.put(names.get(i), tokens.get(i));
 			pl.get(i).setName(names.get(i));
 			pls.remove(""+i);
 			pls.put(names.get(i), pl.get(i));
 		}
-		LogMate.LOG.newEntry("PreGameFrame: ActionPerformed: Loading assets. sending");
+		LogMate.LOG.newEntry("Starter: Game Setup: Loading assets. sending");
 		newerGame.refreshPlayerMaps();
 		newerGame.getTurn().setMax(names.size());
 		newerGame.buildFrame();
+		return true;
 	}
 	
 }

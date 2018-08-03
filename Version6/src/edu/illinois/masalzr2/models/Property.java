@@ -97,6 +97,7 @@ public class Property implements Serializable{
 	
 	public void setOwner(String o){
 		owner = o;
+		System.out.println(name+" was bought buy "+owner);
 		fireChange();
 	}
 	
@@ -122,6 +123,7 @@ public class Property implements Serializable{
 	
 	public void setColor(int c) {
 		color = c;
+		fireChange();
 	}
 	
 	public int compareByPosition(Property other){
@@ -135,14 +137,17 @@ public class Property implements Serializable{
 	}
 	
 	public void addListener(ChangeListener ce){
+		if(listeners == null) {
+			listeners = new ArrayList<ChangeListener>();
+		}
 		if(!listeners.contains(ce)){
 			listeners.add(ce);
 		}
 	}
 	
-	private void fireChange(){
+	protected void fireChange(){
 		ChangeEvent ce = new ChangeEvent(this);
-		
+		System.out.println("Change has been fired in property");
 		for(ChangeListener cl : listeners){
 			cl.stateChanged(ce);
 		}

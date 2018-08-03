@@ -29,6 +29,7 @@ public class Railroad extends Property implements Serializable{
 			railsOwned.add(1);
 		}
 		super.setOwner(p);
+		fireChange();
 	}
 	
 	public Counter getRailsOwned(){

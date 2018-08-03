@@ -13,6 +13,11 @@ import edu.illinois.masalzr2.notices.ListEvent;
 import edu.illinois.masalzr2.notices.ListListener;
 
 public class PropertyNotice extends AbstractNotice {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private Player player;
 	private Property prop;

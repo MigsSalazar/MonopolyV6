@@ -1,6 +1,7 @@
 package edu.illinois.masalzr2.gui;
 
 import java.awt.BorderLayout;
+import java.io.Serializable;
 import java.util.LinkedList;
 
 import javax.swing.BorderFactory;
@@ -14,9 +15,14 @@ import edu.illinois.masalzr2.notices.AbstractNotice;
 import edu.illinois.masalzr2.notices.ListEvent;
 import edu.illinois.masalzr2.notices.ListListener;
 import edu.illinois.masalzr2.notices.implentations.HomeMenuNotice;
+import edu.illinois.masalzr2.notices.implentations.JailNotice;
 
-public class Notices implements ListListener {
+public class Notices implements ListListener, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private LinkedList<AbstractNotice> noticeList;
 	private JPanel noticePanel;
 	private AbstractNotice currNotice;
@@ -30,8 +36,6 @@ public class Notices implements ListListener {
 		noticePanel = new JPanel();
 		noticePanel.setBorder(defineBorder());
 		noticePanel.setVisible(true);
-		//noticePanel.setPreferredSize(new Dimension(1280, 150));
-		//TODO MAKE A MAIN MENU ABSTRACTNOTICE TO POPULATE THE NOTICELIST
 		currNotice = new HomeMenuNotice(this, gameVars);
 		noticeList.add(currNotice);
 		noticePanel = defineNoticePanel();
@@ -105,7 +109,12 @@ public class Notices implements ListListener {
 			//noticeList.pop();
 		}
 		if(noticeList.size() == 0){
-			currNotice = new HomeMenuNotice(this, gameVars);
+			if(!gameVars.isInJail(gameVars.getCurrentPlayer())) {
+				currNotice = new HomeMenuNotice(this, gameVars);
+			}else {
+				currNotice = new JailNotice(this, gameVars);
+			}
+			
 			noticeList.add(currNotice);
 		}else{
 			currNotice = noticeList.getFirst();

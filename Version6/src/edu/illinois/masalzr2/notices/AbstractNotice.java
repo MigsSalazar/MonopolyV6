@@ -1,13 +1,18 @@
 package edu.illinois.masalzr2.notices;
 
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
 import javax.swing.JComponent;
 
 import edu.illinois.masalzr2.masters.LogMate;
 import edu.illinois.masalzr2.masters.LogMate.Logger;
 
-public abstract class AbstractNotice implements ActionListener {
+public abstract class AbstractNotice implements ActionListener, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected String text;
 	protected JComponent[] actions;
 	protected ListListener listener;

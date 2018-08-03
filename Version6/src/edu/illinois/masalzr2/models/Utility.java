@@ -31,6 +31,7 @@ public class Utility extends Property implements Serializable{
 			utilityOwned.add(1);
 		}
 		super.setOwner(p);
+		fireChange();
 	}
 	
 	@Override

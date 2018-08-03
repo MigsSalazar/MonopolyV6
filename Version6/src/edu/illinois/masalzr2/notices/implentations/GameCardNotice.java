@@ -19,6 +19,10 @@ import edu.illinois.masalzr2.notices.ListListener;
 
 public class GameCardNotice extends HighLevelNotice {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private GameCard card;
 	private Player player;
 	
