@@ -131,7 +131,7 @@ public class TOffer extends JDialog implements ListSelectionListener{
 						}
 						//System.out.println("DEBUG: offeredCash= "+offeredCash);
 					}catch(Exception e){
-						if(!topTakeCash.equals("-")){
+						if(!topTakeCash.getText().equals("-")){
 							String toSend = "Invalid input. Please\nenter an integer value";
 							post(toSend);
 							//topTakeCash.setText("0");
