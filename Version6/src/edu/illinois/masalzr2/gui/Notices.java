@@ -1,6 +1,7 @@
 package edu.illinois.masalzr2.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.io.Serializable;
 import java.util.LinkedList;
 
@@ -79,8 +80,10 @@ public class Notices implements ListListener, Serializable {
 		components = new JPanel();
 		notification = new JLabel();
 		notification.setHorizontalAlignment(JLabel.CENTER);
-		retval.add(components, BorderLayout.CENTER);
+		notification.setVerticalAlignment(JLabel.CENTER);
+		retval.add(components, BorderLayout.SOUTH);
 		retval.add(notification, BorderLayout.NORTH);
+		retval.setPreferredSize(new Dimension(700,70));
 		return retval;
 	}
 	

@@ -5,7 +5,9 @@ import java.io.Serializable;
 
 import com.google.gson.annotations.Expose;
 
+import lombok.Data;
 
+@Data
 public class GameCard implements Serializable{
 	
 	/**
@@ -49,94 +51,6 @@ public class GameCard implements Serializable{
 		propRenovation = pr;
 		houseCost = house;
 		hotelCost = hotel;
-	}
-
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-	}
-
-	public int getMoneyEarned() {
-		return moneyEarned;
-	}
-
-	public void setMoneyEarned(int moneyEarned) {
-		this.moneyEarned = moneyEarned;
-	}
-
-	public boolean isGlobalFunds() {
-		return globalFunds;
-	}
-
-	public void setGlobalFunds(boolean globalFunds) {
-		this.globalFunds = globalFunds;
-	}
-
-	public int getBaseMovement() {
-		return baseMovement;
-	}
-
-	public void setBaseMovement(int baseMovement) {
-		this.baseMovement = baseMovement;
-	}
-
-	public boolean isGetOutOfJail() {
-		return getOutOfJail;
-	}
-
-	public void setGetOutOfJail(boolean getOutOfJail) {
-		this.getOutOfJail = getOutOfJail;
-	}
-
-	public boolean isGoToJail() {
-		return goToJail;
-	}
-
-	public void setGoToJail(boolean goToJail) {
-		this.goToJail = goToJail;
-	}
-
-	public String getFindNearest() {
-		return findNearest;
-	}
-
-	public void setFindNearest(String findNearest) {
-		this.findNearest = findNearest;
-	}
-
-	public String getFindThis() {
-		return findThis;
-	}
-
-	public void setFindThis(String findThis) {
-		this.findThis = findThis;
-	}
-
-	public boolean isPropRenovation() {
-		return propRenovation;
-	}
-
-	public void setPropRenovation(boolean propRenovation) {
-		this.propRenovation = propRenovation;
-	}
-
-	public int getHouseCost() {
-		return houseCost;
-	}
-
-	public void setHouseCost(int houseCost) {
-		this.houseCost = houseCost;
-	}
-
-	public int getHotelCost() {
-		return hotelCost;
-	}
-
-	public void setHotelCost(int hotelCost) {
-		this.hotelCost = hotelCost;
 	}
 
 }

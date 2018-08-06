@@ -169,7 +169,7 @@ public class Player implements ChangeListener, Serializable{
 	}
 	
 	private void fireChange(){
-		System.out.println("Change has been fired in Player");
+		//System.out.println("Change has been fired in Player");
 		if(listeners == null) {
 			return;
 		}
@@ -181,7 +181,7 @@ public class Player implements ChangeListener, Serializable{
 
 	@Override
 	public void stateChanged(ChangeEvent e) {
-		System.out.println("Player has detected a change from is properties");
+		//System.out.println("Player has detected a change from is properties");
 		fireChange();
 	}
 	

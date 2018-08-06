@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 
 import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.masters.LogMate;
 import edu.illinois.masalzr2.models.GameCard;
 import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.models.Property;
@@ -36,7 +37,7 @@ public class GameCardNotice extends HighLevelNotice {
 		properties = gameVars.getProperties();
 		
 		card = cardPicker(chance);
-		text = "<html>You landed on "+(chance?"Chance":"Community Chest!")+". Your card reads:"
+		text = "<html>You landed on "+(chance?"Chance":"Community Chest")+". Your card reads:<br>"
 				+card.getText().substring(6,card.getText().length());
 		player = pl;
 		defineActions();
@@ -88,11 +89,14 @@ public class GameCardNotice extends HighLevelNotice {
 	
 	private void moneyChange( GameCard gc){
 		AbstractNotice an = null;
+		if(gc.getMoneyEarned() <= 0)
+			return;
+		
 		if(gc.isGlobalFunds()){
-			an = new PlayerPlayerNotice("<html>Player transaction complete<br>Over seen by the bank.<html>",
+			an = new PlayerPlayerNotice("Player transaction complete<br>Over seen by the bank.",
 											listener, player, players, gc.getMoneyEarned());
 		}else{
-			an = new PlayerBankNotice("<html>Bank transaction complete.</html>",
+			an = new PlayerBankNotice("Bank transaction complete.",
 										listener, player, gc.getMoneyEarned());
 		}
 		//NoticePanel p, String message, Player p1, ArrayList<Player> plays, int cost
@@ -136,7 +140,7 @@ public class GameCardNotice extends HighLevelNotice {
 		default: return;
 		}
 		if(an == null){
-			System.out.println("FindNearestOnBoard returned null");
+			LogMate.LOG.newEntry("FindNearestOnBoard returned null");
 			return;
 		}
 		noticePushPop(an);

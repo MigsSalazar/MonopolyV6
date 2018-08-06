@@ -54,7 +54,7 @@ public class Street extends Property implements Serializable {
 	
 	@Override
 	public int getWorth(){
-		System.out.println("I am "+name+" and my grade is "+grade+" with an upgrade cost of "+upgradeCost);
+		//System.out.println("I am "+name+" and my grade is "+grade+" with an upgrade cost of "+upgradeCost);
 		return getPrice() + (grade*upgradeCost);
 	}
 	

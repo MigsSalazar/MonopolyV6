@@ -101,6 +101,8 @@ public class GameVariables implements Serializable, ChangeListener{
 	private Counter houseCount;
 	private Counter hotelCount;
 	
+	private transient Timer time;
+	
 	public GameVariables() {
 		LOG.newEntry("GameVariables called");
 	}
@@ -291,7 +293,11 @@ public class GameVariables implements Serializable, ChangeListener{
 		
 		GameToken jailMe = playerTokens.get(p.getName());
 		
+		while(time.isRunning()){/*sit here and wait*/}
+		
 		int[] newCoords = jailMe.useSpecialtyCase(0);
+		jailMe.getPath().setStep(10);
+		jailMe.movePiece(0);
 		
 		LOG.newEntry("GameVariables: jailPlayer: moving piece to jail cell");
 		board.movePiece(jailMe.getPiece(), newCoords[0], newCoords[1]);
@@ -350,7 +356,7 @@ public class GameVariables implements Serializable, ChangeListener{
 	
 	public void fancyPlayerMove(Player p, int move) {
 		notices.pushMe(new ListEvent(new MessageNotice("You rolled a "+move, notices)));
-		Timer time = new Timer(200, null);
+		time = new Timer(200, null);
 		time.addActionListener(new ActionListener() {
 			
 			int mod = (move > 0) ? 1 : -1;

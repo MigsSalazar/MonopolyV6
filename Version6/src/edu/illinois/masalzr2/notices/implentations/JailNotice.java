@@ -22,11 +22,11 @@ public class JailNotice extends HighLevelNotice {
 		turnsJailed = gameVars.nightInJail(currentPlayer);
 		
 		if(turnsJailed < 3) {
-			text = "<html>Day "+turnsJailed+" in jail for "+currentPlayer.getName()+". Bail is posted at $50. Want to pay bail"
-				   + "<br>or plead your innocence (roll the dice) for freedom?</html>";
+			text = "<html>Day "+turnsJailed+" in jail for "+currentPlayer.getName()+". Bail is posted at $50. Want to pay bail,"
+				   + "<br>plead your innocence (roll the dice) for freedom, or use a Get Out of Jail card if you have one?</html>";
 		}else {
 			text = "<html>Day 3. Today is your trial, "+currentPlayer.getName()+". You may either plead guilty"
-					+ "(pay $50) or go to trial (roll the dice).</html>";
+					+ "(pay $50), go to trial (roll the dice), or use a card if you have one.</html>";
 		}
 		defineActions();
 	}
@@ -68,6 +68,10 @@ public class JailNotice extends HighLevelNotice {
 				
 			}
 			
+		}else if(actions.length==3){
+			if(source.equals(actions[2])){
+				
+			}
 		}
 		
 		if(an != null) {
@@ -84,13 +88,18 @@ public class JailNotice extends HighLevelNotice {
 
 	@Override
 	protected void defineActions() {
-		actions = new JButton[2];
+		actions = new JButton[(currentPlayer.getJailCard()>0)?3:2];
 		JButton bail = new JButton("$50 Bail");
 		bail.addActionListener(this);
 		JButton dice = new JButton("Roll Dice");
 		dice.addActionListener(this);
 		actions[0] = bail;
 		actions[1] = dice;
+		if(currentPlayer.getJailCard() > 0){
+			JButton card = new JButton("Get Out Card");
+			card.addActionListener(this);
+			actions[2] = card;
+		}
 	}
 
 }

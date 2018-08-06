@@ -97,7 +97,7 @@ public class Property implements Serializable{
 	
 	public void setOwner(String o){
 		owner = o;
-		System.out.println(name+" was bought buy "+owner);
+		//System.out.println(name+" was bought buy "+owner);
 		fireChange();
 	}
 	
@@ -151,7 +151,7 @@ public class Property implements Serializable{
 	
 	protected void fireChange(){
 		ChangeEvent ce = new ChangeEvent(this);
-		System.out.println("Change has been fired in property");
+		//System.out.println("Change has been fired in property");
 		for(ChangeListener cl : listeners){
 			cl.stateChanged(ce);
 		}
