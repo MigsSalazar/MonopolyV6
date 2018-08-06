@@ -1,7 +1,5 @@
 package edu.illinois.masalzr2.gui;
 
-import javax.swing.*;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -13,10 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 import edu.illinois.masalzr2.masters.GameVariables;
-import edu.illinois.masalzr2.models.Street;
 import edu.illinois.masalzr2.models.Counter;
 import edu.illinois.masalzr2.models.Player;
+import edu.illinois.masalzr2.models.Street;
 import edu.illinois.masalzr2.models.Suite;
 
 public class UpgradeManager extends JDialog implements ActionListener, ItemListener{

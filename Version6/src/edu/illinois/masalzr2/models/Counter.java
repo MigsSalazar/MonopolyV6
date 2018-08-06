@@ -2,6 +2,8 @@ package edu.illinois.masalzr2.models;
 
 import java.io.Serializable;
 
+import com.google.gson.annotations.Expose;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,11 +14,11 @@ public class Counter implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Getter
+	@Getter @Expose
 	private int count;
-	@Getter @Setter
+	@Getter @Setter @Expose
 	private int max;
-	@Getter @Setter
+	@Getter @Setter @Expose 
 	private int min;
 	
 	public Counter(){

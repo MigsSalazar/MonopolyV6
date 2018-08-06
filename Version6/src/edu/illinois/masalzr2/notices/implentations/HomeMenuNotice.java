@@ -4,8 +4,10 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 
 import edu.illinois.masalzr2.gui.MortgageManager;
+import edu.illinois.masalzr2.gui.TradeManager;
 import edu.illinois.masalzr2.gui.UpgradeManager;
 import edu.illinois.masalzr2.masters.GameVariables;
 import edu.illinois.masalzr2.notices.AbstractNotice;
@@ -63,16 +65,39 @@ public class HomeMenuNotice extends HighLevelNotice {
 				LOG.flush();
 				
 			}else if(me.equals(actions[1])){
-				UpgradeManager um = new UpgradeManager(gameVars, currentPlayer);
-				um.beginManager();
-			}else if(me.equals(actions[2])){
+				//UpgradeManager um = new UpgradeManager(gameVars, currentPlayer);
+				//um.beginManager();
+				
+				String[] options = {"Upgrade", "Trade", "Mortgage"};
+				
+				int gotten = JOptionPane.showOptionDialog(gameVars.getFrame(), "What would you like to do?", "Manager Picker", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
+				if(gotten < 0) {
+					return;
+				}
+				//System.out.println("selection: "+options[gotten]);
+				
+				switch(options[gotten]) {
+				case "Upgrade": UpgradeManager um = new UpgradeManager(gameVars, currentPlayer);
+								um.beginManager();
+								break;
+				case "Trade":	TradeManager tm = new TradeManager(gameVars, currentPlayer, gameVars.getPlayers());
+								tm.runManager();
+								break;
+				case "Mortgage":MortgageManager mm = new MortgageManager(gameVars, currentPlayer);
+								mm.beginManager();
+								break;
+				default: return;
+				}
+				
+			}
+			/*else if(me.equals(actions[2])){
 				//TradeManager tm = new TradeManager(gameVars, currentPlayer, gameVars.getPlayers());
 				//tm.runManager();
 			}else if(me.equals(actions[3])){
 				MortgageManager mm = new MortgageManager(gameVars, currentPlayer);
 				mm.beginManager();
 				//gameVars.getFrame().getGameStats().updatePlayers();
-			}
+			}*/
 		}
 		//parent.paintNotice(this);
 		currentPlayer = gameVars.getCurrentPlayer();
@@ -82,7 +107,7 @@ public class HomeMenuNotice extends HighLevelNotice {
 
 	@Override
 	protected void defineActions() {
-		actions = new JComponent[4];
+		actions = new JComponent[2];
 		/*
 		 * 4 menu options
 		 * Role-Upgrade-Trade-Mortgage
@@ -90,15 +115,15 @@ public class HomeMenuNotice extends HighLevelNotice {
 		actions[0] = new JButton("Role");
 		((JButton)actions[0]).addActionListener(this);
 		
-		actions[1] = new JButton("Upgrade");
+		actions[1] = new JButton("Business");
 		((JButton)actions[1]).addActionListener(this);
-		
+		/*
 		actions[2] = new JButton("Trade");
 		((JButton)actions[2]).addActionListener(this);
 		
 		actions[3] = new JButton("Mortgage");
 		((JButton)actions[3]).addActionListener(this);
-		
+		*/
 	}
 
 }

@@ -7,7 +7,12 @@ import java.awt.event.ActionListener;
 import java.util.Map;
 import java.util.Set;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import edu.illinois.masalzr2.masters.GameVariables;
 import edu.illinois.masalzr2.models.Player;

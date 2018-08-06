@@ -22,9 +22,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.masters.LogMate;
 import edu.illinois.masalzr2.masters.MonopolyExceptionHandler;
 import edu.illinois.masalzr2.templates.TemplateGameVars;
-import edu.illinois.masalzr2.masters.LogMate;
 
 public class GameIo {
 

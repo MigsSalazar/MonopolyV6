@@ -2,6 +2,7 @@ package edu.illinois.masalzr2.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -203,11 +205,17 @@ public class StatsTile extends JPanel implements ChangeListener{
 			for(JLabel jl : fullList) {
 				pTextArea.add(jl);
 			}
+			pTextArea.repaint();
 			
 		}
-		
-		
-		
+		this.repaint();
+		this.revalidate();
+		Container node = this;
+		while( !(node instanceof JFrame) ) {
+			node = node.getParent();
+			node.revalidate();
+			node.repaint();
+		}
 	}
 
 	

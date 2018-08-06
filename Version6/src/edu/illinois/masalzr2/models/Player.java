@@ -10,7 +10,8 @@ import javax.swing.event.ChangeListener;
 
 import com.google.gson.annotations.Expose;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 
 public class Player implements ChangeListener, Serializable{
@@ -116,6 +117,7 @@ public class Player implements ChangeListener, Serializable{
 	public void removeProp(Property p){
 		removeProp(p.getName());
 		p.removeListener(this);
+		fireChange();
 	}
 	
 	private void removeProp(String p){

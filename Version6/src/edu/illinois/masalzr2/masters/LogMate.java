@@ -17,6 +17,7 @@ public class LogMate {
 		private String s = File.separator;
 		private BufferedWriter writeout;
 		private boolean active = true;
+		private int counter = 0;
 		
 		public Logger() {
 			newLog();
@@ -51,11 +52,16 @@ public class LogMate {
 		
 		public void newEntry(String s){
 			try {
+				counter++;
 				if( !active ) {
 					newLog();
 				}
 				writeout.append(s);
 				writeout.newLine();
+				if(counter > 20) {
+					flush();
+					counter = 0;
+				}
 			}catch(IOException e) {
 				MonopolyExceptionHandler.uncaughtException(e, Thread.currentThread());
 			}

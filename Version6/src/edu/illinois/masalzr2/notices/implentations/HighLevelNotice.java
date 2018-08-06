@@ -102,12 +102,12 @@ public abstract class HighLevelNotice extends AbstractNotice {
 	}
 	
 	protected AbstractNotice moveAndDo(Player player, int roll) {
-		System.out.println("player move and do roll: "+roll + " at position " + player.getPosition());
+		//System.out.println("player move and do roll: "+roll + " at position " + player.getPosition());
 		
 		gameVars.fancyPlayerMove(player, roll);
 		player.addPosition(roll);
 		int result = findAction(player.getPosition());
-		System.out.println("current Player Name: "+currentPlayer.getName() + " result: "+result);
+		//System.out.println("current Player Name: "+currentPlayer.getName() + " result: "+result);
 		return actionDone(player, result);
 	}
 	

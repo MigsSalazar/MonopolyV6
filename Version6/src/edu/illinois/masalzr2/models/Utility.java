@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import javax.swing.event.ChangeListener;
 
+import com.google.gson.annotations.Expose;
+
 public class Utility extends Property implements Serializable{
 	
 	/**
@@ -12,7 +14,7 @@ public class Utility extends Property implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Counter utilityOwned;
+	@Expose private Counter utilityOwned;
 	private Dice gameDice;
 	
 	public Utility(String n, int pos, int pr, String o, boolean m, ArrayList<ChangeListener> listen){

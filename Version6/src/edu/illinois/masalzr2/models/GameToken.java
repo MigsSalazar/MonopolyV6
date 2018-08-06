@@ -7,6 +7,8 @@ import java.util.Comparator;
 
 import javax.swing.ImageIcon;
 
+import com.google.gson.annotations.Expose;
+
 
 public class GameToken implements Serializable{
 	
@@ -15,14 +17,14 @@ public class GameToken implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private String pieceDir;
+	@Expose private String pieceDir;
 	
 	private transient ImageIcon piece;
-	private int[] coords;
+	@Expose private int[] coords;
 	
-	private int team;
+	@Expose private int team;
 	
-	private PositionIndex path;
+	@Expose private PositionIndex path;
 	
 	public GameToken(int t, String dir, PositionIndex p){
 		

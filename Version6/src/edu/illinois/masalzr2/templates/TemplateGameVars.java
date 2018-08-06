@@ -15,6 +15,7 @@ import javax.swing.JTextArea;
 import edu.illinois.masalzr2.gui.Stamp;
 import edu.illinois.masalzr2.io.GameIo;
 import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.masters.LogMate;
 import edu.illinois.masalzr2.models.Counter;
 import edu.illinois.masalzr2.models.Dice;
 import edu.illinois.masalzr2.models.GameCard;
@@ -35,11 +36,12 @@ public class TemplateGameVars{
 	
 	public static void main(String[] args) {
 		produceTemplate();
-		System.out.println("Template generation complete");
+		//System.out.println("Template generation complete");
 	}
 	
 	public static void produceTemplate() {
 		JDialog progPanel = new JDialog((JFrame)null, "Template Generation", false);
+		progPanel.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		progPanel.setLayout(new BorderLayout());
 		//progress = new JProgressBar(0,120);
 		updates.setPreferredSize(new Dimension(300,300));
@@ -53,12 +55,14 @@ public class TemplateGameVars{
 		gv.buildCleanGame();
 		
 		GameIo.writeOut(gv);
-		updateProgress(120, "Template generation complete!");
+		updateProgress(120, "Template generation complete!\nPlease close me out.");
 		//gv.buildFrame();
 		
 		//System.out.println("I'm done");
-		progPanel.dispose();
-		
+		//progPanel.dispose();
+		LogMate.LOG.newEntry("Finished template!");
+		LogMate.LOG.flush();
+		LogMate.LOG.finish();
 	}
 	
 	private static void updateProgress(int value, String output){
@@ -156,7 +160,6 @@ public class TemplateGameVars{
 	
 	public static Stamp[][] defineStamps(){
 		Stamp[][] sc = { {
-			
 		new Stamp(' ',false,true,false,14),
 		new Stamp(' ',false,true,false,2),
 		new Stamp(' ',false,true,false,2),
@@ -1175,7 +1178,7 @@ public class TemplateGameVars{
 		
 		commchest.add(new GameCard("<html>Recieve $25 consultancy fee</html>",
 				25, false,0,false,false,"","",false, 0, 0));
-		commchest.add(new GameCard("<html>You are assessed for stree repairs-"
+		commchest.add(new GameCard("<html>You are assessed for street repairs-"
 								+ "<br>$40 per house"
 								+ "<br>$115 per hotel</html>",
 				0, false,0,false,false,"","",true, 40,115));
@@ -1418,6 +1421,7 @@ public class TemplateGameVars{
 		props[1] = new Street("Baltic Ave.", 		3, 60, "", false, null, 0, 30, new int[]{4, 20, 60, 180, 320, 450});
 
 		props[2] = new Railroad("Reading Railroad", 5, 200, "", false, null, rails);
+		((Railroad)props[2]).setRailedOwned(rails);
 
 		props[3] = new Street("Oriental Ave.", 		6, 100, "", false, null, 0, 50, new int[]{6, 30, 90, 270, 400, 550});
 		props[4] = new Street("Vermont Ave.", 		8, 100, "", false, null, 0, 50, new int[]{6, 30, 90, 270, 400, 550});
@@ -1426,10 +1430,12 @@ public class TemplateGameVars{
 		props[6] = new Street("St. Charles Place", 	11, 140, "", false, null, 0, 100, new int[]{10, 50, 150, 450, 625, 750});
 		props[7] = new Utility("Electric Company", 	12, 150, "", false, null, utils);
 		((Utility)props[7]).setDice(gameDice);
+		((Utility)props[7]).setCounter(utils);
 		props[8] = new Street("States Ave.", 		13, 140, "", false, null, 0, 100, new int[]{10, 50, 150, 450, 625, 750});
 		props[9] = new Street("Virginia Ave.", 		14, 160, "", false, null, 0, 100, new int[]{12, 60, 180, 500, 700, 900});
 		
 		props[10] = new Railroad("Pennsylvania Railroad", 15, 200, "", false, null, rails);
+		((Railroad)props[10]).setRailedOwned(rails);
 
 		props[11] = new Street("St. James Place", 	16, 180, "", false, null, 0, 100, new int[]{14, 70, 200, 550, 750, 950});
 		props[12] = new Street("Tennessee Ave.",	18, 180, "", false, null, 0, 100, new int[]{14, 70, 200, 550, 750, 950});
@@ -1440,11 +1446,13 @@ public class TemplateGameVars{
 		props[16] = new Street("Illinois Ave.", 	24, 240, "", false, null, 0, 150, new int[]{20, 100, 300, 750, 925, 1100});
 
 		props[17] = new Railroad("B&O Railroad",	25, 200, "", false, null, rails);
+		((Railroad)props[17]).setRailedOwned(rails);
 
 		props[18] = new Street("Atlantic Ave.", 	26, 260, "", false, null, 0, 150, new int[]{22, 110, 330, 800, 975, 1150});
 		props[19] = new Street("Ventnor Ave.", 		27, 260, "", false, null, 0, 150, new int[]{22, 110, 330, 800, 975, 1150});
 		props[20] = new Utility("Water Works", 		28, 150, "", false, null, utils);
 		((Utility)props[20]).setDice(gameDice);
+		((Utility)props[20]).setCounter(utils);
 		props[21] = new Street("Marvin Gardens", 	29, 280, "", false, null, 0, 150, new int[]{24, 120, 360, 850, 1025, 1200});
 
 		props[22] = new Street("Pacific Ave.", 		31, 300, "", false, null, 0, 200, new int[]{26, 130, 390, 900, 1100, 1275});
@@ -1452,6 +1460,7 @@ public class TemplateGameVars{
 		props[24] = new Street("Pennsylvania Ave.", 34, 320, "", false, null, 0, 200, new int[]{28, 150, 450, 1000, 1200, 1400});
 
 		props[25] = new Railroad("Short Line", 		35, 200, "", false, null,rails);
+		((Railroad)props[25]).setRailedOwned(rails);
 		
 		props[26] = new Street("Park Place", 		37, 350, "", false, null, 0, 200, new int[]{35, 175, 500, 1100, 1300, 1500});
 		props[27] = new Street("Board Walk",		39, 400, "", false, null, 0, 200, new int[]{50, 200, 600, 1400, 1700, 2000});

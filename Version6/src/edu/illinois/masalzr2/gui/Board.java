@@ -107,7 +107,7 @@ public class Board {
 	}
 
 	public void paintDisplay() {
-		LogMate.LOG.newEntry("Board: Paint Display: Beginning.\nTO PREVENT EXESSIVE LOG ENTRIES, FOR LOOPS ARE SKIPPED");
+		//LogMate.LOG.newEntry("Board: Paint Display: Beginning.\nTO PREVENT EXESSIVE LOG ENTRIES, FOR LOOPS ARE SKIPPED");
 		for(int b=0; b<display.length; b++){
 			for(int i=0; i<display[b].length; i++){
 				
@@ -175,28 +175,28 @@ public class Board {
 	
 	
 	public void addPiece(ImageIcon icon, int x, int y){
-		LogMate.LOG.newEntry("Board: Add Piece: Adding icon to display");
+		//LogMate.LOG.newEntry("Board: Add Piece: Adding icon to display");
 		display[x][y].addIcon(icon);
-		LogMate.LOG.newEntry("Board: Add Piece: Adding icon to registry");
+		//LogMate.LOG.newEntry("Board: Add Piece: Adding icon to registry");
 		pieceCoords.put(icon.toString(), new Dimension(x,y));
 	}
 	
 	public void addPiece(ImageIcon icon, String key, int x, int y){
-		LogMate.LOG.newEntry("Board: Add Piece: adding icon to display");
+		//LogMate.LOG.newEntry("Board: Add Piece: adding icon to display");
 		display[x][y].addIcon(icon);
-		LogMate.LOG.newEntry("Board: Add Piece: Adding icon to registry with key: "+key);
+		//LogMate.LOG.newEntry("Board: Add Piece: Adding icon to registry with key: "+key);
 		pieceCoords.put(key, new Dimension(x,y));
 	}
 	
 	public void movePiece(ImageIcon icon, int x, int y){
-		LogMate.LOG.newEntry("Board: Move Piece Sans Key: Requesting movement based on image name");
+		//LogMate.LOG.newEntry("Board: Move Piece Sans Key: Requesting movement based on image name");
 		movePiece(icon, icon.toString(), x, y);
 	}
 	
 	public void movePiece(ImageIcon icon, String key, int x, int y){
-		LogMate.LOG.newEntry("Board: Move Piece: Moving piece of key: "+key+" to coords x="+x+" y="+y);
+		//LogMate.LOG.newEntry("Board: Move Piece: Moving piece of key: "+key+" to coords x="+x+" y="+y);
 		if(pieceCoords.containsKey(key)){
-			LogMate.LOG.newEntry("Board: Move Piece: Key was found, retrieving");
+			//LogMate.LOG.newEntry("Board: Move Piece: Key was found, retrieving");
 			Dimension dim = pieceCoords.get(key);
 			//LogMate.LOG.newEntry("Board: Move Piece: Wiping old icons");
 			display[dim.width][dim.height].wipeIcons();
@@ -208,17 +208,17 @@ public class Board {
 	}
 	
 	public void removePiece(ImageIcon icon){
-		LogMate.LOG.newEntry("Board: Remove Piece Sans Key: Removing based on Image Icon");
+		//LogMate.LOG.newEntry("Board: Remove Piece Sans Key: Removing based on Image Icon");
 		removePiece(icon.toString());
 	}
 	
 	public void removePiece(String key){
-		LogMate.LOG.newEntry("Board: Remove Piece: Removing piece of key: "+key);
+		//LogMate.LOG.newEntry("Board: Remove Piece: Removing piece of key: "+key);
 		if(pieceCoords.containsKey(key)){
-			LogMate.LOG.newEntry("Board: Remove Piece: Key was found. TrueDelete");
+			//LogMate.LOG.newEntry("Board: Remove Piece: Key was found. TrueDelete");
 			trueDelete(key);
 		}else {
-			LogMate.LOG.newEntry("Board: Remove Piece: No key was found. Removing all pieces with subnames of key");
+			//LogMate.LOG.newEntry("Board: Remove Piece: No key was found. Removing all pieces with subnames of key");
 			Set<String> keys = pieceCoords.keySet();
 			String[] strKeys = new String[keys.size()];
 			keys.toArray(strKeys);
@@ -232,9 +232,9 @@ public class Board {
 	}
 
 	private void trueDelete(String key) {
-		LogMate.LOG.newEntry("Board: True Delete: Finding coordinates");
+		//LogMate.LOG.newEntry("Board: True Delete: Finding coordinates");
 		Dimension dim = pieceCoords.get(key);
-		LogMate.LOG.newEntry("Board: True Delete: removing piece and wiping icons");
+		//LogMate.LOG.newEntry("Board: True Delete: removing piece and wiping icons");
 		pieceCoords.remove(key);
 		display[dim.width][dim.height].wipeIcons();
 	}
@@ -242,9 +242,9 @@ public class Board {
 	
 	
 	public void activateDice(){
-		LogMate.LOG.newEntry("Board: Activate Dice: Beginning");
+		//LogMate.LOG.newEntry("Board: Activate Dice: Beginning");
 		if(!showDice){
-			LogMate.LOG.newEntry("Board: Activate Dice: Dice was not active. Activating and setting dice");
+			//LogMate.LOG.newEntry("Board: Activate Dice: Dice was not active. Activating and setting dice");
 			for(int j=0, y=Math.floorDiv(gridHeight,2)-3; j<3; j++, y++){
 				for(int i=0, x=Math.floorDiv(gridWidth, 2); i<3; i++, x++){
 					dice1[i][j] = display[x][y];
@@ -254,15 +254,15 @@ public class Board {
 			showDice = true;
 		}
 		
-		LogMate.LOG.newEntry("Board: Activate Dice: Painting dice");
+		//LogMate.LOG.newEntry("Board: Activate Dice: Painting dice");
 		paintDice(d1,d2);
 		
 	}
 	
 	public void deactivateDice(){
-		LogMate.LOG.newEntry("Board: Deactivate Dice: Deactivating if active");
+		//LogMate.LOG.newEntry("Board: Deactivate Dice: Deactivating if active");
 		if(showDice){
-			LogMate.LOG.newEntry("Board: Deactivate Dice: Dice found active");
+			//LogMate.LOG.newEntry("Board: Deactivate Dice: Dice found active");
 			for(int i=0; i<3; i++){
 				for(int j=0; j<3; j++){
 					dice1[i][j] = null;
@@ -271,12 +271,12 @@ public class Board {
 			}
 			showDice = false;
 		}
-		LogMate.LOG.newEntry("Board: Deactivate Dice: Painting display sans dice");
+		//LogMate.LOG.newEntry("Board: Deactivate Dice: Painting display sans dice");
 		paintDisplay();
 	}
 	
 	public void setDiceLocations(int x1, int y1, int x2, int y2){
-		LogMate.LOG.newEntry("Board: Set Dice Locations: Selecting 3x3 display for 2 dice for each upper-left corner coordinate given");
+		//LogMate.LOG.newEntry("Board: Set Dice Locations: Selecting 3x3 display for 2 dice for each upper-left corner coordinate given");
 		for(int i=0; i<3; i++, x1++){
 			for(int j=0; j<3; j++, y1++){
 				dice1[i][j] = display[x1][y1];
@@ -290,33 +290,33 @@ public class Board {
 			}
 			y2 -= 3;
 		}
-		LogMate.LOG.newEntry("Board: Set Dice Locations: Painting display");
+		//LogMate.LOG.newEntry("Board: Set Dice Locations: Painting display");
 		paintDisplay();
 		
 	}
 	
 	public void setDiceIcons(ImageIcon dDie, ImageIcon bDie){
-		LogMate.LOG.newEntry("Board: Set Dice Icons: Setting Icons for Dice");
+		//LogMate.LOG.newEntry("Board: Set Dice Icons: Setting Icons for Dice");
 		dotDie = dDie;
 		blankDie = bDie;
 	}
 	
 	public void paintDice(int dOne, int dTwo){
-		LogMate.LOG.newEntry("Board: Paint Dice: Updating dice: d1="+dOne+" d2="+dTwo);
+		//LogMate.LOG.newEntry("Board: Paint Dice: Updating dice: d1="+dOne+" d2="+dTwo);
 		d1 = dOne;
 		d2 = dTwo;
 		if(!showDice){
-			LogMate.LOG.newEntry("Board: Paint Dice: Dice are inactive. Ending");
+			//LogMate.LOG.newEntry("Board: Paint Dice: Dice are inactive. Ending");
 			return;
 		}
 		
 		if(dotDie == null){
-			LogMate.LOG.newEntry("Board: Paint Dice: DotDie is null. Setting placeholder");
+			//LogMate.LOG.newEntry("Board: Paint Dice: DotDie is null. Setting placeholder");
 			dotDie = new ImageIcon();
 		}
 		
 		if(blankDie == null){
-			LogMate.LOG.newEntry("Board: Paint Dice: BlankDie is null. Setting placeholder");
+			//LogMate.LOG.newEntry("Board: Paint Dice: BlankDie is null. Setting placeholder");
 			blankDie = new ImageIcon();
 		}
 		//LogMate.LOG.newEntry("Board: Paint Dice: Setting all empty");

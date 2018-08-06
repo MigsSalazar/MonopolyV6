@@ -5,13 +5,15 @@ import java.util.ArrayList;
 
 import javax.swing.event.ChangeListener;
 
+import com.google.gson.annotations.Expose;
+
 public class Railroad extends Property implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Counter railsOwned;
+	@Expose private Counter railsOwned;
 	
 	public Railroad(String n, int pos, int pr, String o, boolean m, ArrayList<ChangeListener> listen){
 		super(n, pos, pr, o, m, listen);

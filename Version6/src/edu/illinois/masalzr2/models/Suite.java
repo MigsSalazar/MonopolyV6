@@ -89,7 +89,7 @@ public class Suite implements Serializable{
 		boolean retval = true;
 		
 		for(Property prop : streets){
-			retval = prop.getOwner().equals(owner) && retval;
+			retval &= prop.getOwner().equals(owner);
 		}
 		
 		return retval;
@@ -113,7 +113,7 @@ public class Suite implements Serializable{
 		}
 		
 		for(Property prop : streets){
-			retval = !prop.isMortgaged() && retval;
+			retval &= !prop.isMortgaged();
 		}
 		
 		return retval;

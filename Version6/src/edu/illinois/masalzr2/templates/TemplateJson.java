@@ -1,25 +1,12 @@
 package edu.illinois.masalzr2.templates;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-
 import com.google.gson.annotations.Expose;
 
-import edu.illinois.masalzr2.gui.Board;
-import edu.illinois.masalzr2.gui.FrameMenu;
-import edu.illinois.masalzr2.gui.Notices;
-import edu.illinois.masalzr2.gui.Scoreboard;
 import edu.illinois.masalzr2.gui.Stamp;
 import edu.illinois.masalzr2.masters.GameVariables;
-import edu.illinois.masalzr2.masters.LogMate;
-import edu.illinois.masalzr2.masters.LogMate.Logger;
-import edu.illinois.masalzr2.models.Counter;
-import edu.illinois.masalzr2.models.Dice;
 import edu.illinois.masalzr2.models.GameCard;
 import edu.illinois.masalzr2.models.GameToken;
 import edu.illinois.masalzr2.models.Player;

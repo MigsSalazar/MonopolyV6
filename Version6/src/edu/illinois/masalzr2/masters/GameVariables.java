@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -37,10 +38,8 @@ import edu.illinois.masalzr2.models.GameToken;
 import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.models.PositionIndex;
 import edu.illinois.masalzr2.models.Property;
-import edu.illinois.masalzr2.models.Railroad;
 import edu.illinois.masalzr2.models.Street;
 import edu.illinois.masalzr2.models.Suite;
-import edu.illinois.masalzr2.models.Utility;
 import edu.illinois.masalzr2.notices.ListEvent;
 import edu.illinois.masalzr2.notices.implentations.GameOverNotice;
 import edu.illinois.masalzr2.notices.implentations.MessageNotice;
@@ -49,9 +48,7 @@ import lombok.Data;
 
 @Data
 public class GameVariables implements Serializable, ChangeListener{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	private static transient Logger LOG = LogMate.LOG;
@@ -75,15 +72,15 @@ public class GameVariables implements Serializable, ChangeListener{
 	@Expose private PositionIndex propertyPositions;
 	
 	private Counter turn;
-	private ArrayList<Player> turnTable;
+	private List<Player> turnTable;
 	private Map<String, Boolean> jailTable;
 	private Map<String, Integer> jailTimes;
 	
 	private Counter railCount;
 	private Counter utilCount;
 	
-	@Expose private ArrayList<GameCard> chance;
-	@Expose private ArrayList<GameCard> commchest;
+	@Expose private List<GameCard> chance;
+	@Expose private List<GameCard> commchest;
 	
 	private Dice gameDice;
 	
@@ -145,8 +142,6 @@ public class GameVariables implements Serializable, ChangeListener{
 		//frame.repaint();
 		
 		frame.setVisible(true);
-		//LOG.append("game begun;");
-		//LOG.append(""+frame.getWidth()+" "+frame.getHeight());
 		
 		frame.addWindowListener(new WindowListener() {
 			@Override
@@ -212,7 +207,9 @@ public class GameVariables implements Serializable, ChangeListener{
 		board.paintDisplay();
 		placeTokens();
 	}
-	
+	/**
+	 * 
+	 */
 	public void paintHousing() {
 		for(Suite s : suites.values()) {
 			for(Street st : s.sortedByPosition()) {
@@ -236,7 +233,7 @@ public class GameVariables implements Serializable, ChangeListener{
 			}
 		}
 	}
-	
+	/**/
 	public void setPlayerNumber(int num) {
 		if( num < 2 || num > 8) {
 			return;
@@ -267,7 +264,6 @@ public class GameVariables implements Serializable, ChangeListener{
 	}
 	
 	public int roll(){
-		//LOG.append("rolling the dice;");
 		
 		LOG.newEntry("GameVariables: roll: rolling dice");
 		gameDice.roll();
@@ -293,7 +289,18 @@ public class GameVariables implements Serializable, ChangeListener{
 		
 		GameToken jailMe = playerTokens.get(p.getName());
 		
-		while(time.isRunning()){/*sit here and wait*/}
+		while(time.isRunning()){
+			ActionListener al = time.getActionListeners()[0];
+			if(al instanceof TimerProcess) {
+				TimerProcess trueAl = (TimerProcess)al;
+				if( trueAl.getCount() <= 0) {
+					time.stop();
+				}else {
+					LogMate.LOG.newEntry("Jail Player: Timer is running: count="+trueAl.getCount()+" mod="+trueAl.getMod()+" move="+trueAl.getMove());
+					trueAl.actionPerformed(null);
+				}
+			}
+		}
 		
 		int[] newCoords = jailMe.useSpecialtyCase(0);
 		jailMe.getPath().setStep(10);
@@ -317,8 +324,9 @@ public class GameVariables implements Serializable, ChangeListener{
 	
 	public GameCard getRandomChance(){
 		Random rando = new Random();
-		//return chance.get(5);
 		return chance.get(rando.nextInt(chance.size()));
+		//return chance.get(0);
+		
 	}
 	
 	public Player getPlayerByID(int id){
@@ -355,25 +363,24 @@ public class GameVariables implements Serializable, ChangeListener{
 	}
 	
 	public void fancyPlayerMove(Player p, int move) {
+		if(time == null) {
+			time = new Timer(100, null);
+		}
 		notices.pushMe(new ListEvent(new MessageNotice("You rolled a "+move, notices)));
-		time = new Timer(200, null);
-		time.addActionListener(new ActionListener() {
-			
-			int mod = (move > 0) ? 1 : -1;
-			int count = move * mod;
-			GameToken current = playerTokens.get(p.getName());
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//System.out.println("Time clicked");
-				visualMove(current, mod);
-				current.movePiece(mod);
-				count--;
-				if( count <= 0 ) {
+		while(time.isRunning()){
+			ActionListener al = time.getActionListeners()[0];
+			if(al instanceof TimerProcess) {
+				TimerProcess trueAl = (TimerProcess)al;
+				if( trueAl.getCount() <= 0) {
 					time.stop();
+				}else {
+					LogMate.LOG.newEntry("Fancy Player Move: Timer is running: count="+trueAl.getCount()+" mod="+trueAl.getMod()+" move="+trueAl.getMove());
+					trueAl.actionPerformed(null);
 				}
 			}
-		});
+		}
+		time = new Timer(1000/move, null);
+		time.addActionListener(new TimerProcess(move, p));
 		time.start();
 		
 		//movePlayer(p, move);
@@ -393,6 +400,7 @@ public class GameVariables implements Serializable, ChangeListener{
 	}
 	
 	public void movePlayer(String p, int move){
+		LogMate.LOG.flush();
 		GameToken current = playerTokens.get(p);
 		
 		current.movePiece(move);
@@ -501,13 +509,6 @@ public class GameVariables implements Serializable, ChangeListener{
 		for(Property p : props){
 			properties.put(new String(p.getName()), p);
 			propertyPos.put(p.getPosition(), p);
-			if(p instanceof Railroad) {
-				((Railroad)p).setRailedOwned(railCount);
-			}
-			if(p instanceof Utility) {
-				((Utility)p).setCounter(utilCount);
-				((Utility)p).setDice(gameDice);
-			}
 		}
 		
 		suites = TemplateGameVars.defineSuites(properties);
@@ -519,7 +520,7 @@ public class GameVariables implements Serializable, ChangeListener{
 		
 		for(int i=0; i< icons.length; i++) {
 			paintedIcons[i] = new ImageIcon(System.getProperty("user.dir") + sep + icons[i]);
-			System.out.println(System.getProperty("user.dir") + sep + icons[i]);
+			LogMate.LOG.newEntry(System.getProperty("user.dir") + sep + icons[i]);
 		}
 		
 		paintByNumbers = TemplateGameVars.definePaintByNumbers();
@@ -532,7 +533,7 @@ public class GameVariables implements Serializable, ChangeListener{
 		coloredStickers = new ImageIcon[stickers.length];
 		for(int i=0; i<stickers.length; i++) {
 			coloredStickers[i] = new ImageIcon(System.getProperty("user.dir") + File.separator + stickers[i]);
-			System.out.println(System.getProperty("user.dir") + sep + stickers[i]);
+			LogMate.LOG.newEntry(System.getProperty("user.dir") + sep + stickers[i]);
 		}
 	}
 	
@@ -619,6 +620,44 @@ public class GameVariables implements Serializable, ChangeListener{
 		}
 	}
 
+	private final class TimerProcess implements ActionListener {
+		private final int move;
+		int mod;
+		int count;
+		GameToken current;
+
+		private TimerProcess(int move, Player p) {
+			this.move = move;
+			mod = (move > 0) ? 1 : -1;
+			count = move * mod;
+			current = playerTokens.get(p.getName());
+		}
+		
+		public int getMove() {
+			return move;
+		}
+		
+		public int getMod() {
+			return mod;
+		}
+		
+		public int getCount() {
+			return count;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//System.out.println("Time clicked");
+			LogMate.LOG.newEntry("FancyPlayerMove: Count="+count+" mod="+mod+" move="+move);
+			visualMove(current, mod);
+			current.movePiece(mod);
+			count--;
+			if( count <= 0 ) {
+				time.stop();;
+			}
+		}
+	}
+	
 	@Override
 	public void stateChanged(ChangeEvent e) {
 		
