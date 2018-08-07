@@ -10,6 +10,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import edu.illinois.masalzr2.Starter;
 import edu.illinois.masalzr2.io.GameIo;
@@ -85,7 +86,8 @@ public class FrameMenu extends JMenuBar implements ActionListener{
 				if ( Starter.gameSetup(parent, newGame) )
 					gameVars.getFrame().dispose();
 			} else if( source.equals(options[1]) ){
-				String dir = GameIo.findGame(gameVars.getFrame());
+				
+				String dir = GameIo.findFile(gameVars.getFrame(), new FileNameExtensionFilter("Monopoly Saves", "mns"));
 				if(dir==null) {
 					return;
 				}

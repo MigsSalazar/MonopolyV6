@@ -45,6 +45,10 @@ public class Utility extends Property implements Serializable{
 		gameDice = d;
 	}
 	
+	public Counter getCounter() {
+		return utilityOwned;
+	}
+	
 	public void setCounter(Counter c){
 		utilityOwned = c;
 	}

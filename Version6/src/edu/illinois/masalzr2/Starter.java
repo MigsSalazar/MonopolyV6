@@ -25,7 +25,7 @@ public class Starter {
 		Thread.setDefaultUncaughtExceptionHandler(masterCatcher);
 		
 		LogMate.LOG.newEntry("Starter: static: beginning log");
-		
+	
 	}
 	
 	public static void main( String[] args ){
@@ -79,7 +79,9 @@ public class Starter {
 			pls.put(names.get(i), pl.get(i));
 		}
 		LogMate.LOG.newEntry("Starter: Game Setup: Loading assets. sending");
-		newerGame.refreshPlayerMaps();
+		newerGame.refreshPlayerCollections();
+		newerGame.refreshAllImages();
+		newerGame.refreshPropertyCollections();
 		newerGame.getTurn().setMax(names.size());
 		newerGame.buildFrame();
 		return true;

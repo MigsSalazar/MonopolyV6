@@ -94,6 +94,7 @@ public class TradeManager{
 		if(tradeAsset instanceof Property ){
 			player1.addProp((Property) tradeAsset);
 			player2.removeProp((Property) tradeAsset);
+			((Property)tradeAsset).setOwner(player1.getName());
 		}else if(tradeAsset instanceof String){
 			player1.addOneJailCard();
 			player2.subOneJailCard();
@@ -109,6 +110,7 @@ public class TradeManager{
 			}else if(a instanceof Property){
 				player1.removeProp((Property) a);
 				player2.addProp((Property) a);
+				((Property)tradeAsset).setOwner(player2.getName());
 			}
 		}
 		

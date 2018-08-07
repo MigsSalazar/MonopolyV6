@@ -34,6 +34,13 @@ public class GraphicsButton extends JButton {
 		icons.add(i);
 		this.repaint();
 	}
+
+	public void removeIcon(ImageIcon i) {
+		while(icons.contains(i)) {
+			icons.remove(i);
+		}
+		this.repaint();
+	}
 	
 	public void wipeIcons(){
 		if(icons == null){

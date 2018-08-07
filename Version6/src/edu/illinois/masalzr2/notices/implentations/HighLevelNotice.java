@@ -1,5 +1,10 @@
 package edu.illinois.masalzr2.notices.implentations;
 
+import javax.swing.JOptionPane;
+
+import edu.illinois.masalzr2.gui.MortgageManager;
+import edu.illinois.masalzr2.gui.TradeManager;
+import edu.illinois.masalzr2.gui.UpgradeManager;
 import edu.illinois.masalzr2.masters.GameVariables;
 import edu.illinois.masalzr2.models.Dice;
 import edu.illinois.masalzr2.models.Player;
@@ -73,6 +78,28 @@ public abstract class HighLevelNotice extends AbstractNotice {
 		//listener.paintNotice(this);
 		 * 
 		 */
+	}
+	
+	protected void conductBusiness() {
+		String[] options = {"Upgrade", "Trade", "Mortgage"};
+		
+		int gotten = JOptionPane.showOptionDialog(gameVars.getFrame(), "What would you like to do?", "Manager Picker", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
+		if(gotten < 0) {
+			return;
+		}
+		
+		switch(options[gotten]) {
+		case "Upgrade": UpgradeManager um = new UpgradeManager(gameVars, currentPlayer);
+						um.beginManager();
+						break;
+		case "Trade":	TradeManager tm = new TradeManager(gameVars, currentPlayer, gameVars.getPlayers());
+						tm.runManager();
+						break;
+		case "Mortgage":MortgageManager mm = new MortgageManager(gameVars, currentPlayer);
+						mm.beginManager();
+						break;
+		default: return;
+		}
 	}
 	
 	protected void crossGo(Player p, int roll) {

@@ -1,7 +1,7 @@
+
 package edu.illinois.masalzr2.masters;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -60,7 +60,7 @@ public class GameVariables implements Serializable, ChangeListener{
 	private transient Scoreboard scores;
 	private Notices notices;
 	
-	private File saveFile;
+	@Expose private File saveFile;
 	
 	@Expose private Map<String, Player> players;
 	@Expose private Map<String, Property> properties;
@@ -71,18 +71,18 @@ public class GameVariables implements Serializable, ChangeListener{
 	
 	@Expose private PositionIndex propertyPositions;
 	
-	private Counter turn;
+	@Expose private Counter turn;
 	private List<Player> turnTable;
 	private Map<String, Boolean> jailTable;
 	private Map<String, Integer> jailTimes;
 	
-	private Counter railCount;
-	private Counter utilCount;
+	@Expose private Counter railCount;
+	@Expose private Counter utilCount;
 	
 	@Expose private List<GameCard> chance;
 	@Expose private List<GameCard> commchest;
 	
-	private Dice gameDice;
+	@Expose private Dice gameDice;
 	
 	@Expose private int[][] paintByNumbers;
 	@Expose private String[] icons;
@@ -95,8 +95,8 @@ public class GameVariables implements Serializable, ChangeListener{
 	
 	@Expose private String currency;
 	@Expose private String texture;
-	private Counter houseCount;
-	private Counter hotelCount;
+	@Expose private Counter houseCount;
+	@Expose private Counter hotelCount;
 	
 	private transient Timer time;
 	
@@ -216,8 +216,8 @@ public class GameVariables implements Serializable, ChangeListener{
 				
 				int[] coords = propertyPositions.getCoordsAtStep(st.getPosition());
 				LogMate.LOG.newEntry("GameVariables: Paint Housing: Street "+st.getName()+" at position "+st.getPosition()+" with coord-x="+coords[0]+" and coord-y="+coords[1]);
-				board.removePiece("house"+st.getName());
-				board.removePiece("hotel"+st.getName());
+				board.removePiece(new ImageIcon("house"+st.getName()));
+				board.removePiece(new ImageIcon("hotel"+st.getName()));
 				switch(st.getGrade()) {
 				case 5: board.addPiece(coloredStickers[1], "hotel"+st.getName()+"left", coords[1], coords[0]);
 						board.addPiece(coloredStickers[2], "hotel"+st.getName()+"right", coords[1], coords[0]+1);
@@ -455,7 +455,7 @@ public class GameVariables implements Serializable, ChangeListener{
 		LOG.newEntry("GameVariables: Release Jailed Player: moving piece to visiting jail");
 		board.movePiece(jailMe.getPiece(), jailMe.getX(), jailMe.getY());
 	}
-	
+	/*
 	public void parseSuites(String[] colorList) {
 		
 		LOG.newEntry("GameVariables: parseSuites: populating suites map");
@@ -473,17 +473,11 @@ public class GameVariables implements Serializable, ChangeListener{
 			suites.put(colorList[7], new Suite((Street)propertyPos.get(37), (Street)propertyPos.get(37), 	(Street)null, 				colorList[7],	Color.BLUE.getRGB()));
 		}
 	}
-	
+	*/
 	public void buildCleanGame() {
-		saveFile = new File(System.getProperty("user.dir")+sep+"resources"+sep+"newgame.mns");
-		
-		playerID = new HashMap<Integer, Player>();
-		turnTable = new ArrayList<Player>();
-		jailTable = new HashMap<String, Boolean>();
-		jailTimes = new HashMap<String, Integer>();
-		
+		saveFile = new File(System.getProperty("user.dir")+sep+"textures"+sep+"default"+sep+"newgame.mns");
 		players = TemplateGameVars.definePlayers();
-		refreshPlayerMaps();
+		refreshPlayerCollections();
 		
 		turn = new Counter(0,8,0);
 		
@@ -494,34 +488,19 @@ public class GameVariables implements Serializable, ChangeListener{
 		
 		gameDice = new Dice(6,2);
 		
-		playerTokens = new HashMap<String, GameToken>();
-		
 		// Rails(4) + utility(2) + 22(streets) = 28
 		
 		railCount = new Counter(0,4,0);
 		utilCount = new Counter(0,2,0);
 		
-		Property[] props = TemplateGameVars.defineProps(railCount, utilCount, gameDice);
+		properties = TemplateGameVars.defineProps(railCount, utilCount, gameDice);
 		
-		properties = new HashMap<String, Property>();
-		propertyPos = new HashMap<Integer, Property>();
-		
-		for(Property p : props){
-			properties.put(new String(p.getName()), p);
-			propertyPos.put(p.getPosition(), p);
-		}
+		refreshPropertyCollections();
 		
 		suites = TemplateGameVars.defineSuites(properties);
 		propertyPositions = TemplateGameVars.definePropPositions();
 		playerTokens = TemplateGameVars.definePlayerTokens(playerID);
 		icons = TemplateGameVars.defineIcons();
-		
-		paintedIcons = new ImageIcon[icons.length];
-		
-		for(int i=0; i< icons.length; i++) {
-			paintedIcons[i] = new ImageIcon(System.getProperty("user.dir") + sep + icons[i]);
-			LogMate.LOG.newEntry(System.getProperty("user.dir") + sep + icons[i]);
-		}
 		
 		paintByNumbers = TemplateGameVars.definePaintByNumbers();
 		commchest = TemplateGameVars.defineCommChest();
@@ -530,26 +509,45 @@ public class GameVariables implements Serializable, ChangeListener{
 		stickerBook = TemplateGameVars.stickerBook();
 		stickers = TemplateGameVars.getStickers();
 		
+		refreshAllImages();
+	}
+	
+	public void refreshAllImages() {
+		paintedIcons = new ImageIcon[icons.length];
 		coloredStickers = new ImageIcon[stickers.length];
+		for(int i=0; i< icons.length; i++) {
+			paintedIcons[i] = new ImageIcon(System.getProperty("user.dir") + sep + icons[i]);
+			LogMate.LOG.newEntry(System.getProperty("user.dir") + sep + icons[i]);
+		}
 		for(int i=0; i<stickers.length; i++) {
 			coloredStickers[i] = new ImageIcon(System.getProperty("user.dir") + File.separator + stickers[i]);
 			LogMate.LOG.newEntry(System.getProperty("user.dir") + sep + stickers[i]);
 		}
 	}
 	
-	public void refreshPlayerMaps() {
+	public void refreshPropertyCollections() {
+		propertyPos = new HashMap<Integer, Property>();
 		
-		turnTable.clear();
-		jailTable.clear();
-		jailTimes.clear();
-		playerID.clear();
+		for(Property p : properties.values()){
+			propertyPos.put(p.getPosition(), p);
+		}
+	}
+	
+	public void refreshPlayerCollections() {
+		playerID = new HashMap<Integer, Player>();
+		turnTable = new ArrayList<Player>();
+		jailTable = new HashMap<String, Boolean>();
+		jailTimes = new HashMap<String, Integer>();
 		
 		for(Player noob : players.values()) {
 			playerID.put(noob.getId(), noob);
-			turnTable.add(noob);
 			jailTable.put(noob.getName(), false);
 			jailTimes.put(noob.getName(), 0);
 			noob.addChangeListener(this);
+		}
+		
+		for(int i=0; i<playerID.size(); i++) {
+			turnTable.add(playerID.get(i));
 		}
 			
 	}

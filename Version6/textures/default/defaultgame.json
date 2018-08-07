@@ -97,7 +97,7 @@
       "bankrupt": false
     }
   },
-  "properties": {
+  "streets": {
     "Indiana Ave.": {
       "grade": 0,
       "upgradeCost": 150,
@@ -115,6 +115,24 @@
       "owner": "",
       "mBool": false,
       "color": -65536
+    },
+    "St. Charles Place": {
+      "grade": 0,
+      "upgradeCost": 100,
+      "rent": [
+        10,
+        50,
+        150,
+        450,
+        625,
+        750
+      ],
+      "name": "St. Charles Place",
+      "position": 11,
+      "price": 140,
+      "owner": "",
+      "mBool": false,
+      "color": -20561
     },
     "New York Ave.": {
       "grade": 0,
@@ -134,18 +152,41 @@
       "mBool": false,
       "color": -14336
     },
-    "Electric Company": {
-      "utilityOwned": {
-        "count": 0,
-        "max": 2,
-        "min": 0
-      },
-      "name": "Electric Company",
-      "position": 12,
-      "price": 150,
+    "States Ave.": {
+      "grade": 0,
+      "upgradeCost": 100,
+      "rent": [
+        10,
+        50,
+        150,
+        450,
+        625,
+        750
+      ],
+      "name": "States Ave.",
+      "position": 13,
+      "price": 140,
       "owner": "",
       "mBool": false,
-      "color": 0
+      "color": -20561
+    },
+    "Oriental Ave.": {
+      "grade": 0,
+      "upgradeCost": 50,
+      "rent": [
+        6,
+        30,
+        90,
+        270,
+        400,
+        550
+      ],
+      "name": "Oriental Ave.",
+      "position": 6,
+      "price": 100,
+      "owner": "",
+      "mBool": false,
+      "color": -16711681
     },
     "North Carolina Ave.": {
       "grade": 0,
@@ -164,19 +205,6 @@
       "owner": "",
       "mBool": false,
       "color": -16711936
-    },
-    "Short Line": {
-      "railsOwned": {
-        "count": 0,
-        "max": 4,
-        "min": 0
-      },
-      "name": "Short Line",
-      "position": 35,
-      "price": 200,
-      "owner": "",
-      "mBool": false,
-      "color": 0
     },
     "Park Place": {
       "grade": 0,
@@ -213,6 +241,24 @@
       "owner": "",
       "mBool": false,
       "color": -16776961
+    },
+    "Tennessee Ave.": {
+      "grade": 0,
+      "upgradeCost": 100,
+      "rent": [
+        14,
+        70,
+        200,
+        550,
+        750,
+        950
+      ],
+      "name": "Tennessee Ave.",
+      "position": 18,
+      "price": 180,
+      "owner": "",
+      "mBool": false,
+      "color": -14336
     },
     "Baltic Ave.": {
       "grade": 0,
@@ -268,19 +314,6 @@
       "mBool": false,
       "color": -16711936
     },
-    "B\u0026O Railroad": {
-      "railsOwned": {
-        "count": 0,
-        "max": 4,
-        "min": 0
-      },
-      "name": "B\u0026O Railroad",
-      "position": 25,
-      "price": 200,
-      "owner": "",
-      "mBool": false,
-      "color": 0
-    },
     "Connecticut Ave.": {
       "grade": 0,
       "upgradeCost": 50,
@@ -298,6 +331,24 @@
       "owner": "",
       "mBool": false,
       "color": -16711681
+    },
+    "Pennsylvania Ave.": {
+      "grade": 0,
+      "upgradeCost": 200,
+      "rent": [
+        28,
+        150,
+        450,
+        1000,
+        1200,
+        1400
+      ],
+      "name": "Pennsylvania Ave.",
+      "position": 34,
+      "price": 320,
+      "owner": "",
+      "mBool": false,
+      "color": -16711936
     },
     "Illinois Ave.": {
       "grade": 0,
@@ -335,158 +386,6 @@
       "mBool": false,
       "color": -65536
     },
-    "Virginia Ave.": {
-      "grade": 0,
-      "upgradeCost": 100,
-      "rent": [
-        12,
-        60,
-        180,
-        500,
-        700,
-        900
-      ],
-      "name": "Virginia Ave.",
-      "position": 14,
-      "price": 160,
-      "owner": "",
-      "mBool": false,
-      "color": -20561
-    },
-    "Marvin Gardens": {
-      "grade": 0,
-      "upgradeCost": 150,
-      "rent": [
-        24,
-        120,
-        360,
-        850,
-        1025,
-        1200
-      ],
-      "name": "Marvin Gardens",
-      "position": 29,
-      "price": 280,
-      "owner": "",
-      "mBool": false,
-      "color": -256
-    },
-    "Pennsylvania Railroad": {
-      "railsOwned": {
-        "count": 0,
-        "max": 4,
-        "min": 0
-      },
-      "name": "Pennsylvania Railroad",
-      "position": 15,
-      "price": 200,
-      "owner": "",
-      "mBool": false,
-      "color": 0
-    },
-    "St. Charles Place": {
-      "grade": 0,
-      "upgradeCost": 100,
-      "rent": [
-        10,
-        50,
-        150,
-        450,
-        625,
-        750
-      ],
-      "name": "St. Charles Place",
-      "position": 11,
-      "price": 140,
-      "owner": "",
-      "mBool": false,
-      "color": -20561
-    },
-    "States Ave.": {
-      "grade": 0,
-      "upgradeCost": 100,
-      "rent": [
-        10,
-        50,
-        150,
-        450,
-        625,
-        750
-      ],
-      "name": "States Ave.",
-      "position": 13,
-      "price": 140,
-      "owner": "",
-      "mBool": false,
-      "color": -20561
-    },
-    "Oriental Ave.": {
-      "grade": 0,
-      "upgradeCost": 50,
-      "rent": [
-        6,
-        30,
-        90,
-        270,
-        400,
-        550
-      ],
-      "name": "Oriental Ave.",
-      "position": 6,
-      "price": 100,
-      "owner": "",
-      "mBool": false,
-      "color": -16711681
-    },
-    "Reading Railroad": {
-      "railsOwned": {
-        "count": 0,
-        "max": 4,
-        "min": 0
-      },
-      "name": "Reading Railroad",
-      "position": 5,
-      "price": 200,
-      "owner": "",
-      "mBool": false,
-      "color": 0
-    },
-    "Tennessee Ave.": {
-      "grade": 0,
-      "upgradeCost": 100,
-      "rent": [
-        14,
-        70,
-        200,
-        550,
-        750,
-        950
-      ],
-      "name": "Tennessee Ave.",
-      "position": 18,
-      "price": 180,
-      "owner": "",
-      "mBool": false,
-      "color": -14336
-    },
-    "Pennsylvania Ave.": {
-      "grade": 0,
-      "upgradeCost": 200,
-      "rent": [
-        28,
-        150,
-        450,
-        1000,
-        1200,
-        1400
-      ],
-      "name": "Pennsylvania Ave.",
-      "position": 34,
-      "price": 320,
-      "owner": "",
-      "mBool": false,
-      "color": -16711936
-    },
     "St. James Place": {
       "grade": 0,
       "upgradeCost": 100,
@@ -523,6 +422,24 @@
       "mBool": false,
       "color": -256
     },
+    "Virginia Ave.": {
+      "grade": 0,
+      "upgradeCost": 100,
+      "rent": [
+        12,
+        60,
+        180,
+        500,
+        700,
+        900
+      ],
+      "name": "Virginia Ave.",
+      "position": 14,
+      "price": 160,
+      "owner": "",
+      "mBool": false,
+      "color": -20561
+    },
     "Vermont Ave.": {
       "grade": 0,
       "upgradeCost": 50,
@@ -541,6 +458,24 @@
       "mBool": false,
       "color": -16711681
     },
+    "Marvin Gardens": {
+      "grade": 0,
+      "upgradeCost": 150,
+      "rent": [
+        24,
+        120,
+        360,
+        850,
+        1025,
+        1200
+      ],
+      "name": "Marvin Gardens",
+      "position": 29,
+      "price": 280,
+      "owner": "",
+      "mBool": false,
+      "color": -256
+    },
     "Ventnor Ave.": {
       "grade": 0,
       "upgradeCost": 150,
@@ -558,6 +493,75 @@
       "owner": "",
       "mBool": false,
       "color": -256
+    }
+  },
+  "rails": {
+    "Short Line": {
+      "railsOwned": {
+        "count": 0,
+        "max": 4,
+        "min": 0
+      },
+      "name": "Short Line",
+      "position": 35,
+      "price": 200,
+      "owner": "",
+      "mBool": false,
+      "color": 0
+    },
+    "Reading Railroad": {
+      "railsOwned": {
+        "count": 0,
+        "max": 4,
+        "min": 0
+      },
+      "name": "Reading Railroad",
+      "position": 5,
+      "price": 200,
+      "owner": "",
+      "mBool": false,
+      "color": 0
+    },
+    "Pennsylvania Railroad": {
+      "railsOwned": {
+        "count": 0,
+        "max": 4,
+        "min": 0
+      },
+      "name": "Pennsylvania Railroad",
+      "position": 15,
+      "price": 200,
+      "owner": "",
+      "mBool": false,
+      "color": 0
+    },
+    "B\u0026O Railroad": {
+      "railsOwned": {
+        "count": 0,
+        "max": 4,
+        "min": 0
+      },
+      "name": "B\u0026O Railroad",
+      "position": 25,
+      "price": 200,
+      "owner": "",
+      "mBool": false,
+      "color": 0
+    }
+  },
+  "utils": {
+    "Electric Company": {
+      "utilityOwned": {
+        "count": 0,
+        "max": 2,
+        "min": 0
+      },
+      "name": "Electric Company",
+      "position": 12,
+      "price": 150,
+      "owner": "",
+      "mBool": false,
+      "color": 0
     },
     "Water Works": {
       "utilityOwned": {
@@ -1094,7 +1098,7 @@
       "hotelCost": 0
     },
     {
-      "text": "\u003chtml\u003eYou are assessed for stree repairs-\u003cbr\u003e$40 per house\u003cbr\u003e$115 per hotel\u003c/html\u003e",
+      "text": "\u003chtml\u003eYou are assessed for street repairs-\u003cbr\u003e$40 per house\u003cbr\u003e$115 per hotel\u003c/html\u003e",
       "moneyEarned": 0,
       "globalFunds": false,
       "baseMovement": 0,
@@ -10277,5 +10281,29 @@
     "/textures/default/parkbot.png"
   ],
   "currency": "$",
-  "texture": "default"
+  "texture": "default",
+  "saveFile": "/Users/msalazar/git/Monopoly/Version6/textures/default/default.mns",
+  "houseCount": {
+    "count": 0,
+    "max": 32,
+    "min": 0
+  },
+  "hotelCount": {
+    "count": 0,
+    "max": 12,
+    "min": 0
+  },
+  "turn": {
+    "count": 0,
+    "max": 8,
+    "min": 0
+  },
+  "dice": {
+    "sides": 6,
+    "dice": [
+      0,
+      0
+    ],
+    "lastRoll": 0
+  }
 }

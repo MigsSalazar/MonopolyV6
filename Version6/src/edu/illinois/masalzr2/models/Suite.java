@@ -2,6 +2,7 @@ package edu.illinois.masalzr2.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gson.annotations.Expose;
 
@@ -12,8 +13,8 @@ public class Suite implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private ArrayList<Street> streets;
-	@Expose private ArrayList<String> names;
+	private List<Street> streets;
+	@Expose private List<String> names;
 	@Expose private String colorName;
 	@Expose private int colorValue;
 	
@@ -54,6 +55,25 @@ public class Suite implements Serializable{
 		
 		streets = sortedByPosition();
 		
+	}
+	
+	public List<Street> getStreets(){
+		if(streets == null) {
+			streets = new ArrayList<Street>();
+		}
+		return streets;
+	}
+	
+	public void setStreets(List<Street> s) {
+		s.sort(Street.getPositionComparator());
+		streets = s;
+	}
+	
+	public List<String> getNames(){
+		if(names == null) {
+			names= new ArrayList<String>();
+		}
+		return names;
 	}
 	
 	/**
@@ -123,8 +143,8 @@ public class Suite implements Serializable{
 	 * Returns a new ArrayList that contains all the Street objects in this suite sorted by position
 	 * @return 		A new ArrayList of the Streets in the Suite
 	 */
-	public ArrayList<Street> sortedByPosition(){
-		ArrayList<Street> retval = new ArrayList<Street>();
+	public List<Street> sortedByPosition(){
+		List<Street> retval = new ArrayList<Street>();
 		retval.addAll(streets);
 		retval.sort(Property.getPositionComparator());
 		return retval;
@@ -134,8 +154,8 @@ public class Suite implements Serializable{
 	 * Returns a new ArrayList that contains all the Street objects in this suite sorted by name
 	 * @return 		A new ArrayList of the Streets in the Suite
 	 */
-	public ArrayList<Street> sortedByName(){
-		ArrayList<Street> retval = new ArrayList<Street>();
+	public List<Street> sortedByName(){
+		List<Street> retval = new ArrayList<Street>();
 		retval.addAll(streets);
 		retval.sort(Property.getNameComparator());
 		return retval;

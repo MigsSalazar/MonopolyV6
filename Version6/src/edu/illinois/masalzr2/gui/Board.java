@@ -199,7 +199,7 @@ public class Board {
 			//LogMate.LOG.newEntry("Board: Move Piece: Key was found, retrieving");
 			Dimension dim = pieceCoords.get(key);
 			//LogMate.LOG.newEntry("Board: Move Piece: Wiping old icons");
-			display[dim.width][dim.height].wipeIcons();
+			display[dim.width][dim.height].removeIcon(icon);
 			//LogMate.LOG.newEntry("Board: Move Piece: Setting coordinates");
 			dim.setSize(x, y);
 			//LogMate.LOG.newEntry("Board: Move Piece: Adding Icon");
@@ -207,14 +207,9 @@ public class Board {
 		}
 	}
 	
-	public void removePiece(ImageIcon icon){
-		//LogMate.LOG.newEntry("Board: Remove Piece Sans Key: Removing based on Image Icon");
-		removePiece(icon.toString());
-	}
-	
-	public void removePiece(String key){
+	public void removePiece(ImageIcon key){
 		//LogMate.LOG.newEntry("Board: Remove Piece: Removing piece of key: "+key);
-		if(pieceCoords.containsKey(key)){
+		if(pieceCoords.containsKey(key.getDescription())){
 			//LogMate.LOG.newEntry("Board: Remove Piece: Key was found. TrueDelete");
 			trueDelete(key);
 		}else {
@@ -223,20 +218,20 @@ public class Board {
 			String[] strKeys = new String[keys.size()];
 			keys.toArray(strKeys);
 			//LogMate.LOG.newEntry("Board: Remove Piece: True Deleting pieces");
-			for(String s : strKeys) {
-				if(s.contains(key)) {
-					trueDelete(s);
+			for(String s : pieceCoords.keySet()) {
+				if(s.contains(key.getDescription())) {
+					trueDelete(new ImageIcon(s));
 				}
 			}
 		}
 	}
 
-	private void trueDelete(String key) {
+	private void trueDelete(ImageIcon key) {
 		//LogMate.LOG.newEntry("Board: True Delete: Finding coordinates");
-		Dimension dim = pieceCoords.get(key);
+		Dimension dim = pieceCoords.get(key.getDescription());
 		//LogMate.LOG.newEntry("Board: True Delete: removing piece and wiping icons");
-		pieceCoords.remove(key);
-		display[dim.width][dim.height].wipeIcons();
+		pieceCoords.remove(key.getDescription());
+		display[dim.width][dim.height].removeIcon(key);
 	}
 	
 	

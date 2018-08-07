@@ -1,5 +1,6 @@
 package edu.illinois.masalzr2.gui;
 
+import java.awt.Color;
 import java.util.Scanner;
 
 import edu.illinois.masalzr2.Starter;
@@ -79,6 +80,16 @@ public class TesterFrame {
 						prop.setOwner(pl.getName());
 					}
 				}
+				break;
+			case "get color":
+				int r, g, b;
+				System.out.println("Enter R: ");
+				r = kb.nextInt();
+				System.out.println("Enter G: ");
+				g = kb.nextInt();
+				System.out.println("Enter B:");
+				b = kb.nextInt();
+				System.out.println(""+(new Color(r,g,b).getRGB()));
 				break;
 			}
 		}while(!in.equals("exit"));

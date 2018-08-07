@@ -3,6 +3,8 @@ package edu.illinois.masalzr2.models;
 import java.io.Serializable;
 import java.util.Random;
 
+import com.google.gson.annotations.Expose;
+
 public class Dice implements Serializable{
 	
 	/**
@@ -10,9 +12,9 @@ public class Dice implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private int sides;
-	private int[] dice;
-	private int lastRoll;
+	@Expose private int sides;
+	@Expose private int[] dice;
+	@Expose private int lastRoll;
 	
 	public Dice(){
 		sides = 6;

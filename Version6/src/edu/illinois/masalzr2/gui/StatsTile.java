@@ -72,7 +72,7 @@ public class StatsTile extends JPanel implements ChangeListener{
 		
 		formJList();
 		this.add(pListScroller, BorderLayout.CENTER);
-		this.setPreferredSize(new Dimension(175,300));
+		this.setPreferredSize(new Dimension(160,300));
 
 	}
 	

@@ -19,6 +19,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import edu.illinois.masalzr2.Starter;
 import edu.illinois.masalzr2.io.GameIo;
@@ -47,7 +48,8 @@ public class PreGameFrame extends JFrame implements ActionListener {
 	private JButton loadGame;
 	private JButton settings;
 	private JButton about;
-
+	private String fileDir = System.getProperty("user.dir") + File.separator +"resources"+File.separator+"newgame.mns";
+	
 	public PreGameFrame(){
 		//c.setLayout(box);
 		
@@ -114,7 +116,7 @@ public class PreGameFrame extends JFrame implements ActionListener {
 		LOG.newEntry("PreGameFrame: ActionPerformed: ActionEven receieved");
 		if(e.getSource().equals(newGame)){
 			LOG.newEntry("PreGameFrame: ActionPerformed: NewGame was pressed");
-			GameVariables newerGame = GameIo.newGame();
+			GameVariables newerGame = GameIo.newGame(fileDir);
 			
 			if(newerGame !=null) {
 				if (Starter.gameSetup( (JFrame)this, newerGame))
@@ -125,7 +127,8 @@ public class PreGameFrame extends JFrame implements ActionListener {
 			}
 		}else if(e.getSource().equals(loadGame)){
 			LOG.newEntry("PreGameFrame: ActionPerformed: Loading was pressed");
-			String dir = GameIo.findGame(this);
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("Monopoly Saves", "mns");
+			String dir = GameIo.findFile(this, filter);
 			if(dir==null) {
 				LOG.newEntry("PreGameFrame: ActionPerformed: Directory was found invalid");
 				return;
@@ -142,45 +145,73 @@ public class PreGameFrame extends JFrame implements ActionListener {
 				badFile();
 			}
 		}else if(e.getSource().equals(settings)){
-			LOG.newEntry("PreGameFrame: ActionPerformed: Settings was pressed");
-			LOG.newEntry("PreGameFrame: ActionPerformed: Building settings dialog");
-			BorderLayout manager = new BorderLayout(2,1);
-			manager.setVgap(10);
-			manager.setHgap(10);
-			JPanel container = new JPanel();
-			JDialog setThemUp = new JDialog(this, "Settings", true);
-			setThemUp.add(container);
-			setThemUp.setPreferredSize(new Dimension(300, 150));
-			container.setLayout(manager);
-			JLabel refresh = new JLabel("Refresh/Clean the game's system files");
-			refresh.setPreferredSize(new Dimension(150,30));
-			refresh.setVerticalAlignment(JLabel.CENTER);
-			refresh.setHorizontalAlignment(JButton.CENTER);
-			refresh.setVerticalTextPosition(JLabel.CENTER);
-			refresh.setHorizontalTextPosition(JButton.CENTER);
-			JButton clean = new JButton("Clean");
-			clean.setSize(new Dimension(20,20));
-			clean.setHorizontalAlignment(JButton.CENTER);
-			clean.setHorizontalTextPosition(JButton.CENTER);
-			clean.setVerticalAlignment(JButton.CENTER);
-			clean.setVerticalTextPosition(JButton.CENTER);
-			clean.addActionListener(new ActionListener(){
-				@Override
-				public void actionPerformed(ActionEvent e){
-					clean.setForeground(Color.BLACK);
-					TemplateGameVars.produceTemplate();
-					clean.setForeground(Color.RED);
-					refresh.setText("<html>Refresh/Clean the<br/>game's system files<br/>Files refreshed</html>");
-				}
-			});
-			LOG.newEntry("PreGameFrame: ActionPerformed: Adding components");
-			container.add(refresh, BorderLayout.CENTER);
-			container.add(clean, BorderLayout.SOUTH);
-			setThemUp.pack();
-			LOG.newEntry("PreGameFrame: ActionPerformed: Setting dialog visible");
-			setThemUp.setVisible(true);
+			displaySettings();
 		}
 		
+	}
+	private void displaySettings() {
+		LOG.newEntry("PreGameFrame: ActionPerformed: Settings was pressed");
+		LOG.newEntry("PreGameFrame: ActionPerformed: Building settings dialog");
+		
+		BorderLayout manager = new BorderLayout(2,1);
+		manager.setVgap(10);
+		manager.setHgap(10);
+		JPanel container = new JPanel();
+		JDialog setThemUp = new JDialog(this, "Settings", true);
+		
+		setThemUp.add(container);
+		setThemUp.setPreferredSize(new Dimension(300, 150));
+		container.setLayout(manager);
+		
+		JLabel refresh = new JLabel("Refresh/Clean the game's system files");
+		refresh.setPreferredSize(new Dimension(150,30));
+		refresh.setVerticalAlignment(JLabel.CENTER);
+		refresh.setHorizontalAlignment(JLabel.CENTER);
+		refresh.setVerticalTextPosition(JLabel.CENTER);
+		refresh.setHorizontalTextPosition(JLabel.CENTER);
+		
+		JButton clean = new JButton("Clean");
+		clean.setSize(new Dimension(20,20));
+		clean.setHorizontalAlignment(JButton.CENTER);
+		clean.setHorizontalTextPosition(JButton.CENTER);
+		clean.setVerticalAlignment(JButton.CENTER);
+		clean.setVerticalTextPosition(JButton.CENTER);
+		clean.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				clean.setForeground(Color.BLACK);
+				TemplateGameVars.produceTemplate();
+				clean.setForeground(Color.RED);
+				refresh.setText("<html>Refresh/Clean the game's system files<br/>Files refreshed</html>");
+			}
+		});
+		
+		JButton texture = new JButton("Pick Texture");
+		texture.setSize(new Dimension(20,20));
+		texture.setHorizontalAlignment(JButton.CENTER);
+		texture.setHorizontalTextPosition(JButton.CENTER);
+		texture.setVerticalAlignment(JButton.CENTER);
+		texture.setVerticalTextPosition(JButton.CENTER);
+		texture.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				 GameVariables gv = GameIo.varsFromJson(setThemUp);
+				 if(gv == null) {
+					 refresh.setText("<html>Failed to load texture. Bad JSON file<br/>Refresh/Clean the game's system files</html>");
+				 }else {
+					 refresh.setText("<html>Successfully loaded texture.<br/>Refresh/Clean the game's system files</html>");
+					 fileDir = gv.getSaveFile().getPath();
+				 }
+			}
+		});
+		
+		LOG.newEntry("PreGameFrame: ActionPerformed: Adding components");
+		container.add(texture, BorderLayout.NORTH);
+		container.add(refresh, BorderLayout.CENTER);
+		container.add(clean, BorderLayout.SOUTH);
+		setThemUp.pack();
+		LOG.newEntry("PreGameFrame: ActionPerformed: Setting dialog visible");
+		setThemUp.setVisible(true);
 	}
 	
 }

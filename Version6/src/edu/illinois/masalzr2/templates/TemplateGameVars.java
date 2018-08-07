@@ -1415,7 +1415,7 @@ public class TemplateGameVars{
 		return propertyPositions;
 	}
 	
-	public static Property[] defineProps(Counter rails, Counter utils, Dice gameDice){
+	public static Map<String,Property> defineProps(Counter rails, Counter utils, Dice gameDice){
 		Property[] props = new Property[28];
 		props[0] = new Street("Mediterranean Ave.", 1, 60, "", false, null, 0, 30, new int[]{2, 10, 30, 90, 160, 250});
 		props[1] = new Street("Baltic Ave.", 		3, 60, "", false, null, 0, 30, new int[]{4, 20, 60, 180, 320, 450});
@@ -1466,8 +1466,11 @@ public class TemplateGameVars{
 		props[27] = new Street("Board Walk",		39, 400, "", false, null, 0, 200, new int[]{50, 200, 600, 1400, 1700, 2000});
 		
 		updateProgress(10, "Properties have been generated");
-		
-		return props;
+		Map<String,Property> finProps = new HashMap<String,Property>();
+		for(Property p : props) {
+			finProps.put(p.getName(), p);
+		}
+		return finProps;
 	}
 	
 

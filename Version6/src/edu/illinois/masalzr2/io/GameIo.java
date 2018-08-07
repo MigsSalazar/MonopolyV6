@@ -1,20 +1,23 @@
 package edu.illinois.masalzr2.io;
 
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Writer;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -24,7 +27,14 @@ import com.google.gson.GsonBuilder;
 import edu.illinois.masalzr2.masters.GameVariables;
 import edu.illinois.masalzr2.masters.LogMate;
 import edu.illinois.masalzr2.masters.MonopolyExceptionHandler;
+import edu.illinois.masalzr2.models.Counter;
+import edu.illinois.masalzr2.models.Dice;
+import edu.illinois.masalzr2.models.Property;
+import edu.illinois.masalzr2.models.Railroad;
+import edu.illinois.masalzr2.models.Street;
+import edu.illinois.masalzr2.models.Utility;
 import edu.illinois.masalzr2.templates.TemplateGameVars;
+import edu.illinois.masalzr2.templates.TemplateJson;
 
 public class GameIo {
 
@@ -40,7 +50,7 @@ public class GameIo {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				TemplateGameVars.produceTemplate();
-				System.exit(0);
+				//System.exit(0);
 			}
 		});
 		options[1] = new JButton("JSon");
@@ -48,7 +58,7 @@ public class GameIo {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				printCleanJson();
-				System.exit(0);
+				//System.exit(0);
 			}
 		});
 		LogMate.LOG.newEntry("GameIO: Main: Showing options");
@@ -56,16 +66,18 @@ public class GameIo {
 		JOptionPane.showOptionDialog(null, 
 				"Would you like to generate an MNS or a JSon",
 				"Generate Files", 
-				JOptionPane.OK_OPTION, 
+				JOptionPane.DEFAULT_OPTION, 
 				JOptionPane.QUESTION_MESSAGE, 
 				/*ImageIcon*/null, 
 				options, 
 				options[0]);
+		varsFromJson(null).buildFrame();
+		//System.exit(0);
 	}
 	
-	public static GameVariables newGame() {
+	public static GameVariables newGame(String fileDir) {
 		LogMate.LOG.newEntry("GameIO: NewGame: beginning");
-		File f = new File(System.getProperty("user.dir") + sep +"resources"+sep+"newgame.mns");
+		File f = new File(fileDir);
 		LogMate.LOG.newEntry("GameIO: NewGame: File made with directory "+System.getProperty("user.dir") + sep +"resources"+sep+"newgame.mns");
 		//System.out.println(System.getProperty("user.dir") + "/resources/newgame.mns");
 		if(!f.exists()) {
@@ -82,6 +94,10 @@ public class GameIo {
 		}
 		LogMate.LOG.newEntry("GameIO: NewGame: Returning produced game");
 		return retval;
+	}
+	
+	public static GameVariables newGame() {
+		return newGame(System.getProperty("user.dir") + sep +"resources"+sep+"newgame.mns");
 	}
 	
 	public static GameVariables produceSavedGame(String dir) {
@@ -128,12 +144,12 @@ public class GameIo {
 		
 	}
 	
-	public static String findGame(JFrame parent){
+	public static String findFile(Container parent, FileNameExtensionFilter filter){
 		//System.out.println(System.getProperty("user.dir") + sep + "saves");
 		LogMate.LOG.newEntry("GameIO: Find Game: Searching for games in saves directory");
-		JFileChooser chooser = new JFileChooser(System.getProperty("user.dir") + sep + "saves" );
+		JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
 		LogMate.LOG.newEntry("GameIO: Find Game: Setting file filter");
-	    FileNameExtensionFilter filter = new FileNameExtensionFilter("Monopoly Saves","mns");
+	    //FileNameExtensionFilter filter = new FileNameExtensionFilter("Monopoly Saves","mns");
 	    chooser.setFileFilter(filter);
 	    LogMate.LOG.newEntry("GameIO: Find Game: Looking for games");
 	    int returnVal = chooser.showOpenDialog(parent);
@@ -160,7 +176,10 @@ public class GameIo {
 							.excludeFieldsWithoutExposeAnnotation()
 							.create();
 			LogMate.LOG.newEntry("GameIO: Print Clean Json: Writing out");
-			gson.toJson(gv, writeOut);
+			
+			TemplateJson j = new TemplateJson(gv);
+			
+			gson.toJson(j, writeOut);
 			LogMate.LOG.newEntry("GameIO: Print Clean Json: Closing");
 			writeOut.close();
 			
@@ -170,8 +189,102 @@ public class GameIo {
 			LogMate.LOG.finish();
 			MonopolyExceptionHandler.uncaughtException(e, Thread.currentThread());
 		}
+		LogMate.LOG.flush();
 		
+	}
+	
+	public static GameVariables varsFromJson(Container parent) {
 		
+		String gotten = findFile(parent, new FileNameExtensionFilter("Json", "json") );
+		
+		Gson gson = new Gson();
+		TemplateJson tempVars = null;
+		Map<String, Property> props = new HashMap<String, Property>();
+		Counter utilCount = null, railCount = null;
+		try {
+			FileReader fin = new FileReader(gotten);
+			tempVars = gson.fromJson(fin, TemplateJson.class);
+			
+			for(Street s : tempVars.getStreets().values()) {
+				props.put(s.getName(), s);
+			}
+			
+			for(Railroad r : tempVars.getRails().values()) {
+				if (r.getRailsOwned() != null && railCount == null) {
+					railCount = r.getRailsOwned();
+				}else if(railCount != null){
+					r.setRailedOwned(railCount);
+				}else if(r.getRailsOwned()==null && railCount==null) {
+					railCount = new Counter(0,4,0);
+					r.setRailedOwned(railCount);
+				}
+				props.put(r.getName(), r);
+				
+			}
+			
+			for(Utility u : tempVars.getUtils().values()) {
+				if (u.getCounter() != null && utilCount == null) {
+					utilCount = u.getCounter();
+				}else if(utilCount != null){
+					u.setCounter(utilCount);
+				}else if(u.getCounter()==null && utilCount==null) {
+					utilCount = new Counter(0,2,0);
+					u.setCounter(utilCount);
+				}
+				props.put(u.getName(), u);
+			}
+			
+		} catch (FileNotFoundException e) {
+			System.out.println("I failed");
+			return null;
+		}
+		
+		/*
+		
+		@Expose private Map<String, Player> players;
+		@Expose private Map<String, Property> properties;
+		@Expose private Map<String, Suite> suites;
+		@Expose private PositionIndex propertyPositions;
+		@Expose private ArrayList<GameCard> chance;
+		@Expose private ArrayList<GameCard> commchest;
+		@Expose private int[][] paintByNumbers;
+		@Expose private String[] icons;
+		@Expose private Stamp[][] stampCollection;
+		@Expose private Map<String, GameToken> playerTokens;
+		@Expose private int[][] stickerBook;
+		@Expose private String[] stickers;
+		@Expose private String currency;
+		@Expose private String texture;
+		 */
+		GameVariables vars = new GameVariables();
+		vars.setPlayers(			tempVars.getPlayers());
+		vars.setProperties(			props);
+		vars.setSuites(				tempVars.getSuites());
+		vars.setPropertyPositions(	tempVars.getPropertyPositions());
+		vars.setChance(				tempVars.getChance());
+		vars.setCommchest(			tempVars.getCommchest());
+		vars.setPaintByNumbers(		tempVars.getPaintByNumbers());
+		vars.setIcons(				tempVars.getIcons());
+		vars.setStampCollection(	tempVars.getStampCollection());
+		vars.setPlayerTokens(		tempVars.getPlayerTokens());
+		vars.setStickerBook(		tempVars.getStickerBook());
+		vars.setStickers(			tempVars.getStickers());
+		vars.setCurrency(			tempVars.getCurrency());
+		vars.setTexture(			tempVars.getTexture());
+		vars.setSaveFile(new File(	tempVars.getSaveFile()));
+		vars.setHotelCount(			tempVars.getHotelCount());
+		vars.setHouseCount(			tempVars.getHouseCount());
+		vars.setTurn(				tempVars.getTurn());
+		vars.setGameDice(			tempVars.getDice());
+		vars.setRailCount(			railCount);
+		vars.setUtilCount(			utilCount);
+		vars.refreshAllImages();
+		vars.refreshPlayerCollections();
+		vars.refreshPropertyCollections();
+		vars.setGameDice(new Dice(6,2));
+		vars.setTurn(new Counter(0,8,0));
+		writeOut(vars);
+		return vars;
 	}
 	
 	public static void writeOut(GameVariables me) {
