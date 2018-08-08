@@ -33,6 +33,7 @@ public class TemplateGameVars{
 	public static String sep = java.io.File.separator;
 	private static JProgressBar progress = new JProgressBar(0,120);
 	private static JTextArea updates = new JTextArea();
+	private static JDialog progPanel;
 	
 	public static void main(String[] args) {
 		produceTemplate();
@@ -40,7 +41,7 @@ public class TemplateGameVars{
 	}
 	
 	public static void produceTemplate() {
-		JDialog progPanel = new JDialog((JFrame)null, "Template Generation", false);
+		progPanel = new JDialog((JFrame)null, "Template Generation", false);
 		progPanel.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		progPanel.setLayout(new BorderLayout());
 		//progress = new JProgressBar(0,120);
@@ -63,6 +64,12 @@ public class TemplateGameVars{
 		LogMate.LOG.newEntry("Finished template!");
 		LogMate.LOG.flush();
 		LogMate.LOG.finish();
+	}
+	
+	public static void closeProgressPanel() {
+		if(progPanel == null)
+			return;
+		progPanel.dispose();
 	}
 	
 	private static void updateProgress(int value, String output){
@@ -149,7 +156,7 @@ public class TemplateGameVars{
 		
 		//String dir = System.getProperty("user.dir");
 		for(int i=0; i<stickers.length; i++){
-			stickers[i] = sep+"textures"+sep+"default"+sep+stickers[i];
+			stickers[i] = sep+"default"+sep+stickers[i];
 			//System.out.println(retval[i].getDescription());
 		}
 		
@@ -1121,7 +1128,7 @@ public class TemplateGameVars{
 		}
 		};
 		
-		updateProgress(90, "Stickers have been generated");
+		updateProgress(90, "Stamps have been generated");
 		
 		return sc;
 
@@ -1332,7 +1339,7 @@ public class TemplateGameVars{
 				"jail7.png",				//18
 				"jail8.png"};				//19
 		for(int i=0; i<icons.length; i++){
-			icons[i] = sep+"textures"+sep+"default"+sep+icons[i];
+			icons[i] = sep+"default"+sep+icons[i];
 		}
 		
 		updateProgress(50, "Icons have been defined");
@@ -1342,49 +1349,49 @@ public class TemplateGameVars{
 	
 	public static HashMap<String, GameToken> definePlayerTokens(Map<Integer, Player> playerIds){
 		HashMap<String, GameToken> playerTokens = new HashMap<String, GameToken>();
-		GameToken p1 = new GameToken(0, "/textures/default/boat.png", new PositionIndex(
+		GameToken p1 = new GameToken(0, "/default/boat.png", new PositionIndex(
 				new int[]{25,22,20,18,16,14,12,10,8,6,0,0,0,0,0,0,0,0,0,0,0,6,8,10,12,14,16,18,20,22,25,26,26,26,26,26,26,26,26,26,},
 				new int[]{25,26,26,26,26,26,26,26,26,26,25,22,20,18,16,14,12,10,8,6,2,0,0,0,0,0,0,0,0,0,1,6,8,10,12,14,16,18,20,22,},
 				new int[]{25},
 				new int[]{2}));
 
-		GameToken p2 = new GameToken(1, "/textures/default/boot.png", new PositionIndex(
+		GameToken p2 = new GameToken(1, "/default/boot.png", new PositionIndex(
 			new int[]{26,23,21,19,17,15,13,11,9,7,0,1,1,1,1,1,1,1,1,1,1,7,9,11,13,15,17,19,21,23,26,27,27,27,27,27,27,27,27,27,},
 			new int[]{25,26,26,26,26,26,26,26,26,26,26,22,20,18,16,14,12,10,8,6,2,0,0,0,0,0,0,0,0,0,1,6,8,10,12,14,16,18,20,22,},
 			new int[]{26},
 			new int[]{2}));
 
-		GameToken p3 = new GameToken(2, "/textures/default/car.png", new PositionIndex(
+		GameToken p3 = new GameToken(2, "/default/car.png", new PositionIndex(
 			new int[]{27,22,20,18,16,14,12,10,8,6,0,2,2,2,2,2,2,2,2,2,4,6,8,10,12,14,16,18,20,22,27,28,28,28,28,28,28,28,28,28,},
 			new int[]{25,27,27,27,27,27,27,27,27,27,27,22,20,18,16,14,12,10,8,6,2,1,1,1,1,1,1,1,1,1,1,6,8,10,12,14,16,18,20,22,},
 			new int[]{27},
 			new int[]{2}));
 	
-		GameToken p4 = new GameToken(3, "/textures/default/hat.png", new PositionIndex(
+		GameToken p4 = new GameToken(3, "/default/hat.png", new PositionIndex(
 			new int[]{28,23,21,19,17,15,13,11,9,7,0,3,3,3,3,3,3,3,3,3,5,7,9,11,13,15,17,19,21,23,28,29,29,29,29,29,29,29,29,29,},
 			new int[]{25,27,27,27,27,27,27,27,27,27,28,22,20,18,16,14,12,10,8,6,2,1,1,1,1,1,1,1,1,1,1,6,8,10,12,14,16,18,20,22,},
 			new int[]{27},
 			new int[]{3}));
 	
-		GameToken p5 = new GameToken(4, "/textures/default/iron.png", new PositionIndex(
+		GameToken p5 = new GameToken(4, "/default/iron.png", new PositionIndex(
 			new int[]{25,22,20,18,16,14,12,10,8,6,1,0,0,0,0,0,0,0,0,0,0,6,8,10,12,14,16,18,20,22,25,26,26,26,26,26,26,26,26,26,},
 			new int[]{26,28,28,28,28,28,28,28,28,28,29,23,21,19,17,15,13,11,9,7,3,2,2,2,2,2,2,2,2,2,2,7,9,11,13,15,17,19,21,23,},
 			new int[]{27},
 			new int[]{4}));
 		
-		GameToken p6 = new GameToken(5, "/textures/default/pupper.png", new PositionIndex(
+		GameToken p6 = new GameToken(5, "/default/pupper.png", new PositionIndex(
 			new int[]{26,23,21,19,17,15,13,11,9,7,2,1,1,1,1,1,1,1,1,1,1,7,9,11,13,15,17,19,21,23,26,27,27,27,27,27,27,27,27,27,},
 			new int[]{26,28,28,28,28,28,28,28,28,28,29,23,21,19,17,15,13,11,9,7,3,2,2,2,2,2,2,2,2,2,2,7,9,11,13,15,17,19,21,23,},
 			new int[]{26},
 			new int[]{4}));
 	
-		GameToken p7 = new GameToken(6, "/textures/default/thimble.png", new PositionIndex(
+		GameToken p7 = new GameToken(6, "/default/thimble.png", new PositionIndex(
 			new int[]{27,22,20,18,16,14,12,10,8,6,3,2,2,2,2,2,2,2,2,2,4,6,8,10,12,14,16,18,20,22,27,28,28,28,28,28,28,28,28,28,},
 			new int[]{26,29,29,29,29,29,29,29,29,29,29,23,21,19,17,15,13,11,9,7,3,3,3,3,3,3,3,3,3,3,2,7,9,11,13,15,17,19,21,23,},
 			new int[]{25},
 			new int[]{4}));
 	
-		GameToken p8 = new GameToken(7, "/textures/default/wheelbarrow.png", new PositionIndex(
+		GameToken p8 = new GameToken(7, "/default/wheelbarrow.png", new PositionIndex(
 			new int[]{28,23,21,19,17,15,13,11,9,7,4,3,3,3,3,3,3,3,3,3,5,7,9,11,13,15,17,19,21,23,28,29,29,29,29,29,29,29,29,29,},
 			new int[]{26,29,29,29,29,29,29,29,29,29,29,23,21,19,17,15,13,11,9,7,3,3,3,3,3,3,3,3,3,3,2,7,9,11,13,15,17,19,21,23,},
 			new int[]{25},

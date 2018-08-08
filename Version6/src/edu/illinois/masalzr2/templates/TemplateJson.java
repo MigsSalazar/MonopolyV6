@@ -38,8 +38,13 @@ public class TemplateJson {
 	@Expose private Counter houseCount;
 	@Expose private Counter hotelCount;
 	
-	@Expose private Counter turn;
+	@Expose private int turn;
+	@Expose private boolean limitingTurns;
+	@Expose private int turnsLimit;
+	
 	@Expose private Dice dice;
+	
+	@Expose private boolean fancyMoveEnabled;
 	/*
 	
 	@Expose private Map<String, Player> players;
@@ -93,6 +98,9 @@ public class TemplateJson {
 		hotelCount 			= gv.getHotelCount();
 		turn 				= gv.getTurn();
 		dice 				= gv.getGameDice();
+		limitingTurns		= gv.isLimitingTurns();
+		turnsLimit			= gv.getTurnsLimit();
+		fancyMoveEnabled 	= gv.isFancyMoveEnabled();
 		
 		String path = gv.getSaveFile().getParentFile().getParentFile().getPath();
 		System.out.println("Parent path: "+path);

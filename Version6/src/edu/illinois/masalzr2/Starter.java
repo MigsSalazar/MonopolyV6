@@ -62,7 +62,7 @@ public class Starter {
 		LogMate.LOG.newEntry("Starter: Game Setup: Starting NewGameStartUp Dialog");
 		ngsup.beginDialog();
 		List<String> names = ngsup.getNames();
-		if(names.size() == 1) {
+		if(!ngsup.isfinished()) {
 			return false;
 		}
 		LogMate.LOG.newEntry("Starter: Game Setup: Dialog has ended, starting game");
@@ -82,7 +82,7 @@ public class Starter {
 		newerGame.refreshPlayerCollections();
 		newerGame.refreshAllImages();
 		newerGame.refreshPropertyCollections();
-		newerGame.getTurn().setMax(names.size());
+		//newerGame.getTurn().setMax(names.size());
 		newerGame.buildFrame();
 		return true;
 	}

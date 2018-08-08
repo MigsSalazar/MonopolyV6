@@ -17,6 +17,8 @@ import edu.illinois.masalzr2.notices.ListEvent;
 import edu.illinois.masalzr2.notices.ListListener;
 import edu.illinois.masalzr2.notices.implentations.HomeMenuNotice;
 import edu.illinois.masalzr2.notices.implentations.JailNotice;
+import lombok.Getter;
+import lombok.Setter;
 
 public class Notices implements ListListener, Serializable {
 
@@ -30,6 +32,7 @@ public class Notices implements ListListener, Serializable {
 	private GameVariables gameVars;
 	private JPanel components;
 	private JLabel notification;
+	@Getter @Setter private boolean gameOver = false;
 	
 	public Notices(GameVariables gv){
 		gameVars = gv;
@@ -91,7 +94,6 @@ public class Notices implements ListListener, Serializable {
 		noticeList.removeAll(noticeList);
 	}
 	
-	
 	@Override
 	public void pushMe(ListEvent le) {
 		Object src = le.getSource();
@@ -112,10 +114,12 @@ public class Notices implements ListListener, Serializable {
 			//noticeList.pop();
 		}
 		if(noticeList.size() == 0){
-			if(!gameVars.isInJail(gameVars.getCurrentPlayer())) {
+			if(!gameVars.isInJail(gameVars.getCurrentPlayer()) && !gameOver ) {
 				currNotice = new HomeMenuNotice(this, gameVars);
-			}else {
+			}else if( gameVars.isInJail(gameVars.getCurrentPlayer()) && !gameOver ){
 				currNotice = new JailNotice(this, gameVars);
+			}else {
+				currNotice = gameVars.getWinner();
 			}
 			
 			noticeList.add(currNotice);

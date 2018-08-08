@@ -1,9 +1,13 @@
 package edu.illinois.masalzr2.gui;
 
 import java.awt.Container;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -47,7 +51,7 @@ public class FrameMenu extends JMenuBar implements ActionListener{
 		options[3] = new JMenuItem("Save As...");
 		
 		options[4] = new JMenuItem("Help");
-		options[5] = new JMenuItem("Details");
+		options[5] = new JMenuItem("About");
 		options[6] = new JMenuItem("GitHub");
 		
 		for(JMenuItem i : options) {
@@ -68,26 +72,29 @@ public class FrameMenu extends JMenuBar implements ActionListener{
 		
 	}
 	
-	
+	private JFrame findParentJFrame() {
+		Container comp = this;
+		while( ! (comp instanceof JFrame) ) {
+			comp = comp.getParent();
+		}
+		JFrame parent = (JFrame)comp;
+		return parent;
+	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent e) {
 		
-		if( arg0.getSource() instanceof JMenuItem ) {
-			JMenuItem source = (JMenuItem) arg0.getSource();
+		if( e.getSource() instanceof JMenuItem ) {
+			JMenuItem source = (JMenuItem) e.getSource();
 			
 			if( source.equals(options[0]) ) {
 				GameVariables newGame = GameIo.newGame();
-				Container comp = this;
-				while( ! (comp instanceof JFrame) ) {
-					comp = comp.getParent();
-				}
-				JFrame parent = (JFrame)comp;
+				JFrame parent = findParentJFrame();
 				if ( Starter.gameSetup(parent, newGame) )
 					gameVars.getFrame().dispose();
 			} else if( source.equals(options[1]) ){
 				
-				String dir = GameIo.findFile(gameVars.getFrame(), new FileNameExtensionFilter("Monopoly Saves", "mns"));
+				String dir = GameIo.findFile(gameVars.getFrame(), new FileNameExtensionFilter("Monopoly Saves", "mns"), System.getProperty("user.dir")+sep+"saves");
 				if(dir==null) {
 					return;
 				}
@@ -99,7 +106,7 @@ public class FrameMenu extends JMenuBar implements ActionListener{
 			} else if( source.equals(options[2]) ) {
 				//System.out.println(gameVars.getSaveFile().getPath());
 				
-				if( gameVars.getSaveFile().getPath().contains( "resources"+sep+"newgame.mns" ) ) {
+				if( gameVars.getSaveFile().getPath().contains( "resources"+sep+"package" ) ) {
 					String newName = JOptionPane.showInputDialog(gameVars.getFrame(), "Name your game!");
 					gameVars.setSaveFile(new File(System.getProperty("user.dir")+sep+"saves"+sep+newName+".mns" ));
 				}
@@ -110,12 +117,20 @@ public class FrameMenu extends JMenuBar implements ActionListener{
 				gameVars.setSaveFile(new File(System.getProperty("user.dir")+sep+"saves"+sep+newName+".mns" ));
 				GameIo.writeOut(gameVars);
 			} else if( source.equals(options[4]) ) {
-				
+				//TODO make the help options
+				//Could just send them to a users guide
 			} else if( source.equals(options[5]) ) {
-				
+				//TODO make an about
+				//Licensing? Dependencies? What data is relevant
 			} else if( source.equals(options[6]) ) {
-				//failure += 10;
-				//System.out.println(""+failure);
+				JFrame parent = findParentJFrame();
+				try {
+					if(Desktop.isDesktopSupported()) {
+						Desktop.getDesktop().browse(new URI("https://github.com/MigsSalazar/Monopoly"));
+					}
+				} catch (URISyntaxException | IOException e1) {
+					JOptionPane.showMessageDialog(parent, "Could no open github file. To access logs, go to:\nhttps://github.com/MigsSalazar/Monopoly");
+				}
 			}
 			
 		}

@@ -38,7 +38,8 @@ public class Utility extends Property implements Serializable{
 	
 	@Override
 	public int getRent(){
-		return ( 4 + 6*(utilityOwned.getCount()-1) ) * gameDice.getLastRoll();
+		int mod = (utilityOwned.getCount()==1)?4:10;
+		return mod * gameDice.getLastRoll();
 	}
 	
 	public void setDice(Dice d){

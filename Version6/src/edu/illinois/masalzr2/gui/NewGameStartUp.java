@@ -55,6 +55,8 @@ public class NewGameStartUp implements ActionListener, ChangeListener, KeyListen
 	private JButton ok;
 	private JButton cancel;
 
+	private boolean finished = false;
+	
 	//private List<Integer> iconIds;
 	private List<String> names;
 
@@ -227,6 +229,7 @@ public class NewGameStartUp implements ActionListener, ChangeListener, KeyListen
 				
 				//iconIds.add(choice);
 				names.add(named);
+				finished = true;
 			}
 			dialog.dispose();
 		}
@@ -304,6 +307,10 @@ public class NewGameStartUp implements ActionListener, ChangeListener, KeyListen
 		}else if(!ok.isEnabled()){
 			enableAllNames();
 		}
+	}
+	
+	public boolean isfinished() {
+		return finished;
 	}
 
 	@Override

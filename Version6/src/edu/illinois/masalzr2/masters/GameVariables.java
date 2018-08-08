@@ -71,7 +71,9 @@ public class GameVariables implements Serializable, ChangeListener{
 	
 	@Expose private PositionIndex propertyPositions;
 	
-	@Expose private Counter turn;
+	@Expose private int turn;
+	@Expose private boolean limitingTurns;
+	@Expose private int turnsLimit;
 	private List<Player> turnTable;
 	private Map<String, Boolean> jailTable;
 	private Map<String, Integer> jailTimes;
@@ -99,6 +101,7 @@ public class GameVariables implements Serializable, ChangeListener{
 	@Expose private Counter hotelCount;
 	
 	private transient Timer time;
+	@Expose boolean fancyMoveEnabled;
 	
 	public GameVariables() {
 		LOG.newEntry("GameVariables called");
@@ -132,14 +135,10 @@ public class GameVariables implements Serializable, ChangeListener{
 		frame.add(board.getBoard(), BorderLayout.CENTER);
 		frame.add(notices.getNoticePanel(), BorderLayout.SOUTH);
 		frame.add(scores.getScoreboard(), BorderLayout.EAST);
-		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		//frame.setPreferredSize(new Dimension(1280,700));
-		//best height for the frame is 650
 		frame.pack();
 		frame.setLocationRelativeTo(null);
-		
-		//frame.repaint();
 		
 		frame.setVisible(true);
 		
@@ -162,8 +161,7 @@ public class GameVariables implements Serializable, ChangeListener{
 			@Override
 			public void windowOpened(WindowEvent arg0) {}
 		});
-		
-		//System.out.println(""+frame.getWidth()+" "+frame.getHeight());
+		System.out.println("Break Point!");
 	}
 	
 	
@@ -175,9 +173,10 @@ public class GameVariables implements Serializable, ChangeListener{
 		LOG.newEntry("GameVariables: buildBoard: Passing icons and numbers");
 		board.setIconNumbers(paintByNumbers);
 		paintedIcons = new ImageIcon[icons.length];
+		//System.out.println("printing icons");
 		for(int i=0; i<icons.length; i++) {
-			//System.out.println(System.getProperty("user.dir")+icons[i]);
-			paintedIcons[i] = new ImageIcon(System.getProperty("user.dir") + icons[i]);
+			//System.out.println(System.getProperty("user.dir") + sep + "textures" + sep + texture + sep + icons[i]);
+			paintedIcons[i] = new ImageIcon(System.getProperty("user.dir") + sep + "textures" + sep + icons[i]);
 			//System.out.println(paintedIcons[i] != null);
 		}
 		board.setIcons(paintedIcons);
@@ -186,9 +185,10 @@ public class GameVariables implements Serializable, ChangeListener{
 		board.setStickerBook(stickerBook);
 		
 		coloredStickers = new ImageIcon[stickers.length];
+		//System.out.println("printing stickers");
 		for(int i=0; i<stickers.length; i++) {
-			//System.out.println(System.getProperty("user.dir")+stickers[i]);
-			coloredStickers[i] = new ImageIcon(System.getProperty("user.dir") + stickers[i]);
+			//System.out.println(System.getProperty("user.dir") + "textures" + sep + stickers[i]);
+			coloredStickers[i] = new ImageIcon(System.getProperty("user.dir") + sep + "textures" + sep + stickers[i]);
 			//System.out.println(coloredStickers[i]);
 		}
 		
@@ -250,7 +250,7 @@ public class GameVariables implements Serializable, ChangeListener{
 	public boolean isTextureInDir(){
 		File f = new File(texture);
 		if(!f.exists()){
-			f = new File(System.getProperty("user.dir")+sep+texture);
+			f = new File(System.getProperty("user.dir")+sep+"textures"+sep+texture);
 		}
 		return f.exists();
 	}
@@ -258,7 +258,7 @@ public class GameVariables implements Serializable, ChangeListener{
 	public String getTextureDir(){
 		File f = new File(texture);
 		if(!f.exists()){
-			f = new File(System.getProperty("user.dir")+sep+texture);
+			f = new File(System.getProperty("user.dir")+sep+"textures"+sep+texture);
 		}
 		return f.exists() ? f.getAbsolutePath() : "";
 	}
@@ -288,16 +288,17 @@ public class GameVariables implements Serializable, ChangeListener{
 		jailTable.put(p.getName(), true);
 		
 		GameToken jailMe = playerTokens.get(p.getName());
-		
-		while(time.isRunning()){
-			ActionListener al = time.getActionListeners()[0];
-			if(al instanceof TimerProcess) {
-				TimerProcess trueAl = (TimerProcess)al;
-				if( trueAl.getCount() <= 0) {
-					time.stop();
-				}else {
-					LogMate.LOG.newEntry("Jail Player: Timer is running: count="+trueAl.getCount()+" mod="+trueAl.getMod()+" move="+trueAl.getMove());
-					trueAl.actionPerformed(null);
+		if(fancyMoveEnabled) {
+			while(time.isRunning()){
+				ActionListener al = time.getActionListeners()[0];
+				if(al instanceof TimerProcess) {
+					TimerProcess trueAl = (TimerProcess)al;
+					if( trueAl.getCount() <= 0) {
+						time.stop();
+					}else {
+						LogMate.LOG.newEntry("Jail Player: Timer is running: count="+trueAl.getCount()+" mod="+trueAl.getMod()+" move="+trueAl.getMove());
+						trueAl.actionPerformed(null);
+					}
 				}
 			}
 		}
@@ -313,7 +314,7 @@ public class GameVariables implements Serializable, ChangeListener{
 	}
 	
 	public Player getCurrentPlayer(){
-		return playerID.get(turn.getCount());
+		return playerID.get(turn%players.size());
 	}
 	
 	public GameCard getRandomCommChest(){
@@ -326,7 +327,6 @@ public class GameVariables implements Serializable, ChangeListener{
 		Random rando = new Random();
 		return chance.get(rando.nextInt(chance.size()));
 		//return chance.get(0);
-		
 	}
 	
 	public Player getPlayerByID(int id){
@@ -337,11 +337,17 @@ public class GameVariables implements Serializable, ChangeListener{
 		return propertyPos.get(p);
 	}
 	
+	public void setTurnsLimit(int t) {
+		turnsLimit = t;
+	}
+	
 	public void nextTurn(){
 		do{
-			turn.add(1);
-		}while( turnTable.get(turn.getCount()).isBankrupt() );
-		
+			turn++;
+		}while( turnTable.get(turn%players.size()).isBankrupt() );
+		if(limitingTurns && turn >= (turnsLimit*players.size()) ) {
+			turnLimitReached();
+		}
 	}
 	
 	public boolean isInJail(Player p){
@@ -363,6 +369,11 @@ public class GameVariables implements Serializable, ChangeListener{
 	}
 	
 	public void fancyPlayerMove(Player p, int move) {
+		if( !fancyMoveEnabled ) {
+			visualMove(playerTokens.get(p.getName()), move);
+			playerTokens.get(p.getName()).movePiece(move);
+			return;
+		}
 		if(time == null) {
 			time = new Timer(100, null);
 		}
@@ -455,31 +466,17 @@ public class GameVariables implements Serializable, ChangeListener{
 		LOG.newEntry("GameVariables: Release Jailed Player: moving piece to visiting jail");
 		board.movePiece(jailMe.getPiece(), jailMe.getX(), jailMe.getY());
 	}
-	/*
-	public void parseSuites(String[] colorList) {
-		
-		LOG.newEntry("GameVariables: parseSuites: populating suites map");
-		
-		if(propertyPos.size() == 22 && colorList.length == 22) {
-			suites = new HashMap<String,Suite>();
-			
-			suites.put(colorList[0], new Suite((Street)propertyPos.get(1), 	(Street)propertyPos.get(3), 	(Street)null, 				colorList[0],	Color.MAGENTA.getRGB()));
-			suites.put(colorList[1], new Suite((Street)propertyPos.get(6), 	(Street)propertyPos.get(8), 	(Street)propertyPos.get(3), colorList[1],	Color.CYAN.getRGB()));
-			suites.put(colorList[2], new Suite((Street)propertyPos.get(11), (Street)propertyPos.get(13),	(Street)propertyPos.get(3), colorList[2],	Color.ORANGE.getRGB()));
-			suites.put(colorList[3], new Suite((Street)propertyPos.get(16), (Street)propertyPos.get(18),	(Street)propertyPos.get(3), colorList[3],	Color.PINK.getRGB()));
-			suites.put(colorList[4], new Suite((Street)propertyPos.get(21), (Street)propertyPos.get(23), 	(Street)propertyPos.get(3), colorList[4],	Color.RED.getRGB()));
-			suites.put(colorList[5], new Suite((Street)propertyPos.get(26), (Street)propertyPos.get(27), 	(Street)propertyPos.get(3), colorList[5],	Color.YELLOW.getRGB()));
-			suites.put(colorList[6], new Suite((Street)propertyPos.get(31), (Street)propertyPos.get(32), 	(Street)propertyPos.get(3), colorList[6],	Color.GREEN.getRGB()));
-			suites.put(colorList[7], new Suite((Street)propertyPos.get(37), (Street)propertyPos.get(37), 	(Street)null, 				colorList[7],	Color.BLUE.getRGB()));
-		}
-	}
-	*/
+	
 	public void buildCleanGame() {
-		saveFile = new File(System.getProperty("user.dir")+sep+"textures"+sep+"default"+sep+"newgame.mns");
+		saveFile = new File(System.getProperty("user.dir")+sep+"resources"+sep+"packages"+sep+"default.mns");
 		players = TemplateGameVars.definePlayers();
 		refreshPlayerCollections();
 		
-		turn = new Counter(0,8,0);
+		fancyMoveEnabled = true;
+		
+		turn = 0;
+		limitingTurns = false;
+		turnsLimit = 10;
 		
 		currency = "$";
 		texture = "default";
@@ -516,12 +513,12 @@ public class GameVariables implements Serializable, ChangeListener{
 		paintedIcons = new ImageIcon[icons.length];
 		coloredStickers = new ImageIcon[stickers.length];
 		for(int i=0; i< icons.length; i++) {
-			paintedIcons[i] = new ImageIcon(System.getProperty("user.dir") + sep + icons[i]);
-			LogMate.LOG.newEntry(System.getProperty("user.dir") + sep + icons[i]);
+			paintedIcons[i] = new ImageIcon(System.getProperty("user.dir") + sep + "textures" + sep + texture + sep + icons[i]);
+			LogMate.LOG.newEntry(System.getProperty("user.dir") + sep + "textures" + sep + texture + sep + icons[i]);
 		}
 		for(int i=0; i<stickers.length; i++) {
-			coloredStickers[i] = new ImageIcon(System.getProperty("user.dir") + File.separator + stickers[i]);
-			LogMate.LOG.newEntry(System.getProperty("user.dir") + sep + stickers[i]);
+			coloredStickers[i] = new ImageIcon(System.getProperty("user.dir") + sep + "textures" + sep + texture + sep + stickers[i]);
+			LogMate.LOG.newEntry(System.getProperty("user.dir") + sep + "textures" + sep + texture + sep + stickers[i]);
 		}
 	}
 	
@@ -556,7 +553,7 @@ public class GameVariables implements Serializable, ChangeListener{
 		frame.repaint();
 	}
 	
-	private void bankruptPlayer(Player p) {
+	private int bankruptPlayer(Player p) {
 		p.setBankrupt(true);
 		int count = 0;
 		int id = -1;
@@ -578,15 +575,31 @@ public class GameVariables implements Serializable, ChangeListener{
 				p.removeProp(pr);
 			}
 		}else {
-			gameOver(id);
+			notices.setGameOver(true);
+			return id;
 		}
+		return -1;
 	}
-
-	private void gameOver(int id) {
-		Player winner = playerID.get(id);
-		notices.flushNotices();
-		notices.pushMe(new ListEvent(new MessageNotice("Congradulations "+winner.getName()+"! You have won!\nAll other players have gone bankrupt", notices)));
-		notices.pushMe(new ListEvent(new GameOverNotice(notices)));
+	
+	private int turnLimitReached() {
+		int wealth = 0;
+		int id = -1;
+		for(Player p : players.values()) {
+			if(wealth < p.getWealth()) {
+				wealth = p.getWealth();
+				id = p.getId();
+			}
+		}
+		notices.setGameOver(true);
+		return id;
+	}
+	
+	public GameOverNotice getWinner() {
+		if(turn >= turnsLimit*players.size()) {
+			return new GameOverNotice(notices, playerID.get(turnLimitReached()), true);
+		}else {
+			return new GameOverNotice(notices, playerID.get(turnLimitReached()), false);
+		}
 	}
 
 	private void playerIsSalvageable(Player p) {
@@ -673,7 +686,4 @@ public class GameVariables implements Serializable, ChangeListener{
 		}
 		
 	}
-
-	
-	
 }

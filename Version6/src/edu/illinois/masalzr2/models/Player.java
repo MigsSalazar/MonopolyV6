@@ -177,7 +177,7 @@ public class Player implements ChangeListener, Serializable{
 		}
 		ChangeEvent ce = new ChangeEvent(this);
 		for(ChangeListener cl : listeners){
-			cl.stateChanged(new ChangeEvent(ce));
+			cl.stateChanged(ce);
 		}
 	}
 

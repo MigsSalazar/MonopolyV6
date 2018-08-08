@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
+import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.notices.AbstractNotice;
 import edu.illinois.masalzr2.notices.ListListener;
 
@@ -15,9 +16,14 @@ public class GameOverNotice extends AbstractNotice {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public GameOverNotice(ListListener ppl) {
+	public GameOverNotice(ListListener ppl, Player winner, boolean turnsLimitReached) {
 		super(ppl);
-		text = "GAME OVER";
+		text = "<html>Congradulations "+winner.getName()+"! You have won!";
+		if( !turnsLimitReached ) {
+			text += "<br>All other players have gone bankrupt!";
+		}
+		text += "<br>GAME OVER</html>";
+		defineActions();
 	}
 
 	@Override

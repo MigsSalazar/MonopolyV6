@@ -1064,29 +1064,29 @@
     [0,0,0,0,0,0,     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,      0,0,0,0,0,0]
   ],
   "icons": [
-    "/textures/default/baseboard.png",
-    "/textures/default/dotdie.png",
-    "/textures/default/blankdie.png",
-    "/textures/ni/coffee.png",
-    "/textures/ni/snack.png",
-    "/textures/ni/etools.png",
-    "/textures/ni/code.png",
-    "/textures/ni/rooms.png",
-    "/textures/default/yellow.png",
-    "/textures/default/red.png",
-    "/textures/ni/products.png",
-    "/textures/ni/sick0.png",
-    "/textures/ni/sick1.png",
-    "/textures/ni/sick2.png",
-    "/textures/ni/sick3.png",
-    "/textures/ni/sick4.png",
-    "/textures/ni/sick5.png",
-    "/textures/ni/sick6.png",
-    "/textures/ni/sick7.png",
-    "/textures/ni/sick8.png",
-    "/textures/ni/values1.png",
-    "/textures/ni/values2.png",
-    "/textures/ni/values3.png"
+    "/default/baseboard.png",
+    "/default/dotdie.png",
+    "/default/blankdie.png",
+    "/ni/coffee.png",
+    "/ni/snack.png",
+    "/ni/etools.png",
+    "/ni/code.png",
+    "/ni/rooms.png",
+    "/default/yellow.png",
+    "/default/red.png",
+    "/ni/products.png",
+    "/ni/sick0.png",
+    "/ni/sick1.png",
+    "/ni/sick2.png",
+    "/ni/sick3.png",
+    "/ni/sick4.png",
+    "/ni/sick5.png",
+    "/ni/sick6.png",
+    "/ni/sick7.png",
+    "/ni/sick8.png",
+    "/ni/values1.png",
+    "/ni/values2.png",
+    "/ni/values3.png"
   ],
   "stampCollection": [
     [
@@ -2052,7 +2052,7 @@
   ],
   "playerTokens": {
     "0": {
-      "pieceDir": "/textures/ni/python.png",
+      "pieceDir": "/ni/python.png",
       "coords": [25,25],
       "team": 0,
       "path": {"x": [25,22,20,18,16,14,12,10,8,6,0,0,0,0,0,0,0,0,0,0,0,6,8,10,12,14,16,18,20,22,25,26,26,26,26,26,26,26,26,26],
@@ -2064,7 +2064,7 @@
       }
     },
     "1": {
-      "pieceDir": "/textures/ni/java.png",
+      "pieceDir": "/ni/java.png",
       "coords": [26,25],
       "team": 1,
       "path": {"x": [26,23,21,19,17,15,13,11,9,7,0,1,1,1,1,1,1,1,1,1,1,7,9,11,13,15,17,19,21,23,26,27,27,27,27,27,27,27,27,27],
@@ -2076,7 +2076,7 @@
       }
     },
     "2": {
-      "pieceDir": "/textures/ni/windows.png",
+      "pieceDir": "/ni/windows.png",
       "coords": [27,25],
       "team": 2,
       "path": {"x": [27,22,20,18,16,14,12,10,8,6,0,2,2,2,2,2,2,2,2,2,4,6,8,10,12,14,16,18,20,22,27,28,28,28,28,28,28,28,28,28],
@@ -2088,7 +2088,7 @@
       }
     },
     "3": {
-      "pieceDir": "/textures/ni/apple.png",
+      "pieceDir": "/ni/apple.png",
       "coords": [28,25],
       "team": 3,
       "path": {"x": [28,23,21,19,17,15,13,11,9,7,0,3,3,3,3,3,3,3,3,3,5,7,9,11,13,15,17,19,21,23,28,29,29,29,29,29,29,29,29,29],
@@ -2100,7 +2100,7 @@
       }
     },
     "4": {
-      "pieceDir": "/textures/ni/git.png",
+      "pieceDir": "/ni/git.png",
       "coords": [25,26],
       "team": 4,
       "path": {"x": [25,22,20,18,16,14,12,10,8,6,1,0,0,0,0,0,0,0,0,0,0,6,8,10,12,14,16,18,20,22,25,26,26,26,26,26,26,26,26,26],
@@ -2112,7 +2112,7 @@
       }
     },
     "5": {
-      "pieceDir": "/textures/ni/laptop.png",
+      "pieceDir": "/ni/laptop.png",
       "coords": [26,26],
       "team": 5,
       "path": {"x": [26,23,21,19,17,15,13,11,9,7,2,1,1,1,1,1,1,1,1,1,1,7,9,11,13,15,17,19,21,23,26,27,27,27,27,27,27,27,27,27],
@@ -2124,7 +2124,7 @@
       }
     },
     "6": {
-      "pieceDir": "/textures/ni/mug.png",
+      "pieceDir": "/ni/mug.png",
       "coords": [27,26],
       "team": 6,
       "path": {"x": [27,22,20,18,16,14,12,10,8,6,3,2,2,2,2,2,2,2,2,2,4,6,8,10,12,14,16,18,20,22,27,28,28,28,28,28,28,28,28,28],
@@ -2136,7 +2136,7 @@
       }
     },
     "7": {
-      "pieceDir": "/textures/ni/docker.png",
+      "pieceDir": "/ni/docker.png",
       "coords": [28,26],
       "team": 7,
       "path": {"x": [28,23,21,19,17,15,13,11,9,7,4,3,3,3,3,3,3,3,3,3,5,7,9,11,13,15,17,19,21,23,28,29,29,29,29,29,29,29,29,29],
@@ -2183,39 +2183,42 @@
     [-1,-1,-1,-1,-1,-1,   -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,   -1, 6,-1,-1,-1,-1]
   ],
   "stickers": [
-    "/textures/default/housing.png",
-    "/textures/default/hotelLeft.png",
-    "/textures/default/hotelRight.png",
-    "/textures/default/hotelBottom.png",
+    "/default/housing.png",
+    "/default/hotelLeft.png",
+    "/default/hotelRight.png",
+    "/default/hotelBottom.png",
 
-    "/textures/default/gotop.png",
-    "/textures/default/gomid.png",
-    "/textures/default/gobot.png",
-    "/textures/default/jail.png",
+    "/default/gotop.png",
+    "/default/gomid.png",
+    "/default/gobot.png",
+    "/default/jail.png",
 
-    "/textures/ni/gong0.png",
-    "/textures/ni/gong1.png",
-    "/textures/ni/gong2.png",
-    "/textures/ni/gong3.png",
+    "/ni/gong0.png",
+    "/ni/gong1.png",
+    "/ni/gong2.png",
+    "/ni/gong3.png",
 
-    "/textures/ni/L\u0026L0.png",
-    "/textures/ni/L\u0026L1.png",
-    "/textures/ni/L\u0026L2.png",
-    "/textures/ni/L\u0026L3.png",
+    "/ni/L\u0026L0.png",
+    "/ni/L\u0026L1.png",
+    "/ni/L\u0026L2.png",
+    "/ni/L\u0026L3.png",
 
-    "/textures/ni/kitchen0.png",
-    "/textures/ni/kitchen1.png",
-    "/textures/ni/kitchen2.png",
-    "/textures/ni/kitchen3.png",
+    "/ni/kitchen0.png",
+    "/ni/kitchen1.png",
+    "/ni/kitchen2.png",
+    "/ni/kitchen3.png",
 
-    "/textures/ni/elevator0.png",
-    "/textures/ni/elevator1.png",
-    "/textures/ni/elevator2.png",
-    "/textures/ni/elevator3.png"
+    "/ni/elevator0.png",
+    "/ni/elevator1.png",
+    "/ni/elevator2.png",
+    "/ni/elevator3.png"
   ],
+  "limitingTurns": false,
+  "turnsLimit": 10,
+  "fancyMoveEnabled": true,
   "currency": "$",
   "texture": "ni",
-  "saveFile": "/Users/msalazar/git/Monopoly/Version6/textures/ni/ni.mns",
+  "saveFile": "/resources/packages/ni.mns",
   "houseCount": {
     "count": 0,
     "max": 32,
@@ -2226,11 +2229,7 @@
     "max": 12,
     "min": 0
   },
-  "turn": {
-    "count": 0,
-    "max": 8,
-    "min": 0
-  },
+  "turn": 0,
   "dice": {
     "sides": 6,
     "dice": [1,1],

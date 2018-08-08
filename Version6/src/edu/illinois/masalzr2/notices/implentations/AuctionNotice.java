@@ -89,7 +89,7 @@ public class AuctionNotice extends AbstractNotice implements KeyListener  {
 				setText();
 				
 				listener.pullMe(new ListEvent(this));
-				
+			
 			}
 		}else if(e.getSource().equals(actions[2])){
 			LogMate.LOG.newEntry("AuctionNotice: Button Push: Passed. Moving on");
@@ -140,6 +140,9 @@ public class AuctionNotice extends AbstractNotice implements KeyListener  {
 	}
 	
 	private boolean fullCircle(){
+		for(Player p : players.values()) {
+			//TODO
+		}
 		if(bid == 0 || highestBidder == -1){
 			return false;
 		}

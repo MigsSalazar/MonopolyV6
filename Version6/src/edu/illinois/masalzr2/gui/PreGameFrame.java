@@ -3,10 +3,7 @@
  */
 package edu.illinois.masalzr2.gui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,7 +11,6 @@ import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -26,7 +22,6 @@ import edu.illinois.masalzr2.io.GameIo;
 import edu.illinois.masalzr2.masters.GameVariables;
 import edu.illinois.masalzr2.masters.LogMate;
 import edu.illinois.masalzr2.masters.LogMate.Logger;
-import edu.illinois.masalzr2.templates.TemplateGameVars;
 
 
 /**
@@ -48,7 +43,13 @@ public class PreGameFrame extends JFrame implements ActionListener {
 	private JButton loadGame;
 	private JButton settings;
 	private JButton about;
-	private String fileDir = System.getProperty("user.dir") + File.separator +"resources"+File.separator+"newgame.mns";
+	private String fileDir = System.getProperty("user.dir") + sep +"resources"+sep+"packages"+sep+"default.mns";
+	private boolean limitingTurns = false;
+	private int turnsLimit = 20;
+	private String currency = "$";
+	private boolean fancyMoveEnabled = true;
+	
+	private Settings sets;
 	
 	public PreGameFrame(){
 		//c.setLayout(box);
@@ -119,6 +120,10 @@ public class PreGameFrame extends JFrame implements ActionListener {
 			GameVariables newerGame = GameIo.newGame(fileDir);
 			
 			if(newerGame !=null) {
+				newerGame.setTurnsLimit(turnsLimit);
+				newerGame.setLimitingTurns(limitingTurns);
+				newerGame.setCurrency(currency);
+				newerGame.setFancyMoveEnabled(fancyMoveEnabled);
 				if (Starter.gameSetup( (JFrame)this, newerGame))
 					closeMe();
 			}else {
@@ -128,7 +133,7 @@ public class PreGameFrame extends JFrame implements ActionListener {
 		}else if(e.getSource().equals(loadGame)){
 			LOG.newEntry("PreGameFrame: ActionPerformed: Loading was pressed");
 			FileNameExtensionFilter filter = new FileNameExtensionFilter("Monopoly Saves", "mns");
-			String dir = GameIo.findFile(this, filter);
+			String dir = GameIo.findFile(this, filter, System.getProperty("user.dir")+sep+"saves");
 			if(dir==null) {
 				LOG.newEntry("PreGameFrame: ActionPerformed: Directory was found invalid");
 				return;
@@ -145,73 +150,16 @@ public class PreGameFrame extends JFrame implements ActionListener {
 				badFile();
 			}
 		}else if(e.getSource().equals(settings)){
-			displaySettings();
+			if(sets == null)
+				sets = new Settings(this, limitingTurns, turnsLimit);
+			sets.start();
+			fileDir = sets.getFileDir();
+			limitingTurns = sets.isTurnsLimited();
+			turnsLimit = sets.getTurnLimit();
+			currency = sets.getCurrency();
+			fancyMoveEnabled = sets.isFancyMoveEnabled();
 		}
 		
-	}
-	private void displaySettings() {
-		LOG.newEntry("PreGameFrame: ActionPerformed: Settings was pressed");
-		LOG.newEntry("PreGameFrame: ActionPerformed: Building settings dialog");
-		
-		BorderLayout manager = new BorderLayout(2,1);
-		manager.setVgap(10);
-		manager.setHgap(10);
-		JPanel container = new JPanel();
-		JDialog setThemUp = new JDialog(this, "Settings", true);
-		
-		setThemUp.add(container);
-		setThemUp.setPreferredSize(new Dimension(300, 150));
-		container.setLayout(manager);
-		
-		JLabel refresh = new JLabel("Refresh/Clean the game's system files");
-		refresh.setPreferredSize(new Dimension(150,30));
-		refresh.setVerticalAlignment(JLabel.CENTER);
-		refresh.setHorizontalAlignment(JLabel.CENTER);
-		refresh.setVerticalTextPosition(JLabel.CENTER);
-		refresh.setHorizontalTextPosition(JLabel.CENTER);
-		
-		JButton clean = new JButton("Clean");
-		clean.setSize(new Dimension(20,20));
-		clean.setHorizontalAlignment(JButton.CENTER);
-		clean.setHorizontalTextPosition(JButton.CENTER);
-		clean.setVerticalAlignment(JButton.CENTER);
-		clean.setVerticalTextPosition(JButton.CENTER);
-		clean.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e){
-				clean.setForeground(Color.BLACK);
-				TemplateGameVars.produceTemplate();
-				clean.setForeground(Color.RED);
-				refresh.setText("<html>Refresh/Clean the game's system files<br/>Files refreshed</html>");
-			}
-		});
-		
-		JButton texture = new JButton("Pick Texture");
-		texture.setSize(new Dimension(20,20));
-		texture.setHorizontalAlignment(JButton.CENTER);
-		texture.setHorizontalTextPosition(JButton.CENTER);
-		texture.setVerticalAlignment(JButton.CENTER);
-		texture.setVerticalTextPosition(JButton.CENTER);
-		texture.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				 GameVariables gv = GameIo.varsFromJson(setThemUp);
-				 if(gv == null) {
-					 refresh.setText("<html>Failed to load texture. Bad JSON file<br/>Refresh/Clean the game's system files</html>");
-				 }else {
-					 refresh.setText("<html>Successfully loaded texture.<br/>Refresh/Clean the game's system files</html>");
-					 fileDir = gv.getSaveFile().getPath();
-				 }
-			}
-		});
-		
-		LOG.newEntry("PreGameFrame: ActionPerformed: Adding components");
-		container.add(texture, BorderLayout.NORTH);
-		container.add(refresh, BorderLayout.CENTER);
-		container.add(clean, BorderLayout.SOUTH);
-		setThemUp.pack();
-		LOG.newEntry("PreGameFrame: ActionPerformed: Setting dialog visible");
-		setThemUp.setVisible(true);
 	}
 	
 }

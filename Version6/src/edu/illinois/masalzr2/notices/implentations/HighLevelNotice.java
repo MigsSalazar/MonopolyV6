@@ -70,14 +70,6 @@ public abstract class HighLevelNotice extends AbstractNotice {
 			break;
 		}
 		return event;
-		/*
-		listener.paintNotice(event);
-		System.out.println("Syncing event: "+event);
-		sync(event);
-		System.out.println("Sync is over");
-		//listener.paintNotice(this);
-		 * 
-		 */
 	}
 	
 	protected void conductBusiness() {

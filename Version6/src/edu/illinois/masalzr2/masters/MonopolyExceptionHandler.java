@@ -20,7 +20,7 @@ public class MonopolyExceptionHandler implements Thread.UncaughtExceptionHandler
 	public void uncaughtException(Thread t, Throwable e) {
 		LogMate.LOG.flush();
 		LogMate.LOG.finish();
-		File errorLog = new File(System.getProperty("user.dir") + sep + "errorlogs" + sep);
+		File errorLog = new File(System.getProperty("user.dir") + sep + "logs" + sep + "errorlogs");
 		if( !errorLog.exists() ) {
 			errorLog.mkdirs();
 		}

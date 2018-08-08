@@ -78,7 +78,7 @@ public class GameIo {
 	public static GameVariables newGame(String fileDir) {
 		LogMate.LOG.newEntry("GameIO: NewGame: beginning");
 		File f = new File(fileDir);
-		LogMate.LOG.newEntry("GameIO: NewGame: File made with directory "+System.getProperty("user.dir") + sep +"resources"+sep+"newgame.mns");
+		LogMate.LOG.newEntry("GameIO: NewGame: File made with directory "+fileDir);
 		//System.out.println(System.getProperty("user.dir") + "/resources/newgame.mns");
 		if(!f.exists()) {
 			LogMate.LOG.newEntry("GameIO: NewGame: File does not exists. Generating template");
@@ -97,7 +97,7 @@ public class GameIo {
 	}
 	
 	public static GameVariables newGame() {
-		return newGame(System.getProperty("user.dir") + sep +"resources"+sep+"newgame.mns");
+		return newGame(System.getProperty("user.dir") + sep +"resources"+sep+"packages"+sep+"default.mns");
 	}
 	
 	public static GameVariables produceSavedGame(String dir) {
@@ -144,10 +144,14 @@ public class GameIo {
 		
 	}
 	
-	public static String findFile(Container parent, FileNameExtensionFilter filter){
+	public static String findFile(Container parent, FileNameExtensionFilter filter) {
+		return findFile(parent, filter, System.getProperty("user.dir"));
+	}
+	
+	public static String findFile(Container parent, FileNameExtensionFilter filter, String baseDir){
 		//System.out.println(System.getProperty("user.dir") + sep + "saves");
 		LogMate.LOG.newEntry("GameIO: Find Game: Searching for games in saves directory");
-		JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
+		JFileChooser chooser = new JFileChooser(baseDir);
 		LogMate.LOG.newEntry("GameIO: Find Game: Setting file filter");
 	    //FileNameExtensionFilter filter = new FileNameExtensionFilter("Monopoly Saves","mns");
 	    chooser.setFileFilter(filter);
@@ -162,7 +166,7 @@ public class GameIo {
 	    }
 	}
 
-	public static void printCleanJson() {
+	public static boolean printCleanJson() {
 		LogMate.LOG.newEntry("GameIO: Print Clean Json: Creating clean GameVariables object");
 		GameVariables gv = new GameVariables();
 		gv.buildCleanGame();
@@ -186,21 +190,24 @@ public class GameIo {
 		} catch (Exception e) {
 			LogMate.LOG.newEntry("GameIO: Print Clean Json: Exception occured. Writting out log");
 			LogMate.LOG.flush();
-			LogMate.LOG.finish();
-			MonopolyExceptionHandler.uncaughtException(e, Thread.currentThread());
+			//LogMate.LOG.finish();
+			//MonopolyExceptionHandler.uncaughtException(e, Thread.currentThread());
+			return false;
 		}
 		LogMate.LOG.flush();
-		
+		return true;
 	}
 	
 	public static GameVariables varsFromJson(Container parent) {
 		
 		String gotten = findFile(parent, new FileNameExtensionFilter("Json", "json") );
-		
+		if(gotten == null)
+			return null;
 		Gson gson = new Gson();
 		TemplateJson tempVars = null;
 		Map<String, Property> props = new HashMap<String, Property>();
-		Counter utilCount = null, railCount = null;
+		Counter utilCount = new Counter(0,2,0);
+		Counter railCount = new Counter(0,4,0);
 		try {
 			FileReader fin = new FileReader(gotten);
 			tempVars = gson.fromJson(fin, TemplateJson.class);
@@ -210,26 +217,19 @@ public class GameIo {
 			}
 			
 			for(Railroad r : tempVars.getRails().values()) {
-				if (r.getRailsOwned() != null && railCount == null) {
-					railCount = r.getRailsOwned();
-				}else if(railCount != null){
-					r.setRailedOwned(railCount);
-				}else if(r.getRailsOwned()==null && railCount==null) {
-					railCount = new Counter(0,4,0);
-					r.setRailedOwned(railCount);
+				r.setRailedOwned(railCount);
+				if(r.getOwner() != null && !r.getOwner().equals("")) {
+					railCount.add(1);
 				}
 				props.put(r.getName(), r);
 				
 			}
 			
 			for(Utility u : tempVars.getUtils().values()) {
-				if (u.getCounter() != null && utilCount == null) {
-					utilCount = u.getCounter();
-				}else if(utilCount != null){
-					u.setCounter(utilCount);
-				}else if(u.getCounter()==null && utilCount==null) {
-					utilCount = new Counter(0,2,0);
-					u.setCounter(utilCount);
+				u.setCounter(utilCount);
+				u.setDice(tempVars.getDice());
+				if(u.getOwner()!=null && !u.getOwner().equals("")) {
+					utilCount.add(1);
 				}
 				props.put(u.getName(), u);
 			}
@@ -278,11 +278,14 @@ public class GameIo {
 		vars.setGameDice(			tempVars.getDice());
 		vars.setRailCount(			railCount);
 		vars.setUtilCount(			utilCount);
+		vars.setLimitingTurns(		tempVars.isLimitingTurns());
+		vars.setTurnsLimit(			tempVars.getTurnsLimit());
+		vars.setFancyMoveEnabled(	tempVars.isFancyMoveEnabled());
 		vars.refreshAllImages();
 		vars.refreshPlayerCollections();
 		vars.refreshPropertyCollections();
 		vars.setGameDice(new Dice(6,2));
-		vars.setTurn(new Counter(0,8,0));
+		//vars.setTurn(new Counter(0,8,0));
 		writeOut(vars);
 		return vars;
 	}
@@ -292,7 +295,24 @@ public class GameIo {
 		FileOutputStream fout;
 		try {
 			LogMate.LOG.newEntry("GameIO: Print Clean Json: Creating FileOutputStream");
-			fout = new FileOutputStream((File)me.getSaveFile());
+			File f;
+			if(me.getSaveFile().getParentFile().exists()) {
+				f = me.getSaveFile();
+			}else {
+				f = new File(System.getProperty("user.dir")+me.getSaveFile().getPath());
+				System.out.println(f.getPath());
+				if( !f.getParentFile().exists() ) {
+					JFileChooser choose = new JFileChooser();
+					choose.setDialogTitle("Select where to save");
+					int answer = -1;
+					while(answer != JFileChooser.APPROVE_OPTION){
+						answer = choose.showSaveDialog(null);
+					}
+					f = choose.getSelectedFile();
+				}
+			}
+			
+			fout = new FileOutputStream(f);
 			LogMate.LOG.newEntry("GameIO: Print Clean Json: Creating ObjectOutputStream");
 			ObjectOutputStream objWrite = new ObjectOutputStream(fout);
 			LogMate.LOG.newEntry("GameIO: Print Clean Json: Writing object");

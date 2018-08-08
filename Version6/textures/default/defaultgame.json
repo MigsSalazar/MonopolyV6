@@ -2100,26 +2100,26 @@
     ]
   ],
   "icons": [
-    "/textures/default/baseboard.png",
-    "/textures/default/dotdie.png",
-    "/textures/default/blankdie.png",
-    "/textures/default/purple.png",
-    "/textures/default/lightblue.png",
-    "/textures/default/pink.png",
-    "/textures/default/orange.png",
-    "/textures/default/red.png",
-    "/textures/default/yellow.png",
-    "/textures/default/green.png",
-    "/textures/default/blue.png",
-    "/textures/default/jail0.png",
-    "/textures/default/jail1.png",
-    "/textures/default/jail2.png",
-    "/textures/default/jail3.png",
-    "/textures/default/jail4.png",
-    "/textures/default/jail5.png",
-    "/textures/default/jail6.png",
-    "/textures/default/jail7.png",
-    "/textures/default/jail8.png"
+    "/default/baseboard.png",
+    "/default/dotdie.png",
+    "/default/blankdie.png",
+    "/default/purple.png",
+    "/default/lightblue.png",
+    "/default/pink.png",
+    "/default/orange.png",
+    "/default/red.png",
+    "/default/yellow.png",
+    "/default/green.png",
+    "/default/blue.png",
+    "/default/jail0.png",
+    "/default/jail1.png",
+    "/default/jail2.png",
+    "/default/jail3.png",
+    "/default/jail4.png",
+    "/default/jail5.png",
+    "/default/jail6.png",
+    "/default/jail7.png",
+    "/default/jail8.png"
   ],
   "stampCollection": [
     [
@@ -8485,7 +8485,7 @@
   ],
   "playerTokens": {
     "0": {
-      "pieceDir": "/textures/default/boat.png",
+      "pieceDir": "/default/boat.png",
       "coords": [
         25,
         25
@@ -8587,7 +8587,7 @@
       }
     },
     "1": {
-      "pieceDir": "/textures/default/boot.png",
+      "pieceDir": "/default/boot.png",
       "coords": [
         26,
         25
@@ -8689,7 +8689,7 @@
       }
     },
     "2": {
-      "pieceDir": "/textures/default/car.png",
+      "pieceDir": "/default/car.png",
       "coords": [
         27,
         25
@@ -8791,7 +8791,7 @@
       }
     },
     "3": {
-      "pieceDir": "/textures/default/hat.png",
+      "pieceDir": "/default/hat.png",
       "coords": [
         28,
         25
@@ -8893,7 +8893,7 @@
       }
     },
     "4": {
-      "pieceDir": "/textures/default/iron.png",
+      "pieceDir": "/default/iron.png",
       "coords": [
         25,
         26
@@ -8995,7 +8995,7 @@
       }
     },
     "5": {
-      "pieceDir": "/textures/default/pupper.png",
+      "pieceDir": "/default/pupper.png",
       "coords": [
         26,
         26
@@ -9097,7 +9097,7 @@
       }
     },
     "6": {
-      "pieceDir": "/textures/default/thimble.png",
+      "pieceDir": "/default/thimble.png",
       "coords": [
         27,
         26
@@ -9199,7 +9199,7 @@
       }
     },
     "7": {
-      "pieceDir": "/textures/default/wheelbarrow.png",
+      "pieceDir": "/default/wheelbarrow.png",
       "coords": [
         28,
         26
@@ -10264,25 +10264,25 @@
     ]
   ],
   "stickers": [
-    "/textures/default/housing.png",
-    "/textures/default/hotelLeft.png",
-    "/textures/default/hotelRight.png",
-    "/textures/default/hotelBottom.png",
-    "/textures/default/eleccomp.png",
-    "/textures/default/waterworks.png",
-    "/textures/default/jail.png",
-    "/textures/default/chesttop.png",
-    "/textures/default/chestbottom.png",
-    "/textures/default/chance.png",
-    "/textures/default/gotop.png",
-    "/textures/default/gomid.png",
-    "/textures/default/gobot.png",
-    "/textures/default/parktop.png",
-    "/textures/default/parkbot.png"
+    "/default/housing.png",
+    "/default/hotelLeft.png",
+    "/default/hotelRight.png",
+    "/default/hotelBottom.png",
+    "/default/eleccomp.png",
+    "/default/waterworks.png",
+    "/default/jail.png",
+    "/default/chesttop.png",
+    "/default/chestbottom.png",
+    "/default/chance.png",
+    "/default/gotop.png",
+    "/default/gomid.png",
+    "/default/gobot.png",
+    "/default/parktop.png",
+    "/default/parkbot.png"
   ],
   "currency": "$",
   "texture": "default",
-  "saveFile": "/Users/msalazar/git/Monopoly/Version6/textures/default/default.mns",
+  "saveFile": "/Users/msalazar/git/Monopoly/Version6/resources/default/default.mns",
   "houseCount": {
     "count": 0,
     "max": 32,
@@ -10293,11 +10293,9 @@
     "max": 12,
     "min": 0
   },
-  "turn": {
-    "count": 0,
-    "max": 8,
-    "min": 0
-  },
+  "turn": 0,
+  "limitingTurns": false,
+  "turnsLimit": 10,
   "dice": {
     "sides": 6,
     "dice": [
@@ -10305,5 +10303,6 @@
       0
     ],
     "lastRoll": 0
-  }
+  },
+  "fancyMoveEnabled": true
 }
