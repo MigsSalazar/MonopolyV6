@@ -1,6 +1,0 @@
-1,0,1500,1500,false,0,true
-2,0,1500,1500,false,0,true
-3,0,1500,1500,false,0,true
-4,0,1500,1500,false,0,true
-
-ID- position- bank- wealth- jailBool- jailCard -active
