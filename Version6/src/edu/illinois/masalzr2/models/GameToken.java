@@ -88,7 +88,7 @@ public class GameToken implements Serializable{
 	
 	public void refreshIcon(String parentDir){
 		File f = new File(parentDir + File.separator + "textures" + File.separator + pieceDir);
-		System.out.println(parentDir + File.separator + "textures" + File.separator + pieceDir);
+		//System.out.println(parentDir + File.separator + "textures" + File.separator + pieceDir);
 		if(f.exists()){
 			piece = new ImageIcon(f.getAbsolutePath());
 		}else{

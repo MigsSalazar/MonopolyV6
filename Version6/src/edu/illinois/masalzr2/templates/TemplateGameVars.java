@@ -1146,8 +1146,7 @@ public class TemplateGameVars{
 		commchest.add(new GameCard("<html>Doctor's fees."
 								+ "<br>Pay $50</html>",
 				-50, false,0,false,false,"","",false, 0, 0));
-		commchest.add(new GameCard("<html>From sale of stock"
-								+ "<br>you get $50</html>",
+		commchest.add(new GameCard("<html>From sale of stock you get $50</html>",
 				50, false,0,false,false,"","",false, 0, 0));
 		commchest.add(new GameCard("<html>Get out of jail free!"
 								+ "<br>This card may be kept until needed,"

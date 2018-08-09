@@ -24,6 +24,9 @@ public class Property implements Serializable{
 	@Expose protected int color;
 	private ArrayList<ChangeListener> listeners;
 	
+	public transient static final Comparator<Property> POSITION_ORDER = new SortByPosition();
+	public transient static final Comparator<Property> NAME_ORDER = new SortByName();
+	
 	public Property(String n, int pos, int pr, String o, boolean m, ArrayList<ChangeListener> listen){
 		name = n;
 		position = pos;
@@ -126,16 +129,6 @@ public class Property implements Serializable{
 		fireChange();
 	}
 	
-	public int compareByPosition(Property other){
-		SortByPosition sbp = new SortByPosition();
-		return sbp.compare(this, other);
-	}
-	
-	public int compareByName(Property other){
-		SortByName sbn = new SortByName();
-		return sbn.compare(this, other);
-	}
-	
 	public void addListener(ChangeListener ce){
 		if(listeners == null) {
 			listeners = new ArrayList<ChangeListener>();
@@ -156,14 +149,6 @@ public class Property implements Serializable{
 			cl.stateChanged(ce);
 		}
 		
-	}
-	
-	public static Comparator<Property> getPositionComparator(){
-		return new SortByPosition();
-	}
-	
-	public static Comparator<Property> getNameComparator(){
-		return new SortByName();
 	}
 	
 	private static class SortByPosition implements Comparator<Property>{

@@ -3,7 +3,10 @@ package edu.illinois.masalzr2.models;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -21,14 +24,18 @@ public class Player implements ChangeListener, Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	public static transient final Comparator<Player> ID_ORDER = new SortById();
+	public static transient final Comparator<Player> NAME_ORDER = new SortByName();
+	public static transient final Comparator<Player> WEALTH_ORDER = new SortByWealth();
+	
 	@Getter @Setter @Expose private String name;
 	@Getter @Setter @Expose private int id;
 	@Getter @Setter @Expose private int cash;
 	@Expose private Counter position;
 	@Getter @Setter @Expose private int jailCard;
 	@Getter @Setter @Expose private boolean bankrupt;
-	@Getter @Setter private HashMap<String, Property> props;
-	@Getter @Setter private ArrayList<ChangeListener> listeners;
+	@Getter @Setter private Map<String, Property> props;
+	@Setter private transient List<ChangeListener> listeners;
 	
 	public Player(String n, int i, int c, int p, int j, boolean b, HashMap<String, Property> pr, ArrayList<ChangeListener> listen){
 		name = n;
@@ -157,6 +164,13 @@ public class Player implements ChangeListener, Serializable{
 		}
 	}
 	
+	public List<ChangeListener> getListeners(){
+		if(listeners == null) {
+			listeners = new ArrayList<ChangeListener>();
+		}
+		return listeners;
+	}
+	
 	public void addChangeListener(ChangeListener cl){
 		if(listeners == null) {
 			listeners = new ArrayList<ChangeListener>();
@@ -185,6 +199,28 @@ public class Player implements ChangeListener, Serializable{
 	public void stateChanged(ChangeEvent e) {
 		//System.out.println("Player has detected a change from is properties");
 		fireChange();
+	}
+	
+	private static class SortByWealth implements Comparator<Player>{
+		@Override
+		public int compare(Player p1, Player p2) {
+			return p1.getWealth() - p2.getWealth();
+		}
+	}
+	
+	private static class SortById implements Comparator<Player>{
+		@Override
+		public int compare(Player o1, Player o2) {
+			return o1.getId() - o2.getId();
+		}
+		
+	}
+	
+	private static class SortByName implements Comparator<Player>{
+		@Override
+		public int compare(Player p1, Player p2) {
+			return p1.getName().compareTo(p2.getName());
+		}
 	}
 	
 }

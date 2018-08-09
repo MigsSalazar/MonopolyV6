@@ -65,7 +65,7 @@ public class Suite implements Serializable{
 	}
 	
 	public void setStreets(List<Street> s) {
-		s.sort(Street.getPositionComparator());
+		s.sort(Street.POSITION_ORDER);
 		streets = s;
 	}
 	
@@ -146,7 +146,7 @@ public class Suite implements Serializable{
 	public List<Street> sortedByPosition(){
 		List<Street> retval = new ArrayList<Street>();
 		retval.addAll(streets);
-		retval.sort(Property.getPositionComparator());
+		retval.sort(Property.POSITION_ORDER);
 		return retval;
 	}
 	
@@ -157,7 +157,7 @@ public class Suite implements Serializable{
 	public List<Street> sortedByName(){
 		List<Street> retval = new ArrayList<Street>();
 		retval.addAll(streets);
-		retval.sort(Property.getNameComparator());
+		retval.sort(Property.NAME_ORDER);
 		return retval;
 	}
 

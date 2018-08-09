@@ -3,3 +3,4 @@
 /logs/
 /errorlogs/
 /saves/
+*.DS_Store

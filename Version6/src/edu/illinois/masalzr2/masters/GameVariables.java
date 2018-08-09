@@ -47,7 +47,7 @@ import edu.illinois.masalzr2.templates.TemplateGameVars;
 import lombok.Data;
 
 @Data
-public class GameVariables implements Serializable, ChangeListener{
+public class GameVariables implements Serializable, ChangeListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -101,6 +101,7 @@ public class GameVariables implements Serializable, ChangeListener{
 	@Expose private Counter hotelCount;
 	
 	private transient Timer time;
+	private Player goingBankrupt = null;
 	@Expose boolean fancyMoveEnabled;
 	
 	public GameVariables() {
@@ -286,6 +287,7 @@ public class GameVariables implements Serializable, ChangeListener{
 		}
 		
 		jailTable.put(p.getName(), true);
+		resetJail(p);
 		
 		GameToken jailMe = playerTokens.get(p.getName());
 		if(fancyMoveEnabled) {
@@ -480,15 +482,15 @@ public class GameVariables implements Serializable, ChangeListener{
 		
 		currency = "$";
 		texture = "default";
-		houseCount = new Counter(0, 32, 0);
-		hotelCount = new Counter(0, 12, 0);
+		houseCount = new Counter(0, 33, 0);
+		hotelCount = new Counter(0, 13, 0);
 		
 		gameDice = new Dice(6,2);
 		
 		// Rails(4) + utility(2) + 22(streets) = 28
 		
-		railCount = new Counter(0,4,0);
-		utilCount = new Counter(0,2,0);
+		railCount = new Counter(0,5,0);
+		utilCount = new Counter(0,3,0);
 		
 		properties = TemplateGameVars.defineProps(railCount, utilCount, gameDice);
 		
@@ -527,6 +529,7 @@ public class GameVariables implements Serializable, ChangeListener{
 		
 		for(Property p : properties.values()){
 			propertyPos.put(p.getPosition(), p);
+			
 		}
 	}
 	
@@ -551,6 +554,28 @@ public class GameVariables implements Serializable, ChangeListener{
 	
 	public void repaintFrame(){
 		frame.repaint();
+	}
+	
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		
+		if(e.getSource() instanceof Player) {
+			Player p = (Player)e.getSource();
+			if(p.equals(goingBankrupt)) {
+				return;
+			}
+			goingBankrupt = p;
+			int cash = p.getCash();
+			if(cash <= 0 ) {
+				if( p.getLiquidationWorth() + cash > 0 ) {
+					playerIsSalvageable(p);
+				}else {
+					bankruptPlayer(p);
+				}
+			}
+			
+		}
+		goingBankrupt = null;
 	}
 	
 	private int bankruptPlayer(Player p) {
@@ -669,21 +694,4 @@ public class GameVariables implements Serializable, ChangeListener{
 		}
 	}
 	
-	@Override
-	public void stateChanged(ChangeEvent e) {
-		
-		if(e.getSource() instanceof Player) {
-			Player p = (Player)e.getSource();
-			int cash = p.getCash();
-			if(cash <= 0 ) {
-				if( p.getLiquidationWorth() + cash > 0 ) {
-					playerIsSalvageable(p);
-				}else {
-					bankruptPlayer(p);
-				}
-			}
-			
-		}
-		
-	}
 }

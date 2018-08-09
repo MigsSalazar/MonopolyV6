@@ -44,7 +44,13 @@ public class Railroad extends Property implements Serializable{
 	
 	@Override
 	public int getRent(){
-		return 25 * (int)Math.pow(2, railsOwned.getCount() - 1 );
+		switch(railsOwned.getCount()) {
+		case 1: return 25;
+		case 2: return 50;
+		case 3: return 100;
+		case 4: return 200;
+		default: return 0;
+		}
 	}
 	
 }

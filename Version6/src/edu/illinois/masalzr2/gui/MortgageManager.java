@@ -4,8 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
-import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -77,7 +78,14 @@ public class MortgageManager extends JDialog implements ActionListener{
 			confirm = new JButton("Ok");
 			confirm.addActionListener(this);
 			
-			Set<String> pNames = props.keySet();
+			List<Property> ordered = new ArrayList<Property>(props.values());
+			ordered.sort(Property.POSITION_ORDER);
+			
+			List<String> pNames = new ArrayList<String>();
+			for(Property pro : ordered) {
+				pNames.add(pro.getName());
+			}
+			//pNames.sor
 			if(pNames.size() == 0){
 				return false;
 			}
@@ -158,6 +166,11 @@ public class MortgageManager extends JDialog implements ActionListener{
 		return false;
 	}
 	
+	public boolean canPayLoan() {
+		return (int)(curProp.getLiquidationWorth() * 0.1) < player.getCash();
+			
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(confirm)){
@@ -165,14 +178,15 @@ public class MortgageManager extends JDialog implements ActionListener{
 				if( !setUnmort.isEnabled() ){
 					JOptionPane.showMessageDialog(this, "You have payed of the mortgage on:"+curProp.getName());
 					curProp.setMBool(false);
-					int payout = (curProp.getLiquidationWorth() + (int)(curProp.getLiquidationWorth() * 0.1) );
+					int payout = (curProp.mortgageValue() + (int)(curProp.mortgageValue() * 0.1) );
 					player.subCash(payout);
 				}
 			}else if(!curProp.isMortgaged()){
 				if( !setMort.isEnabled() ){
 					JOptionPane.showMessageDialog(this, "You have taken out a mortgage on:\n"+curProp.getName());
 					curProp.setMBool(true);
-					player.addCash(curProp.getPrice()/2);
+					player.addCash(curProp.mortgageValue());
+					setUnmort.setEnabled((int)(curProp.getLiquidationWorth() * 0.1) < player.getCash());
 				}
 			}
 			curStatus.setText(curProp.isMortgaged() ? "Mortgaged" : "Not Mortgaged");

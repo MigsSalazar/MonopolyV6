@@ -1,15 +1,17 @@
 package edu.illinois.masalzr2.notices.implentations;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JTextField;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import edu.illinois.masalzr2.masters.LogMate;
 import edu.illinois.masalzr2.models.Player;
@@ -18,7 +20,7 @@ import edu.illinois.masalzr2.notices.AbstractNotice;
 import edu.illinois.masalzr2.notices.ListEvent;
 import edu.illinois.masalzr2.notices.ListListener;
 
-public class AuctionNotice extends AbstractNotice implements KeyListener  {
+public class AuctionNotice extends AbstractNotice implements ChangeListener {
 	
 	/**
 	 * 
@@ -29,9 +31,11 @@ public class AuctionNotice extends AbstractNotice implements KeyListener  {
 	private int turn = 0;
 	private int bid = 0;
 	private int highestBidder = -1;
-	private String[] playerNames;
+	private List<String> playerNames;
 	private Map<String, Player> players;
 	private String currency;
+	private int money;
+	private SpinnerNumberModel model;
 	
 	public AuctionNotice(ListListener ppl, Map<String,Player> pl, Property pr, String c){
 		super(ppl);
@@ -39,6 +43,7 @@ public class AuctionNotice extends AbstractNotice implements KeyListener  {
 		subConstructor(pl, pr, c);
 		LogMate.LOG.newEntry("AuctionNotice: Beginning short: Defining Actions");
 		defineActions();
+		bidInput(model);
 	}
 	
 	public AuctionNotice(ListListener ppl, Map<String,Player> pl, Property pr, int t, int b, int hb, String c) {
@@ -55,37 +60,44 @@ public class AuctionNotice extends AbstractNotice implements KeyListener  {
 		LogMate.LOG.newEntry("AuctionNotice: Sub Constructor: Setting basics");
 		prop = pr;
 		players = pl;
-		List<String> tempNames = new ArrayList<String>(pl.keySet());
-		for(String n : pl.keySet()) {
-			if(pl.get(n).isBankrupt()) {
-				tempNames.remove(n);
+		List<Player> tempNames = new ArrayList<Player>(pl.values());
+		tempNames.sort(Player.ID_ORDER);
+		playerNames = new ArrayList<String>();
+		
+		for(Player p : tempNames) {
+			if( !p.isBankrupt() ) {
+				playerNames.add(p.getName());
 			}
 		}
-		playerNames = new String[tempNames.size()];
-		tempNames.toArray(playerNames);
+		
 		currency = c;
-		text = "<html>Current bid on "+prop.getName()+" is "+currency+bid + " by " + playerNames[0]
-				+"<br>"+playerNames[turn]+", will you raise or pass? Entering 0 means you pass."
+		text = "<html>Current bid on "+prop.getName() + (highestBidder == -1 ? " has yet to be set." : (" is " + playerNames.get(highestBidder) + " with a bid of "+currency+bid) )
+				+"<br>"+playerNames.get(turn)+", will you raise or pass? Entering 0 means you pass."
 				+"<br>Your offer:</html>";
+		money = 0;
+		for(Player p : tempNames) {
+			if(p.getCash() > money) {
+				money = p.getCash();
+			}
+		}
 	}
 
 	private void buttonPush(ActionEvent e) {
 		LogMate.LOG.newEntry("AuctionNotice: Button Push: Called");
-		//bidInput((JTextField)actions[0]);
-		JTextField bidField = (JTextField)actions[0];
+		//bidInput((JTextField)actions[0]);]
+		int value = (Integer)model.getValue();
 		if(e.getSource().equals(actions[1])){
 			LogMate.LOG.newEntry("AuctionNotice: Button Push: Raised");
-			if( bidField.getText().equals("")
-				|| Integer.parseInt(  bidField.getText()  ) == 0 
-				|| Integer.parseInt( bidField.getText() ) == bid){
+			if( value == 0 
+				|| value == bid){
 				LogMate.LOG.newEntry("AuctionNotice: Button Push: Bid not raised. Calling Pass insteead");
 				((JButton)actions[2]).doClick();
 			}else{
 				LogMate.LOG.newEntry("AuctionNotice: Button Push: Taking new bid");
-				bid = Integer.parseInt(bidField.getText());
+				bid = value;
 				highestBidder = turn;
-				turn = (turn+1)%playerNames.length;
-				bidField.setText(""+(bid+1));
+				turn = (turn+1)%playerNames.size();
+				model.setValue(bid+1);
 				setText();
 				
 				listener.pullMe(new ListEvent(this));
@@ -93,8 +105,8 @@ public class AuctionNotice extends AbstractNotice implements KeyListener  {
 			}
 		}else if(e.getSource().equals(actions[2])){
 			LogMate.LOG.newEntry("AuctionNotice: Button Push: Passed. Moving on");
-			turn = (turn+1)%playerNames.length;
-			bidField.setText(""+(bid+1));
+			turn = (turn+1)%playerNames.size();
+			model.setValue(bid+1);
 			setText();
 			
 			listener.pullMe(new ListEvent(this));
@@ -105,45 +117,46 @@ public class AuctionNotice extends AbstractNotice implements KeyListener  {
 	
 	private void setText(){
 		if(actions != null){
-			bidInput((JTextField)actions[0]);
+			bidInput(model);
 		}
 		
 		String person;
 		if(highestBidder > -1){
-			person = " by " + (String) playerNames[highestBidder];
+			person = " by " + (String) playerNames.get(highestBidder);
 		}else{
 			person = "";
 		}
-		text = "<html>Current bid on "+prop.getName()+" is "+currency+bid + person
-				+"<br>"+playerNames[turn]+", will you raise or pass? Entering 0 means you pass."
+		text = "<html>Current bid on "+prop.getName()+" is from " + person +" with a bid of "+currency+bid
+				+"<br>"+playerNames.get(turn)+", will you raise or pass? Entering 0 means you pass."
 				+"<br>Your offer:</html>";
 	}
 	
-	private void bidInput(JTextField useme) {
+	private void bidInput(SpinnerNumberModel useme) {
 		try{
-			int offer = Integer.parseInt(useme.getText());
-			if(offer >=  players.get(playerNames[turn]).getCash() || (offer<=bid && bid !=0)){
+			int offer = (Integer)useme.getValue();
+			if(offer >=  players.get(playerNames.get(turn)).getCash() || (offer<=bid && bid !=0) || players.get(playerNames.get(turn)).getCash()==1){
 				((JButton)actions[1]).setEnabled(false);
 			}else if(offer > bid || offer==0){
 				((JButton)actions[1]).setEnabled(true);
 			}
 		}catch(NumberFormatException nfe){
-			if(!((JTextField)actions[0]).getText().equals("")){
-				((JTextField)actions[0]).setText(""+(bid+1));
-			}
+			model.setValue(0);
 			//((JTextField)actions[0]).setText(""+(bid+1));
 		}
 	}
 	
 	private String whoWon(){
-		return "<html>"+playerNames[highestBidder]+" has won the auction and bought<br>"+prop.getName()+" for "+currency+bid+"</html>";
+		return "<html>"+playerNames.get(highestBidder)+" has won the auction and bought<br>"+prop.getName()+" for "+currency+bid+"</html>";
 	}
 	
 	private boolean fullCircle(){
-		for(Player p : players.values()) {
-			//TODO
+		//System.out.println("highest cash = "+money);
+		if(money == 1) {
+			highestBidder = turn;
+			return true;
 		}
-		if(bid == 0 || highestBidder == -1){
+		
+		if( (bid == 0 || highestBidder == -1)){
 			return false;
 		}
 		return highestBidder==turn;
@@ -152,14 +165,12 @@ public class AuctionNotice extends AbstractNotice implements KeyListener  {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(actions[0])){
-			JTextField useme = (JTextField)actions[0];
-			//System.out.println("JtextField in auction has changed");
-			bidInput(useme);
+			bidInput(model);
 		}else if(e.getSource().equals(actions[1]) || e.getSource().equals(actions[2])){
 			buttonPush(e);
 			if(fullCircle()){
 				//BankPropertyActions.sellUnownedProperty(players.get(playerNames[highestBidder].toString()), prop, bid);
-				MessageNotice an = new PlayerPropertyNotice(whoWon(), listener, players.get(playerNames[highestBidder]), prop, bid);
+				MessageNotice an = new PlayerPropertyNotice(whoWon(), listener, players.get(playerNames.get(highestBidder)), prop, bid);
 				noticePushPop(an);
 			}
 		}
@@ -169,33 +180,26 @@ public class AuctionNotice extends AbstractNotice implements KeyListener  {
 	@Override
 	protected void defineActions() {
 		actions = new JComponent[3];
-		actions[0] = new JTextField();
-		((JTextField)actions[0]).setText("1");
-		((JTextField)actions[0]).addKeyListener(this);
-		((JTextField)actions[0]).setColumns(5);
-		//((JTextField)actions[0]).setDragEnabled(false);
+		
+		model = new SpinnerNumberModel();
+		model.setMinimum(0);
+		model.addChangeListener(this);
+		
+		actions[0] = new JSpinner(model);
+		actions[0].setPreferredSize(new Dimension(75, 30));
+		((JSpinner)actions[0]).addChangeListener(this);
+		
 		actions[1] = new JButton("Raise");
 		((JButton)actions[1]).addActionListener(this);
 		actions[2] = new JButton("Pass");
 		((JButton)actions[2]).addActionListener(this);
 		
 	}
-	
-	@Override
-	public void keyPressed(KeyEvent e) {
-		bidInput((JTextField)e.getSource());
-	}
-
 
 	@Override
-	public void keyReleased(KeyEvent e) {
-		bidInput((JTextField)e.getSource());
-	}
-
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		bidInput((JTextField)e.getSource());
+	public void stateChanged(ChangeEvent e) {
+		// TODO Auto-generated method stub
+		bidInput(model);
 	}
 
 }

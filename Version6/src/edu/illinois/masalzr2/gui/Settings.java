@@ -149,12 +149,14 @@ public class Settings implements ActionListener, ListSelectionListener {
 		if( !f.exists() ) {
 			f.mkdirs();
 		}
-		System.out.println(f.getPath());
+		//System.out.println(f.getPath());
 		File[] files = f.listFiles();
 		for(File s : files) {
-			textModel.addElement(s.getName());
-			System.out.println("textModel has s:"+textModel.contains(s) );
-			paths.put(s.getName(), s);
+			if(s.getName().endsWith(".mns")) {
+				textModel.addElement(s.getName());
+				//System.out.println("textModel has s:"+textModel.contains(s) );
+				paths.put(s.getName(), s);
+			}
 		}
 	}
 	
@@ -263,6 +265,7 @@ public class Settings implements ActionListener, ListSelectionListener {
 				 if( !(new File(fileDir)).exists() ) {
 					 fileDir = System.getProperty("user.dir")+sep+fileDir;
 				 }
+				 updateTextures();
 			 }
 		}else if(source.equals(clean)) {
 			//clean.setForeground(Color.BLACK);

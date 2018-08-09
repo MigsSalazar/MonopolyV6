@@ -955,7 +955,7 @@
       "hotelCost": 0
     },
     {
-      "text": "\u003chtml\u003eFrom sale of stock\u003cbr\u003eyou get $50\u003c/html\u003e",
+      "text": "\u003chtml\u003eFrom sale of stock you get $50\u003c/html\u003e",
       "moneyEarned": 50,
       "globalFunds": false,
       "baseMovement": 0,

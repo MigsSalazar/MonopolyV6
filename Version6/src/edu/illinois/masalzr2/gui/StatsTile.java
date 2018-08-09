@@ -169,7 +169,7 @@ public class StatsTile extends JPanel implements ChangeListener{
 		List<Property> props = new ArrayList<Property>( myPlayer.getProps().values() );
 		JLabel[] labels = new JLabel[props.size()];
 		
-		props.sort(Property.getPositionComparator());
+		props.sort(Property.POSITION_ORDER);
 		
 		for(int i=0; i<props.size(); i++) {
 			Property p = props.get(i);

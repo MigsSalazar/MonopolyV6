@@ -59,18 +59,23 @@ public class Starter {
 		
 		LogMate.LOG.newEntry("Starter: Game Setup: developing NewGameStartUp");
 		NewGameStartUp ngsup = new NewGameStartUp(parent, tokens );
+		
 		LogMate.LOG.newEntry("Starter: Game Setup: Starting NewGameStartUp Dialog");
 		ngsup.beginDialog();
+		
 		List<String> names = ngsup.getNames();
 		if(!ngsup.isfinished()) {
 			return false;
 		}
+		
 		LogMate.LOG.newEntry("Starter: Game Setup: Dialog has ended, starting game");
 		Map<Integer, Player> pl = newerGame.getPlayerID();
 		Map<String, Player> pls = newerGame.getPlayers();
 		newerGame.setPlayerNumber(names.size());
 		to.clear();
+		
 		LogMate.LOG.newEntry("Starter: Game Setup: Assets gotten");
+		
 		for(int i=0; i<names.size(); i++) {
 			LogMate.LOG.newEntry("Starter: Game Setup: at name "+i + " is "+names.get(0));
 			to.put(names.get(i), tokens.get(i));
@@ -79,11 +84,13 @@ public class Starter {
 			pls.put(names.get(i), pl.get(i));
 		}
 		LogMate.LOG.newEntry("Starter: Game Setup: Loading assets. sending");
+		
 		newerGame.refreshPlayerCollections();
 		newerGame.refreshAllImages();
 		newerGame.refreshPropertyCollections();
-		//newerGame.getTurn().setMax(names.size());
 		newerGame.buildFrame();
+		//newerGame.getTurn().setMax(names.size());
+		
 		return true;
 	}
 	

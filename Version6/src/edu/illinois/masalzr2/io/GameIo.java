@@ -300,7 +300,7 @@ public class GameIo {
 				f = me.getSaveFile();
 			}else {
 				f = new File(System.getProperty("user.dir")+me.getSaveFile().getPath());
-				System.out.println(f.getPath());
+				//System.out.println(f.getPath());
 				if( !f.getParentFile().exists() ) {
 					JFileChooser choose = new JFileChooser();
 					choose.setDialogTitle("Select where to save");

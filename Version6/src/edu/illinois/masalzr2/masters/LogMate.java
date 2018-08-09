@@ -45,6 +45,7 @@ public class LogMate {
 			
 			try{
 				writeout = new BufferedWriter( new FileWriter( output ) );
+				active = true;
 			}catch(IOException e) {
 				MonopolyExceptionHandler.uncaughtException(e, Thread.currentThread());
 			}
