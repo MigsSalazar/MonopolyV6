@@ -72,6 +72,13 @@ public class Starter {
 		JOptionPane.showMessageDialog(parent, output);
 	}
 	
+	public static void instructionBook(JFrame parent) {
+		String output = "Currently working on an instruction book"
+				+ "of some sort. Please be patient. These take"
+				+ "some time ('^-^ )";
+		JOptionPane.showMessageDialog(parent, output);
+	}
+	
 	public static boolean gameSetup(JFrame parent, GameVariables newerGame) {
 		LogMate.LOG.newEntry("Starter: Game Setup: NewGame was not null");
 		LogMate.LOG.newEntry("Starter: Game Setup: Finding GameTokens");

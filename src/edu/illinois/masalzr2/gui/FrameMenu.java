@@ -117,8 +117,7 @@ public class FrameMenu extends JMenuBar implements ActionListener{
 				gameVars.setSaveFile(new File(System.getProperty("user.dir")+sep+"saves"+sep+newName+".mns" ));
 				GameIo.writeOut(gameVars);
 			} else if( source.equals(options[4]) ) {
-				//TODO make the help options
-				//Could just send them to a users guide
+				Starter.instructionBook(findParentJFrame());
 			} else if( source.equals(options[5]) ) {
 				Starter.about(findParentJFrame());
 			} else if( source.equals(options[6]) ) {

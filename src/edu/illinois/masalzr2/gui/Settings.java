@@ -32,6 +32,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import edu.illinois.masalzr2.Starter;
 import edu.illinois.masalzr2.io.GameIo;
 import edu.illinois.masalzr2.masters.GameVariables;
 import edu.illinois.masalzr2.templates.TemplateGameVars;
@@ -298,7 +299,7 @@ public class Settings implements ActionListener, ListSelectionListener {
 				JOptionPane.showMessageDialog(dialog, "Could no open github file. To access logs, go to:\nhttps://github.com/MigsSalazar/Monopoly");
 			}
 		}else if(source.equals(instBook)) {
-			JOptionPane.showMessageDialog(dialog, "Instruction Manual not yeat available");
+			Starter.instructionBook((JFrame)dialog.getParent());
 		}else if(source.equals(ok)) {
 			dialog.setVisible(false);
 		}
