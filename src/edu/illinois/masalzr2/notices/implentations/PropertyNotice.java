@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 
-import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.masters.LogMate;
 import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.models.Property;
@@ -21,10 +21,10 @@ public class PropertyNotice extends AbstractNotice {
 
 	private Player player;
 	private Property prop;
-	private GameVariables gameVars;
+	private Environment gameVars;
 	private String currency;
 	
-	public PropertyNotice(ListListener ppl, GameVariables gv, Player pl, Property pr) {
+	public PropertyNotice(ListListener ppl, Environment gv, Player pl, Property pr) {
 		super(ppl);
 		LogMate.LOG.newEntry("Property Notice: Beginning: Listener="+ppl.toString()+" GameVars="+gv.toString()+" player="+pl.getName()+" property="+pr.getName());
 		player = pl;

@@ -24,7 +24,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.masters.LogMate;
 import edu.illinois.masalzr2.masters.MonopolyExceptionHandler;
 import edu.illinois.masalzr2.models.Counter;
@@ -33,13 +33,17 @@ import edu.illinois.masalzr2.models.Property;
 import edu.illinois.masalzr2.models.Railroad;
 import edu.illinois.masalzr2.models.Street;
 import edu.illinois.masalzr2.models.Utility;
-import edu.illinois.masalzr2.templates.TemplateGameVars;
+import edu.illinois.masalzr2.templates.TemplateEnvironment;
 import edu.illinois.masalzr2.templates.TemplateJson;
 
 public class GameIo {
 
 	private static String sep = File.separator;
 	
+	/**
+	 * @deprecated
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		//System.out.println("Testing if default game is corrupted or correct");
 		LogMate.LOG.newEntry("GameIO: Main: beginning");
@@ -49,7 +53,7 @@ public class GameIo {
 		((JButton)options[0]).addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				TemplateGameVars.produceTemplate();
+				TemplateEnvironment.produceTemplate();
 				//System.exit(0);
 			}
 		});
@@ -75,32 +79,32 @@ public class GameIo {
 		//System.exit(0);
 	}
 	
-	public static GameVariables newGame(String fileDir) {
+	public static Environment newGame(String fileDir) {
 		LogMate.LOG.newEntry("GameIO: NewGame: beginning");
 		File f = new File(fileDir);
 		LogMate.LOG.newEntry("GameIO: NewGame: File made with directory "+fileDir);
 		//System.out.println(System.getProperty("user.dir") + "/resources/newgame.mns");
 		if(!f.exists()) {
 			LogMate.LOG.newEntry("GameIO: NewGame: File does not exists. Generating template");
-			TemplateGameVars.produceTemplate();
+			TemplateEnvironment.produceTemplate();
 		}
 		LogMate.LOG.newEntry("GameIO: NewGame: Producing saved game");
-		GameVariables retval = produceSavedGame(f);
+		Environment retval = produceSavedGame(f);
 		if(retval == null) {
 			LogMate.LOG.newEntry("GameIO: NewGame: Produced Game was found null. Creating Template");
 			//System.out.println("GameIo.newGame(): retval found null");
-			TemplateGameVars.produceTemplate();
+			TemplateEnvironment.produceTemplate();
 			retval = produceSavedGame(f);
 		}
 		LogMate.LOG.newEntry("GameIO: NewGame: Returning produced game");
 		return retval;
 	}
 	
-	public static GameVariables newGame() {
+	public static Environment newGame() {
 		return newGame(System.getProperty("user.dir") + sep +"resources"+sep+"packages"+sep+"default.mns");
 	}
 	
-	public static GameVariables produceSavedGame(String dir) {
+	public static Environment produceSavedGame(String dir) {
 		LogMate.LOG.newEntry("GameIO: Produce Saved Game String: Opening file at directory "+dir);
 		File f = new File(dir);
 		//System.out.println(dir);
@@ -113,10 +117,10 @@ public class GameIo {
 		return produceSavedGame(f);
 	}
 	
-	public static GameVariables produceSavedGame(File dir) {
+	public static Environment produceSavedGame(File dir) {
 		LogMate.LOG.newEntry("GameIO: Produce Saved Game: File with directory "+dir.getPath());
 		FileInputStream fin;
-		GameVariables theGame = null;
+		Environment theGame = null;
 		try {
 			LogMate.LOG.newEntry("GameIO: Produce Saved Game: Beginning inputstream");
 			fin = new FileInputStream(dir);
@@ -125,9 +129,9 @@ public class GameIo {
 			LogMate.LOG.newEntry("GameIO: Produce Saved Game: Reading object");
 			Object obj = objRead.readObject();
 			
-			if(obj instanceof GameVariables) {
+			if(obj instanceof Environment) {
 				LogMate.LOG.newEntry("GameIO: Produce Saved Game: GameVariables object receieved");
-				theGame = (GameVariables)obj;
+				theGame = (Environment)obj;
 			}
 			LogMate.LOG.newEntry("GameIO: Produce Saved Game: Closing InputStreams");
 			objRead.close();
@@ -168,7 +172,7 @@ public class GameIo {
 
 	public static boolean printCleanJson() {
 		LogMate.LOG.newEntry("GameIO: Print Clean Json: Creating clean GameVariables object");
-		GameVariables gv = new GameVariables();
+		Environment gv = new Environment();
 		gv.buildCleanGame();
 		
 		try {
@@ -198,7 +202,7 @@ public class GameIo {
 		return true;
 	}
 	
-	public static GameVariables varsFromJson(Container parent) {
+	public static Environment varsFromJson(Container parent) {
 		
 		String gotten = findFile(parent, new FileNameExtensionFilter("Json", "json") );
 		if(gotten == null)
@@ -256,7 +260,7 @@ public class GameIo {
 		@Expose private String currency;
 		@Expose private String texture;
 		 */
-		GameVariables vars = new GameVariables();
+		Environment vars = new Environment();
 		vars.setPlayers(			tempVars.getPlayers());
 		vars.setProperties(			props);
 		vars.setSuites(				tempVars.getSuites());
@@ -290,7 +294,7 @@ public class GameIo {
 		return vars;
 	}
 	
-	public static void writeOut(GameVariables me) {
+	public static void writeOut(Environment me) {
 		LogMate.LOG.newEntry("GameIO: Write Out: Beginning write out");
 		FileOutputStream fout;
 		try {

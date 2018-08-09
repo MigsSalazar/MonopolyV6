@@ -1,6 +1,8 @@
 package edu.illinois.masalzr2;
 
+import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -11,16 +13,29 @@ import javax.swing.JOptionPane;
 import edu.illinois.masalzr2.gui.NewGameStartUp;
 import edu.illinois.masalzr2.gui.PreGameFrame;
 import edu.illinois.masalzr2.io.GameIo;
-import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.masters.LogMate;
 import edu.illinois.masalzr2.masters.MonopolyExceptionHandler;
 import edu.illinois.masalzr2.models.GameToken;
 import edu.illinois.masalzr2.models.Player;
 
-
-
+/**
+ * Starting point class for the monopoly game. Other main methods exist in this project
+ *
+ * edu.illinois.masalzr2.gui.TesterFrame - used for command line manipulation and control. Good for texting
+ * edu.illinois.masalzr2.io.GameIO - a deprecated main used to generate Json and mns files and also import textures. NOT RECOMMENDED
+ * edu.illinois.masalzr2.templates.Template - produces a clean mns of the game using the base/default texture. Use to bypass the the Settings gui
+ * 
+ * @author Miguel Salazar
+ *
+ */
 public class Starter {
 	
+	/**
+	 * Begins before the main to load an Exception handler and a logger
+	 * This is placed before anything in hopes that even without the main
+	 * being run, the logger and handler will still catch everything
+	 */
 	static{
 		MonopolyExceptionHandler masterCatcher = new MonopolyExceptionHandler();
 		Thread.setDefaultUncaughtExceptionHandler(masterCatcher);
@@ -29,6 +44,10 @@ public class Starter {
 	
 	}
 	
+	/**
+	 * Main function. Doesn't deen much intro beyond that
+	 * @param args - an array of one String, the directory of an mns file. If no file is given, the game will start a new
+	 */
 	public static void main( String[] args ){
 		if(args.length > 0) {
 			LogMate.LOG.newEntry("Starter: main: found multiple arguments");
@@ -51,6 +70,10 @@ public class Starter {
 		//myGame.buildFrame();
 	}
 	
+	/**
+	 * Displays some basic information about the project
+	 * @param parent - The JOptionPane parent. Can be null
+	 */
 	public static void about(JFrame parent) {
 		String output =   "MONOPOLY V6"
 						+ "========================================="
@@ -72,14 +95,36 @@ public class Starter {
 		JOptionPane.showMessageDialog(parent, output);
 	}
 	
+	/**
+	 * Current functionality - tells users there's no instruction book
+	 * Eventual functionality - opens a browser or file to the documentation or a more indept instruction guide
+	 * @param parent
+	 */
 	public static void instructionBook(JFrame parent) {
+		//TODO Create the instruction book
+		try {
+			if(Desktop.isDesktopSupported()) {
+				Desktop.getDesktop().open( new File(System.getProperty("user.dir") + File.separator + "doc" + File.separator + "index.html" ) );
+			}
+		}catch(IOException ioe) {
+			JOptionPane.showMessageDialog(parent, "Could no open Logs file. To access logs, go to:\n"+System.getProperty("user.dir")+File.separator+"logs");
+		}
 		String output = "Currently working on an instruction book"
 				+ "of some sort. Please be patient. These take"
 				+ "some time ('^-^ )";
 		JOptionPane.showMessageDialog(parent, output);
 	}
 	
-	public static boolean gameSetup(JFrame parent, GameVariables newerGame) {
+	/**
+	 * Prepares and refreshes a game Environment gotten from a saved mns file
+	 * All new games start here as all games are converted into a mns file
+	 * before being run. Here is where they go from static instance to new instance
+	 * 
+	 * @param parent - the parent for the NewGameSetUp dialog to rely on
+	 * @param newerGame - An Environment variable clean mns file to be altered and fitted to the next games requirements
+	 * @return - true - if the Environment is properly setup and all goes well. false - Something went wrong and the process cannot continue
+	 */
+	public static boolean gameSetup(JFrame parent, Environment newerGame) {
 		LogMate.LOG.newEntry("Starter: Game Setup: NewGame was not null");
 		LogMate.LOG.newEntry("Starter: Game Setup: Finding GameTokens");
 		Map<String, GameToken> to = newerGame.getPlayerTokens();
@@ -98,9 +143,9 @@ public class Starter {
 		}
 		
 		LogMate.LOG.newEntry("Starter: Game Setup: Dialog has ended, starting game");
-		Map<Integer, Player> pl = newerGame.getPlayerID();
+		List<Player> pl = newerGame.getPlayerID();
 		Map<String, Player> pls = newerGame.getPlayers();
-		newerGame.setPlayerNumber(names.size());
+		newerGame.setParticipantSize(names.size());
 		to.clear();
 		
 		LogMate.LOG.newEntry("Starter: Game Setup: Assets gotten");

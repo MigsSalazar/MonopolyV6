@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.gui.TradeManager;
 import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.models.Property;
@@ -35,7 +35,7 @@ public class TOffer extends JDialog implements ListSelectionListener{
 
 	private TradeManager tManage;
 	
-	private GameVariables gameVars;
+	private Environment gameVars;
 	
 	private Player player1;
 	
@@ -81,7 +81,7 @@ public class TOffer extends JDialog implements ListSelectionListener{
 	 * @param p		Player who wishes to make an offer
 	 * @param tm	Trade Manager object that called this JDialog
 	 */
-	public TOffer(JFrame frame, GameVariables gv, Player p, TradeManager tm){
+	public TOffer(JFrame frame, Environment gv, Player p, TradeManager tm){
 		super(frame, "Trade Manager - Step 2", true);
 		gameVars = gv;
 		player1 = p;

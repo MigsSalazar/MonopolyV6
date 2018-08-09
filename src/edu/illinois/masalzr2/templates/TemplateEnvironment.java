@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JDialog;
@@ -14,7 +15,7 @@ import javax.swing.JTextArea;
 
 import edu.illinois.masalzr2.gui.Stamp;
 import edu.illinois.masalzr2.io.GameIo;
-import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.masters.LogMate;
 import edu.illinois.masalzr2.models.Counter;
 import edu.illinois.masalzr2.models.Dice;
@@ -28,7 +29,12 @@ import edu.illinois.masalzr2.models.Street;
 import edu.illinois.masalzr2.models.Suite;
 import edu.illinois.masalzr2.models.Utility;
 
-public class TemplateGameVars{
+/**
+ * 
+ * @author Miguel Salazar
+ *
+ */
+public class TemplateEnvironment{
 	
 	public static String sep = java.io.File.separator;
 	private static JProgressBar progress = new JProgressBar(0,120);
@@ -51,7 +57,7 @@ public class TemplateGameVars{
 		progPanel.add(updates, BorderLayout.CENTER);
 		progPanel.pack();
 		progPanel.setVisible(true);
-		GameVariables gv = new GameVariables();
+		Environment gv = new Environment();
 		
 		gv.buildCleanGame();
 		
@@ -1346,7 +1352,7 @@ public class TemplateGameVars{
 		return icons;
 	}
 	
-	public static HashMap<String, GameToken> definePlayerTokens(Map<Integer, Player> playerIds){
+	public static HashMap<String, GameToken> definePlayerTokens(List<Player> playerIds){
 		HashMap<String, GameToken> playerTokens = new HashMap<String, GameToken>();
 		GameToken p1 = new GameToken(0, "/default/boat.png", new PositionIndex(
 				new int[]{25,22,20,18,16,14,12,10,8,6,0,0,0,0,0,0,0,0,0,0,0,6,8,10,12,14,16,18,20,22,25,26,26,26,26,26,26,26,26,26,},

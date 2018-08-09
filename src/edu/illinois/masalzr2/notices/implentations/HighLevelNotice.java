@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 import edu.illinois.masalzr2.gui.MortgageManager;
 import edu.illinois.masalzr2.gui.TradeManager;
 import edu.illinois.masalzr2.gui.UpgradeManager;
-import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.models.Dice;
 import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.models.Property;
@@ -20,11 +20,11 @@ public abstract class HighLevelNotice extends AbstractNotice {
 	 */
 	private static final long serialVersionUID = 1L;
 	protected Player currentPlayer;
-	protected GameVariables gameVars;
+	protected Environment gameVars;
 	protected Dice gameDice;
 	private String currency;
 
-	public HighLevelNotice(ListListener ppl, GameVariables gv) {
+	public HighLevelNotice(ListListener ppl, Environment gv) {
 		super(ppl);
 		gameVars = gv;
 		currentPlayer = gameVars.getCurrentPlayer();

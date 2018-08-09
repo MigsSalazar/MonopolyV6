@@ -9,7 +9,7 @@ import java.awt.event.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.gui.TradeManager;
 import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.models.Property;
@@ -28,7 +28,7 @@ public class TPrompt extends JDialog {
 	 */
 	private static final long serialVersionUID = 6243394158913772220L;
 
-	private GameVariables gameVars;
+	private Environment gameVars;
 	
 	private TradeManager tManager;
 	
@@ -61,7 +61,7 @@ public class TPrompt extends JDialog {
 	 * @param players2		Full ArrayList of all active and inactive players
 	 * @param tm		Trade Manager object that called this object
 	 */
-	public TPrompt(GameVariables gv, Player pl, Map<String, Player> players2, TradeManager tm){
+	public TPrompt(Environment gv, Player pl, Map<String, Player> players2, TradeManager tm){
 		super(gv.getFrame(), "Trade Manager - Step 1", true);
 		gameVars = gv;
 		tManager = tm;

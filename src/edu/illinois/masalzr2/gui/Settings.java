@@ -34,8 +34,8 @@ import javax.swing.event.ListSelectionListener;
 
 import edu.illinois.masalzr2.Starter;
 import edu.illinois.masalzr2.io.GameIo;
-import edu.illinois.masalzr2.masters.GameVariables;
-import edu.illinois.masalzr2.templates.TemplateGameVars;
+import edu.illinois.masalzr2.masters.Environment;
+import edu.illinois.masalzr2.templates.TemplateEnvironment;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -255,7 +255,7 @@ public class Settings implements ActionListener, ListSelectionListener {
 		if( source.equals(turnLimitOn) ) {
 			turnLimit.setEnabled(turnLimitOn.isSelected());
 		}else if(source.equals(textImport)) {
-			GameVariables gv = GameIo.varsFromJson(dialog);
+			Environment gv = GameIo.varsFromJson(dialog);
 			 if(gv == null) {
 				 textImport.setForeground(Color.RED);
 				 textImport.setOpaque(true);
@@ -270,10 +270,10 @@ public class Settings implements ActionListener, ListSelectionListener {
 			 }
 		}else if(source.equals(clean)) {
 			//clean.setForeground(Color.BLACK);
-			TemplateGameVars.produceTemplate();
+			TemplateEnvironment.produceTemplate();
 			clean.setForeground(Color.GREEN);
 			clean.setOpaque(true);
-			TemplateGameVars.closeProgressPanel();
+			TemplateEnvironment.closeProgressPanel();
 		}else if(source.equals(genJson)) {
 			if( GameIo.printCleanJson() ) {
 				genJson.setForeground(Color.GREEN);

@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 
-import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.notices.AbstractNotice;
 import edu.illinois.masalzr2.notices.ListEvent;
 import edu.illinois.masalzr2.notices.ListListener;
@@ -17,7 +17,7 @@ public class HomeMenuNotice extends HighLevelNotice {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public HomeMenuNotice(ListListener ppl, GameVariables gv) {
+	public HomeMenuNotice(ListListener ppl, Environment gv) {
 		super(ppl, gv);
 		text = gv.getCurrentPlayer().getName()+"'s turn. ";
 		defineActions();

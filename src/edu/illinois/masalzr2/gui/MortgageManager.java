@@ -15,14 +15,14 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.models.Property;
 
 
 public class MortgageManager extends JDialog implements ActionListener{
 
-	private GameVariables gameVars;
+	private Environment gameVars;
 	private Player player;
 	private Map<String,Property> props;
 	
@@ -47,7 +47,7 @@ public class MortgageManager extends JDialog implements ActionListener{
 	 */
 	private static final long serialVersionUID = -8977446161365190615L;
 
-	public MortgageManager(GameVariables gv, Player pl) {
+	public MortgageManager(Environment gv, Player pl) {
 		super(gv.getFrame(), "Mortgage Manager", true);
 		gameVars = gv;
 		player = pl;

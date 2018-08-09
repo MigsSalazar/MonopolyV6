@@ -2,7 +2,6 @@ package edu.illinois.masalzr2.gui;
 
 import java.awt.GridLayout;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -16,7 +15,7 @@ public class Scoreboard {
 	
 	private StatsTile[] tiles;
 	
-	public Scoreboard(ImageIcon[] playerIcons, Map<Integer, Player> players, String currency) {
+	public Scoreboard(ImageIcon[] playerIcons, List<Player> players, String currency) {
 		
 		rebuildScoreboard(playerIcons, players, currency);
 		
@@ -26,7 +25,7 @@ public class Scoreboard {
 		return scores;
 	}
 	
-	public void rebuildScoreboard( ImageIcon[] playerIcons, Map<Integer, Player> players, String currency ) {
+	public void rebuildScoreboard( ImageIcon[] playerIcons, List<Player> players, String currency ) {
 		scores = new JPanel( new GridLayout(2,4) );
 		
 		tiles = new StatsTile[players.size()];

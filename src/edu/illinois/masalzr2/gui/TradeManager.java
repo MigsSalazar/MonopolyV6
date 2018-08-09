@@ -5,7 +5,7 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 
-import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.gui.TConfirm;
 import edu.illinois.masalzr2.gui.TOffer;
 import edu.illinois.masalzr2.gui.TPrompt;
@@ -20,7 +20,7 @@ import edu.illinois.masalzr2.models.Property;
  */
 public class TradeManager{
 
-	private GameVariables gameVars;
+	private Environment gameVars;
 	
 	private Player player1;
 	private Player player2;
@@ -41,7 +41,7 @@ public class TradeManager{
 	 * @param p1	First Player who wishes to make an offer for another player's asset
 	 * @param map	Full list of players active or inactive in the game
 	 */
-	public TradeManager(GameVariables gv, Player p1, Map<String, Player> map){
+	public TradeManager(Environment gv, Player p1, Map<String, Player> map){
 		gameVars = gv;
 		//player1 wishes to make an offer
 		player1 = p1;

@@ -2,7 +2,7 @@ package edu.illinois.masalzr2.gui;
 
 import javax.swing.*;
 
-import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.gui.TradeManager;
 import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.models.Property;
@@ -24,7 +24,7 @@ public class TConfirm extends JDialog {
 	 */
 	private static final long serialVersionUID = 3596160266999363362L;
 
-	private GameVariables gameVars;
+	private Environment gameVars;
 	
 	private Player player1;
 	private Player player2;
@@ -57,7 +57,7 @@ public class TConfirm extends JDialog {
 	 * @param oa	An ArrayList of offered assets held by player 1
 	 * @param tm	The Trade Manager object that called this JDialog
 	 */
-	public TConfirm(GameVariables gv, Player p1, Player p2, Object ta, List<Object> oa, TradeManager tm){
+	public TConfirm(Environment gv, Player p1, Player p2, Object ta, List<Object> oa, TradeManager tm){
 		super(gv.getFrame(), "Trade Manager - Step 3", true);
 		gameVars = gv;
 		player1=p1;

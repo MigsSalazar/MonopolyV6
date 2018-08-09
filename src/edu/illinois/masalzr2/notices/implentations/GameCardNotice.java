@@ -8,7 +8,7 @@ import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 
-import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.masters.LogMate;
 import edu.illinois.masalzr2.models.GameCard;
 import edu.illinois.masalzr2.models.Player;
@@ -30,7 +30,7 @@ public class GameCardNotice extends HighLevelNotice {
 	private List<Player> players;
 	private Map<String, Property> properties;
 	
-	public GameCardNotice(ListListener ppl, GameVariables gv, Player pl, boolean chance) {
+	public GameCardNotice(ListListener ppl, Environment gv, Player pl, boolean chance) {
 		super(ppl, gv);
 		
 		players = new ArrayList<Player>( gameVars.getPlayers().values() );

@@ -499,7 +499,7 @@
     "Short Line": {
       "railsOwned": {
         "count": 0,
-        "max": 4,
+        "max": 5,
         "min": 0
       },
       "name": "Short Line",
@@ -512,7 +512,7 @@
     "Reading Railroad": {
       "railsOwned": {
         "count": 0,
-        "max": 4,
+        "max": 5,
         "min": 0
       },
       "name": "Reading Railroad",
@@ -525,7 +525,7 @@
     "Pennsylvania Railroad": {
       "railsOwned": {
         "count": 0,
-        "max": 4,
+        "max": 5,
         "min": 0
       },
       "name": "Pennsylvania Railroad",
@@ -538,7 +538,7 @@
     "B\u0026O Railroad": {
       "railsOwned": {
         "count": 0,
-        "max": 4,
+        "max": 5,
         "min": 0
       },
       "name": "B\u0026O Railroad",
@@ -553,7 +553,7 @@
     "Electric Company": {
       "utilityOwned": {
         "count": 0,
-        "max": 2,
+        "max": 3,
         "min": 0
       },
       "name": "Electric Company",
@@ -566,7 +566,7 @@
     "Water Works": {
       "utilityOwned": {
         "count": 0,
-        "max": 2,
+        "max": 3,
         "min": 0
       },
       "name": "Water Works",
@@ -10282,15 +10282,15 @@
   ],
   "currency": "$",
   "texture": "default",
-  "saveFile": "/Users/msalazar/git/Monopoly/Version6/resources/default/default.mns",
+  "saveFile": "/Users/msalazar/monop6 git/MonopolyV6/resources/default/default.mns",
   "houseCount": {
     "count": 0,
-    "max": 32,
+    "max": 33,
     "min": 0
   },
   "hotelCount": {
     "count": 0,
-    "max": 12,
+    "max": 13,
     "min": 0
   },
   "turn": 0,

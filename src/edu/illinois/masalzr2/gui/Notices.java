@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.notices.AbstractNotice;
 import edu.illinois.masalzr2.notices.ListEvent;
 import edu.illinois.masalzr2.notices.ListListener;
@@ -29,12 +29,12 @@ public class Notices implements ListListener, Serializable {
 	private LinkedList<AbstractNotice> noticeList;
 	private JPanel noticePanel;
 	private AbstractNotice currNotice;
-	private GameVariables gameVars;
+	private Environment gameVars;
 	private JPanel components;
 	private JLabel notification;
 	@Getter @Setter private boolean gameOver = false;
 	
-	public Notices(GameVariables gv){
+	public Notices(Environment gv){
 		gameVars = gv;
 		noticeList = new LinkedList<AbstractNotice>();
 		noticePanel = new JPanel();
@@ -63,7 +63,6 @@ public class Notices implements ListListener, Serializable {
 	private void softPaintNotice(){
 		notification.setText(currNotice.getText());
 		noticePanel.repaint();
-		gameVars.repaintFrame();
 	}
 	
 	private void paintNotice(AbstractNotice an){
@@ -74,7 +73,6 @@ public class Notices implements ListListener, Serializable {
 		}
 		notification.setText(an.getText());
 		noticePanel.repaint();
-		gameVars.repaintFrame();
 	}
 	
 	private JPanel defineNoticePanel(){

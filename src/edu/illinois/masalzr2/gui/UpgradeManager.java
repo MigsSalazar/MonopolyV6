@@ -18,7 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.models.Counter;
 import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.models.Street;
@@ -30,7 +30,7 @@ public class UpgradeManager extends JDialog implements ActionListener, ItemListe
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private GameVariables gameVars;
+	private Environment gameVars;
 	private Player player;
 	private List<Street> props;
 	private Map<String,Suite> suites;
@@ -69,7 +69,7 @@ public class UpgradeManager extends JDialog implements ActionListener, ItemListe
 	//TODO make 3 JLabels for the total costs, the total upgrade costs, and the total downgrade costs within a third JPanel
 	
 	
-	public UpgradeManager(GameVariables gv, Player pl) {
+	public UpgradeManager(Environment gv, Player pl) {
 		super(gv.getFrame(), "Upgrade Manager", true);
 		gameVars = gv;
 		housecount = gameVars.getHouseCount();

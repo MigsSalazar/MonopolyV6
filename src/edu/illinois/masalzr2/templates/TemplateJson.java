@@ -8,7 +8,7 @@ import java.util.Map;
 import com.google.gson.annotations.Expose;
 
 import edu.illinois.masalzr2.gui.Stamp;
-import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.models.*;
 import lombok.Data;
 
@@ -63,7 +63,7 @@ public class TemplateJson {
 	@Expose private String texture;
 	 */
 	
-	public TemplateJson(GameVariables gv) {
+	public TemplateJson(Environment gv) {
 		
 		streets = new HashMap<String, Street>();
 		rails = new HashMap<String, Railroad>();
@@ -103,7 +103,7 @@ public class TemplateJson {
 		fancyMoveEnabled 	= gv.isFancyMoveEnabled();
 		
 		String path = gv.getSaveFile().getParentFile().getParentFile().getPath();
-		System.out.println("Parent path: "+path);
+		//System.out.println("Parent path: "+path);
 		saveFile 			= path+File.separator+texture+File.separator+texture+".mns";
 		
 	}

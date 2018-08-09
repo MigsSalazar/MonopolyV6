@@ -19,7 +19,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import edu.illinois.masalzr2.Starter;
 import edu.illinois.masalzr2.io.GameIo;
-import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.masters.LogMate;
 import edu.illinois.masalzr2.masters.LogMate.Logger;
 
@@ -117,7 +117,7 @@ public class PreGameFrame extends JFrame implements ActionListener {
 		LOG.newEntry("PreGameFrame: ActionPerformed: ActionEven receieved");
 		if(e.getSource().equals(newGame)){
 			LOG.newEntry("PreGameFrame: ActionPerformed: NewGame was pressed");
-			GameVariables newerGame = GameIo.newGame(fileDir);
+			Environment newerGame = GameIo.newGame(fileDir);
 			
 			if(newerGame !=null) {
 				newerGame.setTurnsLimit(turnsLimit);
@@ -139,7 +139,7 @@ public class PreGameFrame extends JFrame implements ActionListener {
 				return;
 			}
 			LOG.newEntry("PreGameFrame: ActionPerformed: Producing saved game");
-			GameVariables loadedGame = GameIo.produceSavedGame(dir);
+			Environment loadedGame = GameIo.produceSavedGame(dir);
 			
 			if(loadedGame !=null) {
 				LOG.newEntry("PreGameFrame: ActionPerformed: Game was successfully produced");

@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 
-import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.notices.AbstractNotice;
 import edu.illinois.masalzr2.notices.ListListener;
 
@@ -17,7 +17,7 @@ public class JailNotice extends HighLevelNotice {
 	
 	private int turnsJailed;
 
-	public JailNotice(ListListener ppl, GameVariables gv) {
+	public JailNotice(ListListener ppl, Environment gv) {
 		super(ppl, gv);
 		turnsJailed = gameVars.nightInJail(currentPlayer);
 		

@@ -18,7 +18,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import edu.illinois.masalzr2.Starter;
 import edu.illinois.masalzr2.io.GameIo;
-import edu.illinois.masalzr2.masters.GameVariables;
+import edu.illinois.masalzr2.masters.Environment;
 
 public class FrameMenu extends JMenuBar implements ActionListener{
 	
@@ -27,13 +27,13 @@ public class FrameMenu extends JMenuBar implements ActionListener{
 	 */
 	private static final long serialVersionUID = 1L;
 	private static String sep = File.separator;
-	private GameVariables gameVars;
+	private Environment gameVars;
 	
 	private JMenu[] menus;
 	private JMenuItem[] options;
 	
 	
-	public FrameMenu(GameVariables gv) {
+	public FrameMenu(Environment gv) {
 		gameVars = gv;
 		buildMenuBar();
 	}
@@ -88,7 +88,7 @@ public class FrameMenu extends JMenuBar implements ActionListener{
 			JMenuItem source = (JMenuItem) e.getSource();
 			
 			if( source.equals(options[0]) ) {
-				GameVariables newGame = GameIo.newGame();
+				Environment newGame = GameIo.newGame();
 				JFrame parent = findParentJFrame();
 				if ( Starter.gameSetup(parent, newGame) )
 					gameVars.getFrame().dispose();
@@ -98,7 +98,7 @@ public class FrameMenu extends JMenuBar implements ActionListener{
 				if(dir==null) {
 					return;
 				}
-				GameVariables loadedGame = GameIo.produceSavedGame(dir);
+				Environment loadedGame = GameIo.produceSavedGame(dir);
 				if(loadedGame !=null) {
 					loadedGame.buildFrame();
 					gameVars.getFrame().dispose();
