@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import edu.illinois.masalzr2.gui.NewGameStartUp;
 import edu.illinois.masalzr2.gui.PreGameFrame;
@@ -48,6 +49,27 @@ public class Starter {
 		LogMate.LOG.newEntry("Starter: main: Starting PreGameFrame");
 		pgf.start();
 		//myGame.buildFrame();
+	}
+	
+	public static void about(JFrame parent) {
+		String output =   "MONOPOLY V6"
+						+ "========================================="
+						+ "This Monopoly was made my Miguel Salazar."
+						+ "Monopoly is owned by Hasbro. No money was"
+						+ "made off this project. No donations of"
+						+ "any sort will be accepted but criticism"
+						+ "are always welcome. This project utilizes"
+						+ "the following frameworks projects:"
+						+ " - Apache Maven"
+						+ " - Project Lombok"
+						+ " - Google Gson"
+						+ " - JUnit"
+						+ "If you'd like to have the source code:"
+						+ "https://github.com/MigsSalazar/MonopolyV6"
+						+ "If you'd like to see earlier (worse)"
+						+ "versions:"
+						+ "https://github.com/MigsSalazar/Monopoly";
+		JOptionPane.showMessageDialog(parent, output);
 	}
 	
 	public static boolean gameSetup(JFrame parent, GameVariables newerGame) {

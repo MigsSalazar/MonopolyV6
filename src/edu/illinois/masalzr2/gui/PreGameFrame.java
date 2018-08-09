@@ -158,6 +158,8 @@ public class PreGameFrame extends JFrame implements ActionListener {
 			turnsLimit = sets.getTurnLimit();
 			currency = sets.getCurrency();
 			fancyMoveEnabled = sets.isFancyMoveEnabled();
+		}else if(e.getSource().equals(about)) {
+			Starter.about(this);
 		}
 		
 	}

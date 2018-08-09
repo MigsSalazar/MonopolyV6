@@ -120,8 +120,7 @@ public class FrameMenu extends JMenuBar implements ActionListener{
 				//TODO make the help options
 				//Could just send them to a users guide
 			} else if( source.equals(options[5]) ) {
-				//TODO make an about
-				//Licensing? Dependencies? What data is relevant
+				Starter.about(findParentJFrame());
 			} else if( source.equals(options[6]) ) {
 				JFrame parent = findParentJFrame();
 				try {
