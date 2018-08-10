@@ -418,7 +418,7 @@ public class Environment implements Serializable, ChangeListener {
 			turn++;
 		}while( turnTable.get(turn%players.size()).isBankrupt() );
 		if(limitingTurns && turn >= (turnsLimit*players.size()) ) {
-			turnLimitReached();
+			findWinnerId();
 		}
 	}
 	
@@ -769,7 +769,12 @@ public class Environment implements Serializable, ChangeListener {
 		return -1;
 	}
 	
-	private int turnLimitReached() {
+	/**
+	 * Returns the player with the highest wealth and stunts the continuation
+	 * of the game once the current chain of events ends
+	 * @return
+	 */
+	private int findWinnerId() {
 		int wealth = 0;
 		int id = -1;
 		for(Player p : players.values()) {
@@ -782,14 +787,23 @@ public class Environment implements Serializable, ChangeListener {
 		return id;
 	}
 	
+	/**
+	 * Determines how the game ended and parses the according GameOverNotice
+	 * @return GameOverNotice - a dead end notice know who won and why
+	 */
 	public GameOverNotice getWinner() {
 		if(turn >= turnsLimit*players.size()) {
-			return new GameOverNotice(notices, playerID.get(turnLimitReached()), true);
+			return new GameOverNotice(notices, playerID.get(findWinnerId()), true);
 		}else {
-			return new GameOverNotice(notices, playerID.get(turnLimitReached()), false);
+			return new GameOverNotice(notices, playerID.get(findWinnerId()), false);
 		}
 	}
 
+	/**
+	 * Determines if the player lost the game or can sell assets until they are
+	 * out of debt and then forces the player to do so.
+	 * @param p The player who has either lost (gone bankrupt) or can survive after loquidation
+	 */
 	private void playerIsSalvageable(Player p) {
 		while(p.getCash() <= 0) {
 			String[] options = {"Downgrade", "Mortgage"};
@@ -818,7 +832,14 @@ public class Environment implements Serializable, ChangeListener {
 			}
 		}
 	}
-
+	
+	/**
+	 * A subclass that handles the fancy move process.
+	 * Keeps track of the direction, total move, and remaining moves and
+	 * then stops the process when the player has arrived to their destination
+	 * @author Miguel Salazar
+	 *
+	 */
 	private final class TimerProcess implements ActionListener {
 		private final int move;
 		int mod;
