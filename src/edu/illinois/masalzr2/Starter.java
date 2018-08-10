@@ -75,23 +75,23 @@ public class Starter {
 	 * @param parent - The JOptionPane parent. Can be null
 	 */
 	public static void about(JFrame parent) {
-		String output =   "MONOPOLY V6"
-						+ "========================================="
-						+ "This Monopoly was made my Miguel Salazar."
-						+ "Monopoly is owned by Hasbro. No money was"
-						+ "made off this project. No donations of"
-						+ "any sort will be accepted but criticism"
-						+ "are always welcome. This project utilizes"
-						+ "the following frameworks projects:"
-						+ " - Apache Maven"
-						+ " - Project Lombok"
-						+ " - Google Gson"
-						+ " - JUnit"
-						+ "If you'd like to have the source code:"
-						+ "https://github.com/MigsSalazar/MonopolyV6"
-						+ "If you'd like to see earlier (worse)"
-						+ "versions:"
-						+ "https://github.com/MigsSalazar/Monopoly";
+		String output =   "                          MONOPOLY V6"
+						+ "\n=============================="
+						+ "\nhis Monopoly was made my Miguel Salazar."
+						+ "\nMonopoly is owned by Hasbro. No money was"
+						+ "\nmade off this project. No donations of"
+						+ "\nany sort will be accepted but criticism"
+						+ "\nare always welcome. This project utilizes"
+						+ "\nthe following frameworks projects:"
+						+ "\n - Apache Maven"
+						+ "\n - Project Lombok"
+						+ "\n - Google Gson"
+						+ "\n - JUnit"
+						+ "\nIf you'd like to have the source code:"
+						+ "\nhttps://github.com/MigsSalazar/MonopolyV6"
+						+ "\nIf you'd like to see earlier (worse)"
+						+ "\nversions:"
+						+ "\nhttps://github.com/MigsSalazar/MonopolyV6";
 		JOptionPane.showMessageDialog(parent, output);
 	}
 	
@@ -143,8 +143,8 @@ public class Starter {
 		}
 		
 		LogMate.LOG.newEntry("Starter: Game Setup: Dialog has ended, starting game");
-		List<Player> pl = newerGame.getPlayerID();
-		Map<String, Player> pls = newerGame.getPlayers();
+		List<Player> playerByIds = newerGame.getPlayerID();
+		Map<String, Player> playerByName = newerGame.getPlayers();
 		newerGame.setParticipantSize(names.size());
 		to.clear();
 		
@@ -153,9 +153,9 @@ public class Starter {
 		for(int i=0; i<names.size(); i++) {
 			LogMate.LOG.newEntry("Starter: Game Setup: at name "+i + " is "+names.get(0));
 			to.put(names.get(i), tokens.get(i));
-			pl.get(i).setName(names.get(i));
-			pls.remove(""+i);
-			pls.put(names.get(i), pl.get(i));
+			playerByIds.get(i).setName(names.get(i));
+			playerByName.remove(""+i);
+			playerByName.put(names.get(i), playerByIds.get(i));
 		}
 		LogMate.LOG.newEntry("Starter: Game Setup: Loading assets. sending");
 		

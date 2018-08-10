@@ -293,10 +293,10 @@ public class Settings implements ActionListener, ListSelectionListener {
 		}else if(source.equals(gitHub)) {
 			try {
 				if(Desktop.isDesktopSupported()) {
-					Desktop.getDesktop().browse(new URI("https://github.com/MigsSalazar/Monopoly"));
+					Desktop.getDesktop().browse(new URI("https://github.com/MigsSalazar/MonopolyV6"));
 				}
 			} catch (URISyntaxException | IOException e1) {
-				JOptionPane.showMessageDialog(dialog, "Could no open github file. To access logs, go to:\nhttps://github.com/MigsSalazar/Monopoly");
+				JOptionPane.showMessageDialog(dialog, "Could no open github file. To access the repo, go to:\nhttps://github.com/MigsSalazar/MonopolyV6");
 			}
 		}else if(source.equals(instBook)) {
 			Starter.instructionBook((JFrame)dialog.getParent());

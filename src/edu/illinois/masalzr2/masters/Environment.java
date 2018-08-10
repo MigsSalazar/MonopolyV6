@@ -691,7 +691,7 @@ public class Environment implements Serializable, ChangeListener {
 		jailTimes = new HashMap<String, Integer>();
 		
 		for(Player noob : players.values()) {
-			playerID.add(noob.getId(), noob);
+			playerID.add(noob);
 			jailTable.put(noob.getName(), false);
 			jailTimes.put(noob.getName(), 0);
 			turnTable.add(noob);
