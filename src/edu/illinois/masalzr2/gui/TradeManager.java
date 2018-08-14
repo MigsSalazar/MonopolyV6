@@ -6,9 +6,6 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 import edu.illinois.masalzr2.masters.Environment;
-import edu.illinois.masalzr2.gui.TConfirm;
-import edu.illinois.masalzr2.gui.TOffer;
-import edu.illinois.masalzr2.gui.TPrompt;
 import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.models.Property;
 

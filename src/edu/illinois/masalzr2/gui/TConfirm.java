@@ -1,16 +1,21 @@
 package edu.illinois.masalzr2.gui;
 
-import javax.swing.*;
-
-import edu.illinois.masalzr2.masters.Environment;
-import edu.illinois.masalzr2.gui.TradeManager;
-import edu.illinois.masalzr2.models.Player;
-import edu.illinois.masalzr2.models.Property;
-
-import java.util.List;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+import edu.illinois.masalzr2.masters.Environment;
+import edu.illinois.masalzr2.models.Player;
+import edu.illinois.masalzr2.models.Property;
 
 /**
  * Used by the Trade Manager. This specialized JDialog manages the final confrimation of the trade

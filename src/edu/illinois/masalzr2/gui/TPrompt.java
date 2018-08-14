@@ -1,16 +1,25 @@
 package edu.illinois.masalzr2.gui;
 
-import javax.swing.*;
-//import java.util.ArrayList;
-import java.util.Map;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+//import java.util.ArrayList;
+import java.util.Map;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import edu.illinois.masalzr2.masters.Environment;
-import edu.illinois.masalzr2.gui.TradeManager;
 import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.models.Property;
 

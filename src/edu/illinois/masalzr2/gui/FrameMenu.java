@@ -1,6 +1,5 @@
 package edu.illinois.masalzr2.gui;
 
-import java.awt.Container;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +18,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import edu.illinois.masalzr2.Starter;
 import edu.illinois.masalzr2.io.GameIo;
 import edu.illinois.masalzr2.masters.Environment;
+import edu.illinois.masalzr2.masters.LogMate;
 
 public class FrameMenu extends JMenuBar implements ActionListener{
 	
@@ -72,15 +72,6 @@ public class FrameMenu extends JMenuBar implements ActionListener{
 		
 	}
 	
-	private JFrame findParentJFrame() {
-		Container comp = this;
-		while( ! (comp instanceof JFrame) ) {
-			comp = comp.getParent();
-		}
-		JFrame parent = (JFrame)comp;
-		return parent;
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -88,10 +79,22 @@ public class FrameMenu extends JMenuBar implements ActionListener{
 			JMenuItem source = (JMenuItem) e.getSource();
 			
 			if( source.equals(options[0]) ) {
-				Environment newGame = GameIo.newGame();
-				JFrame parent = findParentJFrame();
-				if ( Starter.gameSetup(parent, newGame) )
-					gameVars.getFrame().dispose();
+				Settings sets = new Settings(gameVars.getFrame(), gameVars.isLimitingTurns(), gameVars.getTurnsLimit());
+				sets.start();
+				Environment newerGame = GameIo.newGame(sets.getFileDir());
+				if(newerGame !=null) {
+					newerGame.setTurnsLimit(sets.getTurnLimit());
+					newerGame.setLimitingTurns(sets.isTurnsLimited());
+					newerGame.setCurrency(sets.getCurrency());
+					newerGame.setFancyMoveEnabled(sets.isFancyMoveEnabled());
+					if (Starter.gameSetup( gameVars.getFrame(), newerGame))
+						gameVars.getFrame().dispose();
+					else
+						JOptionPane.showMessageDialog(this, "The save file you entered is invalid.\nIt is either out of date, corrupted,\nor is not a save file at all.", "Bad file", JOptionPane.ERROR_MESSAGE);
+				}else {
+					LogMate.LOG.newEntry("FrameMenu: ActionPerformed: Bad file found.");
+					JOptionPane.showMessageDialog(this, "The save file you entered is invalid.\nIt is either out of date, corrupted,\nor is not a save file at all.", "Bad file", JOptionPane.ERROR_MESSAGE);
+				}
 			} else if( source.equals(options[1]) ){
 				
 				String dir = GameIo.findFile(gameVars.getFrame(), new FileNameExtensionFilter("Monopoly Saves", "mns"), System.getProperty("user.dir")+sep+"saves");
@@ -117,11 +120,11 @@ public class FrameMenu extends JMenuBar implements ActionListener{
 				gameVars.setSaveFile(new File(System.getProperty("user.dir")+sep+"saves"+sep+newName+".mns" ));
 				GameIo.writeOut(gameVars);
 			} else if( source.equals(options[4]) ) {
-				Starter.instructionBook(findParentJFrame());
+				Starter.instructionBook(gameVars.getFrame());
 			} else if( source.equals(options[5]) ) {
-				Starter.about(findParentJFrame());
+				Starter.about(gameVars.getFrame());
 			} else if( source.equals(options[6]) ) {
-				JFrame parent = findParentJFrame();
+				JFrame parent = gameVars.getFrame();
 				try {
 					if(Desktop.isDesktopSupported()) {
 						Desktop.getDesktop().browse(new URI("https://github.com/MigsSalazar/Monopoly"));

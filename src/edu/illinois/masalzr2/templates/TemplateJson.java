@@ -9,7 +9,17 @@ import com.google.gson.annotations.Expose;
 
 import edu.illinois.masalzr2.gui.Stamp;
 import edu.illinois.masalzr2.masters.Environment;
-import edu.illinois.masalzr2.models.*;
+import edu.illinois.masalzr2.models.Counter;
+import edu.illinois.masalzr2.models.Dice;
+import edu.illinois.masalzr2.models.GameCard;
+import edu.illinois.masalzr2.models.GameToken;
+import edu.illinois.masalzr2.models.Player;
+import edu.illinois.masalzr2.models.PositionIndex;
+import edu.illinois.masalzr2.models.Property;
+import edu.illinois.masalzr2.models.Railroad;
+import edu.illinois.masalzr2.models.Street;
+import edu.illinois.masalzr2.models.Suite;
+import edu.illinois.masalzr2.models.Utility;
 import lombok.Data;
 
 @Data
