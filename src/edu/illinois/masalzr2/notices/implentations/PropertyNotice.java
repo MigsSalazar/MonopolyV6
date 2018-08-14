@@ -26,7 +26,10 @@ public class PropertyNotice extends AbstractNotice {
 	
 	public PropertyNotice(ListListener ppl, Environment gv, Player pl, Property pr) {
 		super(ppl);
-		LogMate.LOG.newEntry("Property Notice: Beginning: Listener="+ppl.toString()+" GameVars="+gv.toString()+" player="+pl.getName()+" property="+pr.getName());
+		LogMate.LOG.flush();
+		LogMate.LOG.newEntry("Property Notice: Beginning: player="
+		+pl.getName()
+		+" property="+pr.getName());
 		player = pl;
 		prop = pr;
 		gameVars = gv;

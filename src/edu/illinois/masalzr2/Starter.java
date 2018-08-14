@@ -129,7 +129,7 @@ public class Starter {
 		LogMate.LOG.newEntry("Starter: Game Setup: Finding GameTokens");
 		Map<String, GameToken> to = newerGame.getPlayerTokens();
 		List<GameToken> tokens = new ArrayList<GameToken>(to.values());
-		tokens.sort(GameToken.getTeamComparator());
+		tokens.sort(GameToken.TEAM_ORDER);
 		
 		LogMate.LOG.newEntry("Starter: Game Setup: developing NewGameStartUp");
 		NewGameStartUp ngsup = new NewGameStartUp(parent, tokens );

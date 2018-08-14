@@ -39,7 +39,7 @@ public class HomeMenuNotice extends HighLevelNotice {
 				int dice1 = gameDice.getLastDice()[0];
 				int dice2 = gameDice.getLastDice()[1];
 				
-				crossGo(currentPlayer, roll);
+				crossGo(roll);
 				
 				AbstractNotice event = moveAndDo(roll);
 				//System.out.println("now painting the event to the frame");

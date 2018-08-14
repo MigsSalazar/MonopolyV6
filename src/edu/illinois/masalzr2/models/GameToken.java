@@ -26,6 +26,9 @@ public class GameToken implements Serializable{
 	
 	@Expose private PositionIndex path;
 	
+	public static final transient Comparator<GameToken> TEAM_ORDER = new SortByTeam();
+	public static final transient Comparator<GameToken> ICON_ORDER = new SortByIcon();
+	
 	public GameToken(int t, String dir, PositionIndex p){
 		
 		team = t;
@@ -104,14 +107,6 @@ public class GameToken implements Serializable{
 	
 	public void setLocked(boolean l){
 		path.setLocked(l);
-	}
-	
-	public static Comparator<GameToken> getTeamComparator(){
-		return new SortByTeam();
-	}
-	
-	public static Comparator<GameToken> getIconComparator(){
-		return new SortByIcon();
 	}
 	
 	private static class SortByTeam implements Comparator<GameToken>{

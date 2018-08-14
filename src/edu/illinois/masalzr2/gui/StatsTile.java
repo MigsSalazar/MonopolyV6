@@ -32,13 +32,13 @@ public class StatsTile extends JPanel implements ChangeListener{
 	private Player myPlayer;
 	private String currencySymbol;
 	
-	private JPanel labels = new JPanel(new GridLayout(7,1));
+	private JPanel labels = new JPanel(new GridLayout(6,1));
 	//private JLabel name;
 	private Border title;
 	private JLabel icon;
 	private JLabel wealth;
 	private JLabel bank;
-	private JLabel posi;
+	//private JLabel posi;
 	private JLabel card;
 	private JLabel actv;
 	private JLabel prop;
@@ -83,7 +83,7 @@ public class StatsTile extends JPanel implements ChangeListener{
 		
 		//name = new JLabel(myPlayer.getName());
 		icon = new JLabel(myIcon);
-		posi = new JLabel("Current Position: "+myPlayer.getPosition());
+		//posi = new JLabel("Current Position: "+myPlayer.getPosition());
 		wealth = new JLabel("Assets: "+currencySymbol+myPlayer.getWealth());
 		colorWealth();
 		bank = new JLabel("Cash: "+currencySymbol+myPlayer.getCash());
@@ -96,7 +96,7 @@ public class StatsTile extends JPanel implements ChangeListener{
 		
 		
 		labels.add(icon);
-		labels.add(posi);
+		//labels.add(posi);
 		labels.add(wealth);
 		labels.add(bank);
 		labels.add(actv);
@@ -189,7 +189,7 @@ public class StatsTile extends JPanel implements ChangeListener{
 	public void stateChanged(ChangeEvent arg0) {
 		wealth.setText("Assets: "+currencySymbol+myPlayer.getWealth());
 		bank.setText("Cash: "+currencySymbol+myPlayer.getCash());
-		posi.setText("Current Position "+myPlayer.getPosition());
+		//posi.setText("Current Position "+myPlayer.getPosition());
 		card.setText("Get our of Jail Cards: "+myPlayer.getJailCard());
 		actv.setText("Bankrupt: "+myPlayer.isBankrupt());
 		

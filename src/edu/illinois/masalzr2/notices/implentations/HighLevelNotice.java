@@ -7,6 +7,7 @@ import edu.illinois.masalzr2.gui.TradeManager;
 import edu.illinois.masalzr2.gui.UpgradeManager;
 import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.models.Dice;
+import edu.illinois.masalzr2.models.GameToken;
 import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.models.Property;
 import edu.illinois.masalzr2.notices.AbstractNotice;
@@ -20,16 +21,20 @@ public abstract class HighLevelNotice extends AbstractNotice {
 	 */
 	private static final long serialVersionUID = 1L;
 	protected Player currentPlayer;
+	protected GameToken playerToken;
 	protected Environment gameVars;
 	protected Dice gameDice;
 	private String currency;
-
+	protected int step;
+	
 	public HighLevelNotice(ListListener ppl, Environment gv) {
 		super(ppl);
 		gameVars = gv;
 		currentPlayer = gameVars.getCurrentPlayer();
 		gameDice = gameVars.getGameDice();
 		currency = gameVars.getCurrency();
+		playerToken = gameVars.getPlayerTokens().get(currentPlayer.getName());
+		step = playerToken.getPath().getStep();
 	}
 	
 	
@@ -63,8 +68,11 @@ public abstract class HighLevelNotice extends AbstractNotice {
 				event = new GameCardNotice(listener, gameVars, p, true);
 			break;
 		case 8: //System.out.println("p position = "+ p.getPosition());
-				Property passMe = gameVars.getPropertyAt(p.getPosition());
-				event = new PropertyNotice(listener, gameVars, p, passMe);
+				Property passMe = gameVars.getPropertyAt(step);
+				event = new PropertyNotice(listener, 
+						gameVars, 
+						p, 
+						passMe);
 			break;
 		default: event = new MessageNotice("<html>Something went wrong. Defaulted</html>", listener);
 			break;
@@ -94,8 +102,8 @@ public abstract class HighLevelNotice extends AbstractNotice {
 		}
 	}
 	
-	protected void crossGo(Player p, int roll) {
-		if( (p.getPosition() + roll) >= 40 || (p.getPosition() + roll)==0){
+	protected void crossGo(int roll) {
+		if( (step + roll) >= 40 || (step + roll)==0){
 			GoNotice pbe = new GoNotice(listener, currentPlayer);
 			LOG.newEntry(this.getClass().getName() + ": crossGo: pushing self");
 			listener.pushMe(new ListEvent(pbe));
@@ -106,26 +114,25 @@ public abstract class HighLevelNotice extends AbstractNotice {
 		gameVars.nextTurn();
 		currentPlayer = gameVars.getCurrentPlayer();
 		text = currentPlayer.getName()+"'s turn.\nWhat would you like to do?";
-		if(gameVars.isInJail(currentPlayer)) {
-			gameVars.jailPlayer(currentPlayer);
-			currentPlayer.setPosition(10);
-		}
 	}
 	
 	protected AbstractNotice moveAndDo(int roll) {
+		step = (playerToken.getPath().getStep() + roll)%40;
 		gameVars.fancyPlayerMove(currentPlayer, roll);
-		currentPlayer.addPosition(roll);
-		int result = findAction(currentPlayer.getPosition());
+		//playerToken.movePiece(roll);
+		//step = playerToken.getPath().getStep();
+		int result = findAction(step);
 		//System.out.println("current Player Name: "+currentPlayer.getName());
 		return actionDone(currentPlayer, result);
 	}
 	
 	protected AbstractNotice moveAndDo(Player player, int roll) {
 		//System.out.println("player move and do roll: "+roll + " at position " + player.getPosition());
-		
+		step = (playerToken.getPath().getStep() + roll)%40;
 		gameVars.fancyPlayerMove(player, roll);
-		player.addPosition(roll);
-		int result = findAction(player.getPosition());
+		//playerToken.movePiece(roll);
+		//step = playerToken.getPath().getStep();
+		int result = findAction(step);
 		//System.out.println("current Player Name: "+currentPlayer.getName() + " result: "+result);
 		return actionDone(player, result);
 	}

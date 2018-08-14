@@ -4,11 +4,6 @@
       "name": "0",
       "id": 0,
       "cash": 1500,
-      "position": {
-        "count": 0,
-        "max": 40,
-        "min": 0
-      },
       "jailCard": 0,
       "bankrupt": false
     },
@@ -16,11 +11,6 @@
       "name": "1",
       "id": 1,
       "cash": 1500,
-      "position": {
-        "count": 0,
-        "max": 40,
-        "min": 0
-      },
       "jailCard": 0,
       "bankrupt": false
     },
@@ -28,11 +18,6 @@
       "name": "2",
       "id": 2,
       "cash": 1500,
-      "position": {
-        "count": 0,
-        "max": 40,
-        "min": 0
-      },
       "jailCard": 0,
       "bankrupt": false
     },
@@ -40,11 +25,6 @@
       "name": "3",
       "id": 3,
       "cash": 1500,
-      "position": {
-        "count": 0,
-        "max": 40,
-        "min": 0
-      },
       "jailCard": 0,
       "bankrupt": false
     },
@@ -52,11 +32,6 @@
       "name": "4",
       "id": 4,
       "cash": 1500,
-      "position": {
-        "count": 0,
-        "max": 40,
-        "min": 0
-      },
       "jailCard": 0,
       "bankrupt": false
     },
@@ -64,11 +39,6 @@
       "name": "5",
       "id": 5,
       "cash": 1500,
-      "position": {
-        "count": 0,
-        "max": 40,
-        "min": 0
-      },
       "jailCard": 0,
       "bankrupt": false
     },
@@ -76,11 +46,6 @@
       "name": "6",
       "id": 6,
       "cash": 1500,
-      "position": {
-        "count": 0,
-        "max": 40,
-        "min": 0
-      },
       "jailCard": 0,
       "bankrupt": false
     },
@@ -88,11 +53,6 @@
       "name": "7",
       "id": 7,
       "cash": 1500,
-      "position": {
-        "count": 0,
-        "max": 40,
-        "min": 0
-      },
       "jailCard": 0,
       "bankrupt": false
     }
@@ -758,7 +718,7 @@
       "hotelCost": 0
     },
     {
-      "text": "\u003chtml\u003eAdvance to Illinois Ave.!\u003cbr\u003e(If you ass Go, collect $200)\u003c/html\u003e",
+      "text": "\u003chtml\u003eAdvance to Illinois Ave.! (If you ass Go, collect $200)\u003c/html\u003e",
       "moneyEarned": 0,
       "globalFunds": false,
       "baseMovement": 0,
@@ -797,7 +757,7 @@
       "hotelCost": 0
     },
     {
-      "text": "\u003chtml\u003eGet out of jail free!\u003cbr\u003e(This card may be kept until needed,\u003cbr\u003eor traded/sold)\u003c/html\u003e",
+      "text": "\u003chtml\u003eGet out of jail free!\u003cbr\u003e(This card may be kept until needed, or traded/sold)\u003c/html\u003e",
       "moneyEarned": 0,
       "globalFunds": false,
       "baseMovement": 0,
@@ -888,7 +848,7 @@
       "hotelCost": 0
     },
     {
-      "text": "\u003chtml\u003eYou have been elected Chairman\u003cbr\u003eof the Board, Pay each player $50\u003c/html\u003e",
+      "text": "\u003chtml\u003eYou have been elected Chairman of the Board, Pay each player $50\u003c/html\u003e",
       "moneyEarned": -50,
       "globalFunds": true,
       "baseMovement": 0,
@@ -901,7 +861,7 @@
       "hotelCost": 0
     },
     {
-      "text": "\u003chtml\u003eYou building and loan matures\u003cbr\u003eCollect $150\u003c/html\u003e",
+      "text": "\u003chtml\u003eYou building and loan matures! Collect $150\u003c/html\u003e",
       "moneyEarned": 150,
       "globalFunds": false,
       "baseMovement": 0,
@@ -968,7 +928,7 @@
       "hotelCost": 0
     },
     {
-      "text": "\u003chtml\u003eGet out of jail free!\u003cbr\u003eThis card may be kept until needed,\u003cbr\u003eor traded/sold.\u003c/html\u003e",
+      "text": "\u003chtml\u003eGet out of jail free!\u003cbr\u003eThis card may be kept until needed, or traded/sold.\u003c/html\u003e",
       "moneyEarned": 0,
       "globalFunds": false,
       "baseMovement": 0,
@@ -1111,7 +1071,7 @@
       "hotelCost": 115
     },
     {
-      "text": "\u003chtml\u003eYou have won second prize in a beauty contest!\u003cbr\u003eCollect $10\u003c/html\u003e",
+      "text": "\u003chtml\u003eYou have won second prize in a beauty contest! Collect $10\u003c/html\u003e",
       "moneyEarned": 10,
       "globalFunds": false,
       "baseMovement": 0,

@@ -11,6 +11,7 @@ import javax.swing.JComponent;
 import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.masters.LogMate;
 import edu.illinois.masalzr2.models.GameCard;
+import edu.illinois.masalzr2.models.GameToken;
 import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.models.Property;
 import edu.illinois.masalzr2.models.Street;
@@ -26,6 +27,8 @@ public class GameCardNotice extends HighLevelNotice {
 	private static final long serialVersionUID = 1L;
 	private GameCard card;
 	private Player player;
+	private GameToken playerToken;
+	private int step;
 	
 	private List<Player> players;
 	private Map<String, Property> properties;
@@ -40,6 +43,10 @@ public class GameCardNotice extends HighLevelNotice {
 		text = "<html>You landed on "+(chance?"Chance":"Community Chest")+". Your card reads:<br>"
 				+card.getText().substring(6,card.getText().length());
 		player = pl;
+		
+		playerToken = gameVars.getPlayerTokens().get(player.getName());
+		step = playerToken.getPath().getStep();
+		
 		defineActions();
 	}
 
@@ -131,6 +138,7 @@ public class GameCardNotice extends HighLevelNotice {
 	
 	private void findNearestOnBoard(GameCard gc){
 		AbstractNotice an = null;
+		step = playerToken.getPath().getStep();
 		switch(gc.getFindNearest()){
 		case "railroad":an = findRailroad(player);
 			break;
@@ -149,55 +157,59 @@ public class GameCardNotice extends HighLevelNotice {
 	private AbstractNotice findUtility(Player player){
 		int moveBy = 0;
 		
-		if(player.getPosition() < 12 || player.getPosition() > 28){
-			if(player.getPosition() < 12){
-				moveBy = 12 - player.getPosition();
+		if(step < 12 || step > 28){
+			if(step < 12){
+				moveBy = 12 - step;
 			}else{
-				moveBy = 52 - player.getPosition();
+				moveBy = 52 - step;
 			}
 		}else{
-			moveBy = 28 - player.getPosition();
+			moveBy = 28 - step;
 		}
-		
+		crossGo(moveBy);
 		AbstractNotice event = moveAndDo(player, moveBy);
 		return event;
 	}
 
 	private AbstractNotice findRailroad(Player player) {
 		int moveBy = 0;
-		if(player.getPosition() > 35 || player.getPosition() < 5){
-			if(player.getPosition() < 5){
-				moveBy = 5 - player.getPosition();
+		if(step > 35 || step < 5){
+			if(step < 5){
+				moveBy = 5 - step;
 			}else{
-				moveBy = 45 - player.getPosition();
+				moveBy = 45 - step;
 				
 			}
-		}else if(player.getPosition() > 5 && player.getPosition() < 15){
-			moveBy = 15 - player.getPosition();
-		}else if(player.getPosition() > 15 && player.getPosition() < 25){
-			moveBy = 25 - player.getPosition();
-		}else if(player.getPosition() > 25 && player.getPosition() < 35){
-			moveBy = 35 - player.getPosition();
+		}else if(step > 5 && step < 15){
+			moveBy = 15 - step;
+		}else if(step > 15 && step < 25){
+			moveBy = 25 - step;
+		}else if(step > 25 && step < 35){
+			moveBy = 35 - step;
 		}
+		crossGo(moveBy);
 		AbstractNotice event = moveAndDo(player, moveBy);
 		return event;
 	}
 	
 	private void findThisOnBoard(GameCard gc){
 		AbstractNotice an = null;
+		step = playerToken.getPath().getStep();
 		int moveBy = 0;
 		switch(gc.getFindThis()){
 		case "": return;
-		case "go":	moveBy = 40 - player.getPosition();
+		case "go":	moveBy = 40 - step;
 					an = moveAndDo(player, moveBy);
 					break;
 		default:if(properties.containsKey(gc.getFindThis())){
 					Property prop = properties.get(gc.getFindThis());
-					if(player.getPosition() > prop.getPosition()){
-						moveBy = (40+prop.getPosition()) - player.getPosition();
+					step = playerToken.getPath().getStep();
+					if(step > prop.getPosition()){
+						moveBy = (40+prop.getPosition()) - step;
 					}else{
-						moveBy = prop.getPosition() - player.getPosition();
+						moveBy = prop.getPosition() - step;
 					}
+					crossGo(moveBy);
 					an = moveAndDo(player,moveBy);
 				}
 		}

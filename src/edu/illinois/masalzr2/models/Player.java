@@ -31,7 +31,6 @@ public class Player implements ChangeListener, Serializable{
 	@Getter @Setter @Expose private String name;
 	@Getter @Setter @Expose private int id;
 	@Getter @Setter @Expose private int cash;
-	@Expose private Counter position;
 	@Getter @Setter @Expose private int jailCard;
 	@Getter @Setter @Expose private boolean bankrupt;
 	@Getter @Setter private Map<String, Property> props;
@@ -41,7 +40,6 @@ public class Player implements ChangeListener, Serializable{
 		name = n;
 		id = i;
 		cash = c;
-		position = new Counter(0,40,0);
 		jailCard = j;
 		bankrupt = b;
 		props = pr;
@@ -51,7 +49,6 @@ public class Player implements ChangeListener, Serializable{
 	public Player(int c){
 		name = "";
 		id = -1;
-		position = new Counter(0,40,0);
 		cash = c;
 		jailCard = 0;
 		props = new HashMap<String, Property>();
@@ -67,22 +64,6 @@ public class Player implements ChangeListener, Serializable{
 		cash -= s;
 		fireChange();
 	}
-	
-	public int getPosition(){
-		return position.getCount();
-	}
-	
-	public void setPosition(int p){
-		position.setCount(p);
-		fireChange();
-	}
-	
-	public int addPosition(int p){
-		position.add(p);
-		fireChange();
-		return position.getCount();
-	}
-	
 	public void addJailCard(int a){
 		jailCard += a;
 		fireChange();

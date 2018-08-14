@@ -372,8 +372,7 @@ public class TemplateEnvironment{
 		commchest.add(new GameCard("<html>From sale of stock you get $50</html>",
 				50, false,0,false,false,"","",false, 0, 0));
 		commchest.add(new GameCard("<html>Get out of jail free!"
-								+ "<br>This card may be kept until needed,"
-								+ "<br>or traded/sold.</html>",
+								+ "<br>This card may be kept until needed, or traded/sold.</html>",
 				0, false,0,true,false,"","",false, 0, 0));
 		
 		commchest.add(new GameCard("<html>Go to directly to Jail"
@@ -408,8 +407,7 @@ public class TemplateEnvironment{
 								+ "<br>$115 per hotel</html>",
 				0, false,0,false,false,"","",true, 40,115));
 		
-		commchest.add(new GameCard("<html>You have won second prize in a beauty contest!"
-								+ "<br>Collect $10</html>",
+		commchest.add(new GameCard("<html>You have won second prize in a beauty contest! Collect $10</html>",
 				10, false,0,false,false,"","",false, 0, 0));
 		commchest.add(new GameCard("<html>You inherit $100</html>",
 				100, false,0,false,false,"","",false, 0, 0));
@@ -425,7 +423,7 @@ public class TemplateEnvironment{
 				0, false,0,false,false,"",
 				"go",
 				false, 0, 0));
-		chance.add(new GameCard("<html>Advance to Illinois Ave.!<br>(If you ass Go, collect $200)</html>",
+		chance.add(new GameCard("<html>Advance to Illinois Ave.! (If you ass Go, collect $200)</html>",
 				0, false,0,false,false,"",
 				"Illinois Ave.",
 				false, 0, 0));
@@ -440,8 +438,7 @@ public class TemplateEnvironment{
 				50,
 				false,0,false,false,"","",false, 0, 0));
 		chance.add(new GameCard("<html>Get out of jail free!"
-								+ "<br>(This card may be kept until needed,"
-								+ "<br>or traded/sold)</html>",
+								+ "<br>(This card may be kept until needed, or traded/sold)</html>",
 				0, false,0,true,false,"","",false, 0, 0));
 		chance.add(new GameCard("<html>Go back 3 spaces</html>",
 				0, false,-3,false,false,"","",false, 0, 0));
@@ -464,12 +461,10 @@ public class TemplateEnvironment{
 		chance.add(new GameCard("<html>Advance token to Boardwalk</html>",
 				0, false,0,false,false,"","Board Walk",false, 0, 0));
 		
-		chance.add(new GameCard("<html>You have been elected Chairman"
-									+ "<br>of the Board, Pay each player $50</html>",
+		chance.add(new GameCard("<html>You have been elected Chairman of the Board, Pay each player $50</html>",
 				-50, true,0,false,false,"","",false, 0, 0));
 		
-		chance.add(new GameCard("<html>You building and loan matures"
-									+ "<br>Collect $150</html>",
+		chance.add(new GameCard("<html>You building and loan matures! Collect $150</html>",
 				150, false,0,false,false,"","",false, 0, 0));
 		
 		updateProgress(80, "Chance cards have been generated");

@@ -326,6 +326,8 @@ public class Environment implements Serializable, ChangeListener {
 		resetJail(p);
 		
 		GameToken jailMe = playerTokens.get(p.getName());
+		jailMe.setLocked(true);
+		/*
 		if(fancyMoveEnabled) {
 			while(time.isRunning()){
 				ActionListener al = time.getActionListeners()[0];
@@ -334,16 +336,17 @@ public class Environment implements Serializable, ChangeListener {
 					if( trueAl.getCount() <= 0) {
 						time.stop();
 					}else {
-						LogMate.LOG.newEntry("Jail Player: Timer is running: count="+trueAl.getCount()+" mod="+trueAl.getMod()+" move="+trueAl.getMove());
+						LogMate.LOG.newEntry("Jail Player: Timer is running: count="+trueAl.getCount()+" mod="+trueAl.getDirection()+" move="+trueAl.getMove());
 						trueAl.actionPerformed(null);
 					}
 				}
 			}
 		}
+		*/
 		
-		int[] newCoords = jailMe.useSpecialtyCase(0);
+		
 		jailMe.getPath().setStep(10);
-		jailMe.movePiece(0);
+		int[] newCoords = jailMe.useSpecialtyCase(0);
 		
 		LOG.newEntry("GameVariables: jailPlayer: moving piece to jail cell");
 		board.movePiece(jailMe.getPiece(), newCoords[0], newCoords[1]);
@@ -376,7 +379,7 @@ public class Environment implements Serializable, ChangeListener {
 	public GameCard getRandomChance(){
 		Random rando = new Random();
 		return chance.get(rando.nextInt(chance.size()));
-		//return chance.get(0);
+		//return chance.get(2);
 	}
 	
 	/**
@@ -468,22 +471,8 @@ public class Environment implements Serializable, ChangeListener {
 			time = new Timer(100, null);
 		}
 		notices.pushMe(new ListEvent(new MessageNotice("You rolled a "+move, notices)));
-		while(time.isRunning()){
-			ActionListener al = time.getActionListeners()[0];
-			if(al instanceof TimerProcess) {
-				TimerProcess trueAl = (TimerProcess)al;
-				if( trueAl.getCount() <= 0) {
-					time.stop();
-				}else {
-					LogMate.LOG.newEntry("Fancy Player Move: Timer is running: count="+trueAl.getCount()+" mod="+trueAl.getMod()+" move="+trueAl.getMove());
-					trueAl.actionPerformed(null);
-				}
-			}
-		}
-		time = new Timer(1000/move, null);
-		time.addActionListener(new TimerProcess(move, p));
-		time.start();
-		
+		TimerProcess tp = new TimerProcess(move, p);
+		tp.start();
 		//movePlayer(p, move);
 		
 	}
@@ -495,6 +484,11 @@ public class Environment implements Serializable, ChangeListener {
 	 * @param move - int value defining the distance to travel on the board
 	 */
 	private void visualMove(GameToken current, int move) {
+		
+		if(current.getPath().isLocked()) {
+			return;
+		}
+		
 		ImageIcon piece = current.getPiece();
 		
 		int[] coords = current.getPath().getCoordsAtStep( (move + current.getPath().getStep())%current.getPath().stepCount() );
@@ -595,6 +589,7 @@ public class Environment implements Serializable, ChangeListener {
 		
 		GameToken jailMe = playerTokens.get(p);
 		
+		jailMe.setLocked(false);
 		jailMe.getPath().setStep(10);
 		jailMe.movePiece(0);
 		
@@ -834,7 +829,8 @@ public class Environment implements Serializable, ChangeListener {
 	}
 	
 	/**
-	 * A subclass that handles the fancy move process.
+	 * A wrapper subclass that micro-manages the fancy move process while also
+	 * ensuring that other piece's fancy moves are neither interfered or interfered with.
 	 * Keeps track of the direction, total move, and remaining moves and
 	 * then stops the process when the player has arrived to their destination
 	 * @author Miguel Salazar
@@ -842,38 +838,37 @@ public class Environment implements Serializable, ChangeListener {
 	 */
 	private final class TimerProcess implements ActionListener {
 		private final int move;
-		int mod;
-		int count;
-		GameToken current;
-
-		private TimerProcess(int move, Player p) {
+		private int direction;
+		private int count;
+		private GameToken current;
+		private Timer ticker;
+		
+		
+		public TimerProcess(int move, Player p) {
 			this.move = move;
-			mod = (move > 0) ? 1 : -1;
-			count = move * mod;
+			direction = (move > 0) ? 1 : -1;
+			count = move * direction;
 			current = playerTokens.get(p.getName());
+			
+			ticker = new Timer(1000/this.move, this);
 		}
 		
-		public int getMove() {
-			return move;
+		public void start() {
+			ticker.start();
 		}
 		
-		public int getMod() {
-			return mod;
-		}
-		
-		public int getCount() {
-			return count;
-		}
-
+		/**
+		 * Performs the single step visual move and changes the value of the player's current position accordingly
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			//System.out.println("Time clicked");
-			LogMate.LOG.newEntry("FancyPlayerMove: Count="+count+" mod="+mod+" move="+move);
-			visualMove(current, mod);
-			current.movePiece(mod);
+			LogMate.LOG.newEntry("FancyPlayerMove: team="+current.getTeam()+" count="+count+" mod="+direction+" move="+move+" position="+current.getPath().getStep());
+			visualMove(current, direction);
+			current.movePiece(direction);
 			count--;
 			if( count <= 0 ) {
-				time.stop();;
+				ticker.stop();;
 			}
 		}
 	}
