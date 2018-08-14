@@ -38,6 +38,7 @@ public class TradeManager{
 	/**
 	 * Trade Manager's only constructor. Requires a full list
 	 * of active players and the Player who wishes to trade with another
+	 * @param gv 	Environment object that is the game instance
 	 * @param p1	First Player who wishes to make an offer for another player's asset
 	 * @param map	Full list of players active or inactive in the game
 	 */
@@ -152,7 +153,7 @@ public class TradeManager{
 	
 	/**
 	 * Defines the player with the desired asset
-	 * @param p
+	 * @param p the associated player in the trade
 	 */
 	public void setPlayer2(Player p){
 		player2 = p;
@@ -168,14 +169,14 @@ public class TradeManager{
 	
 	/**
 	 * Returns the desired asset object that is up for bargain
-	 * @return
+	 * @return Could be a String or Property object which represents a Get out of Jail Free card or a property to trade respectively
 	 */
 	public Object getTradeAsset(){
 		return tradeAsset;
 	}
 	/**
-	 * Defines the desired trade asset
-	 * @param a
+	 * Sets the assets to be traded for the desired asset
+	 * @param a List that must be a String, Integer, or Property
 	 */
 	public void setOfferedAsset(List<Object> a){
 		offeredAsset = a;
@@ -183,7 +184,7 @@ public class TradeManager{
 	
 	/**
 	 * Returns the ArrayList of Assets that player 1 has offered in trade of player 2's asset
-	 * @return
+	 * @return The list of assets the requester has offered to trade
 	 */
 	public List<Object> getOfferedAsset(){
 		return offeredAsset;

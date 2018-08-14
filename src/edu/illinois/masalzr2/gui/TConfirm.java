@@ -50,7 +50,7 @@ public class TConfirm extends JDialog {
 	 * Default constructor. Object requires a parent JFrame, a player who wants an asset, a player
 	 * who holds the desired asset, the desired asset, an ArrayList of assets that is being offered
 	 * and the Trade Manager object that called this JDialog
-	 * @param frame	Parent JFrame
+	 * @param gv 	Environment variable. This is the correlating game object.
 	 * @param p1	Player 1: player who wants to make an offer
 	 * @param p2	Player 2: player who holds the desired asset
 	 * @param ta	The desired asset held by player 2

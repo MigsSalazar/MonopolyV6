@@ -51,7 +51,9 @@ public class StatsTile extends JPanel implements ChangeListener{
 	/**
 	 * Default constructor. Purpose of this panel is to display all the necessary
 	 * information pertaining to the passed player object needed for game play
+	 * @param i ImageIcon object. The player's associated icon on the board
 	 * @param p	Player object for which to display the current standings
+	 * @param cs String representing the currency Symbol
 	 */
 	public StatsTile(ImageIcon i, Player p, String cs){
 		

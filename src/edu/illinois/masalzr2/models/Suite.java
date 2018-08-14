@@ -27,7 +27,8 @@ public class Suite implements Serializable{
 	 * @param s0 		First Street object
 	 * @param s1		Second Street object
 	 * @param s2 		Third Street object
-	 * @param c 		String object of the Streets color
+	 * @param cn 		String object of the Streets color
+	 * @param cv 		the int RGB value of the suite as gotten from {@link java.awt.Color#getRGB()}
 	 */
 	public Suite(Street s0, Street s1, Street s2, String cn, int cv){
 		

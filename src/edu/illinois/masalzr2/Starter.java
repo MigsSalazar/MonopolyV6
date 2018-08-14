@@ -98,7 +98,7 @@ public class Starter {
 	/**
 	 * Current functionality - tells users there's no instruction book
 	 * Eventual functionality - opens a browser or file to the documentation or a more indept instruction guide
-	 * @param parent
+	 * @param parent A JFrame object used by any resulting containers as a reference point 
 	 */
 	public static void instructionBook(JFrame parent) {
 		//TODO Create the instruction book

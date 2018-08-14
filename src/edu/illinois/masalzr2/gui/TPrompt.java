@@ -56,9 +56,9 @@ public class TPrompt extends JDialog {
 	/**
 	 * Only constructor. Requires a parent JFrame, a player 1 whom will make the offer,
 	 * the fill list of active and inactive players, and the Trade Manager object that called this object
-	 * @param parent	Parent JFrame
+	 * @param gv		Environment object that defines the game
 	 * @param pl		Player 1: player who will make an offer
-	 * @param players2		Full ArrayList of all active and inactive players
+	 * @param players2	Full ArrayList of all active and inactive players
 	 * @param tm		Trade Manager object that called this object
 	 */
 	public TPrompt(Environment gv, Player pl, Map<String, Player> players2, TradeManager tm){

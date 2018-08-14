@@ -426,7 +426,7 @@ public class Environment implements Serializable, ChangeListener {
 	}
 	
 	/**
-	 * @see {@link #isInJail(String)}
+	 * @see #isInJail(String)
 	 * @param p - the player whose jail status is in question
 	 * @return boolean - the current jail status of the requested player
 	 */
@@ -435,7 +435,7 @@ public class Environment implements Serializable, ChangeListener {
 	}
 	
 	/**
-	 * @see {@link #isInJail(Player)}
+	 * @see #isInJail(Player)
 	 * @param p - the name of the player whose jail status is in question
 	 * @return boolean - the current jail status of the requested player
 	 */
@@ -499,7 +499,7 @@ public class Environment implements Serializable, ChangeListener {
 	/**
 	 * Moves the player's associated piece without changing the player's position value.
 	 * Does change the GameToken's position
-	 * @see {@link #movePlayer(String, int)}}
+	 * @see #movePlayer(String, int)
 	 * @param p - Player the associated player object of the board piece 
 	 * @param move - int the distance the piece needs to travel
 	 */
@@ -510,7 +510,7 @@ public class Environment implements Serializable, ChangeListener {
 	/**
 	 * Moves the player's associated piece without changing the player's position value.
 	 * Does change the GameToken's position
-	 * @see {@link #movePlayer(Player, int)}}
+	 * @see #movePlayer(Player, int)
 	 * @param p - String the name of the associated player object of the board piece 
 	 * @param move - int the distance the piece needs to travel
 	 */
@@ -527,7 +527,7 @@ public class Environment implements Serializable, ChangeListener {
 	/**
 	 * Metaphorically spends the night in jail. 
 	 * Increments the jailTimes table at the player's entry and returns the new value.
-	 * @see {@link #nightInJail(String)}
+	 * @see #nightInJail(String)
 	 * @param p Player - the player who spent the night in jail
 	 * @return int - the number of nights spent in the jail
 	 */
@@ -538,7 +538,7 @@ public class Environment implements Serializable, ChangeListener {
 	/**
 	 * Metaphorically spends the night in jail. 
 	 * Increments the jailTimes table at the player's entry and returns the new value.
-	 * @see {@link #nightInJail(Player)}
+	 * @see #nightInJail(Player)
 	 * @param p String - name of the player who spent the night in jail
 	 * @return int - the number of nights spent in the jail
 	 */
@@ -549,7 +549,7 @@ public class Environment implements Serializable, ChangeListener {
 	
 	/**
 	 * Refreshes the entry of the player within the jailTimes map.
-	 * @see {@link #resetJail(String)}
+	 * @see #resetJail(String)
 	 * @param p Player - the player whose jailTime entry to reset
 	 */
 	public void resetJail(Player p) {
@@ -558,7 +558,7 @@ public class Environment implements Serializable, ChangeListener {
 	
 	/**
 	 * Refreshes the entry of the player within the jailTimes map.
-	 * @see {@link #resetJail(Player)}
+	 * @see #resetJail(Player)
 	 * @param p Player - the player whose jailTime entry to reset
 	 */
 	public void resetJail(String p) {
@@ -567,7 +567,7 @@ public class Environment implements Serializable, ChangeListener {
 	
 	/**
 	 * Metaphorically releases the player passed player from jail
-	 * @see {@link #releaseJailedPlayer(String)}
+	 * @see #releaseJailedPlayer(String)
 	 * @param p Player - the player who will be released from jail
 	 */
 	public void releaseJailedPlayer(Player p) {
@@ -577,8 +577,8 @@ public class Environment implements Serializable, ChangeListener {
 	/**
 	 * On top of setting the player's jail status to false,
 	 * the player piece is also painted as outside of the jail
-	 * and calls {@link #releaseJailedPlayer(String)} to resent the player's jail time
-	 * @param p
+	 * and calls #releaseJailedPlayer(String) to resent the player's jail time
+	 * @param p the name of the player to be released as a String
 	 */
 	public void releaseJailedPlayer(String p) {
 		jailTable.put(p, false);

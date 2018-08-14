@@ -108,7 +108,7 @@ public class Stamp implements Serializable{
 	 * A fully fleshed out Stamp that applied a border, engraving, and style
 	 * @param e Any char value. Preferably UTF-8 compatible
 	 * @param s int value that is a multiple of 1,2,3, or 5. Defines the engraving's Italics, Bolded, and Underlined status
-	 * @param bint
+	 * @param bint short for Border int, this is the value that defines the border
 	 */
 	public Stamp(char e, int s, int bint){
 		engraving = e;
@@ -253,7 +253,7 @@ public class Stamp implements Serializable{
 	/**
 	 * A non static method that calls the static {@link #makeBorder(int)}
 	 * by passing in the Stamp object's border value
-	 * @return
+	 * @return Border - the generated MatteBorder based on the border value
 	 */
 	public Border makeBorder(){
 		return makeBorder(border);

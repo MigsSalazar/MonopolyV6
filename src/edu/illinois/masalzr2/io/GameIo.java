@@ -42,7 +42,7 @@ public class GameIo {
 	
 	/**
 	 * @deprecated
-	 * @param args
+	 * @param args No arguments are accepted or utilized. Pass in whatever you want, the main doesn't use them
 	 */
 	public static void main(String[] args) {
 		//System.out.println("Testing if default game is corrupted or correct");

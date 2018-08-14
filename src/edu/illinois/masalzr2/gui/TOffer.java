@@ -77,9 +77,10 @@ public class TOffer extends JDialog implements ListSelectionListener{
 	/**
 	 * Default constructor. Requires the parent JFrame, a Player who
 	 * wishes to make an offer, and the Trade Manager object that called this JDialog
-	 * @param frame	parent JFrame
-	 * @param p		Player who wishes to make an offer
-	 * @param tm	Trade Manager object that called this JDialog
+	 * @param frame		parent JFrame used as a reference point for any resulting containers
+	 * @param gv 		The Environment variable defining the game		
+	 * @param p			Player who wishes to make an offer
+	 * @param tm		Trade Manager object that called this JDialog
 	 */
 	public TOffer(JFrame frame, Environment gv, Player p, TradeManager tm){
 		super(frame, "Trade Manager - Step 2", true);
