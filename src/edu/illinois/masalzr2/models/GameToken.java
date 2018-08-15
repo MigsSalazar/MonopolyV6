@@ -9,6 +9,9 @@ import javax.swing.ImageIcon;
 
 import com.google.gson.annotations.Expose;
 
+import lombok.Getter;
+import lombok.Setter;
+
 
 public class GameToken implements Serializable{
 	
@@ -17,14 +20,16 @@ public class GameToken implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Expose private String pieceDir;
-	
-	private transient ImageIcon piece;
 	@Expose private int[] coords;
 	
-	@Expose private int team;
-	
-	@Expose private PositionIndex path;
+	@Getter @Setter 
+	private transient ImageIcon piece;
+	@Getter @Expose 
+	private PositionIndex path;
+	@Getter @Setter @Expose 
+	private int team;
+	@Getter @Setter @Expose
+	private String pieceDir;
 	
 	public static final transient Comparator<GameToken> TEAM_ORDER = new SortByTeam();
 	public static final transient Comparator<GameToken> ICON_ORDER = new SortByIcon();
@@ -43,7 +48,6 @@ public class GameToken implements Serializable{
 		
 	}
 	
-	
 	public int getX(){
 		return coords[1];
 	}
@@ -52,31 +56,11 @@ public class GameToken implements Serializable{
 		return coords[0];
 	}
 	
-	public void setTeam(int t){
-		team = t;
-	}
-	
-	public int getTeam(){
-		return team;
-	}
-	
-	public ImageIcon getPiece(){
-		return piece;
-	}
-	
-	public String getPieceDir() {
-		return pieceDir;
-	}
-	
 	public void movePiece(int m){
 		if(path.isLocked()){
 			return;
 		}
 		coords = path.move(m);
-	}
-	
-	public PositionIndex getPath(){
-		return path;
 	}
 	
 	public boolean giveIconPath(String dir){

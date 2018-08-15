@@ -4,23 +4,30 @@ import java.io.Serializable;
 
 import com.google.gson.annotations.Expose;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class PositionIndex implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Expose private int[] x;
-	@Expose private int[] y;
+	@Expose 
+	private int[] x;
+	@Expose 
+	private int[] y;
 	
-	@Expose private int[] specialX;
-	@Expose private int[] specialY;
+	@Expose 
+	private int[] specialX;
+	@Expose 
+	private int[] specialY;
 	
-	@Expose private int step;
+	@Getter @Setter @Expose 
+	private int step;
 	
-	@Expose private boolean locked;
-	
-	
+	@Getter @Setter @Expose 
+	private boolean locked;
 	
 	public PositionIndex(){
 		x = new int[1];
@@ -62,22 +69,6 @@ public class PositionIndex implements Serializable{
 		step = 0;
 		
 		locked = false;
-	}
-	
-	public boolean isLocked(){
-		return locked;
-	}
-	
-	public void setLocked( boolean  l ){
-		locked = l;
-	}
-	
-	public int getStep(){
-		return step;
-	}
-	
-	public void setStep(int s){
-		step = s;
 	}
 	
 	public int[] moveOne(){

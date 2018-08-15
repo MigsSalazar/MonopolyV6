@@ -221,7 +221,7 @@ public class GameIo {
 			}
 			
 			for(Railroad r : tempVars.getRails().values()) {
-				r.setRailedOwned(railCount);
+				r.setRailsOwned(railCount);
 				if(r.getOwner() != null && !r.getOwner().equals("")) {
 					railCount.add(1);
 				}
@@ -230,8 +230,8 @@ public class GameIo {
 			}
 			
 			for(Utility u : tempVars.getUtils().values()) {
-				u.setCounter(utilCount);
-				u.setDice(tempVars.getDice());
+				u.setUtilityOwned(utilCount);
+				u.setGameDice(tempVars.getDice());
 				if(u.getOwner()!=null && !u.getOwner().equals("")) {
 					utilCount.add(1);
 				}

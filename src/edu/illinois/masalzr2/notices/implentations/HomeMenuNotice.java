@@ -36,8 +36,8 @@ public class HomeMenuNotice extends HighLevelNotice {
 				currentPlayer = gameVars.getCurrentPlayer();
 				
 				int roll = gameVars.roll();
-				int dice1 = gameDice.getLastDice()[0];
-				int dice2 = gameDice.getLastDice()[1];
+				int dice1 = gameDice.getDice()[0];
+				int dice2 = gameDice.getDice()[1];
 				
 				crossGo(roll);
 				

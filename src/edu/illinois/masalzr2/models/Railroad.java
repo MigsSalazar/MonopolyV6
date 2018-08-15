@@ -7,13 +7,17 @@ import javax.swing.event.ChangeListener;
 
 import com.google.gson.annotations.Expose;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class Railroad extends Property implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Expose private Counter railsOwned;
+	@Getter @Setter @Expose 
+	private Counter railsOwned;
 	
 	public Railroad(String n, int pos, int pr, String o, boolean m, ArrayList<ChangeListener> listen){
 		super(n, pos, pr, o, m, listen);
@@ -32,14 +36,7 @@ public class Railroad extends Property implements Serializable{
 		}
 		super.setOwner(p);
 		fireChange();
-	}
 	
-	public Counter getRailsOwned(){
-		return railsOwned;
-	}
-	
-	public void setRailedOwned(Counter c){
-		railsOwned = c;
 	}
 	
 	@Override

@@ -207,7 +207,7 @@ public class UpgradeManager extends JDialog implements ActionListener, ItemListe
 		
 		for(Suite s : suites.values()){
 			if(s.isMonopolized(player) && s.isBuildable()){
-				heldSuites.add(s.getColor());
+				heldSuites.add(s.getColorName());
 			}
 		}
 		if(heldSuites.size() > 0){
@@ -492,7 +492,7 @@ public class UpgradeManager extends JDialog implements ActionListener, ItemListe
 			return;
 		}
 		//currSuite = suites.get(nextSuite);
-		if(!currSuite.getColor().equals(suites.get(nextSuite).getColor())){
+		if(!currSuite.getColorName().equals(suites.get(nextSuite).getColorName())){
 			currSuite = suites.get(nextSuite);
 			List<Street> temp = currSuite.sortedByPosition();
 			setTextButtonsToDefault();

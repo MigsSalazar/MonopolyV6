@@ -7,6 +7,9 @@ import javax.swing.event.ChangeListener;
 
 import com.google.gson.annotations.Expose;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class Utility extends Property implements Serializable{
 	
 	/**
@@ -14,7 +17,9 @@ public class Utility extends Property implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Expose private Counter utilityOwned;
+	@Getter @Setter @Expose 
+	private Counter utilityOwned;
+	@Getter @Setter 
 	private Dice gameDice;
 	
 	public Utility(String n, int pos, int pr, String o, boolean m, ArrayList<ChangeListener> listen){
@@ -40,18 +45,6 @@ public class Utility extends Property implements Serializable{
 	public int getRent(){
 		int mod = (utilityOwned.getCount()==1)?4:10;
 		return mod * gameDice.getLastRoll();
-	}
-	
-	public void setDice(Dice d){
-		gameDice = d;
-	}
-	
-	public Counter getCounter() {
-		return utilityOwned;
-	}
-	
-	public void setCounter(Counter c){
-		utilityOwned = c;
 	}
 	
 }

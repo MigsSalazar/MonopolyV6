@@ -9,6 +9,9 @@ import javax.swing.event.ChangeListener;
 
 import com.google.gson.annotations.Expose;
 
+import lombok.Getter;
+import lombok.Setter;
+
 
 public class Property implements Serializable{
 
@@ -16,12 +19,18 @@ public class Property implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Expose protected String name;
-	@Expose protected int position;
-	@Expose protected int price;
-	@Expose protected String owner = "";
-	@Expose protected boolean mBool;
-	@Expose protected int color;
+	@Getter @Setter @Expose 
+	protected String name;
+	@Getter @Setter @Expose 
+	protected int position;
+	@Getter @Setter @Expose 
+	protected int price;
+	@Getter @Expose 
+	protected String owner = "";
+	@Getter @Expose 
+	protected boolean mortgaged;
+	@Getter @Expose 
+	protected int color;
 	private ArrayList<ChangeListener> listeners;
 	
 	public transient static final Comparator<Property> POSITION_ORDER = new SortByPosition();
@@ -32,7 +41,7 @@ public class Property implements Serializable{
 		position = pos;
 		price = pr;
 		owner = o;
-		mBool = m;
+		mortgaged = m;
 		listeners = listen==null? new ArrayList<ChangeListener>() : listen;
 	}
 
@@ -41,37 +50,13 @@ public class Property implements Serializable{
 		position = -1;
 		price = 0;
 		owner = "";
-		mBool = false;
+		mortgaged = false;
 		color = 1;
 		listeners = new ArrayList<ChangeListener>();
 	}
 	
-	/**
-	 * Returns the name of the Property
-	 * @return 		String
-	 */
-	public String getName(){
-		return name;
-	}
-	
-	/**
-	 * The position of the Property determined by the distance away from GO going clockwise on the board
-	 * @return 		int value between 0-39
-	 */
-	public int getPosition(){
-		return position;
-	}
-	
-	/**
-	 * The price for a player to purchase this Property from the bank
-	 * @return 		int value of cash price
-	 */
-	public int getPrice(){
-		return price;
-	}
-	
 	public void setMBool(boolean mb){
-		mBool = mb;
+		mortgaged = mb;
 		fireChange();
 	}
 	
@@ -104,24 +89,12 @@ public class Property implements Serializable{
 		fireChange();
 	}
 	
-	public String getOwner(){
-		return owner;
-	}
-	
-	public boolean isMortgaged(){
-		return mBool;
-	}
-	
 	public int mortgageValue(){
 		return (price/2);
 	}
 	
 	public int getRent(){
 		return 0;
-	}
-	
-	public int getColor() {
-		return color;
 	}
 	
 	public void setColor(int c) {

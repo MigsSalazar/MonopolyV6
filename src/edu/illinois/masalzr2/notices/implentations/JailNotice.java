@@ -49,7 +49,7 @@ public class JailNotice extends HighLevelNotice {
 			an = new PlayerBankNotice(t, listener, currentPlayer, -50);
 		}else if(source.equals(actions[1]) ){
 			gameVars.roll();
-			int[] rolled = gameDice.getLastDice();
+			int[] rolled = gameDice.getDice();
 			t = "<html>You have rolled "+rolled[0]+" and "+rolled[1]+".<br>";
 			if(rolled[0] == rolled[1]) {
 				t += (turnsJailed < 3 ? "Your plea was successful! You're free to go!" : "You won your trial! You're free to go!");

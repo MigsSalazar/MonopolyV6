@@ -6,6 +6,9 @@ import java.util.List;
 
 import com.google.gson.annotations.Expose;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class Suite implements Serializable{
 	
 	/**
@@ -14,9 +17,12 @@ public class Suite implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private List<Street> streets;
-	@Expose private List<String> names;
-	@Expose private String colorName;
-	@Expose private int colorValue;
+	@Expose 
+	private List<String> names;
+	@Getter @Setter @Expose 
+	private String colorName;
+	@Getter @Setter @Expose 
+	private int colorValue;
 	
 	
 	/**
@@ -75,15 +81,6 @@ public class Suite implements Serializable{
 			names= new ArrayList<String>();
 		}
 		return names;
-	}
-	
-	/**
-	 * The String value of the color name. There is no set list of color names so the color can be real
-	 * or gibberish.
-	 * @return 			String - the passed in value of the Suite name
-	 */
-	public String getColor(){
-		return colorName;
 	}
 	
 	/**

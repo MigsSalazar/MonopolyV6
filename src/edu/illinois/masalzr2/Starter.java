@@ -34,12 +34,14 @@ public class Starter {
 	/**
 	 * Begins before the main to load an Exception handler and a logger
 	 * This is placed before anything in hopes that even without the main
-	 * being run, the logger and handler will still catch everything
+	 * being run, the logger and handler will still catch everything they can
 	 */
 	static{
+		//Creating and setting the exception handler
 		MonopolyExceptionHandler masterCatcher = new MonopolyExceptionHandler();
 		Thread.setDefaultUncaughtExceptionHandler(masterCatcher);
 		
+		//Beginning the log
 		LogMate.LOG.newEntry("Starter: static: beginning log");
 	
 	}
@@ -49,20 +51,33 @@ public class Starter {
 	 * @param args - an array of one String, the directory of an mns file. If no file is given, the game will start a new
 	 */
 	public static void main( String[] args ){
+		
+		//Checking if any arguments were passed
 		if(args.length > 0) {
+			
+			//Arguments confirmed
 			LogMate.LOG.newEntry("Starter: main: found multiple arguments");
 			int i=0;
+			//Looking for mns files
 			while( i<args.length && !args[i].endsWith(".mns") ) {
 				i++;
 			}
+			
+			//An mns file was found.
 			if(i < args.length) {
+				
+				//Retrieving file
 				File f = new File(args[i]);
 				if(f.exists()) {
+					
+					//Creating game from the pased path
 					GameIo.produceSavedGame(f).buildFrame();
 					return;
 				}
 			}
 		}
+		
+		//No arguments found or no mns files found. Starting PreGameFrame
 		LogMate.LOG.newEntry("Starter: main: creating PreGameFrame");
 		PreGameFrame pgf = new PreGameFrame();
 		LogMate.LOG.newEntry("Starter: main: Starting PreGameFrame");
@@ -75,6 +90,7 @@ public class Starter {
 	 * @param parent - The JOptionPane parent. Can be null
 	 */
 	public static void about(JFrame parent) {
+		//Displays the following text into the JOptionPane
 		String output =   "                          MONOPOLY V6"
 						+ "\n=============================="
 						+ "\nCAN'T GET THE GAME TO START? GO TO SETTINGS"
@@ -105,6 +121,7 @@ public class Starter {
 	 */
 	public static void instructionBook(JFrame parent) {
 		//TODO Create the instruction book
+		//Instruction book to come. Until then, just got docs for all y'all
 		try {
 			if(Desktop.isDesktopSupported()) {
 				Desktop.getDesktop().open( new File(System.getProperty("user.dir") + File.separator + "doc" + File.separator + "index.html" ) );
@@ -112,10 +129,12 @@ public class Starter {
 		}catch(IOException ioe) {
 			JOptionPane.showMessageDialog(parent, "Could no open Logs file. To access logs, go to:\n"+System.getProperty("user.dir")+File.separator+"logs");
 		}
+		/*
 		String output = "Currently working on an instruction book"
 				+ "of some sort. Please be patient. These take"
 				+ "some time ('^-^ )";
 		JOptionPane.showMessageDialog(parent, output);
+		*/
 	}
 	
 	/**

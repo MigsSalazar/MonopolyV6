@@ -111,7 +111,6 @@ public class Environment implements Serializable, ChangeListener {
 	@Expose private Counter houseCount;
 	@Expose private Counter hotelCount;
 	
-	private transient Timer time;
 	private Player goingBankrupt = null;
 	@Expose boolean fancyMoveEnabled;
 	
@@ -127,35 +126,48 @@ public class Environment implements Serializable, ChangeListener {
 	 * buildFrame also makes the JFrame visible thus begining the game
 	 */
 	public void buildFrame() {
+		//Define the File separator. Hopefully this doesn't mess with cross platform compatability
 		sep = File.separator;
+		
+		//Creating the jframe to be built upon
 		frame = new JFrame();
 		frame.setTitle("Monopoly!");
 		frame.setIconImage( (new ImageIcon( System.getProperty("user.dir")+sep+"resources"+sep+"frameicon.png" )).getImage() );
+		
+		//Defining a BorderLayout for the frame
 		BorderLayout bl = new BorderLayout();
 		bl.setHgap(8);
 		bl.setVgap(8);
 		frame.setLayout(bl);
+		
+		//Creating the Monopoly Specific JMenuBar
 		menuBar = new FrameMenu(this);
 		frame.setJMenuBar(menuBar);
+		
+		//Calls to build the board, or at least refresh it
 		buildBoard();
+		
+		//If this is a new game, notices is null. Otherwise, Notices and their chain of events are saved and restored in loaded files
 		if(notices == null) {
 			notices = new Notices(this);
 		}
+		
+		//Finds the player's icons on the board and stores them in a separate array
 		ImageIcon[] playerIcons = new ImageIcon[playerTokens.size()];
 		for(int i=0; i<playerID.size(); i++) {
 			playerIcons[i] = playerTokens.get(playerID.get(i).getName()).getPiece();
 		}
+		
+		//Defines the score board. This builds itself separately
 		scores = new Scoreboard(playerIcons, playerID, currency );
+		
+		//Adding all components and formatting the frame
 		frame.add(board.getBoard(), BorderLayout.CENTER);
 		frame.add(notices.getNoticePanel(), BorderLayout.SOUTH);
 		frame.add(scores.getScoreboard(), BorderLayout.EAST);
-		
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
-		
-		frame.setVisible(true);
-		
 		frame.addWindowListener(new WindowListener() {
 			@Override
 			public void windowActivated(WindowEvent arg0) {}
@@ -175,55 +187,82 @@ public class Environment implements Serializable, ChangeListener {
 			@Override
 			public void windowOpened(WindowEvent arg0) {}
 		});
+		
+		//Frame is visible and the game has started!
+		frame.setVisible(true);
 	}
 	
 	/**
 	 * Builds the largest JPanel in the frame, the game board by repopulating
 	 * and refreshing the ImageIcons for the stickers and game tokens as well as
-	 * applying the stamps to each board tile
+	 * applying the stamps to each board tile.
+	 * The board is a very needy GUI that needs to be told rather verbosely what to do
+	 * Such is the life of a controller class, but this allows the developer to micro
+	 * manage the board as needed. @see edu.illinois.masalzr2.gui.Board
 	 * 
 	 */
 	private void buildBoard() {
-		//LOG.append("building board;");
+		
+		//Defining a new board regardless if new or saved game in use
 		LOG.newEntry("GameVariables: buildBoard: Building game board");
 		board = new Board();
 		
+		//Setting the indexes of the imageicons to be used. Think for a paint-by-number coloring page. The Board uses the same concept
 		LOG.newEntry("GameVariables: buildBoard: Passing icons and numbers");
 		board.setIconNumbers(paintByNumbers);
+		
+		//Refreshes the ImageIcons used by the board
 		paintedIcons = new ImageIcon[icons.length];
-		//System.out.println("printing icons");
 		for(int i=0; i<icons.length; i++) {
-			//System.out.println(System.getProperty("user.dir") + sep + "textures" + sep + texture + sep + icons[i]);
 			paintedIcons[i] = new ImageIcon(System.getProperty("user.dir") + sep + "textures" + sep + icons[i]);
-			//System.out.println(paintedIcons[i] != null);
 		}
+		
+		//Sets the "colors" in the paint-by-number scheme. Each int in the paintByNumbers array is an index of the paintedIcons array
 		board.setIcons(paintedIcons);
 		
+		//Setting the sticker's indexes. The stickers use the same concept as the paint-by-numbers. Stickers, however, are expected to be moved/replaced/deleted
 		LOG.newEntry("GameVariables: buildBoard: Passing Stickers");
 		board.setStickerBook(stickerBook);
 		
+		//Refreshing the sticker ImageIcons
 		coloredStickers = new ImageIcon[stickers.length];
-		//System.out.println("printing stickers");
 		for(int i=0; i<stickers.length; i++) {
-			//System.out.println(System.getProperty("user.dir") + "textures" + sep + stickers[i]);
 			coloredStickers[i] = new ImageIcon(System.getProperty("user.dir") + sep + "textures" + sep + stickers[i]);
-			//System.out.println(coloredStickers[i]);
 		}
 		
+		//Gives the board all the stickers it needs
 		board.setStickers(coloredStickers);
 		
+		//Setting the stamps of the game. The paint-by-number scheme is NOT used here. Each board tile gets their own stamp object
 		LOG.newEntry("GameVariables: buildBoard: Passing stamps, dice, and dice assets");
 		board.setStamps(stampCollection);
 		
+		//Defines the dice icons to be used
 		board.setDiceIcons(paintedIcons[1], paintedIcons[2]);
 		
+		//Verbosely tells the board to turn the dice on
 		board.activateDice();
 		
+		//Sets the dice locations
 		board.setDiceLocations(7, 11, 7, 16);
 		
+		//Paints the display
 		LOG.newEntry("GameVariables: buildBoard: painting display and placing tokens");
 		board.paintDisplay();
+		
+		//Places the player tokens. Read more below. It's the next method
 		placeTokens();
+	}
+	
+	/**
+	 * Places each player icon on the board at the requested coordinates
+	 * according to the player's respective GameToken
+	 */
+	public void placeTokens() {
+		for(GameToken gt : playerTokens.values()) {
+			gt.refreshIcon();
+			board.addPiece(gt.getPiece(), gt.getX(), gt.getY());
+		}
 	}
 	
 	/**
@@ -231,13 +270,19 @@ public class Environment implements Serializable, ChangeListener {
 	 * and how many to apply.
 	 */
 	public void paintHousing() {
+		//Searches through the suites
 		for(Suite s : suites.values()) {
+			//Goes through each property in each suite ordered by position
 			for(Street st : s.sortedByPosition()) {
-				
+				//Grabs the propertie's position
 				int[] coords = propertyPositions.getCoordsAtStep(st.getPosition());
 				LogMate.LOG.newEntry("GameVariables: Paint Housing: Street "+st.getName()+" at position "+st.getPosition()+" with coord-x="+coords[0]+" and coord-y="+coords[1]);
+				
+				//Clears all instances of the house and hotel icons
 				board.removePiece(new ImageIcon("house"+st.getName()));
 				board.removePiece(new ImageIcon("hotel"+st.getName()));
+				
+				//Sets the grades on a case by case basis. The lack of break statements is intentional to allow the bleed through of cases where there would be redundant/repeated code
 				switch(st.getGrade()) {
 				case 5: board.addPiece(coloredStickers[1], "hotel"+st.getName()+"left", coords[1], coords[0]);
 						board.addPiece(coloredStickers[2], "hotel"+st.getName()+"right", coords[1], coords[0]+1);
@@ -259,12 +304,14 @@ public class Environment implements Serializable, ChangeListener {
 	 * @param num - max size of the players between 2 inclusive and 8 inclusive
 	 */
 	public void setParticipantSize(int num) {
+		//Checks if the num is within the range of allowed players
 		if( num < 2 || num > 8) {
 			return;
 		}
-		//System.out.println("num is "+num);
+		
+		//Truncates the lists to the desired size
+		//Any list not included doesn't need to be truncated
 		while(players.size() > num) {
-			//System.out.println("players size = "+players.size());
 			Player p = playerID.get(players.size()-1);
 			players.remove(p.getName());
 			playerID.remove(playerID.size()-1);
@@ -276,11 +323,19 @@ public class Environment implements Serializable, ChangeListener {
 	 * @return int - the sum of the two rolled dice
 	 */
 	public int roll(){
-		
+		//Yup, this rolls the dice... specifics? sure!
 		LOG.newEntry("GameVariables: roll: rolling dice");
+		//This rolls the dice!... The game dice... two dice get rolled... their sum is returned... the dice were rolled
 		gameDice.roll();
-		board.paintDice(gameDice.getLastDice()[0], gameDice.getLastDice()[1]);
+		
+		//Now we paint the dice!!!... On the board!... According to each single dice... now the players know what they rolled
+		board.paintDice(gameDice.getDice()[0], gameDice.getDice()[1]);
+		
+		//We return the sum... and uh... yeah... we rolled the dice... There we go... long roll function...
 		return gameDice.getLastRoll();
+		
+		
+		//Thats a squiggly bracket that ends the method... the roll is over... stop reading... move on!
 	}
 	
 	/**
@@ -317,40 +372,37 @@ public class Environment implements Serializable, ChangeListener {
 	 * @return boolean - true if succeeds and the player is found and jailed. False if at all otherwise
 	 */
 	public boolean jailPlayer(Player p){
+		
+		//Checking to make sure the player exists in the jailTable
 		LOG.newEntry("GameVariables: jailPlayer: player " + p.getName() + " has been jailed");
 		if(jailTable.get(p.getName()) == null ){
 			return false;
 		}
 		
+		//Sets the player's jail status to true
 		jailTable.put(p.getName(), true);
+		
+		//Resets any timer on the player's jail time so that they spend the full 3 turns
 		resetJail(p);
 		
+		//Places the player's token into jail
 		GameToken jailMe = playerTokens.get(p.getName());
+		
+		//"Locks" the player's game token. Note, the lock doesn't actually do/prevent anything within the object.
+		//It is up to the developer to define locked behavior
 		jailMe.setLocked(true);
-		/*
-		if(fancyMoveEnabled) {
-			while(time.isRunning()){
-				ActionListener al = time.getActionListeners()[0];
-				if(al instanceof TimerProcess) {
-					TimerProcess trueAl = (TimerProcess)al;
-					if( trueAl.getCount() <= 0) {
-						time.stop();
-					}else {
-						LogMate.LOG.newEntry("Jail Player: Timer is running: count="+trueAl.getCount()+" mod="+trueAl.getDirection()+" move="+trueAl.getMove());
-						trueAl.actionPerformed(null);
-					}
-				}
-			}
-		}
-		*/
 		
-		
+		//Sets the step of the player for when they get out of jail
 		jailMe.getPath().setStep(10);
+		
+		//Moves the player to their cell within jail
 		int[] newCoords = jailMe.useSpecialtyCase(0);
 		
+		//Moves the player piece to their jail cell
 		LOG.newEntry("GameVariables: jailPlayer: moving piece to jail cell");
 		board.movePiece(jailMe.getPiece(), newCoords[0], newCoords[1]);
 		
+		//All succeeded so returning true.
 		return true;
 	}
 	
@@ -359,6 +411,7 @@ public class Environment implements Serializable, ChangeListener {
 	 * @return Player - object representing the current player
 	 */
 	public Player getCurrentPlayer(){
+		//Looks for the current player defined by the turn
 		return playerID.get(turn%players.size());
 	}
 	
@@ -421,7 +474,8 @@ public class Environment implements Serializable, ChangeListener {
 			turn++;
 		}while( turnTable.get(turn%players.size()).isBankrupt() );
 		if(limitingTurns && turn >= (turnsLimit*players.size()) ) {
-			findWinnerId();
+			//Checks to see if the turn limit is set and has been reached. Ends the game if so
+			crownWealthiestWinner();
 		}
 	}
 	
@@ -442,17 +496,6 @@ public class Environment implements Serializable, ChangeListener {
 	public boolean isInJail(String p){
 		return jailTable.get(p);
 	}
-	
-	/**
-	 * Places each player icon on the board at the requested coordinates
-	 * according to the player's respective GameToken
-	 */
-	public void placeTokens() {
-		for(GameToken gt : playerTokens.values()) {
-			gt.refreshIcon();
-			board.addPiece(gt.getPiece(), gt.getX(), gt.getY());
-		}
-	}
 
 	/**
 	 * Incrementally moves the player one game tile at a time according to a Timer instance.
@@ -462,19 +505,27 @@ public class Environment implements Serializable, ChangeListener {
 	 * @param move - how far along on the board to move
 	 */
 	public void fancyPlayerMove(Player p, int move) {
+		//This method was an asshole. Be very Very VERY careful with this method. You want bugs? Look here
+		
+		//Confirms the player wants fancy moves
 		if( !fancyMoveEnabled ) {
+			//NO FANCY MOVE. TELEPORTING GAME PIECES TIME
+			
+			//Moves the player token but only the icon
 			visualMove(playerTokens.get(p.getName()), move);
+			
+			//Now we move the piece in the logic by setting the corresponding GameToken's step
 			playerTokens.get(p.getName()).movePiece(move);
 			return;
 		}
-		if(time == null) {
-			time = new Timer(100, null);
-		}
+		
+		//Tells the player what they rolled. This is here because if you have fancy move on, you want a slower game
+		//Otherwise this increases the number of clicks per turn needed
 		notices.pushMe(new ListEvent(new MessageNotice("You rolled a "+move, notices)));
+		
+		//Creates the TimerProcess which handles the actual move and starts it
 		TimerProcess tp = new TimerProcess(move, p);
 		tp.start();
-		//movePlayer(p, move);
-		
 	}
 	
 	/**
@@ -484,15 +535,17 @@ public class Environment implements Serializable, ChangeListener {
 	 * @param move - int value defining the distance to travel on the board
 	 */
 	private void visualMove(GameToken current, int move) {
-		
+		//Does nothing if the GameToken is locked
 		if(current.getPath().isLocked()) {
 			return;
 		}
-		
+		//Looks for the ImageIcon of the GameToken
 		ImageIcon piece = current.getPiece();
 		
+		//Looks for the new position of the GameToken keeping in mind the cyclical nature of the board such that the new step isn't nonexistent on the board
 		int[] coords = current.getPath().getCoordsAtStep( (move + current.getPath().getStep())%current.getPath().stepCount() );
 		
+		//Moves the piece on the board
 		board.movePiece(piece, coords[1], coords[0]);
 	}
 	
@@ -515,13 +568,17 @@ public class Environment implements Serializable, ChangeListener {
 	 * @param move - int the distance the piece needs to travel
 	 */
 	public void movePlayer(String p, int move){
+		//Flushes the log to the logfile
 		LogMate.LOG.flush();
+		
+		//Finds the current GameToken
 		GameToken current = playerTokens.get(p);
 		
+		//Sets the GameToken's new step/position
 		current.movePiece(move);
 		
+		//Visually moves the piece
 		visualMove(current, move);
-		
 	}
 	
 	/**
@@ -543,6 +600,7 @@ public class Environment implements Serializable, ChangeListener {
 	 * @return int - the number of nights spent in the jail
 	 */
 	public int nightInJail(String p) {
+		//Increments the turns spent in jail and returns that new value
 		jailTimes.put(p, jailTimes.get(p)+1);
 		return jailTimes.get(p);
 	}
@@ -581,20 +639,154 @@ public class Environment implements Serializable, ChangeListener {
 	 * @param p the name of the player to be released as a String
 	 */
 	public void releaseJailedPlayer(String p) {
+		
+		//Sets the player's jail status to false
 		jailTable.put(p, false);
 		
+		//Resets the player's jail timer
 		resetJail(p);
 		
 		LOG.newEntry("GameVariables: Release Jailed Player: player " + p+ " has been released from jail");
-		
+		//Unlocks the GameToken, sets the token's step to 10, and moves it by 0 to refresh the coordinates
 		GameToken jailMe = playerTokens.get(p);
 		
 		jailMe.setLocked(false);
 		jailMe.getPath().setStep(10);
 		jailMe.movePiece(0);
 		
+		//Moves the GameToken on the board
 		LOG.newEntry("GameVariables: Release Jailed Player: moving piece to visiting jail");
 		board.movePiece(jailMe.getPiece(), jailMe.getX(), jailMe.getY());
+	}
+	
+
+	/**
+	 * Sets the player's bankruptcy status to true and sells all of their properties in an
+	 * auction according to the Hasbro rules until all assets are sold. DOES NOT CHECK FOR
+	 * BANKRUPTCY. ASSUMES THE PLAYER IS BANKRUPT
+	 * @param p Player - player to bankrupt
+	 * @return int - the number of players remaining in the game. 
+	 */
+	private int bankruptPlayer(Player p) {
+		
+		//Sets the player's bankruptcy status
+		p.setBankrupt(true);
+		int count = 0;
+		int id = -1;
+		
+		//Looks for any players not bankrupt
+		for(int i=0; i<playerID.size(); i++) 
+			if(!playerID.get(i).isBankrupt()) {
+				count++;
+				id = i;
+			}
+		
+		//If only one player remains, that player is the winnner. Otherwise, the passed in bankrupt player is liquidated
+		//The chain of events is allowed to be finished but even if the player makes it out of debt, they are still bankrupt and still lost
+		if( count > 1 ) {
+			JOptionPane.showMessageDialog(frame, p.getName()+" has gone bankrupt! They have neither enough cash on hand or"
+												+ "\nliquidizable wealth to pay their debts. Anything left in the chain of events"
+												+ "\nwill be completed but any and all properties owned by "+p.getName()
+												+ "\nwill be put to auction and all must be sold.");
+			//Closes their bank account
+			p.setCash(0);
+			
+			//Gets all the player's properties to sell
+			Map<String, Property> props = p.getProps();
+			for(Property pr : props.values()) {
+				if(pr instanceof Street) {
+					//All Streets lose any houses or hotels
+					((Street) pr).setGrade(0);
+				}
+				//All properties are to be auctioned off
+				notices.pushMe(new ListEvent(pr));
+				//Removes the owner
+				p.removeProp(pr);
+			}
+		}else {
+			//Only one player is found remaining. Calling to end the game and returning the player's ID
+			notices.setGameOver(true);
+			return id;
+		}
+		//No winner found, player was bankrupt, and the game goes on
+		return -1;
+	}
+	
+	/**
+	 * Returns the player with the highest wealth and stunts the continuation
+	 * of the game once the current chain of events ends. 
+	 * @return int - id of the player with the most wealth
+	 */
+	private int crownWealthiestWinner() {
+		int wealth = 0;
+		int id = -1;
+		//Searches for the player with the greatest wealth
+		for(Player p : players.values()) {
+			if(wealth < p.getWealth()) {
+				wealth = p.getWealth();
+				id = p.getId();
+			}
+		}
+		//Tells the notices that the game is over and to prepare for a game over notice
+		notices.setGameOver(true);
+		return id;
+	}
+	
+	/**
+	 * Determines how the game ended and parses the according GameOverNotice
+	 * @return GameOverNotice - a dead end notice know who won and why
+	 */
+	public GameOverNotice getWinner() {
+		if(turn >= turnsLimit*players.size()) {
+			//A player limit is found. Finding wealthiest player
+			return new GameOverNotice(notices, playerID.get(crownWealthiestWinner()), true);
+		}else {
+			//Game is over because of bankrupt players. The wealthiest player is the only one not bankrupt
+			return new GameOverNotice(notices, playerID.get(crownWealthiestWinner()), false);
+		}
+	}
+
+	/**
+	 * Determines if the player lost the game or can sell assets until they are
+	 * out of debt and then forces the player to do so.
+	 * @param p The player who has either lost (gone bankrupt) or can survive after liquidation
+	 */
+	private void playerIsSalvageable(Player p) {
+		//Assumes the player has the wealth to pay their debts
+		while(p.getCash() <= 0) {
+			
+			//Cycles while player cash is not enough
+			String[] options = {"Downgrade", "Mortgage"};
+			
+			//Asks player to liquidate their assets
+			int picked = JOptionPane.showOptionDialog(frame, 
+					p.getName()+" does not have enough cash on hand."
+							+ "\nSell your assets until you can pay off your debt"
+							+ "\nof "+currency+p.getCash(), 
+					"Liquidate", 
+					JOptionPane.DEFAULT_OPTION, 
+					JOptionPane.WARNING_MESSAGE, 
+					null, 
+					options, 
+					null);
+			
+			//Runs the selected manager
+			if(picked != JOptionPane.CANCEL_OPTION) {
+				switch(options[picked]) {
+				case "Downgrade": UpgradeManager um = new UpgradeManager(this, p);
+					um.beginManager();
+					break;
+				case "Mortgage": MortgageManager mm = new MortgageManager(this, p);
+					mm.beginManager();
+					break;
+				}
+			}
+			
+			//If not enough has been sold, the player is told so
+			if(p.getCash() <= 0) {
+				JOptionPane.showMessageDialog(null, "You have not sold enough assets!\nRemaining balance: "+currency+p.getCash());
+			}
+		}
 	}
 	
 	/**
@@ -603,32 +795,35 @@ public class Environment implements Serializable, ChangeListener {
 	 * to generate the more complex needed variables
 	 */
 	public void buildCleanGame() {
+		//set the save file and
 		saveFile = new File(System.getProperty("user.dir")+sep+"resources"+sep+"packages"+sep+"default.mns");
+		
+		//Requests fresh players and refreshes the ofhter collections
 		players = TemplateEnvironment.definePlayers();
 		refreshPlayerCollections();
 		
+		//Initializes the values manipulated by Settings
 		fancyMoveEnabled = true;
-		
 		turn = 0;
 		limitingTurns = false;
 		turnsLimit = 10;
-		
 		currency = "$";
 		texture = "default";
+		
+		//Defining the games Counter objects
 		houseCount = new Counter(0, 33, 0);
 		hotelCount = new Counter(0, 13, 0);
-		
-		gameDice = new Dice(6,2);
-		
-		// Rails(4) + utility(2) + 22(streets) = 28
-		
 		railCount = new Counter(0,5,0);
 		utilCount = new Counter(0,3,0);
 		
-		properties = TemplateEnvironment.defineProps(railCount, utilCount, gameDice);
+		//Making the game dice
+		gameDice = new Dice(6,2);
 		
+		//Requesting fresh properties and refreshing the collection
+		properties = TemplateEnvironment.defineProps(railCount, utilCount, gameDice);
 		refreshPropertyCollections();
 		
+		//Requesting the remaining collections
 		suites = TemplateEnvironment.defineSuites(properties);
 		propertyPositions = TemplateEnvironment.definePropPositions();
 		playerTokens = TemplateEnvironment.definePlayerTokens(playerID);
@@ -641,6 +836,7 @@ public class Environment implements Serializable, ChangeListener {
 		stickerBook = TemplateEnvironment.stickerBook();
 		stickers = TemplateEnvironment.getStickers();
 		
+		//Refreshing all ImageIcons
 		refreshAllImages();
 	}
 	
@@ -649,8 +845,11 @@ public class Environment implements Serializable, ChangeListener {
 	 * images from their paths
 	 */
 	public void refreshAllImages() {
+		//Setting the sizes for paintedIcons and coloredStickers
 		paintedIcons = new ImageIcon[icons.length];
 		coloredStickers = new ImageIcon[stickers.length];
+		
+		//Finding the Images according to the texture directory and files names
 		for(int i=0; i< icons.length; i++) {
 			paintedIcons[i] = new ImageIcon(System.getProperty("user.dir") + sep + "textures" + sep + texture + sep + icons[i]);
 			LogMate.LOG.newEntry(System.getProperty("user.dir") + sep + "textures" + sep + texture + sep + icons[i]);
@@ -666,8 +865,8 @@ public class Environment implements Serializable, ChangeListener {
 	 * and populates the {@link #propertyPos} map
 	 */
 	public void refreshPropertyCollections() {
+		//Populating the propertyPos map
 		propertyPos = new HashMap<Integer, Property>();
-		
 		for(Property p : properties.values()){
 			propertyPos.put(p.getPosition(), p);
 			
@@ -680,6 +879,7 @@ public class Environment implements Serializable, ChangeListener {
 	 * maps as well calling {@link #playerID} and {@link #turnTable} to be sorted by ID
 	 */
 	public void refreshPlayerCollections() {
+		//Initializing and populating all player collections
 		playerID = new ArrayList<Player>();
 		turnTable = new ArrayList<Player>();
 		jailTable = new HashMap<String, Boolean>();
@@ -692,7 +892,7 @@ public class Environment implements Serializable, ChangeListener {
 			turnTable.add(noob);
 			noob.addChangeListener(this);
 		}
-		
+		//Sorts the two lists as needed
 		playerID.sort(Player.ID_ORDER);
 		turnTable.sort(Player.ID_ORDER);
 		
@@ -707,15 +907,24 @@ public class Environment implements Serializable, ChangeListener {
 	 */
 	@Override
 	public void stateChanged(ChangeEvent e) {
-		
+		//Used for bankruptcy
 		if(e.getSource() instanceof Player) {
+			//Player was found to cause the stateChanged
 			Player p = (Player)e.getSource();
+			
+			//The bankruptcy fires many stateChanged calls. This prevents a recursive loop
+			//by checking if the passed player is currently being worked on
 			if(p.equals(goingBankrupt)) {
 				return;
 			}
+			
+			//Gets cash
 			int cash = p.getCash();
 			if(cash <= 0 ) {
+				
+				//Sets goingBankrupt to the passed player to prevent recursive loop (remove this I dare you. See what happens)
 				goingBankrupt = p;
+				//Checks if the player is completely bankrupt or not
 				if( p.getLiquidationWorth() + cash > 0 ) {
 					playerIsSalvageable(p);
 				}else {
@@ -724,109 +933,10 @@ public class Environment implements Serializable, ChangeListener {
 			}
 			
 		}
+		//Restarts the goingBankrupt pointer for future use
 		goingBankrupt = null;
 	}
 	
-	/**
-	 * Sets the player's bankruptcy status to true and sells all of their properties in an
-	 * auction according to the Hasbro rules until all assets are sold
-	 * @param p Player - player to bankrupt
-	 * @return int - the number of players remaining in the game. 
-	 */
-	private int bankruptPlayer(Player p) {
-		p.setBankrupt(true);
-		int count = 0;
-		int id = -1;
-		
-		for(int i=0; i<playerID.size(); i++) 
-			if(!playerID.get(i).isBankrupt()) {
-				count++;
-				id = i;
-			}
-		if( count > 1 ) {
-			JOptionPane.showMessageDialog(frame, p.getName()+" has gone bankrupt! They have neither enough cash on hand or"
-												+ "\nliquidizable wealth to pay their debts. Anything left in the chain of events"
-												+ "\nwill be completed but any and all properties owned by "+p.getName()
-												+ "\nwill be put to auction and all must be sold.");
-			p.setCash(0);
-			Map<String, Property> props = p.getProps();
-			for(Property pr : props.values()) {
-				if(pr instanceof Street) {
-					((Street) pr).setGrade(0);
-				}
-				notices.pushMe(new ListEvent(pr));
-				p.removeProp(pr);
-			}
-		}else {
-			notices.setGameOver(true);
-			return id;
-		}
-		return -1;
-	}
-	
-	/**
-	 * Returns the player with the highest wealth and stunts the continuation
-	 * of the game once the current chain of events ends
-	 * @return
-	 */
-	private int findWinnerId() {
-		int wealth = 0;
-		int id = -1;
-		for(Player p : players.values()) {
-			if(wealth < p.getWealth()) {
-				wealth = p.getWealth();
-				id = p.getId();
-			}
-		}
-		notices.setGameOver(true);
-		return id;
-	}
-	
-	/**
-	 * Determines how the game ended and parses the according GameOverNotice
-	 * @return GameOverNotice - a dead end notice know who won and why
-	 */
-	public GameOverNotice getWinner() {
-		if(turn >= turnsLimit*players.size()) {
-			return new GameOverNotice(notices, playerID.get(findWinnerId()), true);
-		}else {
-			return new GameOverNotice(notices, playerID.get(findWinnerId()), false);
-		}
-	}
-
-	/**
-	 * Determines if the player lost the game or can sell assets until they are
-	 * out of debt and then forces the player to do so.
-	 * @param p The player who has either lost (gone bankrupt) or can survive after loquidation
-	 */
-	private void playerIsSalvageable(Player p) {
-		while(p.getCash() <= 0) {
-			String[] options = {"Downgrade", "Mortgage"};
-			int picked = JOptionPane.showOptionDialog(frame, 
-					p.getName()+" does not have enough cash on hand."
-							+ "\nSell your assets until you can pay off your debt"
-							+ "\nof "+currency+p.getCash(), 
-					"Liquidate", 
-					JOptionPane.DEFAULT_OPTION, 
-					JOptionPane.WARNING_MESSAGE, 
-					null, 
-					options, 
-					null);
-			if(picked != JOptionPane.CANCEL_OPTION) {
-				switch(options[picked]) {
-				case "Downgrade": UpgradeManager um = new UpgradeManager(this, p);
-					um.beginManager();
-					break;
-				case "Mortgage": MortgageManager mm = new MortgageManager(this, p);
-					mm.beginManager();
-					break;
-				}
-			}
-			if(p.getCash() <= 0) {
-				JOptionPane.showMessageDialog(null, "You have not sold enough assets!\nRemaining balance: "+currency+p.getCash());
-			}
-		}
-	}
 	
 	/**
 	 * A wrapper subclass that micro-manages the fancy move process while also
@@ -862,12 +972,15 @@ public class Environment implements Serializable, ChangeListener {
 		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//System.out.println("Time clicked");
+			//Calls for a visual move
 			LogMate.LOG.newEntry("FancyPlayerMove: team="+current.getTeam()+" count="+count+" mod="+direction+" move="+move+" position="+current.getPath().getStep());
 			visualMove(current, direction);
+			//logically moves the piece
 			current.movePiece(direction);
+			//increments the number of steps remaining
 			count--;
 			if( count <= 0 ) {
+				//kills timer once done
 				ticker.stop();;
 			}
 		}
