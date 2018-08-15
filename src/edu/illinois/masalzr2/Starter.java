@@ -77,6 +77,9 @@ public class Starter {
 	public static void about(JFrame parent) {
 		String output =   "                          MONOPOLY V6"
 						+ "\n=============================="
+						+ "\nCAN'T GET THE GAME TO START? GO TO SETTINGS"
+						+ "\nAND SELECT \"CLEAN\" AND RE-IMPORT ANY"
+						+ "\nTEXTURES YOU WISH TO USE, THEN PLAY ON."
 						+ "\nhis Monopoly was made my Miguel Salazar."
 						+ "\nMonopoly is owned by Hasbro. No money was"
 						+ "\nmade off this project. No donations of"
