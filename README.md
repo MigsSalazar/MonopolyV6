@@ -2,6 +2,9 @@
 My renditions of the classic board game typically written in java
 This is version 6 and the first version made with Maven
 
+## Disclaimer
+All rights belong to Hasbro. This project was made as an educational/practice project with no objectives to sell or distribute for any monetary gain. This is a personal project to challenge myself and as something to add to a potential portfolio of private work. 
+
 ## Getting Started
 Languages: Java
 Required: Maven, Project Lombok, Gson, JUnit
@@ -23,7 +26,7 @@ brew install maven
 ```
 #### For Windows
 ---
-Just use an IDE that can support it like InteliJ or Eclipse.
+Just use an IDE that can support it like InteliJ or Eclipse. 
 
 ### Installing
 ##### Local Deployment
@@ -48,6 +51,10 @@ Monopoly-1.0-SNAPSHOT-jar-with-dependencies.jar
 Before running the jar, you must ensure that the logs, errorlogs, resources, saves, and textures folders
 are in the same folder as the jar-with-dependencies. After that, run it like you would any application. 
 Double click and play away.
+
+Otherwise, if you have Eclipse, you can import it, right click the project > export > Java > Runnable Jar File > set "Launch configuration" to "MonopolyV6 - MonopolyV6" or "Starter - MonopolyV6", set your export destination, under "Library handling" select "Package required libraries into generated Jar", DON'T save as an ANT script, and press finish. Just like above, make sure the needed folders are in the same directory as the jar file.
+
+If you don't want to/can't do literally any of this, I understand and a (potentially outdated) jar file is provided in the main directory amongst the needed resources and folders so it can be started "right out of the box". Depending on how well I made this, however, could have varying results depending on your operating system. But this is Java... so it should work.
 
 ## Built With
  * [Maven](https://maven.apache.org/) - For project and dependency Management
