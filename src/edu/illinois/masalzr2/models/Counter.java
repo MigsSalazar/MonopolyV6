@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class Counter implements Serializable{
-	
 	/**
 	 * 
 	 */
