@@ -17,49 +17,52 @@ import lombok.Data;
 
 /**
  * A model class used to define simple graphics options to be applied to
- * JLabel or JButtons @see javax.swing.JLabel @see javax.swing.JButton
- * 
- * There are two characteristics that are manipulated by stamps:
- *  - The JLabel or JButton's border
- *  - The JLabel's or JButton's text
- *  
+ * JLabel or JButtons, both found in the javax.swing package.<br>
+ * <br>
+ * There are two characteristics that are manipulated by stamps:<br>
+ *  - The JLabel or JButton's border<br>
+ *  - The JLabel's or JButton's text<br>
+ *  <br>
  *  The border is defined by an integer value that is a multiple of some
  *  combination of the first four prime numbers 2,3,5,7 (1 is not considered
  *  a prime). Each prime factor marks a different side of the border to be
  *  included as noted below when multiplied to the border value:
+ *  <pre>
  *  
  *              2 - NORTH
  *              _ 
  *  WEST - 7   |_|   3 - EAST
  *  
  *              5 - SOUTH
- * 
+ * </pre>
  * For example, to create a JLabel or JButton with only a NORTH and SOUTH border,
  * apply a Stamp with a border int value = 2x5 = 10. To include an EAST border,
- * multiple the value by 3 to get 2x5x3 = 10x3 = 30.
- * 
- * A value of 1 defines that there is no border
- * 
+ * multiply the value by 3 to get 2 x 5 x 3 = 10 x 3 = 30.<br>
+ * <br>
+ * A value of 1 defines that there is no border.<br>
+ * <br>
  * The text characteristics are handled with two values, are char called the
  * engraving and the int called the style. A char is used because, typically
  * in a game of Monopoly, the board tiles are only large enough to hold one
  * character at a time. The style value defines whether or not the engraving
  * is italicized, bolded, or underlined in much the same was as the border
  * value where the primes used are the first three (2, 3, and 5) and define
- * the style in the way below:
- * 
- * 	2 - Underlined
- *  3 - Italics
- *  5 - Bolded
- * 
- * A value of 1 defined that the engraving needs no special styles
- * 
- * FOOT NOTE FOR THE MATHEMATICALLY INTRIGUED
+ * the style in the way below:<br>
+ * <br>
+ * 	2 - Underline<br>
+ *  3 - Italics<br>
+ *  5 - Bold<br>
+ * <br>
+ * A value of 1 defines an engraving of no styles. Generally recommended to
+ * use a bold (5) style as is very small on the board and thus can be difficult
+ * to see otherwise.<br>
+ * <br>
+ * FOOT NOTE FOR THE MATHEMATICALLY INTRIGUED<br>
  * A non-sequitur here, this design choice was inspired by the Fundamental
  * Theorem of Arithmetic which states that "every integer greater than 1 either 
  * is prime itself or is the product of a unique combination of prime numbers"
  * which guarantees that each border and style combination is defined if only
- * the above primes are the only values used and are used once and only once
+ * the above primes are used and are used only once
  * 
  * @author Miguel Salazar
  *

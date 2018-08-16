@@ -39,6 +39,15 @@ import edu.illinois.masalzr2.templates.TemplateEnvironment;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * A (hopefully) intuitive GUI meant for players to define their game rules
+ * and settings. Also provides a series of links for further help. Developers
+ * should look to this GUI for a GitHub link, instruction guide on how to make
+ * textures, and where to then import those textures
+ * 
+ * @author Miguel Salazar
+ *
+ */
 public class Settings implements ActionListener, ListSelectionListener {
 	
 	private String sep = File.separator;
@@ -78,6 +87,13 @@ public class Settings implements ActionListener, ListSelectionListener {
 	private boolean limitedTurns;
 	private int turnsLimited;
 	
+	/**
+	 * Defines some primitive settings and sets the reference JFrame
+	 * @param p JFrame parent. The reference point for the JDialog
+	 * @param lt short for limitedTurns, boolean defining if the game has a turn cap for a shorter game or not
+	 * @param tl short for turnsLimited, int value defining the number of turns the game is limited to. This
+	 * number is ignored when limitedTurns is false
+	 */
 	public Settings(JFrame p, boolean lt, int tl) {
 		parent = p;
 		limitedTurns = lt;
@@ -85,12 +101,18 @@ public class Settings implements ActionListener, ListSelectionListener {
 		defineDialog();
 	}
 	
+	/**
+	 * Packs, formats, and shows the JDialog
+	 */
 	public void start() {
 		dialog.pack();
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialog.setVisible(true);
 	}
 	
+	/**
+	 * Defines components and the layout before adding them to the JDialog
+	 */
 	private void defineDialog() {
 		top = new JPanel();
 		top.setLayout(new BoxLayout(top, BoxLayout.PAGE_AXIS));
@@ -117,6 +139,9 @@ public class Settings implements ActionListener, ListSelectionListener {
 		
 	}
 	
+	/**
+	 * Defines the bottom selection box containing all the texture names 
+	 */
 	private void defineTextureSelect(){
 		
 		TitledBorder title = BorderFactory.createTitledBorder("Texture Selection");
@@ -142,6 +167,10 @@ public class Settings implements ActionListener, ListSelectionListener {
 		texturePanel.add(textureSelect, BorderLayout.CENTER);
 	}
 
+	/**
+	 * Searches for packaged mns files in the textures selector. If none are showing,
+	 * click "Clean" to include the default texture or import a texture.
+	 */
 	private void updateTextures() {
 		textModel.removeAllElements();
 		paths.clear();
@@ -161,6 +190,10 @@ public class Settings implements ActionListener, ListSelectionListener {
 		}
 	}
 	
+	/**
+	 * Top panel for game impacting settings besides textures. Included settings are
+	 * the currency symbol, the turn limit, and if the turn limit is used
+	 */
 	private void defineGameSets() {
 		TitledBorder gameTitle = BorderFactory.createTitledBorder("Game Settings");
 		gameSets = new JPanel();
@@ -189,6 +222,10 @@ public class Settings implements ActionListener, ListSelectionListener {
 		gameSets.add(fancyMove);
 	}
 	
+	/**
+	 * Panel made with developers in mind. Links to the GitHub repo and documentation
+	 * as well as opening the logs folders.
+	 */
 	private void defineDocumentation() {
 		TitledBorder docTitle = BorderFactory.createTitledBorder("Documentation");
 		
@@ -210,6 +247,10 @@ public class Settings implements ActionListener, ListSelectionListener {
 		documentation.add(gitHub);
 	}
 	
+	/**
+	 * The texture focused panel used to regenerate the default mns file, generate
+	 * json for texture development, and import textures with jsons
+	 */
 	private void defineTextureSets() {
 		TitledBorder textTitle = BorderFactory.createTitledBorder("Import Textures");
 		
@@ -231,25 +272,51 @@ public class Settings implements ActionListener, ListSelectionListener {
 		textureSets.add(clean);	
 	}
 	
+	/**
+	 * Returns the selected status directly from the checkbox
+	 * @return boolean - true if the game has a turn limit, false if the game can go on indefinitely
+	 */
 	public boolean isTurnsLimited() {
 		return turnLimitOn.isSelected();
 	}
 	
+	/**
+	 * Returns the turn cap defined by the Spinner model.
+	 * This value will be ignored/unused by the game if the game is not capping turns
+	 * @return int - number of turns given to each player
+	 */
 	public int getTurnLimit() {
 		return (Integer)model.getValue();
 	}
 	
+	/**
+	 * The currency symbol to be used throughout the game.
+	 * Gotten directly from the JComboBox
+	 * @return String - the currency symbol
+	 */
 	public String getCurrency() {
 		return (String)currency.getSelectedItem();
 	}
 	
+	/**
+	 * Gotten directly from the checkbox, enables or disables the fancy move.
+	 * @return true if pieces move one game tile at a time, false if they just teleport to their location
+	 */
 	public boolean isFancyMoveEnabled() {
 		return fancyMove.isSelected();
 	}
 	
+	//Kinda getting border of writing documentation. Find the easter eggs I put in here
+	
+	/**
+	 * This does something different for each component defined within the Dialog. The buttons
+	 * are hopefully intuitive and obvious in what they do. The only two of note is the import
+	 * which opens a JFileChooser in search of a json to import and the "Generate Json" button
+	 * which... well... generates a json file and saves it to default texture folder under
+	 * (home.dir)/textures/default as "defaultgmae.json"
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		Object source = e.getSource();
 		//System.out.println(source.toString());
 		if( source.equals(turnLimitOn) ) {
@@ -305,6 +372,10 @@ public class Settings implements ActionListener, ListSelectionListener {
 		}
 	}
 
+	/**
+	 * Listens for changes to the selection in the bottom of the GUI. Immediately updates
+	 * the texture but does not load the resources to memory
+	 */
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		Object source= e.getSource();

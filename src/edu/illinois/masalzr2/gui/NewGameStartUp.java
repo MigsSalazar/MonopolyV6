@@ -30,7 +30,6 @@ import javax.swing.event.ChangeListener;
 import edu.illinois.masalzr2.models.GameToken;
 
 
-@SuppressWarnings("serial")
 public class NewGameStartUp implements ActionListener, ChangeListener, KeyListener{
 	
 	private JDialog dialog;
@@ -341,6 +340,10 @@ public class NewGameStartUp implements ActionListener, ChangeListener, KeyListen
 
 	private class IndexJButton extends JButton{
 
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		private int index;
 
 		public IndexJButton(ImageIcon icon, int i){
