@@ -73,7 +73,7 @@
       "position": 23,
       "price": 220,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": -65536
     },
     "St. Charles Place": {
@@ -91,7 +91,7 @@
       "position": 11,
       "price": 140,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": -20561
     },
     "New York Ave.": {
@@ -109,7 +109,7 @@
       "position": 19,
       "price": 200,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": -14336
     },
     "States Ave.": {
@@ -127,7 +127,7 @@
       "position": 13,
       "price": 140,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": -20561
     },
     "Oriental Ave.": {
@@ -145,7 +145,7 @@
       "position": 6,
       "price": 100,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": -16711681
     },
     "North Carolina Ave.": {
@@ -163,7 +163,7 @@
       "position": 32,
       "price": 300,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": -16711936
     },
     "Park Place": {
@@ -181,7 +181,7 @@
       "position": 37,
       "price": 350,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": -16776961
     },
     "Board Walk": {
@@ -199,7 +199,7 @@
       "position": 39,
       "price": 400,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": -16776961
     },
     "Tennessee Ave.": {
@@ -217,7 +217,7 @@
       "position": 18,
       "price": 180,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": -14336
     },
     "Baltic Ave.": {
@@ -235,7 +235,7 @@
       "position": 3,
       "price": 60,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": -65281
     },
     "Mediterranean Ave.": {
@@ -253,7 +253,7 @@
       "position": 1,
       "price": 60,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": -65281
     },
     "Pacific Ave.": {
@@ -271,7 +271,7 @@
       "position": 31,
       "price": 300,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": -16711936
     },
     "Connecticut Ave.": {
@@ -289,7 +289,7 @@
       "position": 9,
       "price": 120,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": -16711681
     },
     "Pennsylvania Ave.": {
@@ -307,7 +307,7 @@
       "position": 34,
       "price": 320,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": -16711936
     },
     "Illinois Ave.": {
@@ -325,7 +325,7 @@
       "position": 24,
       "price": 240,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": -65536
     },
     "Kentucky Ave.": {
@@ -343,7 +343,7 @@
       "position": 21,
       "price": 220,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": -65536
     },
     "St. James Place": {
@@ -361,7 +361,7 @@
       "position": 16,
       "price": 180,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": -14336
     },
     "Atlantic Ave.": {
@@ -379,7 +379,7 @@
       "position": 26,
       "price": 260,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": -256
     },
     "Virginia Ave.": {
@@ -397,7 +397,7 @@
       "position": 14,
       "price": 160,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": -20561
     },
     "Vermont Ave.": {
@@ -415,7 +415,7 @@
       "position": 8,
       "price": 100,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": -16711681
     },
     "Marvin Gardens": {
@@ -433,7 +433,7 @@
       "position": 29,
       "price": 280,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": -256
     },
     "Ventnor Ave.": {
@@ -451,7 +451,7 @@
       "position": 27,
       "price": 260,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": -256
     }
   },
@@ -466,7 +466,7 @@
       "position": 35,
       "price": 200,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": 0
     },
     "Reading Railroad": {
@@ -479,7 +479,7 @@
       "position": 5,
       "price": 200,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": 0
     },
     "Pennsylvania Railroad": {
@@ -492,7 +492,7 @@
       "position": 15,
       "price": 200,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": 0
     },
     "B\u0026O Railroad": {
@@ -505,7 +505,7 @@
       "position": 25,
       "price": 200,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": 0
     }
   },
@@ -520,7 +520,7 @@
       "position": 12,
       "price": 150,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": 0
     },
     "Water Works": {
@@ -533,7 +533,7 @@
       "position": 28,
       "price": 150,
       "owner": "",
-      "mBool": false,
+      "mortgaged": false,
       "color": 0
     }
   },
@@ -6645,12 +6645,10 @@
   ],
   "playerTokens": {
     "0": {
-      "pieceDir": "/default/boat.png",
       "coords": [
         25,
         25
       ],
-      "team": 0,
       "path": {
         "x": [
           25,
@@ -6744,15 +6742,15 @@
         ],
         "step": 0,
         "locked": false
-      }
+      },
+      "team": 0,
+      "pieceDir": "/default/boat.png"
     },
     "1": {
-      "pieceDir": "/default/boot.png",
       "coords": [
         26,
         25
       ],
-      "team": 1,
       "path": {
         "x": [
           26,
@@ -6846,15 +6844,15 @@
         ],
         "step": 0,
         "locked": false
-      }
+      },
+      "team": 1,
+      "pieceDir": "/default/boot.png"
     },
     "2": {
-      "pieceDir": "/default/car.png",
       "coords": [
         27,
         25
       ],
-      "team": 2,
       "path": {
         "x": [
           27,
@@ -6948,15 +6946,15 @@
         ],
         "step": 0,
         "locked": false
-      }
+      },
+      "team": 2,
+      "pieceDir": "/default/car.png"
     },
     "3": {
-      "pieceDir": "/default/hat.png",
       "coords": [
         28,
         25
       ],
-      "team": 3,
       "path": {
         "x": [
           28,
@@ -7050,15 +7048,15 @@
         ],
         "step": 0,
         "locked": false
-      }
+      },
+      "team": 3,
+      "pieceDir": "/default/hat.png"
     },
     "4": {
-      "pieceDir": "/default/iron.png",
       "coords": [
         25,
         26
       ],
-      "team": 4,
       "path": {
         "x": [
           25,
@@ -7152,15 +7150,15 @@
         ],
         "step": 0,
         "locked": false
-      }
+      },
+      "team": 4,
+      "pieceDir": "/default/iron.png"
     },
     "5": {
-      "pieceDir": "/default/pupper.png",
       "coords": [
         26,
         26
       ],
-      "team": 5,
       "path": {
         "x": [
           26,
@@ -7254,15 +7252,15 @@
         ],
         "step": 0,
         "locked": false
-      }
+      },
+      "team": 5,
+      "pieceDir": "/default/pupper.png"
     },
     "6": {
-      "pieceDir": "/default/thimble.png",
       "coords": [
         27,
         26
       ],
-      "team": 6,
       "path": {
         "x": [
           27,
@@ -7356,15 +7354,15 @@
         ],
         "step": 0,
         "locked": false
-      }
+      },
+      "team": 6,
+      "pieceDir": "/default/thimble.png"
     },
     "7": {
-      "pieceDir": "/default/wheelbarrow.png",
       "coords": [
         28,
         26
       ],
-      "team": 7,
       "path": {
         "x": [
           28,
@@ -7458,7 +7456,9 @@
         ],
         "step": 0,
         "locked": false
-      }
+      },
+      "team": 7,
+      "pieceDir": "/default/wheelbarrow.png"
     }
   },
   "stickerBook": [
@@ -8464,5 +8464,7 @@
     ],
     "lastRoll": 0
   },
-  "fancyMoveEnabled": true
+  "fancyMoveEnabled": true,
+  "commChestName": "Community Chest",
+  "chanceName": "Chance"
 }

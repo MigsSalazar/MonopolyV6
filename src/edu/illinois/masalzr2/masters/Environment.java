@@ -113,6 +113,9 @@ public class Environment implements Serializable, ChangeListener {
 	
 	private Player goingBankrupt = null;
 	@Expose boolean fancyMoveEnabled;
+
+	@Expose private String commChestName;
+	@Expose private String chanceName;
 	
 	/**
 	 * A courtesy constructor to log the creation of the Environment
@@ -809,6 +812,8 @@ public class Environment implements Serializable, ChangeListener {
 		turnsLimit = 10;
 		currency = "$";
 		texture = "default";
+		commChestName = "Community Chest";
+		chanceName = "Chance";
 		
 		//Defining the games Counter objects
 		houseCount = new Counter(0, 33, 0);

@@ -40,8 +40,8 @@ public class GameCardNotice extends HighLevelNotice {
 		properties = gameVars.getProperties();
 		
 		card = cardPicker(chance);
-		text = "<html>You landed on "+(chance?"Chance":"Community Chest")+". Your card reads:<br>"
-				+card.getText().substring(6,card.getText().length());
+		text = "<html>You landed on "+(chance?gv.getChanceName():gv.getCommChestName())+". Your card reads:<br>"
+				+card.getText().substring(6,card.getText().length()).replace("<br>", "");
 		player = pl;
 		
 		playerToken = gameVars.getPlayerTokens().get(player.getName());
@@ -201,6 +201,12 @@ public class GameCardNotice extends HighLevelNotice {
 		case "go":	moveBy = 40 - step;
 					an = moveAndDo(player, moveBy);
 					break;
+		case "parking": if(step > 20) {
+							moveBy = 40 - (step - 20);
+						}else {
+							moveBy = (20 - step);
+						}
+					an = moveAndDo(player, moveBy);
 		default:if(properties.containsKey(gc.getFindThis())){
 					Property prop = properties.get(gc.getFindThis());
 					step = playerToken.getPath().getStep();

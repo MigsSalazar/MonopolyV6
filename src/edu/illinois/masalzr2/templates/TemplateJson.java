@@ -55,6 +55,9 @@ public class TemplateJson {
 	@Expose private Dice dice;
 	
 	@Expose private boolean fancyMoveEnabled;
+	
+	@Expose private String commChestName;
+	@Expose private String chanceName;
 	/*
 	
 	@Expose private Map<String, Player> players;
@@ -111,6 +114,8 @@ public class TemplateJson {
 		limitingTurns		= gv.isLimitingTurns();
 		turnsLimit			= gv.getTurnsLimit();
 		fancyMoveEnabled 	= gv.isFancyMoveEnabled();
+		commChestName 		= gv.getCommChestName();
+		chanceName			= gv.getChanceName();
 		
 		String path = gv.getSaveFile().getParentFile().getParentFile().getPath();
 		//System.out.println("Parent path: "+path);

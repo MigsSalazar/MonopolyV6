@@ -285,6 +285,8 @@ public class GameIo {
 		vars.setLimitingTurns(		tempVars.isLimitingTurns());
 		vars.setTurnsLimit(			tempVars.getTurnsLimit());
 		vars.setFancyMoveEnabled(	tempVars.isFancyMoveEnabled());
+		vars.setCommChestName(		tempVars.getCommChestName());
+		vars.setChanceName(			tempVars.getChanceName());
 		vars.refreshAllImages();
 		vars.refreshPlayerCollections();
 		vars.refreshPropertyCollections();
