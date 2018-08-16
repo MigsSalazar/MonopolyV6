@@ -8,6 +8,14 @@ import com.google.gson.annotations.Expose;
 import lombok.Data;
 
 @Data
+/**
+ * More like a struct or predefined map than a class or object. 
+ * This class performs no special operations and has no knowledge
+ * of the impact of any of it's members. I keep this model class
+ * as it provides an easy and simple way to parse gamecards for jsons
+ * @author Miguel Salazar
+ *
+ */
 public class GameCard implements Serializable{
 	
 	/**

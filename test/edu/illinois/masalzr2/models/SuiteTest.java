@@ -1,6 +1,6 @@
 package edu.illinois.masalzr2.models;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -12,7 +12,17 @@ public class SuiteTest {
 	}
 
 	@Test
-	public void testGetColor() {
+	public void testGetStreets() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testSetStreets() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetNames() {
 		fail("Not yet implemented");
 	}
 
@@ -53,6 +63,26 @@ public class SuiteTest {
 
 	@Test
 	public void testTotalGrade() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetColorName() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testSetColorName() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetColorValue() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testSetColorValue() {
 		fail("Not yet implemented");
 	}
 
