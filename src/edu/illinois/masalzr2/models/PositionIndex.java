@@ -42,7 +42,7 @@ public class PositionIndex implements Serializable{
 		
 		step = 0;
 		
-		locked = true;
+		locked = false;
 	}
 	
 	public PositionIndex(int[] x, int[] y){
@@ -52,7 +52,7 @@ public class PositionIndex implements Serializable{
 		specialX = new int[1];
 		specialY = new int[1];
 		
-		specialX[0] = specialY[0] = 1;
+		specialX[0] = specialY[0] = 0;
 		
 		step = 0;
 		

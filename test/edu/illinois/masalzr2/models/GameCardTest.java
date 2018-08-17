@@ -109,29 +109,5 @@ public class GameCardTest {
 		assertEquals(150, gc.getHotelCost());
 	}
 
-	@Test
-	public void textHashCode() {
-		assertNotNull(gc.hashCode());
-	}
 	
-	@Test
-	public void testEqualsObject() {
-		GameCard gc2 = new GameCard("I'm a card", 100, true, 5, true, true, "findnearest", "findthis", true, 25, 100);
-		assertTrue(gc.equals(gc2));
-		assertTrue(gc.equals(gc));
-	}
-
-	@Test
-	public void testCanEqual() {
-		GameCard gc2 = new GameCard("I'm a card", 100, true, 5, true, true, "findnearest", "findthis", true, 25, 100);
-		assertTrue(gc.canEqual(gc2));
-	}
-
-	@Test
-	public void testToString() {
-		//System.out.println(gc.toString());
-		gc = new GameCard("I'm a card", 100, true, 5, true, true, "findnearest", "findthis", true, 25, 100);
-		assertEquals("GameCard(text=I'm a card, moneyEarned=100, globalFunds=true, baseMovement=5, getOutOfJail=true, goToJail=true, findNearest=findnearest, findThis=findthis, propRenovation=true, houseCost=25, hotelCost=100)", gc.toString());
-	}
-
 }

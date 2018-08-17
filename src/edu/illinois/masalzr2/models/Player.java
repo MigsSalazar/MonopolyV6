@@ -36,19 +36,20 @@ public class Player implements ChangeListener, Serializable{
 	@Getter @Setter private Map<String, Property> props;
 	@Setter private transient List<ChangeListener> listeners;
 	
-	public Player(String n, int i, int c, int p, int j, boolean b, HashMap<String, Property> pr, ArrayList<ChangeListener> listen){
+	public Player(String n, int i, int c, int j, boolean b, Map<String, Property> pr, List<ChangeListener> listen){
 		name = n;
 		id = i;
 		cash = c;
 		jailCard = j;
 		bankrupt = b;
-		props = pr;
 		listeners = listen;
+		addProperties(pr.values());
+		
 	}
 	
 	public Player(int c){
 		name = "";
-		id = -1;
+		id = 0;
 		cash = c;
 		jailCard = 0;
 		props = new HashMap<String, Property>();
@@ -97,6 +98,7 @@ public class Player implements ChangeListener, Serializable{
 		for(Property pr : inProps){
 			props.put(pr.getName(), pr);
 			pr.addListener(this);
+			pr.setOwner(name);
 		}
 		fireChange();
 	}

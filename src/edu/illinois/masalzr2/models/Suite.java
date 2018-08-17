@@ -72,15 +72,23 @@ public class Suite implements Serializable{
 	}
 	
 	public void setStreets(List<Street> s) {
+		if(s == null) {
+			streets = null;
+			return;
+		}
 		s.sort(Street.POSITION_ORDER);
 		streets = s;
 	}
 	
 	public List<String> getNames(){
-		if(names == null) {
-			names= new ArrayList<String>();
-		}
 		return names;
+	}
+	
+	public void refreshNames() {
+		names = new ArrayList<String>();
+		for(Street s : streets) {
+			names.add(s.getName());
+		}
 	}
 	
 	/**

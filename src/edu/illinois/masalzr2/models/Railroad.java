@@ -31,11 +31,10 @@ public class Railroad extends Property implements Serializable{
 	@Override
 	public void setOwner(String p) {
 
-		if(owner.equals("") || owner == null) {
+		if(owner == null || owner.equals("")) {
 			railsOwned.add(1);
 		}
 		super.setOwner(p);
-		fireChange();
 	
 	}
 	

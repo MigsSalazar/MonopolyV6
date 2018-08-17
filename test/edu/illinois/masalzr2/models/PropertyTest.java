@@ -2,17 +2,23 @@ package edu.illinois.masalzr2.models;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class PropertyTest {
 
+	@Before
+	public void beforeAll() {
+		
+	}
+	
 	@Test
-	public void testPropertyStringIntIntStringBooleanArrayListOfChangeListener() {
+	public void testPropertyVerboseConstructor() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testProperty() {
+	public void testPropertyDefaultConstructor() {
 		fail("Not yet implemented");
 	}
 

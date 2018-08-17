@@ -92,7 +92,7 @@ public class TemplateEnvironment{
 		
 		Player noob;
 		for(int i=0; i<8; i++) {
-			noob = new Player(""+i, i, 1500, 0, 0, false, new HashMap<String,Property>(), null);
+			noob = new Player(""+i, i, 1500, 0, false, new HashMap<String,Property>(), null);
 			retval.put(noob.getName(), noob);
 		}
 		
