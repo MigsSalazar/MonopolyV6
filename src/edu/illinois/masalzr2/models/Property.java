@@ -3,6 +3,7 @@ package edu.illinois.masalzr2.models;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -31,17 +32,18 @@ public class Property implements Serializable{
 	protected boolean mortgaged;
 	@Getter @Expose 
 	protected int color;
-	private ArrayList<ChangeListener> listeners;
+	private List<ChangeListener> listeners;
 	
 	public transient static final Comparator<Property> POSITION_ORDER = new SortByPosition();
 	public transient static final Comparator<Property> NAME_ORDER = new SortByName();
 	
-	public Property(String n, int pos, int pr, String o, boolean m, ArrayList<ChangeListener> listen){
+	public Property(String n, int pos, int pr, String o, boolean m, int c, List<ChangeListener> listen){
 		name = n;
 		position = pos;
 		price = pr;
 		owner = o;
 		mortgaged = m;
+		color = c;
 		listeners = listen==null? new ArrayList<ChangeListener>() : listen;
 	}
 
@@ -55,8 +57,8 @@ public class Property implements Serializable{
 		listeners = new ArrayList<ChangeListener>();
 	}
 	
-	public void setMBool(boolean mb){
-		mortgaged = mb;
+	public void setMortgaged(boolean m) {
+		mortgaged = m;
 		fireChange();
 	}
 	

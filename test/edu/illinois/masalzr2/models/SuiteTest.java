@@ -12,12 +12,12 @@ import static org.mockito.Mockito.*;
 
 public class SuiteTest {
 	
-	Street avenue = new Street("avenue", 1, 100, "", false, null, 0, 10, new int[] {1,2,3,4,5});
-	Street lane = new Street("lane", 2, 200, "", false, null, 0, 20, new int[] {6,7,8,9,10});
+	Street avenue = new Street("avenue", 1, 100, "", false, 0, null, 0, 10, new int[] {1,2,3,4,5});
+	Street lane = new Street("lane", 2, 200, "", false, 0, null, 0, 20, new int[] {6,7,8,9,10});
 	
-	Street park = new Street("park", 3, 300, "", false, null, 0, 30, new int[] {11,12,13,14,15});
-	Street drive = new Street("drive", 4, 400, "", false, null, 0, 40, new int[] {16,17,18,19,20});
-	Street place = new Street("place", 5, 500, "", false, null, 0, 10, new int[] {21,22,23,24,25});
+	Street park = new Street("park", 3, 300, "", false, 0, null, 0, 30, new int[] {11,12,13,14,15});
+	Street drive = new Street("drive", 4, 400, "", false, 0, null, 0, 40, new int[] {16,17,18,19,20});
+	Street place = new Street("place", 5, 500, "", false, 0, null, 0, 10, new int[] {21,22,23,24,25});
 	
 	Suite small;
 	Suite big;
@@ -140,8 +140,8 @@ public class SuiteTest {
 		
 		lane.setOwner("");
 		place.setOwner("");
-		avenue.setMBool(true);
-		drive.setMBool(true);
+		avenue.setMortgaged(true);
+		drive.setMortgaged(true);
 		
 		assertFalse(small.isBuildable());
 		assertFalse(big.isBuildable());

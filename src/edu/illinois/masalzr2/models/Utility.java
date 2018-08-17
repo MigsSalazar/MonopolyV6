@@ -22,12 +22,12 @@ public class Utility extends Property implements Serializable{
 	@Getter @Setter 
 	private Dice gameDice;
 	
-	public Utility(String n, int pos, int pr, String o, boolean m, ArrayList<ChangeListener> listen){
-		super(n, pos, pr, o, m ,listen);
+	public Utility(String n, int pos, int pr, String o, boolean m, int c, ArrayList<ChangeListener> listen){
+		super(n, pos, pr, o, m, c, listen);
 	}
 	
-	public Utility(String n, int pos, int pr, String o, boolean m, ArrayList<ChangeListener> listen, Counter u){
-		super(n, pos, pr, o, m ,listen);
+	public Utility(String n, int pos, int pr, String o, boolean m, int c, ArrayList<ChangeListener> listen, Counter u){
+		super(n, pos, pr, o, m, c, listen);
 		utilityOwned = u;
 	}
 	

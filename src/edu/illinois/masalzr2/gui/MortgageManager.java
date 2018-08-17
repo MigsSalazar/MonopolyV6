@@ -177,14 +177,14 @@ public class MortgageManager extends JDialog implements ActionListener{
 			if(curProp.isMortgaged()){
 				if( !setUnmort.isEnabled() ){
 					JOptionPane.showMessageDialog(this, "You have payed of the mortgage on:"+curProp.getName());
-					curProp.setMBool(false);
+					curProp.setMortgaged(false);
 					int payout = (curProp.mortgageValue() + (int)(curProp.mortgageValue() * 0.1) );
 					player.subCash(payout);
 				}
 			}else if(!curProp.isMortgaged()){
 				if( !setMort.isEnabled() ){
 					JOptionPane.showMessageDialog(this, "You have taken out a mortgage on:\n"+curProp.getName());
-					curProp.setMBool(true);
+					curProp.setMortgaged(true);
 					player.addCash(curProp.mortgageValue());
 					setUnmort.setEnabled((int)(curProp.getLiquidationWorth() * 0.1) < player.getCash());
 				}

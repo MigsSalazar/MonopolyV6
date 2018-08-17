@@ -23,8 +23,8 @@ public class Street extends Property implements Serializable {
 	@Expose 
 	private int[] rent;
 	
-	public Street(String n, int pos, int pr, String o, boolean m, ArrayList<ChangeListener> listen, int g, int uc, int[] r){
-		super(n, pos, pr, o, m, listen);
+	public Street(String n, int pos, int pr, String o, boolean m, int c, ArrayList<ChangeListener> listen, int g, int uc, int[] r){
+		super(n, pos, pr, o, m, c, listen);
 		grade = g;
 		upgradeCost = uc;
 		rent = r;

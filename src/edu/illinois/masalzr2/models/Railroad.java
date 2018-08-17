@@ -19,12 +19,12 @@ public class Railroad extends Property implements Serializable{
 	@Getter @Setter @Expose 
 	private Counter railsOwned;
 	
-	public Railroad(String n, int pos, int pr, String o, boolean m, ArrayList<ChangeListener> listen){
-		super(n, pos, pr, o, m, listen);
+	public Railroad(String n, int pos, int pr, String o, boolean m, int c, ArrayList<ChangeListener> listen){
+		super(n, pos, pr, o, m, c, listen);
 	}
 	
-	public Railroad(String n, int pos, int pr, String o, boolean m, ArrayList<ChangeListener> listen, Counter r){
-		super(n, pos, pr, o, m, listen);
+	public Railroad(String n, int pos, int pr, String o, boolean m, int c, ArrayList<ChangeListener> listen, Counter r){
+		super(n, pos, pr, o, m, c, listen);
 		railsOwned = r;
 	}
 	

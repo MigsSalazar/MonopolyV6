@@ -142,9 +142,9 @@ public class StatsTile extends JPanel implements ChangeListener{
 	private void colorBank() {
 		Color c;
 		
-		if(myPlayer.getCash() < 700){
+		if(myPlayer.getCash() < 200){
 			c = Color.RED;
-		}else if(myPlayer.getCash() > 1300){
+		}else if(myPlayer.getCash() > 700){
 			c = Color.GREEN;
 		}else{
 			c = Color.YELLOW;
@@ -155,9 +155,9 @@ public class StatsTile extends JPanel implements ChangeListener{
 	
 	public void colorWealth(){
 		Color c;
-		if(myPlayer.getWealth() < 1000){
+		if(myPlayer.getWealth() < 500){
 			c = Color.RED;
-		}else if(myPlayer.getWealth() > 2000){
+		}else if(myPlayer.getWealth() > 1000){
 			c = Color.GREEN;
 		}else{
 			c = Color.YELLOW;
@@ -191,9 +191,12 @@ public class StatsTile extends JPanel implements ChangeListener{
 	public void stateChanged(ChangeEvent arg0) {
 		wealth.setText("Assets: "+currencySymbol+myPlayer.getWealth());
 		bank.setText("Cash: "+currencySymbol+myPlayer.getCash());
+		colorBank();
 		//posi.setText("Current Position "+myPlayer.getPosition());
 		card.setText("Get our of Jail Cards: "+myPlayer.getJailCard());
+		colorWealth();
 		actv.setText("Bankrupt: "+myPlayer.isBankrupt());
+		colorActive();
 		
 		if( myPlayer.getProps().size() != propSize ) {
 			JLabel[] fullList = getPropertyList();
