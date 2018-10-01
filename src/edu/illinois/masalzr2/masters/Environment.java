@@ -44,7 +44,8 @@ import edu.illinois.masalzr2.notices.ListEvent;
 import edu.illinois.masalzr2.notices.implentations.GameOverNotice;
 import edu.illinois.masalzr2.notices.implentations.MessageNotice;
 import edu.illinois.masalzr2.templates.TemplateEnvironment;
-import lombok.Data;
+
+import lombok.*;
 
 /**
  * For all intents and purposes, this is the game instance.
