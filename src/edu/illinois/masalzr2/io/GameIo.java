@@ -24,6 +24,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import edu.illinois.masalzr2.gui.Board;
 import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.masters.LogMate;
 import edu.illinois.masalzr2.masters.MonopolyExceptionHandler;
@@ -77,6 +78,38 @@ public class GameIo {
 				options[0]);
 		varsFromJson(null).buildFrame();
 		//System.exit(0);
+	}
+	
+	public static boolean boardJson(Board board){
+		
+		JFileChooser jfc = new JFileChooser();
+		int success = jfc.showSaveDialog(null);
+		
+		if(success != JFileChooser.APPROVE_OPTION){
+			return false;
+		}	
+		
+		File f = jfc.getSelectedFile();
+		
+		FileWriter fout = null;
+		
+		try {
+			fout = new FileWriter(new File(f.getPath()+".json"));
+
+			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
+			
+			gson.toJson(board, fout);
+			
+			fout.close();
+			
+			return true;
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return false;
 	}
 	
 	public static Environment newGame(String fileDir) {

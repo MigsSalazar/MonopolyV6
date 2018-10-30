@@ -9,50 +9,77 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import com.google.gson.annotations.Expose;
+
 import edu.illinois.masalzr2.masters.LogMate;
 
 
 public class Board {
 	private JPanel board;
 	private GridLayout grid;
+	@Expose
 	private Dimension dim;
 	
+	@Expose
 	private HashMap<String, Dimension> pieceCoords;
 	
+	@Expose
+	private int pixSquare;
+	@Expose
 	private int gridWidth;
+	@Expose
 	private int gridHeight;
+	@Expose
 	private int pixWidth;
+	@Expose
 	private int pixHeight;
-	
+	@Expose
 	private int[][] iconNumbers;
+	
 	private ImageIcon[] icons;
+	
 	private GraphicsButton[][] display;
-	
-	private int[][] stickerBook;
-	private ImageIcon[] stickers;
-	
+	private StickerBook stickerBook;
+	@Expose
 	private Stamp[][] stampCollection;
-	
+	@Expose
 	private boolean showDice;
 	
 	private GraphicsButton[][] dice1 = new GraphicsButton[3][3];
-	private GraphicsButton[][] dice2 = new GraphicsButton[3][3];
 	
+	private GraphicsButton[][] dice2 = new GraphicsButton[3][3];
+	@Expose
 	private int d1=1;
+	@Expose
 	private int d2=1;
 	
 	private ImageIcon dotDie;
+	
 	private ImageIcon blankDie;
 	
+	public Board(int w, int h, int p){
+		buildBoard(w,h,p);
+	}
+	
+	public Board(int w, int h){
+		buildBoard(w,h, 20);
+	}
+	
 	public Board(){
+		buildBoard(30,30, 20);
+	}
+
+	private void buildBoard(int w, int h, int pix) {
 		LogMate.LOG.newEntry("Board: Beginning: Creating new Baord");
 		pieceCoords = new HashMap<String, Dimension>();
 
-		gridWidth = 30;
-		gridHeight = 30;
+		gridWidth = w;
+		gridHeight = h;
 		
-		pixWidth = gridWidth*20;
-		pixHeight = gridHeight*20;
+		pixSquare = pix;
+		
+		pixWidth = gridWidth*pixSquare;
+		pixHeight = gridHeight*pixSquare;
 		dim = new Dimension(pixWidth, pixHeight);
 		
 		grid = new GridLayout(gridWidth, gridHeight);
@@ -61,8 +88,6 @@ public class Board {
 		board.setMaximumSize(dim);
 		LogMate.LOG.newEntry("Board: Beginning: Setting iconNumbers and stickerBook dimensions");
 		iconNumbers = new int[gridWidth][gridHeight];
-		
-		stickerBook = new int[gridWidth][gridHeight];
 		
 		LogMate.LOG.newEntry("Board: Beginning: Populating iconNumbers");
 		for(int[] i : iconNumbers){
@@ -74,9 +99,6 @@ public class Board {
 		icons = new ImageIcon[1];
 		icons[0] = new ImageIcon();
 		
-		stickers = new ImageIcon[1];
-		stickers[0] = new ImageIcon();
-		
 		display = new GraphicsButton[gridWidth][gridHeight];
 		stampCollection = new Stamp[gridWidth][gridHeight];
 		LogMate.LOG.newEntry("Board: Beginning: Loading Graphics Buttons with empty placeholder icons");
@@ -85,7 +107,7 @@ public class Board {
 				display[x][y] = new GraphicsButton();
 				
 				//display[x][y].setBorderPainted(false);
-				display[x][y].setPreferredSize(new Dimension(20,20));
+				display[x][y].setPreferredSize(new Dimension(pixSquare,pixSquare));
 				stampCollection[x][y] = new Stamp();
 			}
 		}
@@ -98,7 +120,7 @@ public class Board {
 			}
 		}
 		
-		board.setPreferredSize(new Dimension(600,600));
+		board.setPreferredSize(new Dimension(pixSquare*gridWidth,pixSquare*gridHeight));
 	}
 	
 	public JPanel getBoard(){
@@ -113,9 +135,12 @@ public class Board {
 				
 				display[b][i].setIcon(icons[ iconNumbers[b][i] ]);
 				
-				if(stickerBook[b][i] > -1 ){
+				if(stickerBook.stickerDepthAt(b, i) > -1 ){
 					//System.out.println("found a sticker! b="+b+"    i="+i);
-					display[b][i].addIcon(stickers[ stickerBook[b][i] ]);
+					for(ImageIcon icon : stickerBook.getIconsAt(b, i)){
+						display[b][i].addIcon(icon);
+					}
+					
 				}else{
 					//System.out.println(":( no sticker b="+b+"    i="+i);
 					display[b][i].wipeIcons();
@@ -163,16 +188,10 @@ public class Board {
 		
 	}
 	
-	public void setStickerBook(int[][] sb){
+	public void setStickerBook(StickerBook sb){
 		LogMate.LOG.newEntry("Board: Set Sticker Book");
 		stickerBook = sb;
 	}
-	
-	public void setStickers(ImageIcon[] s){
-		LogMate.LOG.newEntry("Board: Set Sticker Icons");
-		stickers = s;
-	}
-	
 	
 	public void addPiece(ImageIcon icon, int x, int y){
 		//LogMate.LOG.newEntry("Board: Add Piece: Adding icon to display");

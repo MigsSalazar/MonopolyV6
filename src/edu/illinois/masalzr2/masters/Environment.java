@@ -29,6 +29,7 @@ import edu.illinois.masalzr2.gui.MortgageManager;
 import edu.illinois.masalzr2.gui.Notices;
 import edu.illinois.masalzr2.gui.Scoreboard;
 import edu.illinois.masalzr2.gui.Stamp;
+import edu.illinois.masalzr2.gui.StickerBook;
 import edu.illinois.masalzr2.gui.UpgradeManager;
 import edu.illinois.masalzr2.masters.LogMate.Logger;
 import edu.illinois.masalzr2.models.Counter;
@@ -103,8 +104,9 @@ public class Environment implements Serializable, ChangeListener {
 	private transient ImageIcon[] paintedIcons;
 	@Expose private Stamp[][] stampCollection;
 	@Expose private Map<String, GameToken> playerTokens;
-	@Expose private int[][] stickerBook;
-	@Expose private String[] stickers;
+	
+	@Expose private StickerBook stickerBook;
+	
 	private transient ImageIcon[] coloredStickers;
 	
 	@Expose private String currency;
@@ -229,13 +231,9 @@ public class Environment implements Serializable, ChangeListener {
 		board.setStickerBook(stickerBook);
 		
 		//Refreshing the sticker ImageIcons
-		coloredStickers = new ImageIcon[stickers.length];
-		for(int i=0; i<stickers.length; i++) {
-			coloredStickers[i] = new ImageIcon(System.getProperty("user.dir") + sep + "textures" + sep + stickers[i]);
-		}
-		
+		coloredStickers = (ImageIcon[])stickerBook.getPaintedIcons().toArray();
 		//Gives the board all the stickers it needs
-		board.setStickers(coloredStickers);
+		board.setStickerBook(stickerBook);
 		
 		//Setting the stamps of the game. The paint-by-number scheme is NOT used here. Each board tile gets their own stamp object
 		LOG.newEntry("GameVariables: buildBoard: Passing stamps, dice, and dice assets");
@@ -840,7 +838,6 @@ public class Environment implements Serializable, ChangeListener {
 		chance = TemplateEnvironment.defineChance();
 		stampCollection = TemplateEnvironment.defineStamps();
 		stickerBook = TemplateEnvironment.stickerBook();
-		stickers = TemplateEnvironment.getStickers();
 		
 		//Refreshing all ImageIcons
 		refreshAllImages();
@@ -853,16 +850,12 @@ public class Environment implements Serializable, ChangeListener {
 	public void refreshAllImages() {
 		//Setting the sizes for paintedIcons and coloredStickers
 		paintedIcons = new ImageIcon[icons.length];
-		coloredStickers = new ImageIcon[stickers.length];
+		coloredStickers = (ImageIcon[])stickerBook.getPaintedIcons().toArray();
 		
 		//Finding the Images according to the texture directory and files names
 		for(int i=0; i< icons.length; i++) {
 			paintedIcons[i] = new ImageIcon(System.getProperty("user.dir") + sep + "textures" + sep + texture + sep + icons[i]);
 			LogMate.LOG.newEntry(System.getProperty("user.dir") + sep + "textures" + sep + texture + sep + icons[i]);
-		}
-		for(int i=0; i<stickers.length; i++) {
-			coloredStickers[i] = new ImageIcon(System.getProperty("user.dir") + sep + "textures" + sep + texture + sep + stickers[i]);
-			LogMate.LOG.newEntry(System.getProperty("user.dir") + sep + "textures" + sep + texture + sep + stickers[i]);
 		}
 	}
 	

@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 
 import edu.illinois.masalzr2.gui.Stamp;
+import edu.illinois.masalzr2.gui.StickerBook;
 import edu.illinois.masalzr2.io.GameIo;
 import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.masters.LogMate;
@@ -99,9 +101,18 @@ public class TemplateEnvironment{
 		return retval;
 	}
 	
-	
-	public static int[][] stickerBook(){
-		int[][] temp = {{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //-1
+	public static StickerBook stickerBook(){
+		
+		Map<Integer, Map<Integer, Map<Integer,Integer>>> pages = new Hashtable<Integer, Map< Integer, Map<Integer,Integer>>>(30, 1.0f);
+		
+		/*
+		 * 	rows needed: 2,3,4,5,10,11,16,17,21,22,24,25,26,27,28,29
+		 *  cols needed: 1,2,3,4,5,8,9,10,11,20,21,24,25
+		 */
+		
+		populate the stickers
+		
+		int[][] nums = {{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //-1
 						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //1
 						{-1,-1,-1,13,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //2
 						{-1,-1,-1,14,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //3
@@ -112,7 +123,7 @@ public class TemplateEnvironment{
 						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //7
 						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //8
 						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //9
-						{-1,-1,-1,-1,7,7,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	7,7,-1,-1,-1,-1}, //1-1
+						{-1,-1,-1,-1,7,7,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	7,7,-1,-1,-1,-1}, //10
 						{-1,-1,-1,-1,8,8,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	8,8,-1,-1,-1,-1}, //11
 						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //12
 						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //13
@@ -122,7 +133,7 @@ public class TemplateEnvironment{
 						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	9,9,-1,-1,-1,-1}, //17
 						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //18
 						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //19
-						{-1,-1,-1,-1,4,4,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //2-1
+						{-1,-1,-1,-1,4,4,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //20
 						{-1,-1,-1,-1,4,4,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //21
 						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //22
 						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //23
@@ -134,41 +145,33 @@ public class TemplateEnvironment{
 						{-1,6,6,6,6,6,		-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	11,-1,-1,-1,-1,-1}, //28
 						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,12,-1,-1,-1,-1}};//29
 		
-		updateProgress(100, "Sticker book has been generated");
+		updateProgress(100, "Sticker nums has been generated");
 		
-		return temp;
-	}
+		ArrayList<String> stickers = new ArrayList<String>();
+		
+		stickers.add(sep+"default"+sep+"housing.png");
+		stickers.add(sep+"default"+sep+"hotelLeft.png");				//1
+		stickers.add(sep+"default"+sep+"hotelRight.png");				//2
+		stickers.add(sep+"default"+sep+"hotelBottom.png");			//3
+		
+		stickers.add(sep+"default"+sep+"eleccomp.png");				//4
+		stickers.add(sep+"default"+sep+"waterworks.png");				//5
+		
+		stickers.add(sep+"default"+sep+"jail.png");					//6
+		stickers.add(sep+"default"+sep+"chesttop.png");				//7
+		stickers.add(sep+"default"+sep+"chestbottom.png");			//8
+		stickers.add(sep+"default"+sep+"chance.png");					//9
+		
+		stickers.add(sep+"default"+sep+"gotop.png");					//10
+		stickers.add(sep+"default"+sep+"gomid.png");					//11
+		stickers.add(sep+"default"+sep+"gobot.png");					//12
 
-	public static String[] getStickers(){
-		String[] stickers = {	"housing.png",				//0
-								"hotelLeft.png",				//1
-								"hotelRight.png",				//2
-								"hotelBottom.png",				//3
-								
-								"eleccomp.png",				//4
-								"waterworks.png",			//5
-								
-								"jail.png",					//6
-								"chesttop.png",				//7
-								"chestbottom.png",			//8
-								"chance.png",				//9
-								
-								"gotop.png",				//10
-								"gomid.png",				//11
-								"gobot.png",				//12
-								
-								"parktop.png",				//13
-								"parkbot.png"};				//14
-		
-		//String dir = System.getProperty("user.dir");
-		for(int i=0; i<stickers.length; i++){
-			stickers[i] = sep+"default"+sep+stickers[i];
-			//System.out.println(retval[i].getDescription());
-		}
+		stickers.add(sep+"default"+sep+"parktop.png");				//13
+		stickers.add(sep+"default"+sep+"parkbot.png");				//14
 		
 		updateProgress(110, "Stickers have been generated");
 		
-		return stickers;
+		return new StickerBook(stickers, pages);
 	}
 	
 	public static Stamp[][] defineStamps(){
