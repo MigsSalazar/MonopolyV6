@@ -5,11 +5,12 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+@Deprecated
 public class PositionIndexTest {
 
-	PositionIndex simple;
-	PositionIndex listed;
-	PositionIndex complex;
+	ListedPath simple;
+	ListedPath listed;
+	ListedPath jailed;
 	
 	@Before
 	public void beforeAll() {
@@ -20,13 +21,13 @@ public class PositionIndexTest {
 		int[] spx = {20,21};
 		int[] spy = {22,23};
 		
-		simple = new PositionIndex();
+		simple = new ListedPath();
 		
-		listed = new PositionIndex(x,y);
+		listed = new ListedPath(x,y);
 		
-		complex = new PositionIndex(x,y,spx,spy);
+		jailed = new ListedPath(spx,spy);
 	}
-	
+	/*
 	@Test
 	public void testPositionIndexDefaultConstructor() {
 		assertNotNull(simple);
@@ -39,15 +40,15 @@ public class PositionIndexTest {
 
 	@Test
 	public void testPositionIndexSpecialCaseConstructor() {
-		assertNotNull(complex);
+		assertNotNull(jailed);
 	}
 
 	@Test
 	public void testMoveOne() {
-		int[] coords = listed.moveOne();
+		int[] coords = listed.moveStep(1);
 		assertArrayEquals(new int[] {1,6}, coords);
 		
-		listed = new PositionIndex(new int[] {0,1,2}, new int[] {3,4,5,6,7});
+		listed = new ListedPath(new int[] {0,1,2}, new int[] {3,4,5,6,7});
 		
 		coords = listed.getCoords();
 		assertArrayEquals(new int[] {0,3}, coords);
@@ -77,8 +78,8 @@ public class PositionIndexTest {
 		assertEquals(5, listed.stepCount());
 		assertEquals(5, listed.stepCount());
 		
-		simple = new PositionIndex(new int[] {0,1,2}, new int[] {3,4,5,6,7});
-		listed = new PositionIndex(new int[] {3,4,5,6,7}, new int[] {0,1,2});
+		simple = new ListedPath(new int[] {0,1,2}, new int[] {3,4,5,6,7});
+		listed = new ListedPath(new int[] {3,4,5,6,7}, new int[] {0,1,2});
 		
 		assertEquals(3, simple.stepCount());
 		assertEquals(3, listed.stepCount());
@@ -95,14 +96,14 @@ public class PositionIndexTest {
 		assertArrayEquals(new int[] {3,8}, listed.getCoordsAtStep(3));
 		assertArrayEquals(new int[] {4,9}, listed.getCoordsAtStep(4));
 		
-		assertArrayEquals(new int[] {0,5}, complex.getCoordsAtStep(0));
-		assertArrayEquals(new int[] {1,6}, complex.getCoordsAtStep(1));
-		assertArrayEquals(new int[] {2,7}, complex.getCoordsAtStep(2));
-		assertArrayEquals(new int[] {3,8}, complex.getCoordsAtStep(3));
-		assertArrayEquals(new int[] {4,9}, complex.getCoordsAtStep(4));
+		assertArrayEquals(new int[] {0,5}, jailed.getCoordsAtStep(0));
+		assertArrayEquals(new int[] {1,6}, jailed.getCoordsAtStep(1));
+		assertArrayEquals(new int[] {2,7}, jailed.getCoordsAtStep(2));
+		assertArrayEquals(new int[] {3,8}, jailed.getCoordsAtStep(3));
+		assertArrayEquals(new int[] {4,9}, jailed.getCoordsAtStep(4));
 		
-		simple = new PositionIndex(new int[] {0,1,2}, new int[] {3,4,5,6,7});
-		listed = new PositionIndex(new int[] {3,4,5,6,7}, new int[] {0,1,2});
+		simple = new ListedPath(new int[] {0,1,2}, new int[] {3,4,5,6,7});
+		listed = new ListedPath(new int[] {3,4,5,6,7}, new int[] {0,1,2});
 		
 		assertArrayEquals(new int[] {0,3}, simple.getCoordsAtStep(0));
 		assertArrayEquals(new int[] {3,0}, listed.getCoordsAtStep(0));
@@ -120,17 +121,17 @@ public class PositionIndexTest {
 		assertArrayEquals(new int[] {0,0}, listed.getSpecialCase(0));
 		assertArrayEquals(new int[] {-1,-1}, listed.getSpecialCase(1));
 		
-		assertArrayEquals(new int[] {20,22}, complex.getSpecialCase(0));
-		assertArrayEquals(new int[] {21,23}, complex.getSpecialCase(1));
+		assertArrayEquals(new int[] {20,22}, jailed.getSpecialCase(0));
+		assertArrayEquals(new int[] {21,23}, jailed.getSpecialCase(1));
 		
-		simple = new PositionIndex(new int[] {0,1,2}, new int[] {3,4,5,6,7}, new int[] {20}, new int[] {21,22,23});
-		complex = new PositionIndex(new int[] {0,1,2}, new int[] {3,4,5,6,7}, new int[] {21,22,23}, new int[] {20});
+		simple = new ListedPath(new int[] {0,1,2}, new int[] {3,4,5,6,7}, new int[] {20}, new int[] {21,22,23});
+		jailed = new ListedPath(new int[] {0,1,2}, new int[] {3,4,5,6,7}, new int[] {21,22,23}, new int[] {20});
 		
 		assertArrayEquals(new int[] {20,21}, simple.getSpecialCase(0));
 		assertArrayEquals(new int[] {-1,-1}, simple.getSpecialCase(1));
 		
-		assertArrayEquals(new int[] {21,20}, complex.getSpecialCase(0));
-		assertArrayEquals(new int[] {-1,-1}, complex.getSpecialCase(1));
+		assertArrayEquals(new int[] {21,20}, jailed.getSpecialCase(0));
+		assertArrayEquals(new int[] {-1,-1}, jailed.getSpecialCase(1));
 		
 	}
 
@@ -160,7 +161,7 @@ public class PositionIndexTest {
 	public void testIsLocked() {
 		assertFalse(simple.isLocked());
 		assertFalse(listed.isLocked());
-		assertFalse(complex.isLocked());
+		assertFalse(jailed.isLocked());
 	}
 
 	@Test
@@ -169,12 +170,12 @@ public class PositionIndexTest {
 		
 		simple.setLocked(true);
 		listed.setLocked(true);
-		complex.setLocked(true);
+		jailed.setLocked(true);
 		
 		assertTrue(simple.isLocked());
 		assertTrue(listed.isLocked());
-		assertTrue(complex.isLocked());
+		assertTrue(jailed.isLocked());
 		
 	}
-
+	 */
 }

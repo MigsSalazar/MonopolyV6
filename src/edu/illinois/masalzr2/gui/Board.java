@@ -134,10 +134,10 @@ public class Board {
 			for(int i=0; i<display[b].length; i++){
 				
 				display[b][i].setIcon(icons[ iconNumbers[b][i] ]);
-				
-				if(stickerBook.stickerDepthAt(b, i) > -1 ){
+				//System.out.println("page depth at b:"+b+" i:"+i+" is "+stickerBook.pageDepthAt(b, i));
+				if(stickerBook.pageDepthAt(b, i) > 0 ){
 					//System.out.println("found a sticker! b="+b+"    i="+i);
-					for(ImageIcon icon : stickerBook.getIconsAt(b, i)){
+					for( ImageIcon icon : stickerBook.stackStickersAt(b, i) ){
 						display[b][i].addIcon(icon);
 					}
 					

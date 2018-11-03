@@ -20,12 +20,10 @@ public class GameToken implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Expose private int[] coords;
-	
 	@Getter @Setter 
 	private transient ImageIcon piece;
-	@Getter @Expose 
-	private PositionIndex path;
+	@Getter @Setter @Expose 
+	protected Router routing;
 	@Getter @Setter @Expose 
 	private int team;
 	@Getter @Setter @Expose
@@ -34,7 +32,7 @@ public class GameToken implements Serializable{
 	public static final transient Comparator<GameToken> TEAM_ORDER = new SortByTeam();
 	public static final transient Comparator<GameToken> ICON_ORDER = new SortByIcon();
 	
-	public GameToken(int t, String dir, PositionIndex p){
+	public GameToken(int t, String dir, Router p){
 		
 		team = t;
 		
@@ -42,12 +40,10 @@ public class GameToken implements Serializable{
 		
 		giveIconPath(dir);
 		
-		path = p;
-		
-		coords = path.getCoords();
+		routing = p;
 		
 	}
-	
+	/*
 	public int getX(){
 		return coords[1];
 	}
@@ -56,13 +52,8 @@ public class GameToken implements Serializable{
 		return coords[0];
 	}
 	
-	public void movePiece(int m){
-		if(path.isLocked()){
-			return;
-		}
-		coords = path.move(m);
-	}
 	
+	*/
 	public boolean giveIconPath(String dir){
 		piece = new ImageIcon(dir);
 		pieceDir = dir;
@@ -82,15 +73,6 @@ public class GameToken implements Serializable{
 			piece = new ImageIcon(pieceDir);
 		}
 		
-	}
-	
-	public int[] useSpecialtyCase(int s){
-		coords = path.getSpecialCase(s);
-		return coords;
-	}
-	
-	public void setLocked(boolean l){
-		path.setLocked(l);
 	}
 	
 	private static class SortByTeam implements Comparator<GameToken>{

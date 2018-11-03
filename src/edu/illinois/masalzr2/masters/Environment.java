@@ -35,9 +35,9 @@ import edu.illinois.masalzr2.masters.LogMate.Logger;
 import edu.illinois.masalzr2.models.Counter;
 import edu.illinois.masalzr2.models.Dice;
 import edu.illinois.masalzr2.models.GameCard;
-import edu.illinois.masalzr2.models.GameToken;
+import edu.illinois.masalzr2.models.MonopolizedToken;
 import edu.illinois.masalzr2.models.Player;
-import edu.illinois.masalzr2.models.PositionIndex;
+import edu.illinois.masalzr2.models.ListedPath;
 import edu.illinois.masalzr2.models.Property;
 import edu.illinois.masalzr2.models.Street;
 import edu.illinois.masalzr2.models.Suite;
@@ -82,7 +82,7 @@ public class Environment implements Serializable, ChangeListener {
 	private List<Player> playerID;
 	private Map<Integer, Property> propertyPos;
 	
-	@Expose private PositionIndex propertyPositions;
+	@Expose private ListedPath propertyPositions;
 	
 	@Expose private int turn;
 	@Expose private boolean limitingTurns;
@@ -103,7 +103,7 @@ public class Environment implements Serializable, ChangeListener {
 	@Expose private String[] icons;
 	private transient ImageIcon[] paintedIcons;
 	@Expose private Stamp[][] stampCollection;
-	@Expose private Map<String, GameToken> playerTokens;
+	@Expose private Map<String, MonopolizedToken> playerTokens;
 	
 	@Expose private StickerBook stickerBook;
 	
@@ -231,7 +231,7 @@ public class Environment implements Serializable, ChangeListener {
 		board.setStickerBook(stickerBook);
 		
 		//Refreshing the sticker ImageIcons
-		coloredStickers = (ImageIcon[])stickerBook.getPaintedIcons().toArray();
+		coloredStickers = stickerBook.getPaintedIcons();
 		//Gives the board all the stickers it needs
 		board.setStickerBook(stickerBook);
 		
@@ -261,9 +261,11 @@ public class Environment implements Serializable, ChangeListener {
 	 * according to the player's respective GameToken
 	 */
 	public void placeTokens() {
-		for(GameToken gt : playerTokens.values()) {
+		for(MonopolizedToken gt : playerTokens.values()) {
 			gt.refreshIcon();
-			board.addPiece(gt.getPiece(), gt.getX(), gt.getY());
+			ListedPath subPath = gt.getRouting();
+			int[] coords = subPath.currentCoords();
+			board.addPiece(gt.getPiece(), coords[0], coords[1]);
 		}
 	}
 	
@@ -272,12 +274,13 @@ public class Environment implements Serializable, ChangeListener {
 	 * and how many to apply.
 	 */
 	public void paintHousing() {
+		List<int[]> propPos = propertyPositions.findFullPath();
 		//Searches through the suites
 		for(Suite s : suites.values()) {
 			//Goes through each property in each suite ordered by position
 			for(Street st : s.sortedByPosition()) {
 				//Grabs the propertie's position
-				int[] coords = propertyPositions.getCoordsAtStep(st.getPosition());
+				int[] coords = propPos.get(st.getPosition());
 				LogMate.LOG.newEntry("GameVariables: Paint Housing: Street "+st.getName()+" at position "+st.getPosition()+" with coord-x="+coords[0]+" and coord-y="+coords[1]);
 				
 				//Clears all instances of the house and hotel icons
@@ -362,7 +365,7 @@ public class Environment implements Serializable, ChangeListener {
 	 * @return int[] - of size 2 consisting of the row and column values in that order
 	 */
 	public int[] getPropCoords(int p){
-		return propertyPositions.getCoordsAtStep(p);
+		return propertyPositions.findPath(p, p+1).get(0);
 	}
 
 	/**
@@ -388,17 +391,18 @@ public class Environment implements Serializable, ChangeListener {
 		resetJail(p);
 		
 		//Places the player's token into jail
-		GameToken jailMe = playerTokens.get(p.getName());
-		
-		//"Locks" the player's game token. Note, the lock doesn't actually do/prevent anything within the object.
-		//It is up to the developer to define locked behavior
-		jailMe.setLocked(true);
+		MonopolizedToken jailMe = playerTokens.get(p.getName());
 		
 		//Sets the step of the player for when they get out of jail
-		jailMe.getPath().setStep(10);
+		jailMe.getRouting().setStep(10);
+		
+		//"Locks" the player's game token. Note, the lock doesn't actually do/prevent anything within the object.
+		//It is up to the developer to define locked behavior. In a MonopolizedToken, however, any call to the routing
+		//will return the jail cell coordinates
+		jailMe.setLocked(true);
 		
 		//Moves the player to their cell within jail
-		int[] newCoords = jailMe.useSpecialtyCase(0);
+		int[] newCoords = jailMe.getRouting().findFullPath().get(0);
 		
 		//Moves the player piece to their jail cell
 		LOG.newEntry("GameVariables: jailPlayer: moving piece to jail cell");
@@ -500,7 +504,7 @@ public class Environment implements Serializable, ChangeListener {
 	}
 
 	/**
-	 * Incrementally moves the player one game tile at a time according to a Timer instance.
+	 * Incrementally moves the player one game tile at a time according to a swing.Timer instance.
 	 * Each fancy move takes 1 second to complete and each step takes 1sec/game tiles to travel.
 	 * If fancy move is turned off, this method is not bypassed. Rather, it calls for a basic move
 	 * @param p - Player to move
@@ -514,10 +518,16 @@ public class Environment implements Serializable, ChangeListener {
 			//NO FANCY MOVE. TELEPORTING GAME PIECES TIME
 			
 			//Moves the player token but only the icon
-			visualMove(playerTokens.get(p.getName()), move);
+			MonopolizedToken current = playerTokens.get(p.getName());
+			
+			ListedPath path = current.getRouting();
+			
+			path.moveStep(move);
+			
+			visualMove(current.getPiece(), path.currentCoords());
 			
 			//Now we move the piece in the logic by setting the corresponding GameToken's step
-			playerTokens.get(p.getName()).movePiece(move);
+			current.getRouting().moveStep(move);
 			return;
 		}
 		
@@ -536,17 +546,7 @@ public class Environment implements Serializable, ChangeListener {
 	 * @param current - GameToken containing the movement data and piece belonging to the player
 	 * @param move - int value defining the distance to travel on the board
 	 */
-	private void visualMove(GameToken current, int move) {
-		//Does nothing if the GameToken is locked
-		if(current.getPath().isLocked()) {
-			return;
-		}
-		//Looks for the ImageIcon of the GameToken
-		ImageIcon piece = current.getPiece();
-		
-		//Looks for the new position of the GameToken keeping in mind the cyclical nature of the board such that the new step isn't nonexistent on the board
-		int[] coords = current.getPath().getCoordsAtStep( (move + current.getPath().getStep())%current.getPath().stepCount() );
-		
+	private void visualMove(ImageIcon piece, int[] coords) {
 		//Moves the piece on the board
 		board.movePiece(piece, coords[1], coords[0]);
 	}
@@ -574,13 +574,14 @@ public class Environment implements Serializable, ChangeListener {
 		LogMate.LOG.flush();
 		
 		//Finds the current GameToken
-		GameToken current = playerTokens.get(p);
+		MonopolizedToken current = playerTokens.get(p);
 		
 		//Sets the GameToken's new step/position
-		current.movePiece(move);
+		ListedPath path = current.getRouting();
+		path.moveStep(move);
 		
 		//Visually moves the piece
-		visualMove(current, move);
+		visualMove(current.getPiece(), path.currentCoords());
 	}
 	
 	/**
@@ -650,15 +651,15 @@ public class Environment implements Serializable, ChangeListener {
 		
 		LOG.newEntry("GameVariables: Release Jailed Player: player " + p+ " has been released from jail");
 		//Unlocks the GameToken, sets the token's step to 10, and moves it by 0 to refresh the coordinates
-		GameToken jailMe = playerTokens.get(p);
+		MonopolizedToken jailMe = playerTokens.get(p);
 		
 		jailMe.setLocked(false);
-		jailMe.getPath().setStep(10);
-		jailMe.movePiece(0);
+		ListedPath path = jailMe.getRouting();
+		//jailMe.movePiece(0);
 		
 		//Moves the GameToken on the board
 		LOG.newEntry("GameVariables: Release Jailed Player: moving piece to visiting jail");
-		board.movePiece(jailMe.getPiece(), jailMe.getX(), jailMe.getY());
+		board.movePiece(jailMe.getPiece(), path.currentCoords()[0], path.currentCoords()[1]);
 	}
 	
 
@@ -850,7 +851,7 @@ public class Environment implements Serializable, ChangeListener {
 	public void refreshAllImages() {
 		//Setting the sizes for paintedIcons and coloredStickers
 		paintedIcons = new ImageIcon[icons.length];
-		coloredStickers = (ImageIcon[])stickerBook.getPaintedIcons().toArray();
+		coloredStickers = stickerBook.getPaintedIcons();
 		
 		//Finding the Images according to the texture directory and files names
 		for(int i=0; i< icons.length; i++) {
@@ -949,7 +950,7 @@ public class Environment implements Serializable, ChangeListener {
 		private final int move;
 		private int direction;
 		private int count;
-		private GameToken current;
+		private MonopolizedToken current;
 		private Timer ticker;
 		
 		
@@ -972,10 +973,14 @@ public class Environment implements Serializable, ChangeListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			//Calls for a visual move
-			LogMate.LOG.newEntry("FancyPlayerMove: team="+current.getTeam()+" count="+count+" mod="+direction+" move="+move+" position="+current.getPath().getStep());
-			visualMove(current, direction);
+			LogMate.LOG.newEntry("FancyPlayerMove: team="+current.getTeam()+" count="+count+" mod="+direction+" move="+move+" position="+current.getRouting().getStep());
+			
+			ListedPath path = current.getRouting();
+			int step = path.getStep();
+			
+			visualMove(current.getPiece(), path.findPath(step+1, step+2).get(0));
 			//logically moves the piece
-			current.movePiece(direction);
+			path.moveStep(direction);
 			//increments the number of steps remaining
 			count--;
 			if( count <= 0 ) {

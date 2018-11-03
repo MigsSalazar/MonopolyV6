@@ -8,13 +8,14 @@ import java.util.Map;
 import com.google.gson.annotations.Expose;
 
 import edu.illinois.masalzr2.gui.Stamp;
+import edu.illinois.masalzr2.gui.StickerBook;
 import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.models.Counter;
 import edu.illinois.masalzr2.models.Dice;
 import edu.illinois.masalzr2.models.GameCard;
-import edu.illinois.masalzr2.models.GameToken;
 import edu.illinois.masalzr2.models.Player;
-import edu.illinois.masalzr2.models.PositionIndex;
+import edu.illinois.masalzr2.models.ListedPath;
+import edu.illinois.masalzr2.models.MonopolizedToken;
 import edu.illinois.masalzr2.models.Property;
 import edu.illinois.masalzr2.models.Railroad;
 import edu.illinois.masalzr2.models.Street;
@@ -31,16 +32,15 @@ public class TemplateJson {
 	@Expose private Map<String, Utility> utils;
 	private Map<String, Property> properties;
 	@Expose private Map<String, Suite> suites;
-	@Expose private PositionIndex propertyPositions;
+	@Expose private ListedPath propertyPositions;
 	@Expose private List<GameCard> chance;
 	@Expose private List<GameCard> commchest;
 	
 	@Expose private int[][] paintByNumbers;
 	@Expose private String[] icons;
 	@Expose private Stamp[][] stampCollection;
-	@Expose private Map<String, GameToken> playerTokens;
-	@Expose private int[][] stickerBook;
-	@Expose private String[] stickers;
+	@Expose private Map<String, MonopolizedToken> playerTokens;
+	@Expose private StickerBook stickerBook;
 	
 	@Expose private String currency;
 	@Expose private String texture;
@@ -104,7 +104,6 @@ public class TemplateJson {
 		stampCollection 	= gv.getStampCollection();
 		playerTokens 		= gv.getPlayerTokens();
 		stickerBook 		= gv.getStickerBook();
-		stickers 			= gv.getStickers();
 		currency 			= gv.getCurrency();
 		texture				= gv.getTexture();
 		houseCount 			= gv.getHouseCount();

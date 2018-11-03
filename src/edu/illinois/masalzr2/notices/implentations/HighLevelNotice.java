@@ -7,7 +7,7 @@ import edu.illinois.masalzr2.gui.TradeManager;
 import edu.illinois.masalzr2.gui.UpgradeManager;
 import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.models.Dice;
-import edu.illinois.masalzr2.models.GameToken;
+import edu.illinois.masalzr2.models.MonopolizedToken;
 import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.models.Property;
 import edu.illinois.masalzr2.notices.AbstractNotice;
@@ -21,7 +21,7 @@ public abstract class HighLevelNotice extends AbstractNotice {
 	 */
 	private static final long serialVersionUID = 1L;
 	protected Player currentPlayer;
-	protected GameToken playerToken;
+	protected MonopolizedToken playerToken;
 	protected Environment gameVars;
 	protected Dice gameDice;
 	private String currency;
@@ -34,7 +34,7 @@ public abstract class HighLevelNotice extends AbstractNotice {
 		gameDice = gameVars.getGameDice();
 		currency = gameVars.getCurrency();
 		playerToken = gameVars.getPlayerTokens().get(currentPlayer.getName());
-		step = playerToken.getPath().getStep();
+		step = playerToken.getRouting().getStep();
 	}
 	
 	
@@ -117,7 +117,7 @@ public abstract class HighLevelNotice extends AbstractNotice {
 	}
 	
 	protected AbstractNotice moveAndDo(int roll) {
-		step = (playerToken.getPath().getStep() + roll)%40;
+		step = (playerToken.getRouting().getStep() + roll)%40;
 		gameVars.fancyPlayerMove(currentPlayer, roll);
 		//playerToken.movePiece(roll);
 		//step = playerToken.getPath().getStep();
@@ -128,7 +128,7 @@ public abstract class HighLevelNotice extends AbstractNotice {
 	
 	protected AbstractNotice moveAndDo(Player player, int roll) {
 		//System.out.println("player move and do roll: "+roll + " at position " + player.getPosition());
-		step = (playerToken.getPath().getStep() + roll)%40;
+		step = (playerToken.getRouting().getStep() + roll)%40;
 		gameVars.fancyPlayerMove(player, roll);
 		//playerToken.movePiece(roll);
 		//step = playerToken.getPath().getStep();

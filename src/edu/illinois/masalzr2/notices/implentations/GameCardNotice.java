@@ -11,7 +11,7 @@ import javax.swing.JComponent;
 import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.masters.LogMate;
 import edu.illinois.masalzr2.models.GameCard;
-import edu.illinois.masalzr2.models.GameToken;
+import edu.illinois.masalzr2.models.MonopolizedToken;
 import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.models.Property;
 import edu.illinois.masalzr2.models.Street;
@@ -27,7 +27,7 @@ public class GameCardNotice extends HighLevelNotice {
 	private static final long serialVersionUID = 1L;
 	private GameCard card;
 	private Player player;
-	private GameToken playerToken;
+	private MonopolizedToken playerToken;
 	private int step;
 	
 	private List<Player> players;
@@ -45,7 +45,7 @@ public class GameCardNotice extends HighLevelNotice {
 		player = pl;
 		
 		playerToken = gameVars.getPlayerTokens().get(player.getName());
-		step = playerToken.getPath().getStep();
+		step = playerToken.getRouting().getStep();
 		
 		defineActions();
 	}
@@ -138,7 +138,7 @@ public class GameCardNotice extends HighLevelNotice {
 	
 	private void findNearestOnBoard(GameCard gc){
 		AbstractNotice an = null;
-		step = playerToken.getPath().getStep();
+		step = playerToken.getRouting().getStep();
 		switch(gc.getFindNearest()){
 		case "railroad":an = findRailroad(player);
 			break;
@@ -194,7 +194,7 @@ public class GameCardNotice extends HighLevelNotice {
 	
 	private void findThisOnBoard(GameCard gc){
 		AbstractNotice an = null;
-		step = playerToken.getPath().getStep();
+		step = playerToken.getRouting().getStep();
 		int moveBy = 0;
 		switch(gc.getFindThis()){
 		case "": return;
@@ -209,7 +209,7 @@ public class GameCardNotice extends HighLevelNotice {
 					an = moveAndDo(player, moveBy);
 		default:if(properties.containsKey(gc.getFindThis())){
 					Property prop = properties.get(gc.getFindThis());
-					step = playerToken.getPath().getStep();
+					step = playerToken.getRouting().getStep();
 					if(step > prop.getPosition()){
 						moveBy = (40+prop.getPosition()) - step;
 					}else{

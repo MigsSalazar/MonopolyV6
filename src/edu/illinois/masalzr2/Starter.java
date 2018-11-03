@@ -17,6 +17,7 @@ import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.masters.LogMate;
 import edu.illinois.masalzr2.masters.MonopolyExceptionHandler;
 import edu.illinois.masalzr2.models.GameToken;
+import edu.illinois.masalzr2.models.MonopolizedToken;
 import edu.illinois.masalzr2.models.Player;
 
 /**
@@ -149,8 +150,8 @@ public class Starter {
 	public static boolean gameSetup(JFrame parent, Environment newerGame) {
 		LogMate.LOG.newEntry("Starter: Game Setup: NewGame was not null");
 		LogMate.LOG.newEntry("Starter: Game Setup: Finding GameTokens");
-		Map<String, GameToken> to = newerGame.getPlayerTokens();
-		List<GameToken> tokens = new ArrayList<GameToken>(to.values());
+		Map<String, MonopolizedToken> to = newerGame.getPlayerTokens();
+		List<MonopolizedToken> tokens = new ArrayList<MonopolizedToken>(to.values());
 		tokens.sort(GameToken.TEAM_ORDER);
 		
 		LogMate.LOG.newEntry("Starter: Game Setup: developing NewGameStartUp");

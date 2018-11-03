@@ -1,6 +1,8 @@
 package edu.illinois.masalzr2.gui;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Hashtable;
@@ -8,15 +10,23 @@ import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 
-public class StickerBook {
+import com.google.gson.annotations.Expose;
+
+import edu.illinois.masalzr2.masters.LogMate;
+
+public class StickerBook implements Serializable{
 	
-	private List<String> stickers;
-	private Map<Integer, Map<Integer, Map<Integer, Integer>>> pages;
-	private List<ImageIcon> coloredIn;
-	private boolean dirtyColors = false;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Expose private List<String> stickers;
+	@Expose private Map<Integer, Map<Integer, Map<Integer, Integer>>> pages;
+	transient private List<ImageIcon> coloredIn;
+	@Expose private boolean dirtyColors = true;
 	
-	private int width;
-	private int height;
+	@Expose private int width;
+	@Expose private int height;
 
 	
 	public StickerBook(int w, int h) {
@@ -42,18 +52,37 @@ public class StickerBook {
 		
 	}
 	
-	public StickerBook(ArrayList<String> st, Map<Integer, Map<Integer, Map<Integer, Integer>>> pa){
+	public StickerBook(int w, int h, ArrayList<String> st, Map<Integer, Map<Integer, Map<Integer, Integer>>> pa){
 		stickers = st;
 		pages = pa;
-		width = pages.size();
-		int finder = 0;
-		while( !pages.containsKey(finder) ){
-			finder++;
-		}
-		height = pages.get(finder).size();
+		width = w;
+		
+		height = h;
 		coloredIn = new ArrayList<ImageIcon>();
 		
 		refreshColoredIn();
+	}
+	
+	public List<ImageIcon> stackStickersAt(int x, int y){
+		refreshColoredIn();
+		
+		List<ImageIcon> stacked = new ArrayList<ImageIcon>();
+		
+		if(pageDepthAt(x,y) > 0){
+			Map<Integer,Integer> tile = pages.get(x).get(y);
+			List<Integer> order = new ArrayList<Integer>(tile.keySet());
+			order.sort(new Comparator<Integer>(){
+				@Override
+				public int compare(Integer o1, Integer o2) {
+					return o1.intValue() - o2.intValue();
+				}
+			});
+			for(int i=0; i<order.size(); i++){
+				stacked.add( coloredIn.get(tile.get(i).intValue()) );
+			}
+		}
+		
+		return stacked;
 	}
 	
 	public void placeSticker(int x, int y, int index){
@@ -91,7 +120,12 @@ public class StickerBook {
 	}
 	
 	public int pageDepthAt(int x, int y){
-		return pages.get(x).get(y).size();
+		if(pages.containsKey(x) ){
+			if(pages.get(x).containsKey(y)){
+				return pages.get(x).get(y).size();
+			}
+		}
+		return 0;
 	}
 	
 	public List<String> getStickerFileLocation(){
@@ -111,9 +145,10 @@ public class StickerBook {
 		return coloredIn.get(index);
 	}
 	
-	public List<ImageIcon> getPaintedIcons(){
+	public ImageIcon[] getPaintedIcons(){
 		refreshColoredIn();
-		return coloredIn.subList(0, coloredIn.size());
+		ImageIcon[] icons = new ImageIcon[coloredIn.size()];
+		return coloredIn.subList(0, coloredIn.size()).toArray(icons);
 	}
 	
 	public List<Integer> listStickerIndicesAt(int x, int y){
@@ -129,27 +164,22 @@ public class StickerBook {
 	}
 	
 	private void refreshColoredIn(){
-		if(!dirtyColors){
+		LogMate.LOG.newEntry("StickerBook: refreshColoredIn: Method was called: dirtyColors="+dirtyColors+" coloredIn="+coloredIn);
+		//LogMate.LOG.flush();
+		if(!dirtyColors && coloredIn != null){
 			return;
 		}
-		String homeDir = System.getProperty("user.dir");
+		coloredIn = new ArrayList<ImageIcon>();
+		String sep = System.getProperty("file.separator");
+		String homeDir = System.getProperty("user.dir") + sep + "textures";
 		int i;
 		for(i=0; i<stickers.size(); i++){
-			if( i >= coloredIn.size() ){
-				coloredIn.add(new ImageIcon( homeDir + stickers.get(i)) );
-			}else{
-				ImageIcon sticker = new ImageIcon( homeDir + stickers.get(i) );
-				if( !coloredIn.get(i).equals( sticker ) ){
-					coloredIn.set(i, sticker);
-				}
-			}
-		}
-		if(i < coloredIn.size()){
-			for( int j = coloredIn.size()-1; j >= i; j--){
-				coloredIn.remove(j);
-			}
+			coloredIn.add(new ImageIcon( homeDir + stickers.get(i)) );
+			//System.out.println(homeDir+stickers.get(i));
 		}
 		dirtyColors = false;
+		LogMate.LOG.newEntry("StickerBook: refreshColoredIn: End of method: coloredIn="+coloredIn);
+		LogMate.LOG.flush();
 	}
 	
 	private void makePages(int w, int h) {

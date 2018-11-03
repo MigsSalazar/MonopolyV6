@@ -305,7 +305,6 @@ public class GameIo {
 		vars.setStampCollection(	tempVars.getStampCollection());
 		vars.setPlayerTokens(		tempVars.getPlayerTokens());
 		vars.setStickerBook(		tempVars.getStickerBook());
-		vars.setStickers(			tempVars.getStickers());
 		vars.setCurrency(			tempVars.getCurrency());
 		vars.setTexture(			tempVars.getTexture());
 		vars.setSaveFile(new File(	tempVars.getSaveFile()));

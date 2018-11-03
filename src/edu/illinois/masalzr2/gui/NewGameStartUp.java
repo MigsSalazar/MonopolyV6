@@ -27,7 +27,7 @@ import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import edu.illinois.masalzr2.models.GameToken;
+import edu.illinois.masalzr2.models.MonopolizedToken;
 
 
 public class NewGameStartUp implements ActionListener, ChangeListener, KeyListener{
@@ -36,7 +36,7 @@ public class NewGameStartUp implements ActionListener, ChangeListener, KeyListen
 	
 	private JFrame parent;
 
-	private List<GameToken> tokens;
+	private List<MonopolizedToken> tokens;
 
 	private JPanel playerNums;
 	private JLabel numPrompt;
@@ -59,10 +59,10 @@ public class NewGameStartUp implements ActionListener, ChangeListener, KeyListen
 	//private List<Integer> iconIds;
 	private List<String> names;
 
-	public NewGameStartUp(JFrame p, List<GameToken> t){
+	public NewGameStartUp(JFrame p, List<MonopolizedToken> tokens2){
 		parent = p;
 
-		tokens = t;
+		tokens = tokens2;
 
 		//iconIds = new ArrayList<Integer>();
 		names = new ArrayList<String>();

@@ -22,9 +22,9 @@ import edu.illinois.masalzr2.masters.LogMate;
 import edu.illinois.masalzr2.models.Counter;
 import edu.illinois.masalzr2.models.Dice;
 import edu.illinois.masalzr2.models.GameCard;
-import edu.illinois.masalzr2.models.GameToken;
 import edu.illinois.masalzr2.models.Player;
-import edu.illinois.masalzr2.models.PositionIndex;
+import edu.illinois.masalzr2.models.ListedPath;
+import edu.illinois.masalzr2.models.MonopolizedToken;
 import edu.illinois.masalzr2.models.Property;
 import edu.illinois.masalzr2.models.Railroad;
 import edu.illinois.masalzr2.models.Street;
@@ -108,254 +108,281 @@ public class TemplateEnvironment{
 		/*
 		 * 	rows needed: 2,3,4,5,10,11,16,17,21,22,24,25,26,27,28,29
 		 *  cols needed: 1,2,3,4,5,8,9,10,11,20,21,24,25
+		 *  
+		 *  
+		 *  
 		 */
 		
-		populate the stickers
+		pages.put(2, new Hashtable<Integer, Map<Integer,Integer>>(30, 1.0f));
 		
-		int[][] nums = {{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //-1
-						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //1
-						{-1,-1,-1,13,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //2
-						{-1,-1,-1,14,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //3
-						{-1,-1,-1,-1,-1,-1,	-1,-1,9,9,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,5,5,-1,-1,		-1,-1,-1,-1,-1,-1}, //4
-						{-1,-1,-1,-1,-1,-1,	-1,-1,9,9,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,5,5,-1,-1,		-1,-1,-1,-1,-1,-1}, //5
-						
-						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //6
-						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //7
-						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //8
-						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //9
-						{-1,-1,-1,-1,7,7,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	7,7,-1,-1,-1,-1}, //10
-						{-1,-1,-1,-1,8,8,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	8,8,-1,-1,-1,-1}, //11
-						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //12
-						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //13
-						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //14
-						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //15
-						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	9,9,-1,-1,-1,-1}, //16
-						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	9,9,-1,-1,-1,-1}, //17
-						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //18
-						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //19
-						{-1,-1,-1,-1,4,4,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //20
-						{-1,-1,-1,-1,4,4,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //21
-						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //22
-						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //23
-							
-						{-1,6,6,6,6,6,		-1,-1,-1,-1,9,9,-1,-1,-1,-1,-1,-1,-1,-1,7,7,-1,-1,		-1,-1,-1,-1,-1,-1}, //24
-						{-1,6,-1,-1,-1,6,	-1,-1,-1,-1,9,9,-1,-1,-1,-1,-1,-1,-1,-1,8,8,-1,-1,		-1,-1,-1,-1,-1,-1}, //25
-						{-1,6,-1,-1,-1,6,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1}, //26
-						{-1,6,-1,-1,-1,6,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,10,-1,-1,-1,-1}, //27
-						{-1,6,6,6,6,6,		-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	11,-1,-1,-1,-1,-1}, //28
-						{-1,-1,-1,-1,-1,-1,	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,	-1,12,-1,-1,-1,-1}};//29
+		pages.get(2).put(3, new Hashtable<Integer,Integer>());
+		pages.get(2).get(3).put(0, 13);
+		
+		pages.put(3, new Hashtable<Integer, Map<Integer,Integer>>(30, 1.0f));
+		
+		pages.get(3).put(3, new Hashtable<Integer,Integer>());
+		pages.get(3).get(3).put(0, 14);
+		
+		pages.put(4, new Hashtable<Integer, Map<Integer,Integer>>(30, 1.0f));
+		
+		pages.get(4).put(8, new Hashtable<Integer,Integer>());
+		pages.get(4).get(8).put(0, 9);
+		pages.get(4).put(9, new Hashtable<Integer,Integer>());
+		pages.get(4).get(9).put(0, 9);
+		
+		pages.get(4).put(20, new Hashtable<Integer,Integer>());
+		pages.get(4).get(20).put(0, 5);
+		pages.get(4).put(21, new Hashtable<Integer,Integer>());
+		pages.get(4).get(21).put(0, 5);
+		
+		pages.put(5, new Hashtable<Integer, Map<Integer,Integer>>(30, 1.0f));
+		
+		pages.get(5).put(8, new Hashtable<Integer,Integer>());
+		pages.get(5).get(8).put(0, 9);
+		pages.get(5).put(9, new Hashtable<Integer,Integer>());
+		pages.get(5).get(9).put(0, 9);
+		
+		pages.get(5).put(20, new Hashtable<Integer,Integer>());
+		pages.get(5).get(20).put(0, 5);
+		pages.get(5).put(21, new Hashtable<Integer,Integer>());
+		pages.get(5).get(21).put(0, 5);
+		
+		pages.put(10, new Hashtable<Integer, Map<Integer,Integer>>(30, 1.0f));
+		
+		pages.get(10).put(4, new Hashtable<Integer,Integer>());
+		pages.get(10).get(4).put(0, 7);
+		pages.get(10).put(5, new Hashtable<Integer,Integer>());
+		pages.get(10).get(5).put(0, 7);
+		
+		pages.get(10).put(24, new Hashtable<Integer,Integer>());
+		pages.get(10).get(24).put(0, 7);
+		pages.get(10).put(25, new Hashtable<Integer,Integer>());
+		pages.get(10).get(25).put(0, 7);
+		
+		pages.put(11, new Hashtable<Integer, Map<Integer,Integer>>(30, 1.0f));
+		
+		pages.get(11).put(4, new Hashtable<Integer,Integer>());
+		pages.get(11).get(4).put(0, 8);
+		pages.get(11).put(5, new Hashtable<Integer,Integer>());
+		pages.get(11).get(5).put(0, 8);
+		
+		pages.get(11).put(24, new Hashtable<Integer,Integer>());
+		pages.get(11).get(24).put(0, 8);
+		pages.get(11).put(25, new Hashtable<Integer,Integer>());
+		pages.get(11).get(25).put(0, 8);
+		
+		pages.put(16, new Hashtable<Integer, Map<Integer,Integer>>(30, 1.0f));
+
+		pages.get(16).put(24, new Hashtable<Integer,Integer>());
+		pages.get(16).get(24).put(0, 9);
+		pages.get(16).put(25, new Hashtable<Integer,Integer>());
+		pages.get(16).get(25).put(0, 9);
+		
+		pages.put(17, new Hashtable<Integer, Map<Integer,Integer>>(30, 1.0f));
+		
+		pages.get(17).put(24, new Hashtable<Integer,Integer>());
+		pages.get(17).get(24).put(0, 9);
+		pages.get(17).put(25, new Hashtable<Integer,Integer>());
+		pages.get(17).get(25).put(0, 9);
+		
+		pages.put(20, new Hashtable<Integer, Map<Integer,Integer>>(30, 1.0f));
+		
+		pages.get(20).put(4, new Hashtable<Integer,Integer>());
+		pages.get(20).get(4).put(0, 4);
+		pages.get(20).put(5, new Hashtable<Integer,Integer>());
+		pages.get(20).get(5).put(0, 4);
+		
+		pages.put(21, new Hashtable<Integer, Map<Integer,Integer>>(30, 1.0f));
+		
+		pages.get(21).put(4, new Hashtable<Integer,Integer>());
+		pages.get(21).get(4).put(0, 4);
+		pages.get(21).put(5, new Hashtable<Integer,Integer>());
+		pages.get(21).get(5).put(0, 4);
+		
+		pages.put(24, new Hashtable<Integer, Map<Integer,Integer>>(30, 1.0f));
+		
+		pages.get(24).put(1, new Hashtable<Integer,Integer>());
+		pages.get(24).get(1).put(0, 6);
+		pages.get(24).put(2, new Hashtable<Integer,Integer>());
+		pages.get(24).get(2).put(0, 6);
+		pages.get(24).put(3, new Hashtable<Integer,Integer>());
+		pages.get(24).get(3).put(0, 6);
+		pages.get(24).put(4, new Hashtable<Integer,Integer>());
+		pages.get(24).get(4).put(0, 6);
+		pages.get(24).put(5, new Hashtable<Integer,Integer>());
+		pages.get(24).get(5).put(0, 6);
+		
+		pages.get(24).put(10, new Hashtable<Integer,Integer>());
+		pages.get(24).get(10).put(0, 9);
+		pages.get(24).put(11, new Hashtable<Integer,Integer>());
+		pages.get(24).get(11).put(0, 9);
+		
+		pages.get(24).put(20, new Hashtable<Integer,Integer>());
+		pages.get(24).get(20).put(0, 7);
+		pages.get(24).put(21, new Hashtable<Integer,Integer>());
+		pages.get(24).get(21).put(0, 7);
+		
+		pages.put(25, new Hashtable<Integer, Map<Integer,Integer>>(30, 1.0f));
+		
+		pages.get(25).put(1, new Hashtable<Integer,Integer>());
+		pages.get(25).get(1).put(0, 6);
+		pages.get(25).put(5, new Hashtable<Integer,Integer>());
+		pages.get(25).get(5).put(0, 6);
+		pages.get(25).put(10, new Hashtable<Integer,Integer>());
+		pages.get(25).get(10).put(0, 9);
+		pages.get(25).put(11, new Hashtable<Integer,Integer>());
+		pages.get(25).get(11).put(0, 9);
+		pages.get(25).put(20, new Hashtable<Integer,Integer>());
+		pages.get(25).get(20).put(0, 8);
+		pages.get(25).put(21, new Hashtable<Integer,Integer>());
+		pages.get(25).get(21).put(0, 8);
+		
+		pages.put(26, new Hashtable<Integer, Map<Integer,Integer>>(30, 1.0f));
+		
+		pages.get(26).put(1, new Hashtable<Integer,Integer>());
+		pages.get(26).get(1).put(0, 6);
+		pages.get(26).put(5, new Hashtable<Integer,Integer>());
+		pages.get(26).get(5).put(0, 6);
+		
+		pages.put(27, new Hashtable<Integer, Map<Integer,Integer>>(30, 1.0f));
+		
+		pages.get(27).put(1, new Hashtable<Integer,Integer>());
+		pages.get(27).get(1).put(0, 6);
+		pages.get(27).put(5, new Hashtable<Integer,Integer>());
+		pages.get(27).get(5).put(0, 6);
+		
+		pages.get(27).put(25, new Hashtable<Integer,Integer>());
+		pages.get(27).get(25).put(0, 10);
+		
+		pages.put(28, new Hashtable<Integer, Map<Integer,Integer>>(30, 1.0f));
+		
+		pages.get(28).put(1, new Hashtable<Integer,Integer>());
+		pages.get(28).get(1).put(0, 6);
+		pages.get(28).put(2, new Hashtable<Integer,Integer>());
+		pages.get(28).get(2).put(0, 6);
+		pages.get(28).put(3, new Hashtable<Integer,Integer>());
+		pages.get(28).get(3).put(0, 6);
+		pages.get(28).put(4, new Hashtable<Integer,Integer>());
+		pages.get(28).get(4).put(0, 6);
+		pages.get(28).put(5, new Hashtable<Integer,Integer>());
+		pages.get(28).get(5).put(0, 6);
+		pages.get(28).put(24, new Hashtable<Integer,Integer>());
+		pages.get(28).get(24).put(0, 11);
+		
+		pages.put(29, new Hashtable<Integer, Map<Integer,Integer>>(30, 1.0f));
+		
+		pages.get(29).put(25, new Hashtable<Integer,Integer>());
+		pages.get(29).get(25).put(0, 12);
+		
+		
 		
 		updateProgress(100, "Sticker nums has been generated");
 		
 		ArrayList<String> stickers = new ArrayList<String>();
 		
 		stickers.add(sep+"default"+sep+"housing.png");
-		stickers.add(sep+"default"+sep+"hotelLeft.png");				//1
-		stickers.add(sep+"default"+sep+"hotelRight.png");				//2
+		stickers.add(sep+"default"+sep+"hotelLeft.png");			//1
+		stickers.add(sep+"default"+sep+"hotelRight.png");			//2
 		stickers.add(sep+"default"+sep+"hotelBottom.png");			//3
 		
 		stickers.add(sep+"default"+sep+"eleccomp.png");				//4
-		stickers.add(sep+"default"+sep+"waterworks.png");				//5
+		stickers.add(sep+"default"+sep+"waterworks.png");			//5
 		
 		stickers.add(sep+"default"+sep+"jail.png");					//6
 		stickers.add(sep+"default"+sep+"chesttop.png");				//7
 		stickers.add(sep+"default"+sep+"chestbottom.png");			//8
-		stickers.add(sep+"default"+sep+"chance.png");					//9
+		stickers.add(sep+"default"+sep+"chance.png");				//9
 		
-		stickers.add(sep+"default"+sep+"gotop.png");					//10
-		stickers.add(sep+"default"+sep+"gomid.png");					//11
-		stickers.add(sep+"default"+sep+"gobot.png");					//12
+		stickers.add(sep+"default"+sep+"gotop.png");				//10
+		stickers.add(sep+"default"+sep+"gomid.png");				//11
+		stickers.add(sep+"default"+sep+"gobot.png");				//12
 
 		stickers.add(sep+"default"+sep+"parktop.png");				//13
 		stickers.add(sep+"default"+sep+"parkbot.png");				//14
 		
 		updateProgress(110, "Stickers have been generated");
 		
-		return new StickerBook(stickers, pages);
+		return new StickerBook(30, 30, stickers, pages);
 	}
 	
 	public static Stamp[][] defineStamps(){
-		Stamp[][] sc = { 
-		{new Stamp(' ',5,14),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,6), //row 0 col 0
-			new Stamp(' ',5,14),new Stamp(' ',5,6),new Stamp(' ',5,14),new Stamp(' ',5,6),new Stamp(' ',5,14),new Stamp(' ',5,6), //row 0 col 6
-				new Stamp(' ',5,14),new Stamp(' ',5,6),new Stamp(' ',5,14),new Stamp(' ',5,6),new Stamp(' ',5,14),new Stamp(' ',5,6), //row 0 col 12
-					new Stamp(' ',5,14),new Stamp(' ',5,6),new Stamp(' ',5,14),new Stamp(' ',5,6),new Stamp(' ',5,14),new Stamp(' ',5,6), //row 0 col 18
-						new Stamp(' ',5,14),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,6)}, //row 0 col 24
 		
-		{new Stamp(' ',5,7),new Stamp('F',5,1),new Stamp('R',5,1),new Stamp('E',5,1),new Stamp('E',5,1),new Stamp(' ',5,3),
-			new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,7),new Stamp(' ',5,3),
-				new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,7),new Stamp(' ',5,3),
-					new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,7),new Stamp(' ',5,3),
-						new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3)},
+		int[][] borders = {{14,2,2,2,2,6,	14,6,14,6,14,6,14,6,14,6,14,6,14,6,14,6,14,6,			14,2,2,2,2,6},
+						   { 7,1,1,1,1,3,	 7,3, 7,3, 7,3, 7,3, 7,3, 7,3, 7,3, 7,3, 7,3,			 7,1,1,1,1,3},
+						   { 7,1,1,1,1,3,	 7,3, 7,3, 7,3, 7,3, 7,3, 7,3, 7,3, 7,3, 7,3,			 7,1,1,1,1,3},
+						   { 7,1,1,1,1,3,	35,15,7,3,35,15,35,15,7,3,35,15,35,15,7,3,35,15,		 7,1,1,1,1,3},
+						   { 7,1,1,1,1,3,	14,6,7,3,14,6,14,6,7,3,14,6,14,6,7,3,14,6,				 7,1,1,1,1,3},
+						   {35,5,5,5,5,15,	35,15,35,15,35,15,35,15,35,15,35,15,35,15,35,15,35,15,	35,5,5,5,5,15},
+						   {14,2,2,6,14,6,	14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,2,2,2,2,2,2,6,			14,6,14,2,2,6},
+						   {35,5,5,15,35,15, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1,3,			35,15,35,5,5,15},
+						   {14,2,2,6,14,6,	 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1,3,			14,6,14,2,2,6},
+						   {35,5,5,15,35,15, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1,3,			35,15,35,5,5,15},
+						   {14,2,2,2,2,6,	 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1,3,			14,2,2,2,2,6},
+						   {35,5,5,5,5,15, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1,3,			35,5,5,5,5,15},
+						   {14,2,2,6,14,6,	 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1,3,			14,6,14,2,2,6},
+						   {35,5,5,15,35,15, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1,3,			35,15,35,5,5,15},
+						   {14,2,2,2,2,6,	 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1,3,			14,2,2,2,2,6},
+						   {35,5,5,5,5,15, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1,3,			35,5,5,5,5,15},
+						   {14,2,2,6,14,6,	 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1,3,			14,2,2,2,2,6},
+						   {35,5,5,15,35,15, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1,3,			35,5,5,5,5,15},
+						   {14,2,2,6,14,6,	 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1,3,			14,6,14,2,2,6},
+						   {35,5,5,15,35,15, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1,3,			35,15,35,5,5,15},
+						   {14,2,2,2,2,6,	 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1,3,			14,2,2,2,2,6},
+						   {35,5,5,5,5,15, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1,3,			35,5,5,5,5,15},
+						   {14,2,2,6,14,6,	 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1,3,			14,6,14,2,2,6},
+						   {35,5,5,15,35,15, 35,5, 5, 5, 5, 5, 5, 5, 5, 5, 5,5,5,5,5,5,5,15,		35,15,35,5,5,15},
+						   {14,2,2, 2, 2, 6, 14,6,14,6,14,6,14,6,14,6,14,6,14,6,14,6,14,6,			14,2,2,2,2,6},
+						   { 7,1,1, 1, 1, 3, 35,15,35,15,7,3,35,15,7,3,7,3,35,15,7,3,35,15,			7,1,1,1,1,3},
+						   { 7,1,1, 1, 1, 3, 14,6,14,6,7,3,14,6,7,3,7,3,14,6,7,3,14,6,				7,1,1,1,1,3},
+						   { 7,1,1, 1, 1, 3, 7,3,7,3,7,3,7,3,7,3,7,3,7,3,7,3,7,3,					7,1,1,1,1,3},
+						   { 7,1,1, 1, 1, 3, 7,3,7,3,7,3,7,3,7,3,7,3,7,3,7,3,7,3,					7,1,1,1,1,3},
+						   {35,5,5, 5, 5,15, 35,15,35,15,35,15,35,15,35,15,35,15,35,15,35,15,35,15, 35,5,5,5,5,15}};
 		
-		{new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3),
-			new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,7),new Stamp(' ',5,3),
-				new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,7),new Stamp(' ',5,3),
-					new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,7),new Stamp(' ',5,3),
-						new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3)},
+		Stamp[][] sc = new Stamp[30][30];
 		
-		{new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3),
-			new Stamp(' ',5,35),new Stamp(' ',5,15),new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,35),new Stamp(' ',5,15),
-				new Stamp(' ',5,35),new Stamp(' ',5,15),new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,35),new Stamp(' ',5,15),
-					new Stamp(' ',5,35),new Stamp(' ',5,15),new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,35),new Stamp(' ',5,15),
-						new Stamp(' ',5,7),new Stamp('G',5,1),new Stamp('O',5,1),new Stamp('T',5,1),new Stamp('O',5,1),new Stamp(' ',5,3)},
-
-		{new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3),
-			new Stamp(' ',5,14),new Stamp(' ',5,6),new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,14),new Stamp(' ',5,6),
-				new Stamp(' ',5,14),new Stamp(' ',5,6),new Stamp('B',5,7),new Stamp('O',5,3),new Stamp(' ',5,14),new Stamp(' ',5,6),
-					new Stamp(' ',5,14),new Stamp(' ',5,6),new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,14),new Stamp(' ',5,6),
-						new Stamp(' ',5,7),new Stamp('J',5,1),new Stamp('A',5,1),new Stamp('I',5,1),new Stamp('L',5,1),new Stamp(' ',5,3)},
-
-		{new Stamp(' ',5,35),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,15),
-			new Stamp(' ',5,35),new Stamp(' ',5,15),new Stamp(' ',5,35),new Stamp(' ',5,15),new Stamp(' ',5,35),new Stamp(' ',5,15),
-				new Stamp(' ',5,35),new Stamp(' ',5,15),new Stamp('R',5,35),new Stamp('R',5,15),new Stamp(' ',5,35),new Stamp(' ',5,15),
-					new Stamp(' ',5,35),new Stamp(' ',5,15),new Stamp(' ',5,35),new Stamp(' ',5,15),new Stamp(' ',5,35),new Stamp(' ',5,15),
-						new Stamp(' ',5,35),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,15)},
-
-		{new Stamp(' ',5,14),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,6),new Stamp(' ',5,14),new Stamp(' ',5,6),
-			new Stamp(' ',5,14),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),
-				new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),
-					new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,6),
-						new Stamp(' ',5,14),new Stamp(' ',5,6),new Stamp(' ',5,14),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,6)},
-
-		{new Stamp(' ',5,35),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,15),new Stamp(' ',5,35),new Stamp(' ',5,15),
-			new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-				new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-					new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3),
-						new Stamp(' ',5,35),new Stamp(' ',5,15),new Stamp(' ',5,35),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,15)},
-
-		{new Stamp(' ',5,14),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,6),new Stamp(' ',5,14),new Stamp(' ',5,6),
-			new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-				new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-					new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3),
-						new Stamp(' ',5,14),new Stamp(' ',5,6),new Stamp(' ',5,14),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,6)},
-		
-		{new Stamp(' ',5,35),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,15),new Stamp(' ',5,35),new Stamp(' ',5,15),
-			new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-				new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-					new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3),
-						new Stamp(' ',5,35),new Stamp(' ',5,15),new Stamp(' ',5,35),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,15)},
-		
-		{new Stamp(' ',5,14),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,6),
-			new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-				new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-					new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3),
-						new Stamp(' ',5,14),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,6)},
-
-		{new Stamp(' ',5,35),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,15),
-			new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-				new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-					new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3),
-						new Stamp(' ',5,35),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,15)},
-		
-		{new Stamp(' ',5,14),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,6),new Stamp(' ',5,14),new Stamp(' ',5,6),
-			new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-				new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-					new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3),
-						new Stamp(' ',5,14),new Stamp(' ',5,6),new Stamp(' ',5,14),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,6)},
-		
-		{new Stamp(' ',5,35),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,15),new Stamp(' ',5,35),new Stamp(' ',5,15),
-			new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-				new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-					new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3),
-						new Stamp(' ',5,35),new Stamp(' ',5,15),new Stamp(' ',5,35),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,15)},
-		
-		{new Stamp(' ',5,14),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp('P',5,2),new Stamp('N',5,6),
-			new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-				new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-					new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3),
-						new Stamp('S',5,14),new Stamp('L',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,6)},
-		
-		{new Stamp(' ',5,35),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp('R',5,5),new Stamp('R',5,15),
-			new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-				new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-					new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3),
-						new Stamp(' ',5,35),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,15)},
-		
-		{new Stamp(' ',5,14),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,6),new Stamp(' ',5,14),new Stamp(' ',5,6),
-			new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-				new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-					new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3),
-						new Stamp(' ',5,14),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,6)},
-		
-		{new Stamp(' ',5,35),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,15),new Stamp(' ',5,35),new Stamp(' ',5,15),
-			new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-				new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-					new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3),
-						new Stamp(' ',5,35),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,15)},
-		
-		{new Stamp(' ',5,14),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,6),new Stamp(' ',5,14),new Stamp(' ',5,6),
-			new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-				new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-					new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3),
-						new Stamp(' ',5,14),new Stamp(' ',5,6),new Stamp(' ',5,14),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,6)},
-		
-		{new Stamp(' ',5,35),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,15),new Stamp(' ',5,35),new Stamp(' ',5,15),
-			new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-				new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-					new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3),
-						new Stamp(' ',5,35),new Stamp(' ',5,15),new Stamp(' ',5,35),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,15)},
-		
-		{new Stamp(' ',5,14),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,6),
-			new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-				new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-					new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3),
-						new Stamp('L',5,14),new Stamp('X',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,6)},
-		
-		{new Stamp(' ',5,35),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,15),
-			new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-				new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-					new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3),
-						new Stamp('T',5,35),new Stamp('X',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,15)},
-		
-		{new Stamp(' ',5,14),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,6),new Stamp(' ',5,14),new Stamp(' ',5,6),
-			new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-				new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),
-					new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3),
-						new Stamp(' ',5,14),new Stamp(' ',5,6),new Stamp(' ',5,14),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,6)},
-		
-		{new Stamp(' ',5,35),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,15),new Stamp(' ',5,35),new Stamp(' ',5,15),
-			new Stamp(' ',5,35),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),
-				new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),
-					new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,15),
-						new Stamp(' ',5,35),new Stamp(' ',5,15),new Stamp(' ',5,35),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,15)},
-		
-		{new Stamp(' ',5,14),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,6),
-			new Stamp(' ',5,14),new Stamp(' ',5,6),new Stamp(' ',5,14),new Stamp(' ',5,6),new Stamp(' ',5,14),new Stamp(' ',5,6),
-				new Stamp(' ',5,14),new Stamp(' ',5,6),new Stamp('R',5,14),new Stamp('E',5,6),new Stamp('I',5,14),new Stamp('C',5,6),
-					new Stamp(' ',5,14),new Stamp(' ',5,6),new Stamp(' ',5,14),new Stamp(' ',5,6),new Stamp(' ',5,14),new Stamp(' ',5,6),
-						new Stamp(' ',5,14),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,2),new Stamp(' ',5,6)},
-		
-		{new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3),
-			new Stamp(' ',5,35),new Stamp(' ',5,15),new Stamp(' ',5,35),new Stamp(' ',5,15),new Stamp(' ',5,7),new Stamp(' ',5,3),
-				new Stamp(' ',5,35),new Stamp(' ',5,15),new Stamp('R',5,7),new Stamp('R',5,3),new Stamp('T',5,7),new Stamp('X',5,3),
-					new Stamp(' ',5,35),new Stamp(' ',5,15),new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,35),new Stamp(' ',5,15),
-						new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3)},
-		
-		{new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3),
-			new Stamp(' ',5,14),new Stamp(' ',5,6),new Stamp(' ',5,14),new Stamp(' ',5,6),new Stamp(' ',5,7),new Stamp(' ',5,3),
-				new Stamp(' ',5,14),new Stamp(' ',5,6),new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,7),new Stamp(' ',5,3),
-					new Stamp(' ',5,14),new Stamp(' ',5,6),new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,14),new Stamp(' ',5,6),
-						new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3)},
-		
-		{new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3),
-			new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,7),new Stamp(' ',5,3),
-				new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,7),new Stamp(' ',5,3),
-					new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,7),new Stamp(' ',5,3),
-						new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp('G',5,1),new Stamp('O',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3)},
-		
-		{new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3),
-			new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,7),new Stamp(' ',5,3),
-				new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,7),new Stamp(' ',5,3),
-					new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,7),new Stamp(' ',5,3),new Stamp(' ',5,7),new Stamp(' ',5,3),
-						new Stamp(' ',5,7),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,1),new Stamp(' ',5,3)},
-		
-		{new Stamp(' ',5,35),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,15),
-			new Stamp(' ',5,35),new Stamp(' ',5,15),new Stamp(' ',5,35),new Stamp(' ',5,15),new Stamp(' ',5,35),new Stamp(' ',5,15),
-				new Stamp(' ',5,35),new Stamp(' ',5,15),new Stamp(' ',5,35),new Stamp(' ',5,15),new Stamp(' ',5,35),new Stamp(' ',5,15),
-					new Stamp(' ',5,35),new Stamp(' ',5,15),new Stamp(' ',5,35),new Stamp(' ',5,15),new Stamp(' ',5,35),new Stamp(' ',5,15),
-						new Stamp(' ',5,35),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,5),new Stamp(' ',5,15)}
-		};
+		for(int i=0; i<30; i++){
+			for(int j=0; j<30; j++){
+				sc[i][j] = new Stamp(' ', 5, borders[i][j]);
+			}
+		}
+		//(3,25)=G	(3,26)=O	(3,27)=T	(3,26)=O	(4,14)=B	(4,15)=O	(4,25)=J	(4,26)=A	(4,27)=I	(4,28)=L	(5,14)=R	(5,15)=R
+		//(24,14)=R	(24,15)=E	(24,16)=I	(24,17)=C	(25,14)=R	(25,15)=R	(25,16)=T	(25,17)=X	(27,26)=G	(27,27)=O
+		sc[1][1].setEngraving('F');
+		sc[1][2].setEngraving('R');
+		sc[1][3].setEngraving('E');
+		sc[1][4].setEngraving('E');
+		sc[3][25].setEngraving('G');
+		sc[3][26].setEngraving('O');
+		sc[3][27].setEngraving('T');
+		sc[3][28].setEngraving('O');
+		sc[4][14].setEngraving('B');
+		sc[4][15].setEngraving('O');
+		sc[4][25].setEngraving('J');
+		sc[4][26].setEngraving('A');
+		sc[4][27].setEngraving('I');
+		sc[4][28].setEngraving('L');
+		sc[5][14].setEngraving('R');
+		sc[5][15].setEngraving('R');
+		sc[14][4].setEngraving('P');
+		sc[14][5].setEngraving('N');
+		sc[15][4].setEngraving('R');
+		sc[15][5].setEngraving('R');
+		sc[14][24].setEngraving('S');
+		sc[14][25].setEngraving('L');
+		sc[20][24].setEngraving('L');
+		sc[20][25].setEngraving('X');
+		sc[21][24].setEngraving('T');
+		sc[21][25].setEngraving('X');
+		sc[24][14].setEngraving('R');
+		sc[24][15].setEngraving('E');
+		sc[24][16].setEngraving('I');
+		sc[24][17].setEngraving('C');
+		sc[25][14].setEngraving('R');
+		sc[25][15].setEngraving('R');
+		sc[25][16].setEngraving('T');
+		sc[25][17].setEngraving('X');
+		sc[27][26].setEngraving('G');
+		sc[27][27].setEngraving('O');
 		
 		updateProgress(90, "Stamps have been generated");
 		
@@ -561,54 +588,54 @@ public class TemplateEnvironment{
 		return icons;
 	}
 	
-	public static HashMap<String, GameToken> definePlayerTokens(List<Player> playerIds){
-		HashMap<String, GameToken> playerTokens = new HashMap<String, GameToken>();
-		GameToken p1 = new GameToken(0, "/default/boat.png", new PositionIndex(
+	public static HashMap<String, MonopolizedToken> definePlayerTokens(List<Player> playerIds){
+		HashMap<String, MonopolizedToken> playerTokens = new HashMap<String, MonopolizedToken>();
+		MonopolizedToken p1 = new MonopolizedToken(0, "/default/boat.png", new ListedPath(
 				new int[]{25,22,20,18,16,14,12,10,8,6,0,0,0,0,0,0,0,0,0,0,0,6,8,10,12,14,16,18,20,22,25,26,26,26,26,26,26,26,26,26,},
-				new int[]{25,26,26,26,26,26,26,26,26,26,25,22,20,18,16,14,12,10,8,6,2,0,0,0,0,0,0,0,0,0,1,6,8,10,12,14,16,18,20,22,},
-				new int[]{25},
+				new int[]{25,26,26,26,26,26,26,26,26,26,25,22,20,18,16,14,12,10,8,6,2,0,0,0,0,0,0,0,0,0,1,6,8,10,12,14,16,18,20,22,}),
+				new ListedPath(new int[]{25},
 				new int[]{2}));
 
-		GameToken p2 = new GameToken(1, "/default/boot.png", new PositionIndex(
+		MonopolizedToken p2 = new MonopolizedToken(1, "/default/boot.png", new ListedPath(
 			new int[]{26,23,21,19,17,15,13,11,9,7,0,1,1,1,1,1,1,1,1,1,1,7,9,11,13,15,17,19,21,23,26,27,27,27,27,27,27,27,27,27,},
-			new int[]{25,26,26,26,26,26,26,26,26,26,26,22,20,18,16,14,12,10,8,6,2,0,0,0,0,0,0,0,0,0,1,6,8,10,12,14,16,18,20,22,},
-			new int[]{26},
+			new int[]{25,26,26,26,26,26,26,26,26,26,26,22,20,18,16,14,12,10,8,6,2,0,0,0,0,0,0,0,0,0,1,6,8,10,12,14,16,18,20,22,}),
+			new ListedPath(new int[]{26},
 			new int[]{2}));
 
-		GameToken p3 = new GameToken(2, "/default/car.png", new PositionIndex(
+		MonopolizedToken p3 = new MonopolizedToken(2, "/default/car.png", new ListedPath(
 			new int[]{27,22,20,18,16,14,12,10,8,6,0,2,2,2,2,2,2,2,2,2,4,6,8,10,12,14,16,18,20,22,27,28,28,28,28,28,28,28,28,28,},
-			new int[]{25,27,27,27,27,27,27,27,27,27,27,22,20,18,16,14,12,10,8,6,2,1,1,1,1,1,1,1,1,1,1,6,8,10,12,14,16,18,20,22,},
-			new int[]{27},
+			new int[]{25,27,27,27,27,27,27,27,27,27,27,22,20,18,16,14,12,10,8,6,2,1,1,1,1,1,1,1,1,1,1,6,8,10,12,14,16,18,20,22,}),
+			new ListedPath(new int[]{27},
 			new int[]{2}));
 	
-		GameToken p4 = new GameToken(3, "/default/hat.png", new PositionIndex(
+		MonopolizedToken p4 = new MonopolizedToken(3, "/default/hat.png", new ListedPath(
 			new int[]{28,23,21,19,17,15,13,11,9,7,0,3,3,3,3,3,3,3,3,3,5,7,9,11,13,15,17,19,21,23,28,29,29,29,29,29,29,29,29,29,},
-			new int[]{25,27,27,27,27,27,27,27,27,27,28,22,20,18,16,14,12,10,8,6,2,1,1,1,1,1,1,1,1,1,1,6,8,10,12,14,16,18,20,22,},
-			new int[]{27},
+			new int[]{25,27,27,27,27,27,27,27,27,27,28,22,20,18,16,14,12,10,8,6,2,1,1,1,1,1,1,1,1,1,1,6,8,10,12,14,16,18,20,22,}),
+			new ListedPath(new int[]{27},
 			new int[]{3}));
 	
-		GameToken p5 = new GameToken(4, "/default/iron.png", new PositionIndex(
+		MonopolizedToken p5 = new MonopolizedToken(4, "/default/iron.png", new ListedPath(
 			new int[]{25,22,20,18,16,14,12,10,8,6,1,0,0,0,0,0,0,0,0,0,0,6,8,10,12,14,16,18,20,22,25,26,26,26,26,26,26,26,26,26,},
-			new int[]{26,28,28,28,28,28,28,28,28,28,29,23,21,19,17,15,13,11,9,7,3,2,2,2,2,2,2,2,2,2,2,7,9,11,13,15,17,19,21,23,},
-			new int[]{27},
+			new int[]{26,28,28,28,28,28,28,28,28,28,29,23,21,19,17,15,13,11,9,7,3,2,2,2,2,2,2,2,2,2,2,7,9,11,13,15,17,19,21,23,}),
+			new ListedPath(new int[]{27},
 			new int[]{4}));
 		
-		GameToken p6 = new GameToken(5, "/default/pupper.png", new PositionIndex(
+		MonopolizedToken p6 = new MonopolizedToken(5, "/default/pupper.png", new ListedPath(
 			new int[]{26,23,21,19,17,15,13,11,9,7,2,1,1,1,1,1,1,1,1,1,1,7,9,11,13,15,17,19,21,23,26,27,27,27,27,27,27,27,27,27,},
-			new int[]{26,28,28,28,28,28,28,28,28,28,29,23,21,19,17,15,13,11,9,7,3,2,2,2,2,2,2,2,2,2,2,7,9,11,13,15,17,19,21,23,},
-			new int[]{26},
+			new int[]{26,28,28,28,28,28,28,28,28,28,29,23,21,19,17,15,13,11,9,7,3,2,2,2,2,2,2,2,2,2,2,7,9,11,13,15,17,19,21,23,}),
+			new ListedPath(new int[]{26},
 			new int[]{4}));
 	
-		GameToken p7 = new GameToken(6, "/default/thimble.png", new PositionIndex(
+		MonopolizedToken p7 = new MonopolizedToken(6, "/default/thimble.png", new ListedPath(
 			new int[]{27,22,20,18,16,14,12,10,8,6,3,2,2,2,2,2,2,2,2,2,4,6,8,10,12,14,16,18,20,22,27,28,28,28,28,28,28,28,28,28,},
-			new int[]{26,29,29,29,29,29,29,29,29,29,29,23,21,19,17,15,13,11,9,7,3,3,3,3,3,3,3,3,3,3,2,7,9,11,13,15,17,19,21,23,},
-			new int[]{25},
+			new int[]{26,29,29,29,29,29,29,29,29,29,29,23,21,19,17,15,13,11,9,7,3,3,3,3,3,3,3,3,3,3,2,7,9,11,13,15,17,19,21,23,}),
+			new ListedPath(new int[]{25},
 			new int[]{4}));
 	
-		GameToken p8 = new GameToken(7, "/default/wheelbarrow.png", new PositionIndex(
+		MonopolizedToken p8 = new MonopolizedToken(7, "/default/wheelbarrow.png", new ListedPath(
 			new int[]{28,23,21,19,17,15,13,11,9,7,4,3,3,3,3,3,3,3,3,3,5,7,9,11,13,15,17,19,21,23,28,29,29,29,29,29,29,29,29,29,},
-			new int[]{26,29,29,29,29,29,29,29,29,29,29,23,21,19,17,15,13,11,9,7,3,3,3,3,3,3,3,3,3,3,2,7,9,11,13,15,17,19,21,23,},
-			new int[]{25},
+			new int[]{26,29,29,29,29,29,29,29,29,29,29,23,21,19,17,15,13,11,9,7,3,3,3,3,3,3,3,3,3,3,2,7,9,11,13,15,17,19,21,23,}),
+			new ListedPath(new int[]{25},
 			new int[]{3}));
 	
 	
@@ -626,12 +653,12 @@ public class TemplateEnvironment{
 		return playerTokens;
 	}
 	
-	public static PositionIndex definePropPositions(){
+	public static ListedPath definePropPositions(){
 				//  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39
 		int[] x = {-1,22,-1,18,-1,-1,12,-1, 8, 6,-1, 4,-1, 4, 4,-1, 4,-1, 4, 4,-1, 6,-1,10,12,-1,16,18,-1,22,-1,24,24,-1,24,-1,-1,24,-1,24};
 		int[] y = {-1,24,-1,24,-1,-1,24,-1,24,24,-1,22,-1,18,16,-1,12,-1, 8, 6,-1, 4,-1, 4, 4,-1, 4, 4,-1, 4,-1, 6, 8,-1,12,-1,-1,18,-1,22};
 		
-		PositionIndex propertyPositions = new PositionIndex(x,y);
+		ListedPath propertyPositions = new ListedPath(x,y);
 		updateProgress(30, "Property positions have been defined");
 		return propertyPositions;
 	}
