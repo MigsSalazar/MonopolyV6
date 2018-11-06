@@ -5,7 +5,7 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 
-import edu.illinois.masalzr2.masters.Environment;
+import edu.illinois.masalzr2.controllers.Environment;
 import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.models.Property;
 

@@ -1,4 +1,4 @@
-package edu.illinois.masalzr2.masters;
+package edu.illinois.masalzr2.controllers;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@Deprecated
 public class LogMate {
 	
 	public static final Logger LOG = new Logger();
@@ -51,7 +52,7 @@ public class LogMate {
 			}
 		}
 		
-		public void newEntry(String s){
+		public void newEntry(String s) throws Exception{
 			try {
 				counter++;
 				if( !active ) {

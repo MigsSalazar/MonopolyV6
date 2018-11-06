@@ -6,18 +6,19 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import lombok.extern.flogger.Flogger;
+
+@Flogger
 public class EnvironmentTest {
 	
 	@BeforeClass
 	public static void beforeAll() {
-		LogMate.LOG.newEntry("BEGINNING TESTS FOR ENVIRONMENT");
+		log.atInfo().log("BEGINNING TESTS FOR ENVIRONMENT");
 	}
 	
 	@AfterClass
 	public static void afterAll() {
-		LogMate.LOG.newEntry("ENDING TESTS FOR ENVIRONMENT CLASS");
-		LogMate.LOG.flush();
-		LogMate.LOG.finish();
+		log.atInfo().log("ENDING TESTS FOR ENVIRONMENT CLASS");
 	}
 
 	@Test

@@ -8,7 +8,9 @@ import javax.swing.JComponent;
 import edu.illinois.masalzr2.notices.AbstractNotice;
 import edu.illinois.masalzr2.notices.ListEvent;
 import edu.illinois.masalzr2.notices.ListListener;
+import lombok.extern.flogger.Flogger;
 
+@Flogger
 public class MessageNotice extends AbstractNotice{
 	
 	/**
@@ -31,7 +33,7 @@ public class MessageNotice extends AbstractNotice{
 	
 	@Override
 	public void actionPerformed(ActionEvent e){
-		LOG.newEntry(this.getClass().getName() + ": actionPerformed: popping self from list");
+		log.atInfo().log(this.getClass().getName() + ": actionPerformed: popping self from list");
 		listener.popMe(new ListEvent(this));
 	}
 	

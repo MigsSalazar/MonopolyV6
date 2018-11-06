@@ -8,8 +8,7 @@ import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 
-import edu.illinois.masalzr2.masters.Environment;
-import edu.illinois.masalzr2.masters.LogMate;
+import edu.illinois.masalzr2.controllers.Environment;
 import edu.illinois.masalzr2.models.GameCard;
 import edu.illinois.masalzr2.models.MonopolizedToken;
 import edu.illinois.masalzr2.models.Player;
@@ -18,7 +17,9 @@ import edu.illinois.masalzr2.models.Street;
 import edu.illinois.masalzr2.notices.AbstractNotice;
 import edu.illinois.masalzr2.notices.ListEvent;
 import edu.illinois.masalzr2.notices.ListListener;
+import lombok.extern.flogger.Flogger;
 
+@Flogger
 public class GameCardNotice extends HighLevelNotice {
 
 	/**
@@ -148,7 +149,7 @@ public class GameCardNotice extends HighLevelNotice {
 		default: return;
 		}
 		if(an == null){
-			LogMate.LOG.newEntry("FindNearestOnBoard returned null");
+			log.atInfo().log("FindNearestOnBoard returned null");
 			return;
 		}
 		noticePushPop(an);

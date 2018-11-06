@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.util.Scanner;
 
 import edu.illinois.masalzr2.Starter;
+import edu.illinois.masalzr2.controllers.Environment;
 import edu.illinois.masalzr2.io.GameIo;
-import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.models.Property;
 import edu.illinois.masalzr2.models.Street;

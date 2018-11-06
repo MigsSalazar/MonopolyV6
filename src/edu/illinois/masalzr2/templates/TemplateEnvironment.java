@@ -14,11 +14,10 @@ import javax.swing.JFrame;
 import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 
+import edu.illinois.masalzr2.controllers.Environment;
 import edu.illinois.masalzr2.gui.Stamp;
 import edu.illinois.masalzr2.gui.StickerBook;
 import edu.illinois.masalzr2.io.GameIo;
-import edu.illinois.masalzr2.masters.Environment;
-import edu.illinois.masalzr2.masters.LogMate;
 import edu.illinois.masalzr2.models.Counter;
 import edu.illinois.masalzr2.models.Dice;
 import edu.illinois.masalzr2.models.GameCard;
@@ -30,12 +29,14 @@ import edu.illinois.masalzr2.models.Railroad;
 import edu.illinois.masalzr2.models.Street;
 import edu.illinois.masalzr2.models.Suite;
 import edu.illinois.masalzr2.models.Utility;
+import lombok.extern.flogger.Flogger;
 
 /**
  * 
  * @author Miguel Salazar
  *
  */
+@Flogger
 public class TemplateEnvironment{
 	
 	public static String sep = java.io.File.separator;
@@ -69,9 +70,7 @@ public class TemplateEnvironment{
 		
 		//System.out.println("I'm done");
 		//progPanel.dispose();
-		LogMate.LOG.newEntry("Finished template!");
-		LogMate.LOG.flush();
-		LogMate.LOG.finish();
+		log.atInfo().log("Finished template!");
 	}
 	
 	public static void closeProgressPanel() {
@@ -280,29 +279,29 @@ public class TemplateEnvironment{
 		
 		ArrayList<String> stickers = new ArrayList<String>();
 		
-		stickers.add(sep+"default"+sep+"housing.png");
-		stickers.add(sep+"default"+sep+"hotelLeft.png");			//1
-		stickers.add(sep+"default"+sep+"hotelRight.png");			//2
-		stickers.add(sep+"default"+sep+"hotelBottom.png");			//3
+		stickers.add(sep+"housing.png");
+		stickers.add(sep+"hotelLeft.png");			//1
+		stickers.add(sep+"hotelRight.png");			//2
+		stickers.add(sep+"hotelBottom.png");			//3
 		
-		stickers.add(sep+"default"+sep+"eleccomp.png");				//4
-		stickers.add(sep+"default"+sep+"waterworks.png");			//5
+		stickers.add(sep+"eleccomp.png");				//4
+		stickers.add(sep+"waterworks.png");			//5
 		
-		stickers.add(sep+"default"+sep+"jail.png");					//6
-		stickers.add(sep+"default"+sep+"chesttop.png");				//7
-		stickers.add(sep+"default"+sep+"chestbottom.png");			//8
-		stickers.add(sep+"default"+sep+"chance.png");				//9
+		stickers.add(sep+"jail.png");					//6
+		stickers.add(sep+"chesttop.png");				//7
+		stickers.add(sep+"chestbottom.png");			//8
+		stickers.add(sep+"chance.png");				//9
 		
-		stickers.add(sep+"default"+sep+"gotop.png");				//10
-		stickers.add(sep+"default"+sep+"gomid.png");				//11
-		stickers.add(sep+"default"+sep+"gobot.png");				//12
+		stickers.add(sep+"gotop.png");				//10
+		stickers.add(sep+"gomid.png");				//11
+		stickers.add(sep+"gobot.png");				//12
 
-		stickers.add(sep+"default"+sep+"parktop.png");				//13
-		stickers.add(sep+"default"+sep+"parkbot.png");				//14
+		stickers.add(sep+"parktop.png");				//13
+		stickers.add(sep+"parkbot.png");				//14
 		
 		updateProgress(110, "Stickers have been generated");
 		
-		return new StickerBook(30, 30, stickers, pages);
+		return new StickerBook("default", 30, 30, stickers, pages);
 	}
 	
 	public static Stamp[][] defineStamps(){
@@ -580,7 +579,7 @@ public class TemplateEnvironment{
 				"jail7.png",				//18
 				"jail8.png"};				//19
 		for(int i=0; i<icons.length; i++){
-			icons[i] = sep+"default"+sep+icons[i];
+			icons[i] = sep+icons[i];
 		}
 		
 		updateProgress(50, "Icons have been defined");
@@ -595,48 +594,64 @@ public class TemplateEnvironment{
 				new int[]{25,26,26,26,26,26,26,26,26,26,25,22,20,18,16,14,12,10,8,6,2,0,0,0,0,0,0,0,0,0,1,6,8,10,12,14,16,18,20,22,}),
 				new ListedPath(new int[]{25},
 				new int[]{2}));
+		//CyclicalPathModel cpm = new CyclicalPathModel();
+		//p1.getRouting().setListedPathModel(cpm);
 
 		MonopolizedToken p2 = new MonopolizedToken(1, "/default/boot.png", new ListedPath(
-			new int[]{26,23,21,19,17,15,13,11,9,7,0,1,1,1,1,1,1,1,1,1,1,7,9,11,13,15,17,19,21,23,26,27,27,27,27,27,27,27,27,27,},
-			new int[]{25,26,26,26,26,26,26,26,26,26,26,22,20,18,16,14,12,10,8,6,2,0,0,0,0,0,0,0,0,0,1,6,8,10,12,14,16,18,20,22,}),
+			new int[]{25,23,21,19,17,15,13,11,9,7,0,1,1,1,1,1,1,1,1,1,1,7,9,11,13,15,17,19,21,23,26,27,27,27,27,27,27,27,27,27,},
+			new int[]{26,26,26,26,26,26,26,26,26,26,26,22,20,18,16,14,12,10,8,6,2,0,0,0,0,0,0,0,0,0,1,6,8,10,12,14,16,18,20,22,}),
 			new ListedPath(new int[]{26},
 			new int[]{2}));
+		//cpm = new CyclicalPathModel();
+		//p2.getRouting().setListedPathModel(cpm);
 
 		MonopolizedToken p3 = new MonopolizedToken(2, "/default/car.png", new ListedPath(
-			new int[]{27,22,20,18,16,14,12,10,8,6,0,2,2,2,2,2,2,2,2,2,4,6,8,10,12,14,16,18,20,22,27,28,28,28,28,28,28,28,28,28,},
-			new int[]{25,27,27,27,27,27,27,27,27,27,27,22,20,18,16,14,12,10,8,6,2,1,1,1,1,1,1,1,1,1,1,6,8,10,12,14,16,18,20,22,}),
+			new int[]{25,22,20,18,16,14,12,10,8,6,0,2,2,2,2,2,2,2,2,2,4,6,8,10,12,14,16,18,20,22,27,28,28,28,28,28,28,28,28,28,},
+			new int[]{27,27,27,27,27,27,27,27,27,27,27,22,20,18,16,14,12,10,8,6,2,1,1,1,1,1,1,1,1,1,1,6,8,10,12,14,16,18,20,22,}),
 			new ListedPath(new int[]{27},
 			new int[]{2}));
+		//cpm = new CyclicalPathModel();
+		//p3.getRouting().setListedPathModel(cpm);
 	
 		MonopolizedToken p4 = new MonopolizedToken(3, "/default/hat.png", new ListedPath(
-			new int[]{28,23,21,19,17,15,13,11,9,7,0,3,3,3,3,3,3,3,3,3,5,7,9,11,13,15,17,19,21,23,28,29,29,29,29,29,29,29,29,29,},
-			new int[]{25,27,27,27,27,27,27,27,27,27,28,22,20,18,16,14,12,10,8,6,2,1,1,1,1,1,1,1,1,1,1,6,8,10,12,14,16,18,20,22,}),
+			new int[]{25,23,21,19,17,15,13,11,9,7,0,3,3,3,3,3,3,3,3,3,5,7,9,11,13,15,17,19,21,23,28,29,29,29,29,29,29,29,29,29,},
+			new int[]{28,27,27,27,27,27,27,27,27,27,28,22,20,18,16,14,12,10,8,6,2,1,1,1,1,1,1,1,1,1,1,6,8,10,12,14,16,18,20,22,}),
 			new ListedPath(new int[]{27},
 			new int[]{3}));
+		//cpm = new CyclicalPathModel();
+		//p4.getRouting().setListedPathModel(cpm);
 	
 		MonopolizedToken p5 = new MonopolizedToken(4, "/default/iron.png", new ListedPath(
-			new int[]{25,22,20,18,16,14,12,10,8,6,1,0,0,0,0,0,0,0,0,0,0,6,8,10,12,14,16,18,20,22,25,26,26,26,26,26,26,26,26,26,},
-			new int[]{26,28,28,28,28,28,28,28,28,28,29,23,21,19,17,15,13,11,9,7,3,2,2,2,2,2,2,2,2,2,2,7,9,11,13,15,17,19,21,23,}),
+			new int[]{26,22,20,18,16,14,12,10,8,6,1,0,0,0,0,0,0,0,0,0,0,6,8,10,12,14,16,18,20,22,25,26,26,26,26,26,26,26,26,26,},
+			new int[]{25,28,28,28,28,28,28,28,28,28,29,23,21,19,17,15,13,11,9,7,3,2,2,2,2,2,2,2,2,2,2,7,9,11,13,15,17,19,21,23,}),
 			new ListedPath(new int[]{27},
 			new int[]{4}));
+		//cpm = new CyclicalPathModel();
+		//p5.getRouting().setListedPathModel(cpm);
 		
 		MonopolizedToken p6 = new MonopolizedToken(5, "/default/pupper.png", new ListedPath(
 			new int[]{26,23,21,19,17,15,13,11,9,7,2,1,1,1,1,1,1,1,1,1,1,7,9,11,13,15,17,19,21,23,26,27,27,27,27,27,27,27,27,27,},
 			new int[]{26,28,28,28,28,28,28,28,28,28,29,23,21,19,17,15,13,11,9,7,3,2,2,2,2,2,2,2,2,2,2,7,9,11,13,15,17,19,21,23,}),
 			new ListedPath(new int[]{26},
 			new int[]{4}));
+		//cpm = new CyclicalPathModel();
+		//p6.getRouting().setListedPathModel(cpm);
 	
 		MonopolizedToken p7 = new MonopolizedToken(6, "/default/thimble.png", new ListedPath(
-			new int[]{27,22,20,18,16,14,12,10,8,6,3,2,2,2,2,2,2,2,2,2,4,6,8,10,12,14,16,18,20,22,27,28,28,28,28,28,28,28,28,28,},
-			new int[]{26,29,29,29,29,29,29,29,29,29,29,23,21,19,17,15,13,11,9,7,3,3,3,3,3,3,3,3,3,3,2,7,9,11,13,15,17,19,21,23,}),
+			new int[]{26,22,20,18,16,14,12,10,8,6,3,2,2,2,2,2,2,2,2,2,4,6,8,10,12,14,16,18,20,22,27,28,28,28,28,28,28,28,28,28,},
+			new int[]{27,29,29,29,29,29,29,29,29,29,29,23,21,19,17,15,13,11,9,7,3,3,3,3,3,3,3,3,3,3,2,7,9,11,13,15,17,19,21,23,}),
 			new ListedPath(new int[]{25},
 			new int[]{4}));
+		//cpm = new CyclicalPathModel();
+		//p7.getRouting().setListedPathModel(cpm);
 	
 		MonopolizedToken p8 = new MonopolizedToken(7, "/default/wheelbarrow.png", new ListedPath(
-			new int[]{28,23,21,19,17,15,13,11,9,7,4,3,3,3,3,3,3,3,3,3,5,7,9,11,13,15,17,19,21,23,28,29,29,29,29,29,29,29,29,29,},
-			new int[]{26,29,29,29,29,29,29,29,29,29,29,23,21,19,17,15,13,11,9,7,3,3,3,3,3,3,3,3,3,3,2,7,9,11,13,15,17,19,21,23,}),
+			new int[]{26,23,21,19,17,15,13,11,9,7,4,3,3,3,3,3,3,3,3,3,5,7,9,11,13,15,17,19,21,23,28,29,29,29,29,29,29,29,29,29,},
+			new int[]{28,29,29,29,29,29,29,29,29,29,29,23,21,19,17,15,13,11,9,7,3,3,3,3,3,3,3,3,3,3,2,7,9,11,13,15,17,19,21,23,}),
 			new ListedPath(new int[]{25},
 			new int[]{3}));
+		//cpm = new CyclicalPathModel();
+		//p8.getRouting().setListedPathModel(cpm);
 	
 	
 		playerTokens.put( playerIds.get(0).getName() , p1);

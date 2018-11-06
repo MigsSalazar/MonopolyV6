@@ -16,10 +16,11 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import edu.illinois.masalzr2.Starter;
+import edu.illinois.masalzr2.controllers.Environment;
 import edu.illinois.masalzr2.io.GameIo;
-import edu.illinois.masalzr2.masters.Environment;
-import edu.illinois.masalzr2.masters.LogMate;
+import lombok.extern.flogger.Flogger;
 
+@Flogger
 public class FrameMenu extends JMenuBar implements ActionListener{
 	
 	/**
@@ -92,7 +93,7 @@ public class FrameMenu extends JMenuBar implements ActionListener{
 					else
 						JOptionPane.showMessageDialog(this, "The save file you entered is invalid.\nIt is either out of date, corrupted,\nor is not a save file at all.", "Bad file", JOptionPane.ERROR_MESSAGE);
 				}else {
-					LogMate.LOG.newEntry("FrameMenu: ActionPerformed: Bad file found.");
+					log.atInfo().log("FrameMenu: ActionPerformed: Bad file found.");
 					JOptionPane.showMessageDialog(this, "The save file you entered is invalid.\nIt is either out of date, corrupted,\nor is not a save file at all.", "Bad file", JOptionPane.ERROR_MESSAGE);
 				}
 			} else if( source.equals(options[1]) ){

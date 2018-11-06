@@ -18,10 +18,9 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import edu.illinois.masalzr2.Starter;
+import edu.illinois.masalzr2.controllers.Environment;
 import edu.illinois.masalzr2.io.GameIo;
-import edu.illinois.masalzr2.masters.Environment;
-import edu.illinois.masalzr2.masters.LogMate;
-import edu.illinois.masalzr2.masters.LogMate.Logger;
+import lombok.extern.flogger.Flogger;
 
 
 /**
@@ -31,13 +30,12 @@ import edu.illinois.masalzr2.masters.LogMate.Logger;
  * @author Miguel Salazar
  *
  */
+@Flogger
 public class PreGameFrame extends JFrame implements ActionListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -7859011893692247775L;
-	
-	private static Logger LOG = LogMate.LOG;
 	
 	private static String sep = File.separator;
 	private JPanel innerPanel = new JPanel();
@@ -61,7 +59,7 @@ public class PreGameFrame extends JFrame implements ActionListener {
 	public PreGameFrame(){
 		//c.setLayout(box);
 		
-		LOG.newEntry("PreGameFrame: beginning");
+		log.atInfo().log("PreGameFrame: beginning");
 		
 		picture = new ImageIcon(System.getProperty("user.dir")+sep+"resources"+sep+"topintroimage.png" );
 		newGame = new JButton("New Game");
@@ -69,7 +67,7 @@ public class PreGameFrame extends JFrame implements ActionListener {
 		settings = new JButton("Settings");
 		about = new JButton("About");
 		
-		LOG.newEntry("PreGameFrame: beginning: adding listeners and components");
+		log.atInfo().log("PreGameFrame: beginning: adding listeners and components");
 		addListeners();
 		JLabel pictureLabel = new JLabel(picture);
 		innerPanel.add("picture", pictureLabel);
@@ -77,7 +75,7 @@ public class PreGameFrame extends JFrame implements ActionListener {
 		innerPanel.add("load game button", loadGame);
 		innerPanel.add("settings button", settings);
 		innerPanel.add("about button", about);
-		LOG.newEntry("PreGameFrame: beginning: setup complete");
+		log.atInfo().log("PreGameFrame: beginning: setup complete");
 	}
 	
 	/**
@@ -85,7 +83,7 @@ public class PreGameFrame extends JFrame implements ActionListener {
 	 */
 	public void start(){
 		
-		LOG.newEntry("PreGameFrame: Start: beginning start method");
+		log.atInfo().log("PreGameFrame: Start: beginning start method");
 		
 		Container c = this.getContentPane();
 		c.add(innerPanel);
@@ -93,10 +91,10 @@ public class PreGameFrame extends JFrame implements ActionListener {
 		this.setSize(420,480);
 		this.setTitle("Migs Monopoly!");
 		//System.out.println(System.getProperty("user.dir")+"/resources/frameicon.png");
-		LOG.newEntry("PreGameFrame: Start: adding icon");
+		log.atInfo().log("PreGameFrame: Start: adding icon");
 		Image icon = new ImageIcon(System.getProperty("user.dir")+sep+"resources"+sep+"frameicon.png").getImage();
 		this.setIconImage(icon);
-		LOG.newEntry("PreGameFrame: Start: Making Visible");
+		log.atInfo().log("PreGameFrame: Start: Making Visible");
 		this.setVisible(true);
 	}
 	
@@ -105,7 +103,7 @@ public class PreGameFrame extends JFrame implements ActionListener {
 	 */
 	private void addListeners(){
 		
-		LOG.newEntry("Adding pregameframe listeners");
+		log.atInfo().log("Adding pregameframe listeners");
 		
 		newGame.addActionListener(this);
 		
@@ -120,7 +118,7 @@ public class PreGameFrame extends JFrame implements ActionListener {
 	 * Disposes the PreGameFrame object
 	 */
 	private void closeMe(){
-		LOG.newEntry("PreGameFrame: closing");
+		log.atInfo().log("PreGameFrame: closing");
 		this.dispose();
 	}
 	
@@ -139,10 +137,10 @@ public class PreGameFrame extends JFrame implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		LOG.newEntry("PreGameFrame: ActionPerformed: ActionEven receieved");
+		log.atInfo().log("PreGameFrame: ActionPerformed: ActionEven receieved");
 		if(e.getSource().equals(newGame)){
 			//the new game button was pressed
-			LOG.newEntry("PreGameFrame: ActionPerformed: NewGame was pressed");
+			log.atInfo().log("PreGameFrame: ActionPerformed: NewGame was pressed");
 			
 			//Grabs the selected mns file, be-it the default or a texture grabbed by settings
 			Environment newerGame = GameIo.newGame(fileDir);
@@ -162,12 +160,12 @@ public class PreGameFrame extends JFrame implements ActionListener {
 			}else {
 				
 				//Game was found non-existent, corrupt, incomplete, or had some error
-				LOG.newEntry("PreGameFrame: ActionPerformed: Bad file found.");
+				log.atInfo().log("PreGameFrame: ActionPerformed: Bad file found.");
 				badFile();
 			}
 		}else if(e.getSource().equals(loadGame)){
 			//The player wishes to resume an old game
-			LOG.newEntry("PreGameFrame: ActionPerformed: Loading was pressed");
+			log.atInfo().log("PreGameFrame: ActionPerformed: Loading was pressed");
 			
 			//Begin the search for saved games
 			FileNameExtensionFilter filter = new FileNameExtensionFilter("Monopoly Saves", "mns");
@@ -177,21 +175,21 @@ public class PreGameFrame extends JFrame implements ActionListener {
 			
 			//Confirms the directory exists. Stops process if not
 			if(dir==null) {
-				LOG.newEntry("PreGameFrame: ActionPerformed: Directory was found invalid");
+				log.atInfo().log("PreGameFrame: ActionPerformed: Directory was found invalid");
 				return;
 			}
 			
 			//Generates an Environment object from the mns file
-			LOG.newEntry("PreGameFrame: ActionPerformed: Producing saved game");
+			log.atInfo().log("PreGameFrame: ActionPerformed: Producing saved game");
 			Environment loadedGame = GameIo.produceSavedGame(dir);
 			
 			//Confirms that the game was loaded properly. PreGameFrame disposes itself if confirmed.
 			if(loadedGame !=null) {
-				LOG.newEntry("PreGameFrame: ActionPerformed: Game was successfully produced");
+				log.atInfo().log("PreGameFrame: ActionPerformed: Game was successfully produced");
 				loadedGame.buildFrame();
 				closeMe();
 			}else {
-				LOG.newEntry("PreGameFrame: ActionPerformed: Bad file found");
+				log.atInfo().log("PreGameFrame: ActionPerformed: Bad file found");
 				badFile();
 			}
 		}else if(e.getSource().equals(settings)){

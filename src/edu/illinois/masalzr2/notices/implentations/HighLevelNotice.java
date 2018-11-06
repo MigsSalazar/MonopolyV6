@@ -2,10 +2,10 @@ package edu.illinois.masalzr2.notices.implentations;
 
 import javax.swing.JOptionPane;
 
+import edu.illinois.masalzr2.controllers.Environment;
 import edu.illinois.masalzr2.gui.MortgageManager;
 import edu.illinois.masalzr2.gui.TradeManager;
 import edu.illinois.masalzr2.gui.UpgradeManager;
-import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.models.Dice;
 import edu.illinois.masalzr2.models.MonopolizedToken;
 import edu.illinois.masalzr2.models.Player;
@@ -13,7 +13,9 @@ import edu.illinois.masalzr2.models.Property;
 import edu.illinois.masalzr2.notices.AbstractNotice;
 import edu.illinois.masalzr2.notices.ListEvent;
 import edu.illinois.masalzr2.notices.ListListener;
+import lombok.extern.flogger.Flogger;
 
+@Flogger
 public abstract class HighLevelNotice extends AbstractNotice {
 	
 	/**
@@ -105,7 +107,7 @@ public abstract class HighLevelNotice extends AbstractNotice {
 	protected void crossGo(int roll) {
 		if( (step + roll) >= 40 || (step + roll)==0){
 			GoNotice pbe = new GoNotice(listener, currentPlayer);
-			LOG.newEntry(this.getClass().getName() + ": crossGo: pushing self");
+			log.atInfo().log(this.getClass().getName() + ": crossGo: pushing self");
 			listener.pushMe(new ListEvent(pbe));
 		}
 	}

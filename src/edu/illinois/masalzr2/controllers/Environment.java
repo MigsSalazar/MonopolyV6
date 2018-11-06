@@ -1,5 +1,5 @@
 
-package edu.illinois.masalzr2.masters;
+package edu.illinois.masalzr2.controllers;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -31,7 +31,6 @@ import edu.illinois.masalzr2.gui.Scoreboard;
 import edu.illinois.masalzr2.gui.Stamp;
 import edu.illinois.masalzr2.gui.StickerBook;
 import edu.illinois.masalzr2.gui.UpgradeManager;
-import edu.illinois.masalzr2.masters.LogMate.Logger;
 import edu.illinois.masalzr2.models.Counter;
 import edu.illinois.masalzr2.models.Dice;
 import edu.illinois.masalzr2.models.GameCard;
@@ -47,6 +46,7 @@ import edu.illinois.masalzr2.notices.implentations.MessageNotice;
 import edu.illinois.masalzr2.templates.TemplateEnvironment;
 
 import lombok.*;
+import lombok.extern.flogger.Flogger;
 
 /**
  * For all intents and purposes, this is the game instance.
@@ -59,13 +59,13 @@ import lombok.*;
  * @author Miguel Salazar
  *
  */
+@Flogger
 @Data
 public class Environment implements Serializable, ChangeListener {
 
 	private static final long serialVersionUID = 1L;
 
-	private static transient Logger LOG = LogMate.LOG;
-	private transient String sep = File.separator;
+	private static final transient String sep = System.getProperty("file.separator");
 	
 	private transient JFrame frame;
 	private transient FrameMenu menuBar;
@@ -124,7 +124,7 @@ public class Environment implements Serializable, ChangeListener {
 	 * A courtesy constructor to log the creation of the Environment
 	 */
 	public Environment() {
-		LOG.newEntry("GameVariables called");
+		log.atInfo().log("GameVariables called");
 	}
 	
 	/**
@@ -133,7 +133,6 @@ public class Environment implements Serializable, ChangeListener {
 	 */
 	public void buildFrame() {
 		//Define the File separator. Hopefully this doesn't mess with cross platform compatability
-		sep = File.separator;
 		
 		//Creating the jframe to be built upon
 		frame = new JFrame();
@@ -181,8 +180,7 @@ public class Environment implements Serializable, ChangeListener {
 			public void windowClosed(WindowEvent arg0) {}
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				LOG.newEntry("GameVariables: Game frame is closing");
-				LOG.finish();
+				log.atInfo().log("GameVariables: Game frame is closing");
 			}
 			@Override
 			public void windowDeactivated(WindowEvent arg0) {}
@@ -210,33 +208,27 @@ public class Environment implements Serializable, ChangeListener {
 	private void buildBoard() {
 		
 		//Defining a new board regardless if new or saved game in use
-		LOG.newEntry("GameVariables: buildBoard: Building game board");
+		log.atInfo().log("GameVariables: buildBoard: Building game board");
 		board = new Board();
 		
 		//Setting the indexes of the imageicons to be used. Think for a paint-by-number coloring page. The Board uses the same concept
-		LOG.newEntry("GameVariables: buildBoard: Passing icons and numbers");
+		log.atInfo().log("GameVariables: buildBoard: Passing icons and numbers");
 		board.setIconNumbers(paintByNumbers);
 		
 		//Refreshes the ImageIcons used by the board
-		paintedIcons = new ImageIcon[icons.length];
-		for(int i=0; i<icons.length; i++) {
-			paintedIcons[i] = new ImageIcon(System.getProperty("user.dir") + sep + "textures" + sep + icons[i]);
-		}
+		refreshAllImages();
 		
 		//Sets the "colors" in the paint-by-number scheme. Each int in the paintByNumbers array is an index of the paintedIcons array
 		board.setIcons(paintedIcons);
 		
-		//Setting the sticker's indexes. The stickers use the same concept as the paint-by-numbers. Stickers, however, are expected to be moved/replaced/deleted
-		LOG.newEntry("GameVariables: buildBoard: Passing Stickers");
-		board.setStickerBook(stickerBook);
-		
+		log.atInfo().log("GameVariables: buildBoard: Passing Stickers");
 		//Refreshing the sticker ImageIcons
 		coloredStickers = stickerBook.getPaintedIcons();
 		//Gives the board all the stickers it needs
 		board.setStickerBook(stickerBook);
 		
 		//Setting the stamps of the game. The paint-by-number scheme is NOT used here. Each board tile gets their own stamp object
-		LOG.newEntry("GameVariables: buildBoard: Passing stamps, dice, and dice assets");
+		log.atInfo().log("GameVariables: buildBoard: Passing stamps, dice, and dice assets");
 		board.setStamps(stampCollection);
 		
 		//Defines the dice icons to be used
@@ -249,7 +241,7 @@ public class Environment implements Serializable, ChangeListener {
 		board.setDiceLocations(7, 11, 7, 16);
 		
 		//Paints the display
-		LOG.newEntry("GameVariables: buildBoard: painting display and placing tokens");
+		log.atInfo().log("GameVariables: buildBoard: painting display and placing tokens");
 		board.paintDisplay();
 		
 		//Places the player tokens. Read more below. It's the next method
@@ -281,7 +273,7 @@ public class Environment implements Serializable, ChangeListener {
 			for(Street st : s.sortedByPosition()) {
 				//Grabs the propertie's position
 				int[] coords = propPos.get(st.getPosition());
-				LogMate.LOG.newEntry("GameVariables: Paint Housing: Street "+st.getName()+" at position "+st.getPosition()+" with coord-x="+coords[0]+" and coord-y="+coords[1]);
+				log.atConfig().log("GameVariables: Paint Housing: Street "+st.getName()+" at position "+st.getPosition()+" with coord-x="+coords[0]+" and coord-y="+coords[1]);
 				
 				//Clears all instances of the house and hotel icons
 				board.removePiece(new ImageIcon("house"+st.getName()));
@@ -329,7 +321,7 @@ public class Environment implements Serializable, ChangeListener {
 	 */
 	public int roll(){
 		//Yup, this rolls the dice... specifics? sure!
-		LOG.newEntry("GameVariables: roll: rolling dice");
+		log.atInfo().log("GameVariables: roll: rolling dice");
 		//This rolls the dice!... The game dice... two dice get rolled... their sum is returned... the dice were rolled
 		gameDice.roll();
 		
@@ -379,7 +371,7 @@ public class Environment implements Serializable, ChangeListener {
 	public boolean jailPlayer(Player p){
 		
 		//Checking to make sure the player exists in the jailTable
-		LOG.newEntry("GameVariables: jailPlayer: player " + p.getName() + " has been jailed");
+		log.atInfo().log("GameVariables: jailPlayer: player " + p.getName() + " has been jailed");
 		if(jailTable.get(p.getName()) == null ){
 			return false;
 		}
@@ -405,7 +397,7 @@ public class Environment implements Serializable, ChangeListener {
 		int[] newCoords = jailMe.getRouting().findFullPath().get(0);
 		
 		//Moves the player piece to their jail cell
-		LOG.newEntry("GameVariables: jailPlayer: moving piece to jail cell");
+		log.atFinest().log("GameVariables: jailPlayer: moving piece to jail cell");
 		board.movePiece(jailMe.getPiece(), newCoords[0], newCoords[1]);
 		
 		//All succeeded so returning true.
@@ -512,7 +504,9 @@ public class Environment implements Serializable, ChangeListener {
 	 */
 	public void fancyPlayerMove(Player p, int move) {
 		//This method was an asshole. Be very Very VERY careful with this method. You want bugs? Look here
-		
+		if(isInJail(p)){
+			return;
+		}
 		//Confirms the player wants fancy moves
 		if( !fancyMoveEnabled ) {
 			//NO FANCY MOVE. TELEPORTING GAME PIECES TIME
@@ -570,8 +564,6 @@ public class Environment implements Serializable, ChangeListener {
 	 * @param move - int the distance the piece needs to travel
 	 */
 	public void movePlayer(String p, int move){
-		//Flushes the log to the logfile
-		LogMate.LOG.flush();
 		
 		//Finds the current GameToken
 		MonopolizedToken current = playerTokens.get(p);
@@ -649,7 +641,7 @@ public class Environment implements Serializable, ChangeListener {
 		//Resets the player's jail timer
 		resetJail(p);
 		
-		LOG.newEntry("GameVariables: Release Jailed Player: player " + p+ " has been released from jail");
+		log.atInfo().log("GameVariables: Release Jailed Player: player " + p+ " has been released from jail");
 		//Unlocks the GameToken, sets the token's step to 10, and moves it by 0 to refresh the coordinates
 		MonopolizedToken jailMe = playerTokens.get(p);
 		
@@ -658,7 +650,7 @@ public class Environment implements Serializable, ChangeListener {
 		//jailMe.movePiece(0);
 		
 		//Moves the GameToken on the board
-		LOG.newEntry("GameVariables: Release Jailed Player: moving piece to visiting jail");
+		log.atInfo().log("GameVariables: Release Jailed Player: moving piece to visiting jail");
 		board.movePiece(jailMe.getPiece(), path.currentCoords()[0], path.currentCoords()[1]);
 	}
 	
@@ -850,13 +842,24 @@ public class Environment implements Serializable, ChangeListener {
 	 */
 	public void refreshAllImages() {
 		//Setting the sizes for paintedIcons and coloredStickers
+		String root = System.getProperty("user.dir") + sep + "textures" + sep;
+		String pathName = root + texture + sep;
 		paintedIcons = new ImageIcon[icons.length];
 		coloredStickers = stickerBook.getPaintedIcons();
 		
 		//Finding the Images according to the texture directory and files names
 		for(int i=0; i< icons.length; i++) {
-			paintedIcons[i] = new ImageIcon(System.getProperty("user.dir") + sep + "textures" + sep + texture + sep + icons[i]);
-			LogMate.LOG.newEntry(System.getProperty("user.dir") + sep + "textures" + sep + texture + sep + icons[i]);
+			if(icons[i].startsWith(sep+"default"+sep)){
+				paintedIcons[i] = new ImageIcon(root+icons[i]);
+				log.atInfo().log("Image created with directory "+root+icons[i]);
+			}else{
+				paintedIcons[i] = new ImageIcon(pathName+icons[i]);
+				log.atInfo().log("Image created with directory "+pathName+icons[i]);
+			}
+			//log.atFinest().log(pathName+icons[i]);
+			
+			
+			//System.out.println(pathName+icons[i]);
 		}
 	}
 	
@@ -973,7 +976,7 @@ public class Environment implements Serializable, ChangeListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			//Calls for a visual move
-			LogMate.LOG.newEntry("FancyPlayerMove: team="+current.getTeam()+" count="+count+" mod="+direction+" move="+move+" position="+current.getRouting().getStep());
+			log.atFinest().log("FancyPlayerMove: team="+current.getTeam()+" count="+count+" mod="+direction+" move="+move+" position="+current.getRouting().getStep());
 			
 			ListedPath path = current.getRouting();
 			int step = path.getStep();

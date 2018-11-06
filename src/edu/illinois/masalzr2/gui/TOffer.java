@@ -24,7 +24,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import edu.illinois.masalzr2.masters.Environment;
+import edu.illinois.masalzr2.controllers.Environment;
 import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.models.Property;
 import edu.illinois.masalzr2.models.Street;

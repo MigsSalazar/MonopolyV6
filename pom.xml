@@ -77,5 +77,18 @@
   		<artifactId>mockito-core</artifactId>
   		<version>2.21.0</version>
   	</dependency>
+  	<!-- https://mvnrepository.com/artifact/com.google.flogger/flogger -->
+  	<dependency>
+    	<groupId>com.google.flogger</groupId>
+    	<artifactId>flogger</artifactId>
+    	<version>0.3.1</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/com.google.flogger/flogger-system-backend -->
+	<dependency>
+    	<groupId>com.google.flogger</groupId>
+    	<artifactId>flogger-system-backend</artifactId>
+    	<version>0.3.1</version>
+    	<scope>runtime</scope>
+	</dependency>
   </dependencies>
 </project>

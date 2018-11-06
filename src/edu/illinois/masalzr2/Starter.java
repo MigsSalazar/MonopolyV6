@@ -10,15 +10,15 @@ import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import edu.illinois.masalzr2.controllers.Environment;
+import edu.illinois.masalzr2.controllers.MonopolyExceptionHandler;
 import edu.illinois.masalzr2.gui.NewGameStartUp;
 import edu.illinois.masalzr2.gui.PreGameFrame;
 import edu.illinois.masalzr2.io.GameIo;
-import edu.illinois.masalzr2.masters.Environment;
-import edu.illinois.masalzr2.masters.LogMate;
-import edu.illinois.masalzr2.masters.MonopolyExceptionHandler;
 import edu.illinois.masalzr2.models.GameToken;
 import edu.illinois.masalzr2.models.MonopolizedToken;
 import edu.illinois.masalzr2.models.Player;
+import lombok.extern.flogger.Flogger;
 
 /**
  * Starting point class for the monopoly game. Other main methods exist in this project
@@ -30,6 +30,7 @@ import edu.illinois.masalzr2.models.Player;
  * @author Miguel Salazar
  *
  */
+@Flogger
 public class Starter {
 	
 	/**
@@ -43,7 +44,7 @@ public class Starter {
 		Thread.setDefaultUncaughtExceptionHandler(masterCatcher);
 		
 		//Beginning the log
-		LogMate.LOG.newEntry("Starter: static: beginning log");
+		log.atInfo().log("Starter: static: beginning log");
 	
 	}
 	
@@ -57,7 +58,7 @@ public class Starter {
 		if(args.length > 0) {
 			
 			//Arguments confirmed
-			LogMate.LOG.newEntry("Starter: main: found multiple arguments");
+			log.atInfo().log("Starter: main: found multiple arguments");
 			int i=0;
 			//Looking for mns files
 			while( i<args.length && !args[i].endsWith(".mns") ) {
@@ -79,9 +80,9 @@ public class Starter {
 		}
 		
 		//No arguments found or no mns files found. Starting PreGameFrame
-		LogMate.LOG.newEntry("Starter: main: creating PreGameFrame");
+		log.atInfo().log("Starter: main: creating PreGameFrame");
 		PreGameFrame pgf = new PreGameFrame();
-		LogMate.LOG.newEntry("Starter: main: Starting PreGameFrame");
+		log.atInfo().log("Starter: main: Starting PreGameFrame");
 		pgf.start();
 		//myGame.buildFrame();
 	}
@@ -148,16 +149,16 @@ public class Starter {
 	 * @return - true - if the Environment is properly setup and all goes well. false - Something went wrong and the process cannot continue
 	 */
 	public static boolean gameSetup(JFrame parent, Environment newerGame) {
-		LogMate.LOG.newEntry("Starter: Game Setup: NewGame was not null");
-		LogMate.LOG.newEntry("Starter: Game Setup: Finding GameTokens");
+		log.atInfo().log("Starter: Game Setup: NewGame was not null");
+		log.atInfo().log("Starter: Game Setup: Finding GameTokens");
 		Map<String, MonopolizedToken> to = newerGame.getPlayerTokens();
 		List<MonopolizedToken> tokens = new ArrayList<MonopolizedToken>(to.values());
 		tokens.sort(GameToken.TEAM_ORDER);
 		
-		LogMate.LOG.newEntry("Starter: Game Setup: developing NewGameStartUp");
+		log.atInfo().log("Starter: Game Setup: developing NewGameStartUp");
 		NewGameStartUp ngsup = new NewGameStartUp(parent, tokens );
 		
-		LogMate.LOG.newEntry("Starter: Game Setup: Starting NewGameStartUp Dialog");
+		log.atInfo().log("Starter: Game Setup: Starting NewGameStartUp Dialog");
 		ngsup.beginDialog();
 		
 		List<String> names = ngsup.getNames();
@@ -165,22 +166,22 @@ public class Starter {
 			return false;
 		}
 		
-		LogMate.LOG.newEntry("Starter: Game Setup: Dialog has ended, starting game");
+		log.atInfo().log("Starter: Game Setup: Dialog has ended, starting game");
 		List<Player> playerByIds = newerGame.getPlayerID();
 		Map<String, Player> playerByName = newerGame.getPlayers();
 		newerGame.setParticipantSize(names.size());
 		to.clear();
 		
-		LogMate.LOG.newEntry("Starter: Game Setup: Assets gotten");
+		log.atInfo().log("Starter: Game Setup: Assets gotten");
 		
 		for(int i=0; i<names.size(); i++) {
-			LogMate.LOG.newEntry("Starter: Game Setup: at name "+i + " is "+names.get(0));
+			log.atInfo().log("Starter: Game Setup: at name "+i + " is "+names.get(0));
 			to.put(names.get(i), tokens.get(i));
 			playerByIds.get(i).setName(names.get(i));
 			playerByName.remove(""+i);
 			playerByName.put(names.get(i), playerByIds.get(i));
 		}
-		LogMate.LOG.newEntry("Starter: Game Setup: Loading assets. sending");
+		log.atInfo().log("Starter: Game Setup: Loading assets. sending");
 		
 		newerGame.refreshPlayerCollections();
 		newerGame.refreshAllImages();

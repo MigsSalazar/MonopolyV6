@@ -12,8 +12,9 @@ import javax.swing.ImageIcon;
 
 import com.google.gson.annotations.Expose;
 
-import edu.illinois.masalzr2.masters.LogMate;
+import lombok.extern.flogger.Flogger;
 
+@Flogger
 public class StickerBook implements Serializable{
 	
 	/**
@@ -27,9 +28,12 @@ public class StickerBook implements Serializable{
 	
 	@Expose private int width;
 	@Expose private int height;
+	
+	@Expose private String texture;
 
 	
-	public StickerBook(int w, int h) {
+	public StickerBook(String t, int w, int h) {
+		texture = t;
 		width = w;
 		height = h;
 		makePages(width, height);
@@ -37,7 +41,8 @@ public class StickerBook implements Serializable{
 		coloredIn = new ArrayList<ImageIcon>();
 	}
 	
-	public StickerBook(int w, int h, ArrayList<String> st) {
+	public StickerBook(String t, int w, int h, ArrayList<String> st) {
+		texture = t;
 		width = w;
 		height = h;
 		makePages(width,height);
@@ -52,7 +57,8 @@ public class StickerBook implements Serializable{
 		
 	}
 	
-	public StickerBook(int w, int h, ArrayList<String> st, Map<Integer, Map<Integer, Map<Integer, Integer>>> pa){
+	public StickerBook(String t, int w, int h, ArrayList<String> st, Map<Integer, Map<Integer, Map<Integer, Integer>>> pa){
+		texture = t;
 		stickers = st;
 		pages = pa;
 		width = w;
@@ -60,7 +66,7 @@ public class StickerBook implements Serializable{
 		height = h;
 		coloredIn = new ArrayList<ImageIcon>();
 		
-		refreshColoredIn();
+		//refreshColoredIn();
 	}
 	
 	public List<ImageIcon> stackStickersAt(int x, int y){
@@ -164,22 +170,22 @@ public class StickerBook implements Serializable{
 	}
 	
 	private void refreshColoredIn(){
-		LogMate.LOG.newEntry("StickerBook: refreshColoredIn: Method was called: dirtyColors="+dirtyColors+" coloredIn="+coloredIn);
+		log.atFinest().log("StickerBook: refreshColoredIn: Method was called: dirtyColors="+dirtyColors+" coloredIn="+coloredIn);
 		//LogMate.LOG.flush();
 		if(!dirtyColors && coloredIn != null){
 			return;
 		}
 		coloredIn = new ArrayList<ImageIcon>();
+		//String sep = System.getProperty("file.separator");
+		//String homeDir = System.getProperty("user.dir") + sep + "textures";
+		//System.getProperty("user.dir") + sep + "textures" + sep + texture + sep;
 		String sep = System.getProperty("file.separator");
-		String homeDir = System.getProperty("user.dir") + sep + "textures";
-		int i;
-		for(i=0; i<stickers.size(); i++){
-			coloredIn.add(new ImageIcon( homeDir + stickers.get(i)) );
+		for(int i=0; i<stickers.size(); i++){
+			coloredIn.add(new ImageIcon( System.getProperty("user.dir") + sep + "textures" + sep + texture + sep + stickers.get(i)) );
 			//System.out.println(homeDir+stickers.get(i));
 		}
 		dirtyColors = false;
-		LogMate.LOG.newEntry("StickerBook: refreshColoredIn: End of method: coloredIn="+coloredIn);
-		LogMate.LOG.flush();
+		log.atFinest().log("StickerBook: refreshColoredIn: End of method: coloredIn="+coloredIn);
 	}
 	
 	private void makePages(int w, int h) {

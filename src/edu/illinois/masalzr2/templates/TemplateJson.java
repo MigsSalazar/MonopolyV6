@@ -7,9 +7,9 @@ import java.util.Map;
 
 import com.google.gson.annotations.Expose;
 
+import edu.illinois.masalzr2.controllers.Environment;
 import edu.illinois.masalzr2.gui.Stamp;
 import edu.illinois.masalzr2.gui.StickerBook;
-import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.models.Counter;
 import edu.illinois.masalzr2.models.Dice;
 import edu.illinois.masalzr2.models.GameCard;

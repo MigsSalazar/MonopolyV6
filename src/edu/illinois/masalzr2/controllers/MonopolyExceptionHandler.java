@@ -1,16 +1,10 @@
-package edu.illinois.masalzr2.masters;
+package edu.illinois.masalzr2.controllers;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import lombok.extern.flogger.Flogger;
 
-import javax.swing.JOptionPane;
-
+@Flogger
 public class MonopolyExceptionHandler implements Thread.UncaughtExceptionHandler {
 	
-	private String sep = File.separator;
 	
 	public static void uncaughtException(Throwable e, Thread t){
 		MonopolyExceptionHandler meh = new MonopolyExceptionHandler();
@@ -18,8 +12,8 @@ public class MonopolyExceptionHandler implements Thread.UncaughtExceptionHandler
 	}
 	
 	public void uncaughtException(Thread t, Throwable e) {
-		LogMate.LOG.flush();
-		LogMate.LOG.finish();
+		log.atSevere().withCause(e).log("NIGH GAME CRASHING ERROR. GAME MAY STOP WORKING PROPERLY IF AT ALL");
+		/*
 		File errorLog = new File(System.getProperty("user.dir") + sep + "logs" + sep + "errorlogs");
 		if( !errorLog.exists() ) {
 			errorLog.mkdirs();
@@ -34,13 +28,14 @@ public class MonopolyExceptionHandler implements Thread.UncaughtExceptionHandler
 			writeout = new PrintWriter(finLog);
 			e.printStackTrace(writeout);
 			writeout.close();
-			JOptionPane.showMessageDialog(null, "Game has arrived at an exception\nApplication now closing\nLog can be found at\n"+finLog.getAbsolutePath());
-			System.exit(1);
+			//JOptionPane.showMessageDialog(null, "Game has arrived at an exception\nApplication now closing\nLog can be found at\n"+finLog.getAbsolutePath());
+			//System.exit(1);
 		} catch (FileNotFoundException e1) {
-			JOptionPane.showMessageDialog(null, "You fucked up so badly that this exception is literally impossible to acheive"
-											+ "\nI am both tremendously dissapointed and remarkably impressed at you."
-											+ "\nCongradulations.");
+			//JOptionPane.showMessageDialog(null, "You fucked up so badly that this exception is literally impossible to acheive"
+			//								+ "\nI am both tremendously dissapointed and remarkably impressed at you."
+			//								+ "\nCongradulations.");
 		}
+		*/
 		
 		
 	}

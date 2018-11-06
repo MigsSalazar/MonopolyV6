@@ -5,11 +5,13 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 
-import edu.illinois.masalzr2.masters.Environment;
+import edu.illinois.masalzr2.controllers.Environment;
 import edu.illinois.masalzr2.notices.AbstractNotice;
 import edu.illinois.masalzr2.notices.ListEvent;
 import edu.illinois.masalzr2.notices.ListListener;
+import lombok.extern.flogger.Flogger;
 
+@Flogger
 public class HomeMenuNotice extends HighLevelNotice {
 
 	
@@ -56,9 +58,8 @@ public class HomeMenuNotice extends HighLevelNotice {
 					}
 				}
 				
-				LOG.newEntry("HomeMenuNotice: actionPerformed: popping self and flushing log");
+				log.atInfo().log("HomeMenuNotice: actionPerformed: popping self and flushing log");
 				listener.popMe(new ListEvent(this));
-				LOG.flush();
 				
 			}else if(me.equals(actions[1])){
 				

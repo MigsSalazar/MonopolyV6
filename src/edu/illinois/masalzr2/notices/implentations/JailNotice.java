@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 
-import edu.illinois.masalzr2.masters.Environment;
+import edu.illinois.masalzr2.controllers.Environment;
 import edu.illinois.masalzr2.notices.AbstractNotice;
 import edu.illinois.masalzr2.notices.ListListener;
 

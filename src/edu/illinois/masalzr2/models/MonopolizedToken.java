@@ -21,6 +21,8 @@ public class MonopolizedToken extends GameToken {
 	public MonopolizedToken(int t, String dir, ListedPath p, ListedPath j) {
 		super(t, dir, p);
 		jailCell = j;
+		p.setListedPathModel(new CyclicalPathModel());
+		j.setListedPathModel(new CyclicalPathModel());
 	}
 	
 	@Override

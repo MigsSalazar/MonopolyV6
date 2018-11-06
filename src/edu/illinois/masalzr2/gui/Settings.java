@@ -33,8 +33,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import edu.illinois.masalzr2.Starter;
+import edu.illinois.masalzr2.controllers.Environment;
 import edu.illinois.masalzr2.io.GameIo;
-import edu.illinois.masalzr2.masters.Environment;
 import edu.illinois.masalzr2.templates.TemplateEnvironment;
 import lombok.Getter;
 import lombok.Setter;

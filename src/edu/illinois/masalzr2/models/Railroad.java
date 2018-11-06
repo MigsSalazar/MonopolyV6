@@ -11,11 +11,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class Railroad extends Property implements Serializable{
+	
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = -4152822137481779163L;
 	@Getter @Setter @Expose 
 	private Counter railsOwned;
 	
