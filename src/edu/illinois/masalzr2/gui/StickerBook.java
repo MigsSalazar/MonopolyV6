@@ -12,9 +12,9 @@ import javax.swing.ImageIcon;
 
 import com.google.gson.annotations.Expose;
 
-import lombok.extern.flogger.Flogger;
+import lombok.extern.log4j.*;
 
-@Flogger
+@Log4j2
 public class StickerBook implements Serializable{
 	
 	/**
@@ -170,7 +170,7 @@ public class StickerBook implements Serializable{
 	}
 	
 	private void refreshColoredIn(){
-		log.atFinest().log("StickerBook: refreshColoredIn: Method was called: dirtyColors="+dirtyColors+" coloredIn="+coloredIn);
+		log.debug("StickerBook: refreshColoredIn: Method was called: dirtyColors={} coloredIn={}", dirtyColors, coloredIn);
 		//LogMate.LOG.flush();
 		if(!dirtyColors && coloredIn != null){
 			return;
@@ -185,7 +185,7 @@ public class StickerBook implements Serializable{
 			//System.out.println(homeDir+stickers.get(i));
 		}
 		dirtyColors = false;
-		log.atFinest().log("StickerBook: refreshColoredIn: End of method: coloredIn="+coloredIn);
+		log.debug("StickerBook: refreshColoredIn: End of method: coloredIn={}", coloredIn);
 	}
 	
 	private void makePages(int w, int h) {

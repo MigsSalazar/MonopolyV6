@@ -46,7 +46,7 @@ import edu.illinois.masalzr2.notices.implentations.MessageNotice;
 import edu.illinois.masalzr2.templates.TemplateEnvironment;
 
 import lombok.*;
-import lombok.extern.flogger.Flogger;
+import lombok.extern.log4j.*;
 
 /**
  * For all intents and purposes, this is the game instance.
@@ -59,7 +59,7 @@ import lombok.extern.flogger.Flogger;
  * @author Miguel Salazar
  *
  */
-@Flogger
+@Log4j2
 @Data
 public class Environment implements Serializable, ChangeListener {
 
@@ -124,7 +124,7 @@ public class Environment implements Serializable, ChangeListener {
 	 * A courtesy constructor to log the creation of the Environment
 	 */
 	public Environment() {
-		log.atInfo().log("GameVariables called");
+		log.info("GameVariables called");
 	}
 	
 	/**
@@ -180,7 +180,7 @@ public class Environment implements Serializable, ChangeListener {
 			public void windowClosed(WindowEvent arg0) {}
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				log.atInfo().log("GameVariables: Game frame is closing");
+				log.info("Game frame is closing");
 			}
 			@Override
 			public void windowDeactivated(WindowEvent arg0) {}
@@ -208,11 +208,11 @@ public class Environment implements Serializable, ChangeListener {
 	private void buildBoard() {
 		
 		//Defining a new board regardless if new or saved game in use
-		log.atInfo().log("GameVariables: buildBoard: Building game board");
+		log.info("Building game board");
 		board = new Board();
 		
 		//Setting the indexes of the imageicons to be used. Think for a paint-by-number coloring page. The Board uses the same concept
-		log.atInfo().log("GameVariables: buildBoard: Passing icons and numbers");
+		log.info("Passing icons and numbers");
 		board.setIconNumbers(paintByNumbers);
 		
 		//Refreshes the ImageIcons used by the board
@@ -221,14 +221,14 @@ public class Environment implements Serializable, ChangeListener {
 		//Sets the "colors" in the paint-by-number scheme. Each int in the paintByNumbers array is an index of the paintedIcons array
 		board.setIcons(paintedIcons);
 		
-		log.atInfo().log("GameVariables: buildBoard: Passing Stickers");
+		log.info("Passing Stickers");
 		//Refreshing the sticker ImageIcons
 		coloredStickers = stickerBook.getPaintedIcons();
 		//Gives the board all the stickers it needs
 		board.setStickerBook(stickerBook);
 		
 		//Setting the stamps of the game. The paint-by-number scheme is NOT used here. Each board tile gets their own stamp object
-		log.atInfo().log("GameVariables: buildBoard: Passing stamps, dice, and dice assets");
+		log.info("Passing stamps, dice, and dice assets");
 		board.setStamps(stampCollection);
 		
 		//Defines the dice icons to be used
@@ -241,7 +241,7 @@ public class Environment implements Serializable, ChangeListener {
 		board.setDiceLocations(7, 11, 7, 16);
 		
 		//Paints the display
-		log.atInfo().log("GameVariables: buildBoard: painting display and placing tokens");
+		log.info("painting display and placing tokens");
 		board.paintDisplay();
 		
 		//Places the player tokens. Read more below. It's the next method
@@ -255,7 +255,7 @@ public class Environment implements Serializable, ChangeListener {
 	public void placeTokens() {
 		for(MonopolizedToken gt : playerTokens.values()) {
 			gt.refreshIcon();
-			ListedPath subPath = gt.getRouting();
+			ListedPath subPath = gt.getRelativePath();
 			int[] coords = subPath.currentCoords();
 			board.addPiece(gt.getPiece(), coords[0], coords[1]);
 		}
@@ -273,7 +273,7 @@ public class Environment implements Serializable, ChangeListener {
 			for(Street st : s.sortedByPosition()) {
 				//Grabs the propertie's position
 				int[] coords = propPos.get(st.getPosition());
-				log.atConfig().log("GameVariables: Paint Housing: Street "+st.getName()+" at position "+st.getPosition()+" with coord-x="+coords[0]+" and coord-y="+coords[1]);
+				log.debug("Street {} at position {} with coord-x={} and coord-y={}", st.getName(), st.getPosition(), coords[0], coords[1]);
 				
 				//Clears all instances of the house and hotel icons
 				board.removePiece(new ImageIcon("house"+st.getName()));
@@ -321,7 +321,7 @@ public class Environment implements Serializable, ChangeListener {
 	 */
 	public int roll(){
 		//Yup, this rolls the dice... specifics? sure!
-		log.atInfo().log("GameVariables: roll: rolling dice");
+		log.info("roll: rolling dice");
 		//This rolls the dice!... The game dice... two dice get rolled... their sum is returned... the dice were rolled
 		gameDice.roll();
 		
@@ -371,7 +371,7 @@ public class Environment implements Serializable, ChangeListener {
 	public boolean jailPlayer(Player p){
 		
 		//Checking to make sure the player exists in the jailTable
-		log.atInfo().log("GameVariables: jailPlayer: player " + p.getName() + " has been jailed");
+		log.info("jailPlayer: player " + p.getName() + " has been jailed");
 		if(jailTable.get(p.getName()) == null ){
 			return false;
 		}
@@ -386,7 +386,7 @@ public class Environment implements Serializable, ChangeListener {
 		MonopolizedToken jailMe = playerTokens.get(p.getName());
 		
 		//Sets the step of the player for when they get out of jail
-		jailMe.getRouting().setStep(10);
+		jailMe.getRelativePath().setStep(10);
 		
 		//"Locks" the player's game token. Note, the lock doesn't actually do/prevent anything within the object.
 		//It is up to the developer to define locked behavior. In a MonopolizedToken, however, any call to the routing
@@ -394,10 +394,10 @@ public class Environment implements Serializable, ChangeListener {
 		jailMe.setLocked(true);
 		
 		//Moves the player to their cell within jail
-		int[] newCoords = jailMe.getRouting().findFullPath().get(0);
+		int[] newCoords = jailMe.getJailCell().findStepAt(0);
 		
 		//Moves the player piece to their jail cell
-		log.atFinest().log("GameVariables: jailPlayer: moving piece to jail cell");
+		log.debug("jailPlayer: moving piece to jail cell");
 		board.movePiece(jailMe.getPiece(), newCoords[0], newCoords[1]);
 		
 		//All succeeded so returning true.
@@ -514,14 +514,14 @@ public class Environment implements Serializable, ChangeListener {
 			//Moves the player token but only the icon
 			MonopolizedToken current = playerTokens.get(p.getName());
 			
-			ListedPath path = current.getRouting();
+			ListedPath path = current.getRelativePath();
 			
 			path.moveStep(move);
 			
 			visualMove(current.getPiece(), path.currentCoords());
 			
 			//Now we move the piece in the logic by setting the corresponding GameToken's step
-			current.getRouting().moveStep(move);
+			current.getRelativePath().moveStep(move);
 			return;
 		}
 		
@@ -569,7 +569,7 @@ public class Environment implements Serializable, ChangeListener {
 		MonopolizedToken current = playerTokens.get(p);
 		
 		//Sets the GameToken's new step/position
-		ListedPath path = current.getRouting();
+		ListedPath path = current.getRelativePath();
 		path.moveStep(move);
 		
 		//Visually moves the piece
@@ -641,16 +641,16 @@ public class Environment implements Serializable, ChangeListener {
 		//Resets the player's jail timer
 		resetJail(p);
 		
-		log.atInfo().log("GameVariables: Release Jailed Player: player " + p+ " has been released from jail");
+		log.info("Release Jailed Player: player " + p+ " has been released from jail");
 		//Unlocks the GameToken, sets the token's step to 10, and moves it by 0 to refresh the coordinates
 		MonopolizedToken jailMe = playerTokens.get(p);
 		
 		jailMe.setLocked(false);
-		ListedPath path = jailMe.getRouting();
+		ListedPath path = jailMe.getRelativePath();
 		//jailMe.movePiece(0);
 		
 		//Moves the GameToken on the board
-		log.atInfo().log("GameVariables: Release Jailed Player: moving piece to visiting jail");
+		log.info("Release Jailed Player: moving piece to visiting jail");
 		board.movePiece(jailMe.getPiece(), path.currentCoords()[0], path.currentCoords()[1]);
 	}
 	
@@ -851,10 +851,10 @@ public class Environment implements Serializable, ChangeListener {
 		for(int i=0; i< icons.length; i++) {
 			if(icons[i].startsWith(sep+"default"+sep)){
 				paintedIcons[i] = new ImageIcon(root+icons[i]);
-				log.atInfo().log("Image created with directory "+root+icons[i]);
+				log.info("Image created with directory "+root+icons[i]);
 			}else{
 				paintedIcons[i] = new ImageIcon(pathName+icons[i]);
-				log.atInfo().log("Image created with directory "+pathName+icons[i]);
+				log.info("Image created with directory "+pathName+icons[i]);
 			}
 			//log.atFinest().log(pathName+icons[i]);
 			
@@ -976,9 +976,9 @@ public class Environment implements Serializable, ChangeListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			//Calls for a visual move
-			log.atFinest().log("FancyPlayerMove: team="+current.getTeam()+" count="+count+" mod="+direction+" move="+move+" position="+current.getRouting().getStep());
+			log.debug("FancyPlayerMove: team={} count={} mod={} move={} position={}", current.getTeam(), count, direction, move, current.getRelativePath().getStep());
 			
-			ListedPath path = current.getRouting();
+			ListedPath path = current.getRelativePath();
 			int step = path.getStep();
 			
 			visualMove(current.getPiece(), path.findPath(step+1, step+2).get(0));

@@ -23,8 +23,6 @@ public class GameToken implements Serializable{
 	@Getter @Setter 
 	private transient ImageIcon piece;
 	@Getter @Setter @Expose 
-	protected Router routing;
-	@Getter @Setter @Expose 
 	private int team;
 	@Getter @Setter @Expose
 	private String pieceDir;
@@ -32,15 +30,13 @@ public class GameToken implements Serializable{
 	public static final transient Comparator<GameToken> TEAM_ORDER = new SortByTeam();
 	public static final transient Comparator<GameToken> ICON_ORDER = new SortByIcon();
 	
-	public GameToken(int t, String dir, Router p){
+	public GameToken(int t, String dir){
 		
 		team = t;
 		
 		piece = new ImageIcon();
 		
 		giveIconPath(dir);
-		
-		routing = p;
 		
 	}
 	/*

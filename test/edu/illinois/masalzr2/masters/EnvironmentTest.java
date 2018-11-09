@@ -1,24 +1,24 @@
 package edu.illinois.masalzr2.masters;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import lombok.extern.flogger.Flogger;
+import lombok.extern.log4j.Log4j2;
 
-@Flogger
+@Log4j2
 public class EnvironmentTest {
 	
 	@BeforeClass
 	public static void beforeAll() {
-		log.atInfo().log("BEGINNING TESTS FOR ENVIRONMENT");
+		log.info("BEGINNING TESTS FOR ENVIRONMENT");
 	}
 	
 	@AfterClass
 	public static void afterAll() {
-		log.atInfo().log("ENDING TESTS FOR ENVIRONMENT CLASS");
+		log.info("ENDING TESTS FOR ENVIRONMENT CLASS");
 	}
 
 	@Test

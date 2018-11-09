@@ -9,9 +9,9 @@ import edu.illinois.masalzr2.controllers.Environment;
 import edu.illinois.masalzr2.notices.AbstractNotice;
 import edu.illinois.masalzr2.notices.ListEvent;
 import edu.illinois.masalzr2.notices.ListListener;
-import lombok.extern.flogger.Flogger;
+import lombok.extern.log4j.Log4j2;
 
-@Flogger
+@Log4j2
 public class HomeMenuNotice extends HighLevelNotice {
 
 	
@@ -58,7 +58,7 @@ public class HomeMenuNotice extends HighLevelNotice {
 					}
 				}
 				
-				log.atInfo().log("HomeMenuNotice: actionPerformed: popping self and flushing log");
+				log.info("HomeMenuNotice: actionPerformed: popping self and flushing log");
 				listener.popMe(new ListEvent(this));
 				
 			}else if(me.equals(actions[1])){

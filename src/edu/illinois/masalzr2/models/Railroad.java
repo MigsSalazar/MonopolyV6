@@ -16,7 +16,7 @@ public class Railroad extends Property implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -4152822137481779163L;
+	private static final long serialVersionUID = 1L;
 	@Getter @Setter @Expose 
 	private Counter railsOwned;
 	

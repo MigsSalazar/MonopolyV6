@@ -5,9 +5,9 @@ import java.io.Serializable;
 
 import javax.swing.JComponent;
 
-import lombok.extern.flogger.Flogger;
+import lombok.extern.log4j.Log4j2;
 
-@Flogger
+@Log4j2
 public abstract class AbstractNotice implements ActionListener, Serializable {
 	/**
 	 * 
@@ -48,8 +48,8 @@ public abstract class AbstractNotice implements ActionListener, Serializable {
 	}
 	
 	protected void noticePushPop(AbstractNotice an) {
-		log.atConfig().log(this.getClass().getName() + ": "+text);
-		log.atConfig().log(this.getClass().getName() + ": noticePushPop: Pushing new " + an.getClass().getName() + " onto listener's queue and poping self");
+		log.debug("{}: {}", this.getClass().getName(), text);
+		log.debug("{}: noticePushPop: Pushing new {} onto listener's queue and poping self", this.getClass().getName(), an.getClass().getName());
 		listener.pushMe(new ListEvent(an));
 		listener.popMe(new ListEvent(this));
 	}

@@ -38,9 +38,10 @@ import edu.illinois.masalzr2.models.Street;
 import edu.illinois.masalzr2.models.Utility;
 import edu.illinois.masalzr2.templates.TemplateEnvironment;
 import edu.illinois.masalzr2.templates.TemplateJson;
-import lombok.extern.flogger.Flogger;
 
-@Flogger
+import lombok.extern.log4j.*;
+
+@Log4j2
 public class GameIo {
 
 	private static String sep = File.separator;
@@ -77,23 +78,32 @@ public class GameIo {
 	}
 	
 	public static Environment newGame(String fileDir) {
-		log.atInfo().log("GameIO: NewGame: beginning");
+		log.info("beginning");
 		File f = new File(fileDir);
-		log.atInfo().log("GameIO: NewGame: File made with directory "+fileDir);
+		log.info("File made with directory "+fileDir);
 		//System.out.println(System.getProperty("user.dir") + "/resources/newgame.mns");
 		if(!f.exists()) {
-			log.atInfo().log("GameIO: NewGame: File does not exists. Generating template");
+			log.info("File does not exists. Generating template");
 			TemplateEnvironment.produceTemplate();
 		}
-		log.atInfo().log("GameIO: NewGame: Producing saved game");
-		Environment retval = produceSavedGame(f);
+		log.info("Producing saved game");
+		Environment retval = null;
+		try{
+			retval = produceSavedGame(f);
+		}catch(IOException ioe){
+			retval = null;
+		}
 		if(retval == null) {
-			log.atInfo().log("GameIO: NewGame: Produced Game was found null. Creating Template");
+			log.info("Produced Game was found null. Creating Template");
 			//System.out.println("GameIo.newGame(): retval found null");
 			TemplateEnvironment.produceTemplate();
-			retval = produceSavedGame(f);
+			try{
+				retval = produceSavedGame(f);
+			}catch(IOException ioe){
+				retval = null;
+			}
 		}
-		log.atInfo().log("GameIO: NewGame: Returning produced game");
+		log.info("Returning produced game");
 		return retval;
 	}
 	
@@ -102,45 +112,53 @@ public class GameIo {
 	}
 	
 	public static Environment produceSavedGame(String dir) {
-		log.atInfo().log("GameIO: Produce Saved Game String: Opening file at directory "+dir);
+		log.info("Opening file at directory "+dir);
 		File f = new File(dir);
 		//System.out.println(dir);
 		if(!f.exists()) {
 			//System.out.println("file doesn't exist");
-			log.atFinest().log("GameIO: Produce Saved Game String: File does not exists. Returning null");
+			log.debug("File does not exists. Returning null");
 			return null;
 		}
-		log.atInfo().log("GameIO: Produce Saved Game String: File found. Requesting game at file");
-		return produceSavedGame(f);
+		log.info("File found. Requesting game at file");
+		try{
+			return produceSavedGame(f);
+		}catch(IOException ioe){
+			return null;
+		}
 	}
 	
-	public static Environment produceSavedGame(File dir) {
-		log.atInfo().log("GameIO: Produce Saved Game: File with directory "+dir.getPath());
-		FileInputStream fin;
+	public static Environment produceSavedGame(File dir) throws IOException {
+		log.info("File with directory "+dir.getPath());
+		FileInputStream fin = null;
 		Environment theGame = null;
 		try {
-			log.atInfo().log("GameIO: Produce Saved Game: Beginning inputstream");
+			log.info("Beginning inputstream");
 			fin = new FileInputStream(dir);
-			log.atInfo().log("GameIO: Produce Saved Game: Creating ObjectInputStream");
+			log.info("Creating ObjectInputStream");
 			ObjectInputStream objRead = new ObjectInputStream(fin);
-			log.atInfo().log("GameIO: Produce Saved Game: Reading object");
+			log.info("Reading object");
 			Object obj = objRead.readObject();
 			
 			if(obj instanceof Environment) {
-				log.atFinest().log("GameIO: Produce Saved Game: GameVariables object receieved");
+				log.debug("GameVariables object receieved");
 				theGame = (Environment)obj;
 			}
-			log.atInfo().log("GameIO: Produce Saved Game: Closing InputStreams");
+			log.info("Closing InputStreams");
 			objRead.close();
 			//fin.close();
 		} catch (FileNotFoundException e) {
 			MonopolyExceptionHandler.uncaughtException(e, Thread.currentThread());
 		} catch (IOException e) {
-			MonopolyExceptionHandler.uncaughtException(e, Thread.currentThread());;
+			MonopolyExceptionHandler.uncaughtException(e, Thread.currentThread());
 		} catch (ClassNotFoundException e) {
 			MonopolyExceptionHandler.uncaughtException(e, Thread.currentThread());
+		}finally{
+			if(fin != null){
+				fin.close();
+			}
 		}
-		log.atInfo().log("GameIO: Produce Saved Game: Returning the game");
+		log.info("Returning the game");
 		return theGame;
 		
 	}
@@ -151,46 +169,46 @@ public class GameIo {
 	
 	public static String findFile(Container parent, FileNameExtensionFilter filter, String baseDir){
 		//System.out.println(System.getProperty("user.dir") + sep + "saves");
-		log.atInfo().log("GameIO: Find Game: Searching for games in saves directory");
+		log.info("Searching for games in saves directory");
 		JFileChooser chooser = new JFileChooser(baseDir);
-		log.atInfo().log("GameIO: Find Game: Setting file filter");
+		log.info("Setting file filter");
 	    //FileNameExtensionFilter filter = new FileNameExtensionFilter("Monopoly Saves","mns");
 	    chooser.setFileFilter(filter);
-	    log.atInfo().log("GameIO: Find Game: Looking for games");
+	    log.info("Looking for games");
 	    int returnVal = chooser.showOpenDialog(parent);
 	    if(returnVal == JFileChooser.APPROVE_OPTION) {
-	    	log.atInfo().log("GameIO: Find Game: Game was selected");
+	    	log.info("Game was selected");
 	       return chooser.getSelectedFile().getPath();
 	    }else{
-	    	log.atInfo().log("GameIO: Find Game: Selection was canceled");
+	    	log.info("Selection was canceled");
 	    	return null;
 	    }
 	}
 
 	public static boolean printCleanJson() {
-		log.atInfo().log("GameIO: Print Clean Json: Creating clean GameVariables object");
+		log.info("Creating clean GameVariables object");
 		Environment gv = new Environment();
 		gv.buildCleanGame();
 		
 		try {
-			log.atInfo().log("GameIO: Print Clean Json: Preparing write out at directory: "+System.getProperty("user.dir") +sep+"textures"+sep+"default"+sep+"defaultgame.json");
+			log.info("Preparing write out at directory: "+System.getProperty("user.dir") +sep+"textures"+sep+"default"+sep+"defaultgame.json");
 			Writer writeOut = new FileWriter( new File(System.getProperty("user.dir") +sep+"textures"+sep+"default"+sep+"defaultgame.json" ) );
-			log.atInfo().log("GameIO: Print Clean Json: Creating Json parser with Gson");
+			log.info("Creating Json parser with Gson");
 			Gson gson = new GsonBuilder()
 							.setPrettyPrinting()
 							.excludeFieldsWithoutExposeAnnotation()
 							.create();
-			log.atInfo().log("GameIO: Print Clean Json: Writing out");
+			log.info("Writing out");
 			
 			TemplateJson j = new TemplateJson(gv);
 			
 			gson.toJson(j, writeOut);
-			log.atInfo().log("GameIO: Print Clean Json: Closing");
+			log.info("Closing");
 			writeOut.close();
 			
 		} catch (Exception e) {
-			log.atInfo().log("GameIO: Print Clean Json: Exception occured. Writting out log");
-			log.atInfo().log(e.toString());
+			log.info("Exception occured. Writting out log");
+			log.info(e.toString());
 			//LogMate.LOG.finish();
 			//MonopolyExceptionHandler.uncaughtException(e, Thread.currentThread());
 			return false;
@@ -245,14 +263,15 @@ public class GameIo {
 			}
 			
 			for(MonopolizedToken mt : tempVars.getPlayerTokens().values()){
-				mt.setLocked(true);
-				mt.getRouting().setListedPathModel(new CyclicalPathModel());
-				mt.setLocked(false);
-				mt.getRouting().setListedPathModel(new CyclicalPathModel());
+				boolean temp = mt.isLocked();
+				mt.getRelativePath().setListedPathModel(new CyclicalPathModel());
+				mt.setLocked(!temp);
+				mt.getRelativePath().setListedPathModel(new CyclicalPathModel());
+				mt.setLocked(temp);
 			}
 			
 		} catch (FileNotFoundException e) {
-			System.out.println("I failed");
+			//System.out.println("I failed");
 			return null;
 		}
 		
@@ -309,10 +328,10 @@ public class GameIo {
 	}
 	
 	public static void writeOut(Environment me) {
-		log.atInfo().log("GameIO: Write Out: Beginning write out");
+		log.info("Beginning write out");
 		FileOutputStream fout;
 		try {
-			log.atInfo().log("GameIO: Print Clean Json: Creating FileOutputStream");
+			log.info("Creating FileOutputStream");
 			File f;
 			if(me.getSaveFile().getParentFile().exists()) {
 				f = me.getSaveFile();
@@ -331,18 +350,18 @@ public class GameIo {
 			}
 			
 			fout = new FileOutputStream(f);
-			log.atInfo().log("GameIO: Print Clean Json: Creating ObjectOutputStream");
+			log.info("Creating ObjectOutputStream");
 			ObjectOutputStream objWrite = new ObjectOutputStream(fout);
-			log.atInfo().log("GameIO: Print Clean Json: Writing object");
+			log.info("Writing object");
 			objWrite.writeObject(me);
 			
 			objWrite.close();
 			
 		} catch (FileNotFoundException e) {
-			log.atInfo().log("GameIO: Write Out: FileNotFouncException occured. Writting out log");
+			log.info("FileNotFouncException occured. Writting out log");
 			MonopolyExceptionHandler.uncaughtException(e, Thread.currentThread());
 		} catch (IOException e) {
-			log.atInfo().log("GameIO: Write Out: Exception occured. Writting out log");
+			log.info("Exception occured. Writting out log");
 			MonopolyExceptionHandler.uncaughtException(e, Thread.currentThread());
 		}
 		

@@ -1,8 +1,13 @@
 package edu.illinois.masalzr2.controllers;
 
-import lombok.extern.flogger.Flogger;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-@Flogger
+import org.apache.logging.log4j.core.appender.FileAppender;
+
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 public class MonopolyExceptionHandler implements Thread.UncaughtExceptionHandler {
 	
 	
@@ -12,15 +17,23 @@ public class MonopolyExceptionHandler implements Thread.UncaughtExceptionHandler
 	}
 	
 	public void uncaughtException(Thread t, Throwable e) {
-		log.atSevere().withCause(e).log("NIGH GAME CRASHING ERROR. GAME MAY STOP WORKING PROPERLY IF AT ALL");
+		String msg = "NIGH GAME CRASHING ERROR. GAME MAY STOP WORKING PROPERLY IF AT ALL";
+		log.error(msg, e);
+		log.catching(e);
+		//SimpleDateFormat today = new SimpleDateFormat("hh.mm.ss MM-dd-yyyy ");
+		//String s = System.getProperty("file.separator");
+		//FileAppender fa = FileAppender.newBuilder().withFileName(/*s+"logs"+s+"errorlogs"+s+*/"errorLog "+today.format(new Date())+".log").build();
+		//fa.error(msg, e);
+		//fa.stop();
 		/*
 		File errorLog = new File(System.getProperty("user.dir") + sep + "logs" + sep + "errorlogs");
 		if( !errorLog.exists() ) {
 			errorLog.mkdirs();
 		}
+		*/
 		
-		SimpleDateFormat today = new SimpleDateFormat("hh.mm.ss MM-dd-yyyy ");
 		
+		/*
 		File finLog = new File(errorLog.getPath()+sep+"log "+today.format(new Date())+".log");
 		
 		PrintWriter writeout;

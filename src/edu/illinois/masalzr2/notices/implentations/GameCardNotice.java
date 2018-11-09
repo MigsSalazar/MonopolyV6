@@ -17,9 +17,10 @@ import edu.illinois.masalzr2.models.Street;
 import edu.illinois.masalzr2.notices.AbstractNotice;
 import edu.illinois.masalzr2.notices.ListEvent;
 import edu.illinois.masalzr2.notices.ListListener;
-import lombok.extern.flogger.Flogger;
 
-@Flogger
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 public class GameCardNotice extends HighLevelNotice {
 
 	/**
@@ -46,7 +47,7 @@ public class GameCardNotice extends HighLevelNotice {
 		player = pl;
 		
 		playerToken = gameVars.getPlayerTokens().get(player.getName());
-		step = playerToken.getRouting().getStep();
+		step = playerToken.getRelativePath().getStep();
 		
 		defineActions();
 	}
@@ -139,7 +140,7 @@ public class GameCardNotice extends HighLevelNotice {
 	
 	private void findNearestOnBoard(GameCard gc){
 		AbstractNotice an = null;
-		step = playerToken.getRouting().getStep();
+		step = playerToken.getRelativePath().getStep();
 		switch(gc.getFindNearest()){
 		case "railroad":an = findRailroad(player);
 			break;
@@ -149,7 +150,7 @@ public class GameCardNotice extends HighLevelNotice {
 		default: return;
 		}
 		if(an == null){
-			log.atInfo().log("FindNearestOnBoard returned null");
+			log.info("FindNearestOnBoard returned null");
 			return;
 		}
 		noticePushPop(an);
@@ -195,7 +196,7 @@ public class GameCardNotice extends HighLevelNotice {
 	
 	private void findThisOnBoard(GameCard gc){
 		AbstractNotice an = null;
-		step = playerToken.getRouting().getStep();
+		step = playerToken.getRelativePath().getStep();
 		int moveBy = 0;
 		switch(gc.getFindThis()){
 		case "": return;
@@ -210,7 +211,7 @@ public class GameCardNotice extends HighLevelNotice {
 					an = moveAndDo(player, moveBy);
 		default:if(properties.containsKey(gc.getFindThis())){
 					Property prop = properties.get(gc.getFindThis());
-					step = playerToken.getRouting().getStep();
+					step = playerToken.getRelativePath().getStep();
 					if(step > prop.getPosition()){
 						moveBy = (40+prop.getPosition()) - step;
 					}else{

@@ -13,9 +13,9 @@ import edu.illinois.masalzr2.models.Property;
 import edu.illinois.masalzr2.notices.AbstractNotice;
 import edu.illinois.masalzr2.notices.ListEvent;
 import edu.illinois.masalzr2.notices.ListListener;
-import lombok.extern.flogger.Flogger;
+import lombok.extern.log4j.Log4j2;
 
-@Flogger
+@Log4j2
 public abstract class HighLevelNotice extends AbstractNotice {
 	
 	/**
@@ -36,7 +36,7 @@ public abstract class HighLevelNotice extends AbstractNotice {
 		gameDice = gameVars.getGameDice();
 		currency = gameVars.getCurrency();
 		playerToken = gameVars.getPlayerTokens().get(currentPlayer.getName());
-		step = playerToken.getRouting().getStep();
+		step = playerToken.getRelativePath().getStep();
 	}
 	
 	
@@ -107,7 +107,7 @@ public abstract class HighLevelNotice extends AbstractNotice {
 	protected void crossGo(int roll) {
 		if( (step + roll) >= 40 || (step + roll)==0){
 			GoNotice pbe = new GoNotice(listener, currentPlayer);
-			log.atInfo().log(this.getClass().getName() + ": crossGo: pushing self");
+			log.info(this.getClass().getName() + ": crossGo: pushing self");
 			listener.pushMe(new ListEvent(pbe));
 		}
 	}
@@ -119,7 +119,7 @@ public abstract class HighLevelNotice extends AbstractNotice {
 	}
 	
 	protected AbstractNotice moveAndDo(int roll) {
-		step = (playerToken.getRouting().getStep() + roll)%40;
+		step = (playerToken.getRelativePath().getStep() + roll)%40;
 		gameVars.fancyPlayerMove(currentPlayer, roll);
 		//playerToken.movePiece(roll);
 		//step = playerToken.getPath().getStep();
@@ -130,7 +130,7 @@ public abstract class HighLevelNotice extends AbstractNotice {
 	
 	protected AbstractNotice moveAndDo(Player player, int roll) {
 		//System.out.println("player move and do roll: "+roll + " at position " + player.getPosition());
-		step = (playerToken.getRouting().getStep() + roll)%40;
+		step = (playerToken.getRelativePath().getStep() + roll)%40;
 		gameVars.fancyPlayerMove(player, roll);
 		//playerToken.movePiece(roll);
 		//step = playerToken.getPath().getStep();

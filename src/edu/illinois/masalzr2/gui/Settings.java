@@ -32,12 +32,17 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.core.config.Configurator;
+
 import edu.illinois.masalzr2.Starter;
 import edu.illinois.masalzr2.controllers.Environment;
 import edu.illinois.masalzr2.io.GameIo;
 import edu.illinois.masalzr2.templates.TemplateEnvironment;
+
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.log4j.Log4j2;
 
 /**
  * A (hopefully) intuitive GUI meant for players to define their game rules
@@ -48,6 +53,7 @@ import lombok.Setter;
  * @author Miguel Salazar
  *
  */
+@Log4j2
 public class Settings implements ActionListener, ListSelectionListener {
 	
 	private String sep = File.separator;
@@ -78,6 +84,8 @@ public class Settings implements ActionListener, ListSelectionListener {
 	private JList<String> textures;
 	private DefaultListModel<String> textModel;
 	
+	private JPanel botButtons;
+	private JCheckBox debug;
 	private JButton ok;
 	
 	private JFrame parent;
@@ -127,16 +135,28 @@ public class Settings implements ActionListener, ListSelectionListener {
 		
 		defineTextureSelect();
 		
-		ok = new JButton("OK");
-		ok.addActionListener(this);
+		defineBotButtons();
 		
 		dialog = new JDialog(parent,"Settings",true);
 		dialog.setLayout(new BorderLayout());
 		
 		dialog.add(top, BorderLayout.NORTH);
 		dialog.add(texturePanel, BorderLayout.CENTER);
-		dialog.add(ok, BorderLayout.SOUTH);
+		dialog.add(botButtons, BorderLayout.SOUTH);
 		
+	}
+	
+	private void defineBotButtons(){
+		botButtons = new JPanel(new BorderLayout());
+		
+		ok = new JButton("OK");
+		ok.addActionListener(this);
+		
+		debug = new JCheckBox("Debug Info?");
+		debug.addActionListener(this);
+		
+		botButtons.add(debug, BorderLayout.WEST);
+		botButtons.add(ok, BorderLayout.EAST);
 	}
 	
 	/**
@@ -321,6 +341,18 @@ public class Settings implements ActionListener, ListSelectionListener {
 		//System.out.println(source.toString());
 		if( source.equals(turnLimitOn) ) {
 			turnLimit.setEnabled(turnLimitOn.isSelected());
+		}else if(source.equals(debug)){
+			//System.out.println(LoggerConfig.of(log).getName() + " is at level " + LoggerConfig.of(log).getLevel());
+			if(debug.isSelected()){
+				Configurator.setRootLevel(Level.ALL);
+			}else{
+				Configurator.setRootLevel(Level.INFO);
+			}
+			log.info("I am at the info level");
+			log.debug("I am at the debug level");
+			//log.trace("I am at the trace level");
+			log.warn("I am set to warning");
+			log.fatal("I am set to fatal");
 		}else if(source.equals(textImport)) {
 			Environment gv = GameIo.varsFromJson(dialog);
 			 if(gv == null) {

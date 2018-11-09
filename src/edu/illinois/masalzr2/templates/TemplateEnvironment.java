@@ -21,22 +21,22 @@ import edu.illinois.masalzr2.io.GameIo;
 import edu.illinois.masalzr2.models.Counter;
 import edu.illinois.masalzr2.models.Dice;
 import edu.illinois.masalzr2.models.GameCard;
-import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.models.ListedPath;
 import edu.illinois.masalzr2.models.MonopolizedToken;
+import edu.illinois.masalzr2.models.Player;
 import edu.illinois.masalzr2.models.Property;
 import edu.illinois.masalzr2.models.Railroad;
 import edu.illinois.masalzr2.models.Street;
 import edu.illinois.masalzr2.models.Suite;
 import edu.illinois.masalzr2.models.Utility;
-import lombok.extern.flogger.Flogger;
+import lombok.extern.log4j.Log4j2;
 
 /**
  * 
  * @author Miguel Salazar
  *
  */
-@Flogger
+@Log4j2
 public class TemplateEnvironment{
 	
 	public static String sep = java.io.File.separator;
@@ -70,7 +70,7 @@ public class TemplateEnvironment{
 		
 		//System.out.println("I'm done");
 		//progPanel.dispose();
-		log.atInfo().log("Finished template!");
+		log.info("Finished template!");
 	}
 	
 	public static void closeProgressPanel() {
