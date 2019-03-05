@@ -20,24 +20,27 @@ public class CyclicalPathModel implements ListedPathModel, Serializable{
 		List<int[]> coords = path.getCoords();
 		List<int[]> ret = new ArrayList<int[]>();
 		
-		if(c2 < c1){
-			int temp = c2;
-			c2 = c1;
-			c1 = temp;
-		}
-		
 		int start;
 		int end;
 		
-		if(c1 < 0){
-			start = coords.size() + (c1 % coords.size());
-			end = (c2 - c1) + start;
-		}else{
+		if( (c1 < c2 && c1 >= 0) || (c2 < c1 && c2 >=0) ){
 			start = c1;
 			end = c2;
+		}else if( c1 < c2 && c1 < 0 ){
+			start = coords.size() + (c1 % coords.size());
+			end = start + (c2 - c1);
+		}else if( c2 < c1 && c2 < 0){
+			start = coords.size() + (c1 % coords.size());
+			end = start - (c1 - c2);
+		}else{
+			start = c1 % coords.size();
+			ret.add(coords.get(start));
+			return ret;
 		}
 		
-		for(int i = start; i<end; i++){
+		int mod = c1 < c2 ? 1 : -1;
+		
+		for(int i = start; i<end; i+=mod){
 			int[] copied = coords.get(i%coords.size());
 			ret.add( new int[]{ copied[0], copied[1] } );
 		}
@@ -45,5 +48,4 @@ public class CyclicalPathModel implements ListedPathModel, Serializable{
 		return ret;
 		
 	}
-
 }

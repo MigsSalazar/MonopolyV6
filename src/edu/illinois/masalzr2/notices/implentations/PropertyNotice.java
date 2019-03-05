@@ -71,7 +71,7 @@ public class PropertyNotice extends AbstractNotice {
 			log.info("Property is owned but not by the player");
 			log.info("PropOwner="+prop.getOwner()+" returned value: "+gameVars.getPlayers().get(prop.getOwner()));
 			Player p2 = gameVars.getPlayers().get(prop.getOwner() );
-			log.info("Paying "+ prop.getOwner() + " " + prop.getRent()+" for landing on "+prop.getName() );
+			log.info("Paying {} {} for landing on {}", prop.getOwner(), prop.getRent(), prop.getName() );
 			String outText = "You payed "+prop.getOwner()+" "+ currency + prop.getRent()+" for landing on "+prop.getName()+"!";
 			
 			AbstractNotice an = new PlayerPlayerNotice(outText, listener, player, p2, (-1)*prop.getRent());
@@ -86,9 +86,9 @@ public class PropertyNotice extends AbstractNotice {
 
 	@Override
 	protected void defineActions() {
-		log.info("Property Notice: Define Actions: Starting definitions");
+		log.info("Starting definitions");
 		if(prop.getOwner() == null || prop.getOwner().equals("")){
-			log.info("Property Notice: Define Actions: Property is unowned");
+			log.info("Property is unowned");
 			actions = new JButton[2];
 			actions[0] = new JButton("Purchase");
 			((JButton)actions[0]).addActionListener(this);
@@ -96,10 +96,10 @@ public class PropertyNotice extends AbstractNotice {
 			actions[1] = new JButton("Auction Off");
 			((JButton)actions[1]).addActionListener(this);
 		}else{
-			log.info("Property Notice: Define Actions: Property is owned");
+			log.info("Property is owned");
 			actions = new JButton[1];
 			if(!prop.getOwner().equals(player.getName())){
-				log.info("Property Notice: Define Actions: Property owned by competitor");
+				log.info("Property owned by competitor");
 				actions[0] = new JButton("Pay Rent");
 				((JButton)actions[0]).addActionListener(this);
 			}else{

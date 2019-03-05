@@ -39,17 +39,7 @@ public class GameToken implements Serializable{
 		giveIconPath(dir);
 		
 	}
-	/*
-	public int getX(){
-		return coords[1];
-	}
 	
-	public int getY(){
-		return coords[0];
-	}
-	
-	
-	*/
 	public boolean giveIconPath(String dir){
 		piece = new ImageIcon(dir);
 		pieceDir = dir;
